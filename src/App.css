@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+:root{
+    --color-primary: #FFF3C6;
+    --color-secondary: #6491E4;
+    --color-tertiary: #002BFF;
+    --color-text: #FF3033;
+    --color-black: #000000;
+    /*--color-primary-opacity: rgba(0, 0, 0, 0);*/
+    /*--color-secondary-hovered: rgb(0, 0, 0);*/
+}
+
+.logo{
+    font-family: "Supermercado One", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #FF3033;
+}
