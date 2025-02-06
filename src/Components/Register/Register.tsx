@@ -3,6 +3,7 @@ import Name from "./RegisterName.tsx";
 import Email from "./RegisterEmail.tsx";
 import Phone from "./RegisterPhone.tsx";
 import React from "react";
+import ShadowButton from "../Shadow-Button.tsx";
 
 function Register() {
     return (
@@ -42,10 +43,7 @@ function Register() {
 
                 {/* Sign Up Button */}
                 <div className={"flex flex-col items-center"}>
-                    <button type="submit"
-                            className={"items-center w-1/2 p-2 mt-12 text-white text-3xl font-bold bg-[var(--color-secondary)] cursor-pointer shadow-btn hover:scale-105 transform transition-all"}>
-                        Sign Up
-                    </button>
+                    <ShadowButton value={"Sign Up"}/>
                 </div>
             </div>
         </div>
