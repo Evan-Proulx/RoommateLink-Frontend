@@ -12,10 +12,11 @@ function Register() {
             <div className="align-middle m-0">
                 <h2>Sign Up</h2>
                     <Name/>
-                <div>
-                    <Email/>
-                    <Phone/>
+                <div className="flex flex-row space-x-4 max-w-3xl mx-auto mt-2">
+                    <Email />
+                    <Phone />
                 </div>
+
                 <Password/>
             </div>
 
