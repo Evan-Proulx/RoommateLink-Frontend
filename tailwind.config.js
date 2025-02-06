@@ -11,6 +11,7 @@ module.exports = {
             lg: '976px',
             xl: '1440px',
         },
+        extend:{
         colors: {
             // APP COLORS
             'primary': '#FFF3C6',
@@ -33,7 +34,6 @@ module.exports = {
             sans: ['Inter', 'sans-serif'],
             serif: ['Merriweather', 'serif'],
         },
-        extend: {
             spacing: {
                 '128': '32rem',
                 '144': '36rem',

@@ -16,3 +16,10 @@
     font-style: normal;
     color: #FF3033;
 }
+
+.header-text {
+    @apply text-5xl font-bold text-[var(--color-text)];
+}
+.header2-text {
+    @apply text-3xl font-bold text-[var(--color-text)];
+}
