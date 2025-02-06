@@ -1,1 +1,34 @@
 @import "tailwindcss";
+
+:root{
+    --color-primary: #FFF3C6;
+    --color-secondary: #6491E4;
+    --color-tertiary: #002BFF;
+    --color-text: #FF3033;
+    --color-black: #000000;
+    /*--color-primary-opacity: rgba(0, 0, 0, 0);*/
+    /*--color-secondary-hovered: rgb(0, 0, 0);*/
+}
+
+.logo{
+    font-family: "Supermercado One", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #FF3033;
+}
+
+.header-text {
+    @apply text-5xl font-bold text-[var(--color-text)];
+}
+.header2-text {
+    @apply text-3xl font-bold text-[var(--color-text)];
+}
+
+
+.shadow-btn{
+    box-shadow: 11px 13px 4px rgba(0, 0, 0, 0.25);
+}
+.shadow-btn:hover{
+    transition: 200ms ease-in-out;
+    background-color: #5c83cc;
+}

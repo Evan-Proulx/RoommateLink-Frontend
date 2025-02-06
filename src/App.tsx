@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import './App.css'
-import Register from "./Components/Register/Register.tsx";
+import Register from "./Components/Register/Register.tsx"
+import Login from "./components/Login.tsx"
 
 function App() {
 
   return (
     <>
-        <Register></Register>
+      <div className={"h-screen flex  items-center justify-center bg-[var(--color-primary)]"}>
+                <Login/>
+      </div>
     </>
   )
 }
