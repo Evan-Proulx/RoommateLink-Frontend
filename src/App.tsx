@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import {useState} from 'react'
 import './App.css'
 import Register from "./Components/Register/Register.tsx"
 import Login from "./components/Login.tsx"
@@ -12,6 +12,7 @@ function App() {
       </div>
     </>
   )
+
 }
 
 export default App
