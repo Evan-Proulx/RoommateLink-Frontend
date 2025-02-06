@@ -1,6 +1,6 @@
 function Name() {
     return (
-        <div className="flex flex-row space-x-4 max-w-3xl mx-auto">
+        <div className="flex flex-row space-x-4 max-w-3xl mx-auto m-4">
             <div className="flex flex-col space-y-4 flex-1">
                 <label className="font-bold text-red-500 mb-1">First Name</label>
                 <input

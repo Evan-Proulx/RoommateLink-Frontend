@@ -5,7 +5,7 @@ import Phone from "./RegisterPhone.tsx";
 
 function Register() {
     return (
-    <div>
+    <div className="bg-[var(--color-secondry)]">
         {/* Page Title */}
     <h1 className="text-6xl text-red-500 text-left m-4">Roommate Link</h1>
 
