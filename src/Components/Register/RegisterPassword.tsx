@@ -3,18 +3,18 @@ function Password() {
     return (
         <div className="flex flex-row space-x-4 max-w-3xl mx-auto mt-4">
             <div className="flex flex-col space-y-4 flex-1">
-                <label className="font-bold text-red-500 mb-1">Password</label>
+                <label className="block mb-2 header3-text inter">Password</label>
                 <input
                     type="password"
-                    className="border rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-500"
+                    className="p-2 mt-1 bg-white border-2 border-black text-gray-900 rounded-lg block w-full"
                 />
             </div>
 
             <div className="flex flex-col space-y-4 flex-1">
-                <label className="font-bold text-red-500 mb-1">Repeat Password</label>
+                <label className="block mb-2 header3-text inter">Repeat Password</label>
                 <input
                     type="password"
-                    className="border rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-500"
+                    className="p-2 mt-1 bg-white border-2 border-black text-gray-900 rounded-lg block w-full"
                 />
             </div>
         </div>

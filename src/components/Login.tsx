@@ -36,7 +36,9 @@ const Login = () => {
 
                     {/*Submit button*/}
                     <div className={"flex flex-col items-center"}>
-                        <button type="submit" className={"items-center w-1/2 p-2 mt-12 text-white text-3xl font-bold bg-[var(--color-secondary)] cursor-pointer shadow-btn"}>Login</button>
+                        <button type="submit" className={"items-center w-1/2 p-2 mt-12 text-white text-3xl font-bold bg-[var(--color-secondary)] cursor-pointer shadow-btn hover:scale-105 transform transition-all"}>
+                            Login
+                        </button>
                     </div>
                 </div>
             </form>
