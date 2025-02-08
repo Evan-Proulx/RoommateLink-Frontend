@@ -30,6 +30,9 @@
 .header4-text {
     @apply text-xl font-bold text-[var(--color-text)];
 }
+.header-text-big {
+    @apply text-6xl font-bold text-[var(--color-text)];
+}
 
 
 .shadow-btn{

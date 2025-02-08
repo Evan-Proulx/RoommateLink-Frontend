@@ -5,7 +5,7 @@ const ShadowButton = ({ value = "Submit", color = "blue"}) => {
 
     return (
         <button type='submit'
-                className={`items-center w-1/2 p-2 mt-12 text-white text-3xl font-bold ${bgColor} cursor-pointer shadow-btn hover:scale-105 transform transition-all`}>
+                className={`items-center w-32 p-2 mt-12 text-white text-3xl font-bold ${bgColor} cursor-pointer shadow-btn hover:scale-105 transform transition-all`}>
             {value}
         </button>
 

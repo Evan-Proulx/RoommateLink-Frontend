@@ -3,17 +3,16 @@ import './App.css'
 import Register from "./Components/Register/Register.tsx"
 import Login from "./components/Login.tsx"
 import Navbar from "./Components/Navbar.tsx";
-import Survey from "./Components/Survey.tsx";
+import Survey from "./Components/Survey/Survey.tsx";
+import ButtonNav from "./Components/Survey/Button-Nav.tsx";
 
 function App() {
 
     return (
         <>
-            <div className={"flex flex-col h-screen"}>
+            <div className={"flex flex-col"}>
                 <Navbar/>
-                <div className={"flex-grow flex items-center justify-center bg-[var(--color-primary)]"}>
-                    <Survey/>
-                </div>
+                <Survey/>
             </div>
         </>
     )
