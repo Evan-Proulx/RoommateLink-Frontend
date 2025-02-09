@@ -11,7 +11,6 @@ function App() {
     return (
         <>
             <div className={"flex flex-col"}>
-                <Navbar/>
                 <Survey/>
             </div>
         </>
