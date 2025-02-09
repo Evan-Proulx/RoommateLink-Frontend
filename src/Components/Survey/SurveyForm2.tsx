@@ -13,7 +13,8 @@ const SurveyForm2 = () => {
                             <label htmlFor="education" className="block mb-2 header2-text text-center">Education
                                 Status*</label>
                             <select id="education"
-                                    className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4" required>
+                                    className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4"
+                                    required>
 
                                 <option>Enrolled College/University</option>
                                 <option>Not In School</option>
@@ -41,6 +42,8 @@ const SurveyForm2 = () => {
 
 
                 </form>
+                
+
             </div>
         </div>
     );
