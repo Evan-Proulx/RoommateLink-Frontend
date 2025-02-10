@@ -6,6 +6,7 @@ const AddHobby = () => {
     const [hobbies, setHobbies] = useState([])
     const [inputValue, setInputValue] = useState('')
 
+    //Adds a new hobby to the hobby array
     const handleNewHobby = () => {
         if (hobbies.length <= 5) {
             if (inputValue.trim() !== '') {
@@ -31,9 +32,8 @@ const AddHobby = () => {
                     <input type="input" id="profession" value={inputValue}
                            onChange={(event) => setInputValue(event.target.value)}
                            className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-2/3 p-4"/>
-                    <button type="button" onClick={handleNewHobby}
-                            className="text-white cursor-pointer bg-[var(--color-secondary)]">
-                        Add Hobby
+                    <button type="button" onClick={handleNewHobby} className={"cursor-pointer"}>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#FF4000"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
                     </button>
                 </div>
                 <ul className={" w-3/4 h-20 p-4 flex flex-wrap gap-2 justify-center"}>

@@ -3,7 +3,7 @@ import ShadowButton from "../Shadow-Button.tsx";
 
 const SurveyIntro = () => {
     return (
-        <div className={"h-screen content-center"}>
+        <div className={"pt-40 content-center"}>
             <h1 className={"header2-text text-center"}>We need to know a bit more about you before we can find
                 your dream roommate.</h1>
             <div className={"flex justify-center"}>
