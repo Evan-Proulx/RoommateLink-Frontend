@@ -11,11 +11,9 @@ function App() {
 
     return (
         <>
-            {/*<div className={"flex flex-col"}>*/}
-            {/*    <Survey/>*/}
-            {/*</div>*/}
-            <div className={"h-screen grid content-center bg-gray-200"}>
-                <TimePicker/></div>
+            <div className={"flex flex-col"}>
+                <Survey/>
+            </div>
         </>
     )
 

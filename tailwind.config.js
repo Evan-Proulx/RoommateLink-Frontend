@@ -4,7 +4,7 @@ module.exports = {
     darkMode: 'media',
     content: [
         "./index.html",
-        "./src/**/*.{js,ts,jsx,tsx}",
+        "./src/**/*.{js,ts,jsx,tsx}",  './node_modules/flowbite/**/*.js'
     ], theme: {
         screens: {
             sm: '640px',

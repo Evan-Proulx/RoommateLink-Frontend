@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "flowbite";
 
 :root{
     --color-primary: #FFF3C6;
