@@ -17,6 +17,7 @@
     font-weight: 400;
     font-style: normal;
     color: #FF3033;
+    @apply text-4xl p-4
 }
 
 .header-text {

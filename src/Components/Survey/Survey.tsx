@@ -10,6 +10,7 @@ const Survey = () => {
     return (
         <>
             <div className={"bg-[var(--color-primary)] min-h-screen"}>
+                <h1 className={"logo"}>Roommate Link</h1>
                 <div className={"flex items-center justify-center"}>
                     <div className="flex flex-col items-center justify-center w-1/2 xl:w-1/3">
                         <SurveyForm3/>

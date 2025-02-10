@@ -67,6 +67,7 @@ const SurveyForm1 = () => {
                 </select>
             </form>
             <ButtonNav/>
+
         </div>
     );
 };

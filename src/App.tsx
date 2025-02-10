@@ -6,6 +6,7 @@ import Navbar from "./Components/Navbar.tsx";
 import Survey from "./Components/Survey/Survey.tsx";
 import ButtonNav from "./Components/Survey/Button-Nav.tsx";
 import TimePicker from "./Components/Survey/TimePicker.tsx";
+import AddHobby from "./Components/Survey/AddHobby.tsx";
 
 function App() {
 
@@ -14,6 +15,8 @@ function App() {
             <div className={"flex flex-col"}>
                 <Survey/>
             </div>
+
+
         </>
     )
 

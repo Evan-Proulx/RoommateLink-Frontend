@@ -1,11 +1,12 @@
 import React from 'react';
+import AddHobby from "./AddHobby.tsx";
 
 const SurveyForm3 = () => {
     return (
-        <div className={"pt-12"}>
-            <form className={"space-y-8"}>
+        <div className={"py-12"}>
+            <form className={"space-y-20"}>
 
-                {/*This doesnt get affected by spacing*/}
+                {/*This doesn't get affected by spacing*/}
                 <div><h2 className={"header-text-big text-center"}>About You</h2>
                     <p className={"text-center font-bold"}>Please answer honestly</p></div>
 
@@ -64,13 +65,33 @@ const SurveyForm3 = () => {
                             </label>
                         </div>
                     </div>
-
                 </fieldset>
-                {/*Budget Slider*/}
 
-                <label for="default-range" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Default range</label>
-                <input id="default-range" type="range" value="50" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"></input>
+                {/*Sociability Slider*/}
+                <div className={"flex justify-center"}>
+                    <div className="relative mb-6 w-3/4">
+                        <label htmlFor="" className="block mb-2 header2-text text-center">Rate your sociability from
+                            1-10</label>
+                        <input id="" type="range" min="1" max="10" step="1"
+                               className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"/>
+                        <span className="text-md font-bold absolute start-0 -bottom-6">1</span>
+                        <span className="text-md font-bold absolute end-0 -bottom-6">10</span>
+                    </div>
+                </div>
 
+                <div className={"flex justify-center"}>
+                    <div className="relative mb-6 w-3/4">
+                        <label htmlFor="" className="block mb-2 header2-text text-center">Rate your cleanliness from 1-10</label>
+                        <input id="" type="range" min="1" max="10" step="1"
+                               className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"/>
+                        <span className="text-md font-bold absolute start-0 -bottom-6">1</span>
+                        <span className="text-md font-bold absolute end-0 -bottom-6">10</span>
+                    </div>
+                </div>
+
+                <div className={"flex flex-col items-center"}>
+                    <AddHobby/>
+                </div>
             </form>
         </div>
     );
