@@ -13,6 +13,10 @@ function ProfileComponents() {
                 isEmailVerified={true}
                 isVideoVerified={true}
             />
+            <AboutSection/>
+
+
+
 
         </div>
     )
