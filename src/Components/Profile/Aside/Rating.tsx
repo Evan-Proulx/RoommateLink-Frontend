@@ -1,7 +1,7 @@
 function Rating() {
 
     return (
-        <div>
+        <div className=" pb-5">
             <h1 className="text-black font-bold text-center m-5 text-4xl">Rating</h1>
 
             <div className="flex flex-col bg-white space-y-4 flex-1 mt-2 h-90 p-2 border border-black rounded-lg">

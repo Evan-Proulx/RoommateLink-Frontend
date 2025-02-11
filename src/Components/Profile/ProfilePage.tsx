@@ -3,10 +3,9 @@ import ProfileComponents from "./ProfileComponents/ProfileComponents.tsx";
 
 function ProfilePage() {
     return (
-        <div className="flex">
+        <div className="flex overflow-y-auto h-screen">
             <Aside />
-
-            <div className="ml-64 flex-1 overflow-y-auto h-screen p-4">
+            <div className="flex-1 ml-40 p-4">
                 <ProfileComponents />
             </div>
         </div>
@@ -14,3 +13,4 @@ function ProfilePage() {
 }
 
 export default ProfilePage;
+

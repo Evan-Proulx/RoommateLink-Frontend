@@ -5,16 +5,15 @@ import Video from "./Video.tsx";
 import Rating from "./Rating.tsx";
 
 function Aside() {
-
     return (
-        <div className="w-64 h-screen p-4 fixed left-0 top-0 bg-[var(--color-primary)]">
-            <ProfileImg/>
-            <MessageBtn/>
-            <FavoriteBtn/>
-            <Video/>
-            <Rating/>
+        <div className="h-auto w-64 bg-[var(--color-primary)] p-4 m-2">
+            <ProfileImg />
+            <MessageBtn />
+            <FavoriteBtn />
+            <Video />
+            <Rating />
         </div>
-    )
+    );
 }
 
-export default Aside
+export default Aside;
