@@ -1,6 +1,8 @@
 import ProfileImg from "./ProfileImg.tsx";
 import MessageBtn from "./MessageBtn.tsx";
 import FavoriteBtn from "./FavoriteBtn.tsx";
+import Video from "./Video.tsx";
+import Rating from "./Rating.tsx";
 
 function Aside() {
 
@@ -9,6 +11,8 @@ function Aside() {
             <ProfileImg/>
             <MessageBtn/>
             <FavoriteBtn/>
+            <Video/>
+            <Rating/>
         </div>
     )
 }
