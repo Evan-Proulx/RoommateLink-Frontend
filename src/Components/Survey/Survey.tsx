@@ -5,6 +5,7 @@ import SurveyForm3 from "./SurveyForm3.tsx";
 import SurveyStepper from "./SurveyStepper.tsx";
 import SurveyFormProfile from "./SurveyFormProfile.tsx";
 import SurveyFormRoommate from "./SurveyFormRoommate.tsx";
+import PropertyForm from "./PropertyForm.tsx";
 
 
 const Survey = () => {
@@ -15,7 +16,7 @@ const Survey = () => {
         form1: <SurveyForm1/>,
         form2: <SurveyForm3/>,
         form3: <SurveyFormProfile/>,
-        form4: <SurveyFormRoommate/>
+        form4: <PropertyForm/>
     }
 
     return (

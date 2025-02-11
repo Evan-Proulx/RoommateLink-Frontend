@@ -6,7 +6,7 @@ const SurveyStepper = ({ setActiveComponent, activeComponent }) => {
         { name: "form1", label: "About You" },
         { name: "form2", label: "More About You" },
         { name: "form3", label: "Profile" },
-        { name: "roommate", label: "About Your Roommate" },
+        { name: "form4", label: "About Your Roommate" },
     ];
 
     return (

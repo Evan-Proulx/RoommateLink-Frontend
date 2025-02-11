@@ -5,7 +5,7 @@ import ButtonNav from "./Button-Nav.tsx";
 const SurveyForm2 = () => {
     return (
         <div className={"pt-12"}>
-            <form className={"space-y-24"}>
+            <form className={"pt-12 space-y-18"}>
                 <h2 className={"header-text-big text-center"}>About You</h2>
 
                 <div className={"flex space-x-12"}>

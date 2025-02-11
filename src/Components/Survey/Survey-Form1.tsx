@@ -34,7 +34,7 @@ const SurveyForm1 = () => {
 
     return (
         <div className={"pt-24"}>
-            <form className={"space-y-20"}>
+            <form className={"space-y-18"}>
                 <h2 className={"header-text-big text-center"}>About You</h2>
 
                 {/*City dropdown*/}
@@ -153,6 +153,7 @@ const SurveyForm1 = () => {
                     </div>
                 </div>
 
+                {/*Religion and diet*/}
                 <div className={"flex justify-center items-end"}>
                         {/*religion input*/}
                         <div className={"flex flex-col w-full items-center"}>
@@ -164,8 +165,7 @@ const SurveyForm1 = () => {
 
                     {/*diet dropdown*/}
                     <div className={"flex flex-col w-full items-center space-x-12"}>
-                        <label htmlFor="diet" className="block mb-2 header2-text text-center">Select
-                            diet</label>
+                        <label htmlFor="diet" className="block mb-2 header2-text text-center">Diet preferences</label>
                         <select id="diet"
                                 className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4">
                             {diets.map((diet) => (
@@ -176,6 +176,7 @@ const SurveyForm1 = () => {
                         </select>
                     </div>
                 </div>
+
             </form>
         </div>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 
 const SurveyFormProfile = () => {
     return (
-        <div className={"pt-40 space-y-24 w-full"}>
+        <div className={"pt-12 space-y-18 w-full"}>
             <h2 className={"header-text-big text-center"}>Profile</h2>
 
             <div className={"flex flex-col items-center"}>
