@@ -7,7 +7,7 @@ import Rating from "./Rating.tsx";
 function Aside() {
 
     return (
-        <div className="aside-container">
+        <div className="w-64 h-screen p-4 fixed left-0 top-0 bg-[var(--color-primary)]">
             <ProfileImg/>
             <MessageBtn/>
             <FavoriteBtn/>
