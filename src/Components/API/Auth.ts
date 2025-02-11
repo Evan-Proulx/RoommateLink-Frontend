@@ -12,7 +12,6 @@ export const register = async (email: string, phone: string, password: string, p
                 }
             }
         );
-
         console.log(response.data);
     } catch (err) {
         console.error("Error getting token:", err);
@@ -31,6 +30,11 @@ export const auth = async (email: string, password: string) => {
                 }
             });
         console.log(response.data);
+
+        // TODO: This isn't the safest option
+        //Store token in local storage
+        const token = response.data.token;
+        localStorage.setItem("token", token);
     } catch (err) {
         console.error("Error getting token:", err);
     }
