@@ -9,7 +9,7 @@
     --color-back: #FF4000;
     --color-black: #000000;
     /*--color-primary-opacity: rgba(0, 0, 0, 0);*/
-    /*--color-secondary-hovered: rgb(0, 0, 0);*/
+    --color-primary-hovered: rgba(30, 25, 21, 0.09);
 }
 .logo{
     font-family: "Supermercado One", serif;

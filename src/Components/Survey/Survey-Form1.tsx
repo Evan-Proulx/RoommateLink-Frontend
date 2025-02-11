@@ -4,6 +4,34 @@ import ButtonNav from "./Button-Nav.tsx";
 import TimePicker from "./TimePicker.tsx";
 
 const SurveyForm1 = () => {
+    const languages = [
+        {code: "en", name: "English"},
+        {code: "es", name: "Spanish"},
+        {code: "fr", name: "French"},
+        {code: "de", name: "German"},
+        {code: "zh", name: "Chinese"},
+        {code: "hi", name: "Hindi"},
+        {code: "ar", name: "Arabic"},
+        {code: "pt", name: "Portuguese"},
+        {code: "ja", name: "Japanese"},
+        {code: "ko", name: "Korean"},
+        {code: "ru", name: "Russian"},
+        {code: "it", name: "Italian"},
+        {code: "tr", name: "Turkish"},
+        {code: "nl", name: "Dutch"},
+        {code: "sv", name: "Swedish"},
+        {code: "fi", name: "Finnish"},
+        {code: "da", name: "Danish"},
+        {code: "no", name: "Norwegian"},
+        {code: "pl", name: "Polish"},
+        {code: "cs", name: "Czech"},
+        {code: "hu", name: "Hungarian"},
+        {code: "id", name: "Indonesian"},
+        {code: "th", name: "Thai"},
+    ];
+
+    const diets = ["No preference", "Vegetarian", "Vegan", "Halal", "Kosher", "Pescatarian"];
+
     return (
         <div className={"pt-24"}>
             <form className={"space-y-20"}>
@@ -58,16 +86,7 @@ const SurveyForm1 = () => {
                     <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">$10000</span>
                 </div>
 
-                {/*Gender dropdown*/}
-                <label htmlFor="cities" className="block mb-2 header2-text text-center pt-24">Gender</label>
-                <select id="cities"
-                        className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4">
-                    {/*Temporary*/}
-                    <option>Windsor</option>
-                    <option>Toronto</option>
-                </select>
-
-                <div className={"flex space-x-12"}>
+                <div className={"flex space-x-12 pt-20"}>
                     <div className={"flex flex-col"}>
                         {/*Education dropdown*/}
                         <label htmlFor="education" className="block mb-2 header2-text text-center">Education
@@ -94,13 +113,69 @@ const SurveyForm1 = () => {
                 </div>
 
                 {/*Profession input*/}
-                <label htmlFor="Profession" className="block mb-2 header2-text text-center">Profession</label>
-                <input type="input" id="profession"
-                       className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4"/>
+                <div className={"flex flex-col items-center"}>
+                    <label htmlFor="Profession" className="block mb-2 header2-text text-center">Profession</label>
+                    <input type="input" id="profession"
+                           className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-1/2 p-4"/>
+                </div>
 
-                <h2 className={"block mb-2 header2-text text-center"}>Select Working Times</h2>
                 {/*Time Picker*/}
+                <h2 className={"block mb-2 header2-text text-center"}>Select Working Times</h2>
                 <TimePicker/>
+
+                {/*Gender and language*/}
+                <div className={"flex justify-center items-end space-x-12"}>
+                    <div className={"flex flex-col w-fit"}>
+                        {/*gender dropdown*/}
+                        <label htmlFor="gender" className="block mb-2 header2-text text-center">Gender</label>
+                        <select id="gender"
+                                className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4"
+                                required>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Non-binary</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    {/*language dropdown*/}
+                    <div className={"flex flex-col"}>
+                        <label htmlFor="language" className="block mb-2 header2-text text-center">Select
+                            language</label>
+                        <select id="language"
+                                className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4">
+                            {languages.map((lang) => (
+                                <option key={lang.code} value={lang.code}>
+                                    {lang.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+
+                <div className={"flex justify-center items-end"}>
+                        {/*religion input*/}
+                        <div className={"flex flex-col w-full items-center"}>
+                            <label htmlFor="religion" className="block header2-text text-center">Religion</label>
+                            <label htmlFor="religion" className="text-end">*if applicable</label>
+                            <input type="input" id="religion"
+                                   className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block p-4"/>
+                        </div>
+
+                    {/*diet dropdown*/}
+                    <div className={"flex flex-col w-full items-center space-x-12"}>
+                        <label htmlFor="diet" className="block mb-2 header2-text text-center">Select
+                            diet</label>
+                        <select id="diet"
+                                className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4">
+                            {diets.map((diet) => (
+                                <option key={diet} value={diet}>
+                                    {diet}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
             </form>
         </div>
     );

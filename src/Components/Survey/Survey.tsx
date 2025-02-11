@@ -3,6 +3,8 @@ import SurveyIntro from "./Survey-Intro.tsx";
 import SurveyForm1 from "./Survey-Form1.tsx";
 import SurveyForm3 from "./SurveyForm3.tsx";
 import SurveyStepper from "./SurveyStepper.tsx";
+import SurveyFormProfile from "./SurveyFormProfile.tsx";
+import SurveyFormRoommate from "./SurveyFormRoommate.tsx";
 
 
 const Survey = () => {
@@ -12,7 +14,8 @@ const Survey = () => {
         intro: <SurveyIntro/>,
         form1: <SurveyForm1/>,
         form2: <SurveyForm3/>,
-        form3: <SurveyForm3/>,
+        form3: <SurveyFormProfile/>,
+        form4: <SurveyFormRoommate/>
     }
 
     return (
