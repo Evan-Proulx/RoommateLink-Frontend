@@ -1,6 +1,7 @@
 import AboutSection from "./AboutSection.tsx";
 import InfoSection from "./InfoSection.tsx";
 import VerificationBadge from "./VerifictionBadge.tsx";
+import IdealRoommatePlace from "./IdealRoommate-Place.tsx";
 
 function ProfileComponents() {
 
@@ -14,6 +15,10 @@ function ProfileComponents() {
                 isVideoVerified={true}
             />
             <AboutSection/>
+
+            <IdealRoommatePlace isLookingForRoommate={true} />
+            <IdealRoommatePlace isLookingForRoommate={false} />
+
 
 
 
