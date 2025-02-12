@@ -1,62 +1,70 @@
 import React, {useState} from 'react';
 import ShadowButton from "./Shadow-Button.tsx";
-import {auth} from "./API/Auth.ts";
+import {authenticateUser} from "./API/Auth.ts";
 import {SubmitHandler, useForm} from "react-hook-form"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 type FormFields = {
     email: string;
     password: string;
 }
 const Login = () => {
-    const { register, handleSubmit, formState: {errors} } = useForm<FormFields>();
+    const { register, handleSubmit, formState: {errors, isSubmitting}, setError } = useForm<FormFields>();
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false);
 
-    const handleLogin = async (event: React.FormEvent) => {
-        //this prevents the page from reloading when submitting
-        event.preventDefault();
-        await auth(email, password)
-        //clear the form inputs after successful registration
-        setEmail("")
-        setPassword("")
-    }
 
-    const onSubmit: SubmitHandler<FormFields> = (data) => {
+    // Handle form submission and validation
+    const onSubmit: SubmitHandler<FormFields> = async (data, event: React.FormEvent) => {
+        try{
+            //this prevents the page from reloading when submitting
+            event.preventDefault();
+            await authenticateUser(email, password)
+            //clear the form inputs after successful registration
+            setEmail("")
+            setPassword("")
+        }catch (error){
+            // Display error when api fails
+            setError("password", {
+                message: "Invalid email or password"
+            });
+        }
         console.log(data);
     }
 
     return (
         <div className={"flex items-center justify-center h-screen bg-primary"}>
-            <div className={"content-center w-2/5 xl:w-1/4"}>
+            <div className={"content-center w-3/5 md:w-2/5 xl:w-1/4"}>
+
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <h2 className={"header-text text-center mb-8 "}>Login</h2>
                     <div>
 
                         {/*Email input*/}
-                        <label className="block mb-2 header2-text inter">Email</label>
+                        <label htmlFor="email" className="block mb-2 header2-text inter">Email</label>
                         <input type="email"
-                               {...register("email", {
+                               {...register<"email">("email", {
                                    required: "Email is required",
                                    pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
                                })}
-                               id="first_name"
-                               value={email}
-                               onChange={(event) => setEmail(event.target.value)}
+                               id="email"
                                className="input-style"
                                placeholder="example@email.com"
+                               autoComplete="on"
                                required/>
-                        {errors.password && <div className={"text-red-600"}>{errors.password.message}</div>}
 
                         {/*Password Input with password visibility toggle*/}
-                        <label className="block mb-2 mt-4 header2-text inter">Password</label>
+                        <label htmlFor="password" className="block mb-2 mt-4 header2-text inter">Password</label>
                         <div className="relative">
                             <input type={showPassword ? "text" : "password"}
-                                   {...register("password", {required: "Password is required", minLength: 8})}
-                                   value={password}
-                                   onChange={(event) => setPassword(event.target.value)}
+                                   {...register<"password">("password", {
+                                       required: "Password is required",
+                                       minLength: {value: 8, message: "Password must have at least 8 characters"}})}
+                                   id="password"
                                    className="input-style"
+                                   autoComplete="on"
                                    required/>
                             {/*<button onClick={() => setShowPassword((prev) => !prev)}*/}
                             {/*        className="absolute end-0.5 bottom-2.5 text-sm px-4 py-1 hover:cursor-pointer">*/}
@@ -64,15 +72,20 @@ const Login = () => {
                             {/*</button>*/}
                         </div>
 
+                        {/*email error message*/}
+                        {errors.email && <div className={"text-xl font-bold text-red-500"}>{errors.email.message}</div>}
+                        {/*Password error message*/}
+                        {errors.password && <div className={"text-xl font-bold text-red-500"}>{errors.password.message}</div>}
 
                         {/*Other options*/}
                         <div className={"flex place-content-between text-sm font-medium"}>
                             <p>New User? <a className={"text-blue-500 hover:underline"}>Sign Up</a></p>
                             <p><a href="" className={"text-blue-500 hover:underline"}>Forgot Password?</a></p>
                         </div>
+
                         {/*Submit button*/}
                         <div className={"flex flex-col items-center"}>
-                            <ShadowButton value={"Login"} onClick={() => handleLogin}/>
+                            <ShadowButton disabled={isSubmitting} type="submit" value={isSubmitting ? "Logging in..." : "Submit"}/>
                         </div>
                     </div>
                 </form>

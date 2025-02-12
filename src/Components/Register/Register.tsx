@@ -1,75 +1,130 @@
-import React, { useState} from "react";
+import React, {useState} from "react";
 import ShadowButton from "../Shadow-Button.tsx";
-import {register} from "../API/Auth.ts";
+import {registerUser} from "../API/Auth.ts";
 import InputComponent from "../InputComponent.tsx";
+import {SubmitHandler, useForm} from "react-hook-form"
 
+type FormFields = {
+    email: string;
+    phone: string;
+    password: string;
+    confirmPassword: string;
+}
 function Register() {
+    const {register, handleSubmit, formState: {errors, isSubmitting}, setError} = useForm<FormFields>();
+
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
 
-    const handleRegistration = async (event: React.FormEvent) => {
-        //this prevents the page from reloading when submitting
-        event.preventDefault();
-        await register(email, phone, password, confirmPassword)
-        //clear the form inputs after successful registration
-        setEmail("")
-        setPhone("")
-        setPassword("")
-        setConfirmPassword("")
+    const onSubmit: SubmitHandler<FormFields> = async (data, event: React.FormEvent) => {
+        try{
+            //this prevents the page from reloading when submitting
+            event.preventDefault();
+            await registerUser(email, phone, password, confirmPassword)
+            //clear the form inputs after successful registration
+            setEmail("")
+            setPhone("")
+            setPassword("")
+            setConfirmPassword("")
+        }catch (error){
+            // Display error when api fails
+            setError("password", {
+                message: "Invalid email or password"
+            });
+        }
     }
 
     return (
         <div className={"flex items-center justify-center h-screen bg-primary"}>
-            {/* Main Form Container */}
-            <div className="max-w-3xl mx-auto p-6 mt-8 justify-center">
+            <div className={"w-3/5 xl:w-1/4"}>
                 {/* Sign Up Heading */}
                 <h2 className="header-text text-center mb-8 ">Sign Up</h2>
-                <div>
+
+                <form onSubmit={handleSubmit(onSubmit)} className={" w-full items-center"}>
                     {/* Email and Phone Inputs */}
-                    <div className="flex flex-row space-x-4 mb-6">
-                        <InputComponent
-                            label="Email"
-                            type="email"
-                            value={email}
-                            onChange={(event) => setEmail(event.target.value)}
-                            placeholder="example@email.com"
-                        />
-                        <InputComponent
-                            label="Phone"
-                            type="tel"
-                            value={phone}
-                            onChange={(event) => setPhone(event.target.value)}
-                            placeholder="222-222-2222"
-                        />
+                    <div className="flex flex-col justify-center md:flex-row space-x-4">
+                        <div>
+                            <label htmlFor="email" className="block mb-2 header2-text">Email</label>
+                            <input type="email"
+                                   {...register<"email">("email", {
+                                       required: "Email is required",
+                                       pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                                   })}
+                                   id="email"
+                                   value={email}
+                                   onChange={(event) => setEmail(event.target.value)}
+                                   className="input-style w-full"
+                                   placeholder="example@email.com"
+                                   autoComplete="on"
+                                   required/>
+                        </div>
+                        <div>
+                            <label htmlFor="tel" className="block mb-2 header2-text">Phone</label>
+                            <input type="tel"
+                                   {...register<"phone">("phone", {
+                                       required: "Phone is required",
+                                       minLength: {value: 10, message: "Please input a valid phone number"}
+                                   })}
+                                   id="tel"
+                                   value={phone}
+                                   onChange={(event) => setPhone(event.target.value)}
+                                   className={"input-style w-full"}
+                                   placeholder="222-222-2222"
+                                   autoComplete="on"
+                                   required/>
+                        </div>
                     </div>
 
                     {/* Password Fields */}
-                    <div className="flex flex-row space-x-4 max-w-3xl mx-auto mt-4">
-                        <InputComponent
-                            label="Password"
-                            type="password"
-                            value={password}
-                            onChange={(event) => setPassword(event.target.value)}
-                        />
-                        <InputComponent
-                            label="Confirm Password"
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(event) => setConfirmPassword(event.target.value)}
-                        />
+                    <div className="flex flex-col justify-center md:flex-row space-x-4">
+                        <div>
+                            <label className="block mb-2 mt-4 header2-text inter">Password</label>
+                            <input type={"password"}
+                                   {...register<"password">("password", {
+                                       required: "Password is required",
+                                       minLength: {value: 8, message: "Password must have at least 8 characters"}
+                                   })}
+                                   value={password}
+                                   onChange={(event) => setPassword(event.target.value)}
+                                   className="input-style"
+                                   required/>
+                        </div>
+                        <div>
+                            <label className="block mb-2 mt-4 header2-text inter">Confirm Password</label>
+                            <input type={"password"}
+                                   {...register<"confirmPassword">("confirmPassword", {
+                                       required: "Password is required",
+                                       validate: (value) => value === password || "Passwords do not match"
+                                   })}
+                                   value={confirmPassword}
+                                   onChange={(event) => setConfirmPassword(event.target.value)}
+                                   className="input-style"
+                                   required/>
+                        </div>
                     </div>
 
-                {/* Sign Up Button */}
-                <div className={"flex justify-center"}>
-                    <ShadowButton value={"Sign Up"} onClick={ () => handleRegistration}/>
-                </div>
+                    {/*Error messages*/}
+                    {errors.email &&
+                        <div className={"text-xl font-bold text-red-500 text-center"}>{errors.email.message}</div>}
+                    {errors.phone &&
+                        <div className={"text-xl font-bold text-red-500 text-center"}>{errors.phone.message}</div>}
+                    {errors.password &&
+                        <div className={"text-xl font-bold text-red-500 text-center"}>{errors.password.message}</div>}
+                    {errors.confirmPassword &&
+                        <div className={"text-xl font-bold text-red-500 text-center"}>{errors.confirmPassword.message}</div>}
+
+                    {/* Sign Up Button */}
+                    <div className={"flex justify-center"}>
+                        <ShadowButton disabled={isSubmitting} type="submit"
+                                      value={isSubmitting ? "Logging in..." : "Submit"}/>
+                    </div>
+                </form>
             </div>
         </div>
-</div>
-)
-    ;
+    )
+        ;
 }
 
 export default Register;
