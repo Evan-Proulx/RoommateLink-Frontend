@@ -1,5 +1,9 @@
 function Video() {
 
+    {/* This component displays user's video*/}
+
+
+
     return (
         <div className="flex flex-col items-center mt-10 mb-10">
             <h1 className="text-3xl font-bold mb-4">My Video</h1>

@@ -1,4 +1,9 @@
 function AboutSection() {
+
+    {/* This component displays the user's status,
+    whether they are looking for a roommate or a place and their budget-Price/month
+     It also includes the "About Me" section. */}
+
     return (
         <div className="p-4">
             <div className="bg-white p-4 m-2 border border-black max-w-[580px]">

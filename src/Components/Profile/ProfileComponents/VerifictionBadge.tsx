@@ -1,6 +1,11 @@
 import React from 'react';
 
 function VerificationBadge({ isIDVerified, isPhoneVerified, isEmailVerified, isVideoVerified }) {
+
+    {/* This component displays the user's badges. */}
+
+
+
     return (
         <div className="flex flex-wrap gap-4 justify-center m-2">
             {/* ID Verification Badge */}

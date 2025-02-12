@@ -3,6 +3,10 @@ interface Props {
 }
 
 function IdealRoommatePlace({ isLookingForRoommate }: Props) {
+
+    {/* This component displays the user's status and their ideal place or roommate. */}
+
+
     return (
         <div className="p-4">
 
