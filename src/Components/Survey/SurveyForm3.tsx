@@ -4,7 +4,7 @@ import AddHobby from "./AddHobby.tsx";
 const SurveyForm3 = () => {
     return (
         <div className={"py-12"}>
-            <form className={"space-y-18"}>
+            <form className={"space-y-8"}>
 
                 {/*This doesn't get affected by spacing*/}
                 <div><h2 className={"header-text-big text-center"}>About You</h2>

@@ -21,7 +21,7 @@ const Survey = () => {
 
     return (
         <>
-            <div className={"bg-red-700 min-h-screen "}>
+            <div className={"bg-primary min-h-screen "}>
                 <h1 className={"logo"}>Roommate Link</h1>
                 <SurveyStepper setActiveComponent={setActiveComponent} activeComponent={activeComponent}/>
                 <div className={"flex items-center justify-center"}>

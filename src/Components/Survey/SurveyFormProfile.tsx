@@ -2,7 +2,7 @@ import React from 'react';
 
 const SurveyFormProfile = () => {
     return (
-        <div className={"pt-12 space-y-18 w-full"}>
+        <div className={"pt-12 space-y-8 w-full"}>
             <h2 className={"header-text-big text-center"}>Profile</h2>
 
             <div className={"flex flex-col items-center"}>
@@ -26,7 +26,7 @@ const SurveyFormProfile = () => {
                         </svg>
                         <p className="mb-2 text-sm text-[var(--color-text)]"><span
                             className="font-semibold">Click to upload</span> or drag and drop</p>
-                        <p className="text-xs text-[var(--color-text)]">SVG, PNG, JPG or GIF (MAX.
+                        <p className="text-xs text-text">SVG, PNG, JPG or GIF (MAX.
                             800x400px)</p>
                     </div>
                     <input id="dropzone-file" type="file" className="hidden"/>
@@ -39,7 +39,7 @@ const SurveyFormProfile = () => {
                 <label htmlFor="dropzone-file"
                        className="flex flex-col items-center justify-center w-full h-64 border-2 border-[var(--color-text)] border-dashed rounded-lg cursor-pointer hover:bg-[var(--color-primary-hovered)] transition duration-200 ease-in-out">
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                        <svg className="w-8 h-8 mb-4 text-[var(--color-text)]" aria-hidden="true"
+                        <svg className="w-8 h-8 mb-4 text-text" aria-hidden="true"
                              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
                                   strokeWidth="2"

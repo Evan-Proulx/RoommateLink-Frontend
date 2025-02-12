@@ -21,9 +21,9 @@ function Register() {
     }
 
     return (
-        <div className={"flex items-center justify-center h-screen bg-[var(--color-primary)]"}>
+        <div className={"flex items-center justify-center h-screen bg-primary"}>
             {/* Main Form Container */}
-            <div className="max-w-3xl mx-auto p-6 mt-8 justify-center bg-[var(--color-secfdsafsaondry)]">
+            <div className="max-w-3xl mx-auto p-6 mt-8 justify-center">
                 {/* Sign Up Heading */}
                 <h2 className="header-text text-center mb-8 ">Sign Up</h2>
                 <div>

@@ -34,7 +34,7 @@ const SurveyForm1 = () => {
 
     return (
         <div className={"pt-24"}>
-            <form className={"space-y-18"}>
+            <form className={"space-y-12"}>
                 <h2 className={"header-text-big text-center"}>About You</h2>
 
                 {/*City dropdown*/}

@@ -31,7 +31,7 @@ const Login = () => {
     }
 
     return (
-        <div className={"flex items-center justify-center h-screen bg-[var(--color-primary)]"}>
+        <div className={"flex items-center justify-center h-screen bg-primary"}>
             <div className={"content-center w-2/5 xl:w-1/4"}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <h2 className={"header-text text-center mb-8 "}>Login</h2>
