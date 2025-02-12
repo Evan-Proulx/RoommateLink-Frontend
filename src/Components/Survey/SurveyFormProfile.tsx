@@ -1,4 +1,3 @@
-import React from 'react';
 
 const SurveyFormProfile = () => {
     return (
@@ -7,7 +6,7 @@ const SurveyFormProfile = () => {
 
             <div className={"flex flex-col items-center"}>
                 <label htmlFor="message" className="block mb-2 header2-text text-center">Write a short bio</label>
-                <textarea id="message" rows="4"
+                <textarea id="message"
                           className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block lg:w-2/3 p-4"
                           placeholder="Write something..."></textarea>
             </div>

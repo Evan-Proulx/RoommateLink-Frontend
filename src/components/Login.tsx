@@ -1,9 +1,6 @@
 import React, {useState} from 'react';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 import ShadowButton from "./Shadow-Button.tsx";
 import {auth} from "./API/Auth.ts";
-import InputComponent from "./InputComponent.tsx";
 import {SubmitHandler, useForm} from "react-hook-form"
 
 type FormFields = {
@@ -75,7 +72,7 @@ const Login = () => {
                         </div>
                         {/*Submit button*/}
                         <div className={"flex flex-col items-center"}>
-                            <ShadowButton value={"Login"} onClick={handleLogin}/>
+                            <ShadowButton value={"Login"} onClick={() => handleLogin}/>
                         </div>
                     </div>
                 </form>

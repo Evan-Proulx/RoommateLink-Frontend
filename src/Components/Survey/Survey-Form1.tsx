@@ -1,6 +1,3 @@
-import React from 'react';
-import ShadowButton from "../Shadow-Button.tsx";
-import ButtonNav from "./Button-Nav.tsx";
 import TimePicker from "./TimePicker.tsx";
 
 const SurveyForm1 = () => {

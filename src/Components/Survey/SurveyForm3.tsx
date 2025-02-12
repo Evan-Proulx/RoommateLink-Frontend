@@ -1,4 +1,3 @@
-import React from 'react';
 import AddHobby from "./AddHobby.tsx";
 
 const SurveyForm3 = () => {

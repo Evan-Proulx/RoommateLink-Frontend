@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from "react";
+import React, { useState} from "react";
 import ShadowButton from "../Shadow-Button.tsx";
 import {register} from "../API/Auth.ts";
 import InputComponent from "../InputComponent.tsx";
@@ -63,7 +63,7 @@ function Register() {
 
                 {/* Sign Up Button */}
                 <div className={"flex justify-center"}>
-                    <ShadowButton value={"Sign Up"} onClick={handleRegistration}/>
+                    <ShadowButton value={"Sign Up"} onClick={ () => handleRegistration}/>
                 </div>
             </div>
         </div>
