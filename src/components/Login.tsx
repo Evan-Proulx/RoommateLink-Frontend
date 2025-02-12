@@ -3,6 +3,7 @@ import ShadowButton from "./Shadow-Button.tsx";
 import {authenticateUser} from "./API/Auth.ts";
 import {SubmitHandler, useForm} from "react-hook-form"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faGoogle} from "@fortawesome/free-brands-svg-icons";
 
 type FormFields = {
     email: string;
@@ -83,9 +84,19 @@ const Login = () => {
                             <p><a href="" className={"text-blue-500 hover:underline"}>Forgot Password?</a></p>
                         </div>
 
-                        {/*Submit button*/}
-                        <div className={"flex flex-col items-center"}>
-                            <ShadowButton disabled={isSubmitting} type="submit" value={isSubmitting ? "Logging in..." : "Submit"}/>
+                        {/* Sign Up Button */}
+                        <div className={"flex flex-col items-center space-y-2"}>
+                            <ShadowButton disabled={isSubmitting} type="submit"
+                                          value={isSubmitting ? "Logging in..." : "Sign up"}/>
+
+                            <p className={"text-gray-600"}>or</p>
+
+                            {/*Google sso button*/}
+                            <button type="button"
+                                    className="w-fit text-white bg-secondary hover:bg-blue-800/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 ">
+                                <FontAwesomeIcon className="w-4 h-4 me-2" icon={faGoogle} />
+                                Sign in with Google
+                            </button>
                         </div>
                     </div>
                 </form>

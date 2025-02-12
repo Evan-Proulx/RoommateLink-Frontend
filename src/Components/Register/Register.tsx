@@ -3,6 +3,9 @@ import ShadowButton from "../Shadow-Button.tsx";
 import {registerUser} from "../API/Auth.ts";
 import InputComponent from "../InputComponent.tsx";
 import {SubmitHandler, useForm} from "react-hook-form"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEyeSlash, faHouse, } from "@fortawesome/free-solid-svg-icons";
+import {faGoogle} from "@fortawesome/free-brands-svg-icons"; // Import the Google icon
 
 type FormFields = {
     email: string;
@@ -116,9 +119,18 @@ function Register() {
                         <div className={"text-xl font-bold text-red-500 text-center"}>{errors.confirmPassword.message}</div>}
 
                     {/* Sign Up Button */}
-                    <div className={"flex justify-center"}>
+                    <div className={"flex flex-col items-center space-y-2"}>
                         <ShadowButton disabled={isSubmitting} type="submit"
-                                      value={isSubmitting ? "Logging in..." : "Submit"}/>
+                                      value={isSubmitting ? "Logging in..." : "Sign up"}/>
+
+                        <p className={"text-gray-600"}>or</p>
+
+                        {/*Google sso button*/}
+                        <button type="button"
+                                className="w-fit text-white bg-secondary hover:bg-blue-800/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 ">
+                            <FontAwesomeIcon className="w-4 h-4 me-2" icon={faGoogle} />
+                            Sign in with Google
+                        </button>
                     </div>
                 </form>
             </div>
