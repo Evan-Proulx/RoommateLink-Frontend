@@ -1,11 +1,25 @@
 import '../../App.css'
 import React, {useState} from 'react';
 
-const TimePicker = () => {
+const TimePicker = ({onTimeChange}) => {
     // These values are set when the user selects a time
     // HTML uses 24hr time
     const [timeFrom, setTimeFrom] = useState("09:00");
     const [timeTo, setTimeTo] = useState("17:00");
+
+    //Send input to parent component
+    const handleTimeFromChange = (e) => {
+        const newTimeFrom = e.target.value;
+        setTimeFrom(newTimeFrom);
+        onTimeChange(newTimeFrom, timeTo);
+    };
+
+    //Send input to parent component
+    const handleTimeToChange = (e) => {
+        const newTimeTo = e.target.value;
+        setTimeTo(newTimeTo);
+        onTimeChange(timeFrom, newTimeTo);
+    };
 
     return (
         <div className={"flex justify-center"}>
@@ -24,8 +38,8 @@ const TimePicker = () => {
                     <input type="time" id="time"
                            className="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                            min="09:00" max="18:00"
-                           value={timeFrom} //displays the set time
-                           onChange={(e) => setTimeFrom(e.target.value)} //updates new selected time
+                           value={timeFrom}
+                           onChange={handleTimeFromChange}
                     />
                 </div>
             </form>
@@ -44,8 +58,8 @@ const TimePicker = () => {
                     </div>
                     <input type="time" id="time"
                            className="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                           min="09:00" max="18:00" value={timeTo} //displays the set time
-                           onChange={(e) => setTimeTo(e.target.value)} //updates new selected time
+                           min="09:00" max="18:00" value={timeTo}
+                           onChange={handleTimeToChange}
                     />
                 </div>
             </form>
