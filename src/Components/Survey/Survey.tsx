@@ -16,7 +16,7 @@ const Survey = () => {
         form1: <SurveyForm1/>,
         form2: <SurveyForm3/>,
         form3: <SurveyFormProfile/>,
-        form4: <PropertyForm/>
+        form4: <SurveyFormRoommate/>
     }
 
     return (
