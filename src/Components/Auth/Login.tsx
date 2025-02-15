@@ -4,6 +4,7 @@ import {authenticateUser} from "../API/Auth.ts";
 import {SubmitHandler, useForm} from "react-hook-form"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faGoogle} from "@fortawesome/free-brands-svg-icons";
+import {Link} from "react-router-dom";
 
 type FormFields = {
     email: string;
@@ -87,8 +88,8 @@ const Login = () => {
 
                         {/*Other options*/}
                         <div className={"flex place-content-between text-sm font-medium"}>
-                            <p>New User? <a className={"text-blue-500 hover:underline"}>Sign Up</a></p>
-                            <p><a href="" className={"text-blue-500 hover:underline"}>Forgot Password?</a></p>
+                            <p>New User? <Link to={"/register"} className={"text-blue-500 hover:underline"}>Sign Up</Link></p>
+                            <p><Link to={"/forgot-password"} className={"text-blue-500 hover:underline"}>Forgot Password?</Link></p>
                         </div>
 
                         {/* Sign Up Button */}

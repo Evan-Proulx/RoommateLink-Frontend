@@ -5,7 +5,8 @@ import InputComponent from "../../InputComponent.tsx";
 import {SubmitHandler, useForm} from "react-hook-form"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEyeSlash, faHouse, } from "@fortawesome/free-solid-svg-icons";
-import {faGoogle} from "@fortawesome/free-brands-svg-icons"; // Import the Google icon
+import {faGoogle} from "@fortawesome/free-brands-svg-icons";
+import {Link} from "react-router-dom"; // Import the Google icon
 
 type FormFields = {
     email: string;
@@ -42,7 +43,7 @@ function Register() {
     return (
         <div className={"flex items-center justify-center h-screen bg-primary"}>
             <h1 className={"absolute top-0 left-0 logo"}>Roommate Link</h1>
-            <div className={"w-3/5 xl:w-1/4"}>
+            <div className={"w-3/5 "}>
                 {/* Sign Up Heading */}
                 <h2 className="header-text text-center mb-8 ">Sign Up</h2>
 
@@ -107,6 +108,10 @@ function Register() {
                                    className="input-style"
                                    required/>
                         </div>
+                    </div>
+                    {/*Other options*/}
+                    <div className={"text-center text-sm font-medium "}>
+                        <p>Already have an account? <Link to={"/login"} className={"text-blue-500 hover:underline"}>Login here</Link></p>
                     </div>
 
                     {/*Error messages*/}
