@@ -15,10 +15,6 @@ const SurveyForm3 = () => {
         <div className={"py-12"}>
             <form className={"space-y-8"}>
 
-                {/*This doesn't get affected by spacing*/}
-                <div><h2 className={"header-text-big text-center"}>About You</h2>
-                    <p className={"text-center font-bold"}>Please answer honestly</p></div>
-
                 {/*Pets radio*/}
                 <fieldset className={"flex flex-col items-center"}>
                     <h2 className={"header2-text text-center align-bottom"}>Do you have pets?</h2>

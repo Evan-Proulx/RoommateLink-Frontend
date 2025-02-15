@@ -47,7 +47,7 @@ const SurveyFormRoommate = () => {
                 {/*Header*/}
                 <div>
                     <h2 className={"header-text-big text-center"}>Deal Breakers</h2>
-                    <h2 className={"text-black font-bold text-center"}>Specify any details about your links that would
+                    <h2 className={"text-black font-bold text-center"}>Specify any details about your roommate that would
                         be a deal-breaker. We won't match you with users that have these attributes</h2>
                 </div>
 

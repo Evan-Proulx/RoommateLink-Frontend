@@ -45,26 +45,27 @@ const Survey = () => {
 
     return (
         <>
-            <div className={"bg-primary min-h-screen pb-8 "}>
-                <h1 className={"logo"}>Roommate Link</h1>
-                <SurveyStepper setActiveComponent={scrollTo} activeComponent={surveySections[currentIndex]} />
+            <div className={"bg-primary min-h-screen"}>
+                <nav className="sticky top-0 bg-primary shadow-sm z-50"><h1 className={"logo"}>Roommate Link</h1>
+                    <SurveyStepper setActiveComponent={scrollTo} activeComponent={surveySections[currentIndex]}/></nav>
 
                 <div className={"flex items-center justify-center"}>
-                    <div className="flex flex-col items-center justify-center w-1/2 xl:w-1/3 space-y-44">
+                    <div className="flex flex-col items-center justify-center w-1/2 xl:w-1/3 space-y-20">
                         <Element name="intro" id="intro" className={"h-screen"}>
-                            <SurveyIntro />
+                            <SurveyIntro/>
                         </Element>
-                        <Element name="form1" id="form1" className={"h-screen"}>
-                            <SurveyForm1 />
+                        <Element name="form1" id="form1" className={"py-20"}>
+                            <SurveyForm1/>
+                            <SurveyForm3/>
                         </Element>
-                        <Element name="form2" id="form2" className={"h-screen"}>
-                            <SurveyForm3 />
+                        <Element name="form2" id="form2" className={"py-20"}>
+                            <SurveyFormProfile/>
                         </Element>
-                        <Element name="form3" id="form3" className={"h-screen"}>
-                            <SurveyFormProfile />
+                        <Element name="form3" id="form3" className={"py-20"}>
+                            <PropertyForm/>
                         </Element>
-                        <Element name="form4" id="form4" className={"h-screen"}>
-                            <PropertyForm />
+                        <Element name="form4" id="form4" className={"py-20"}>
+                            <SurveyFormRoommate/>
                         </Element>
                     </div>
                 </div>

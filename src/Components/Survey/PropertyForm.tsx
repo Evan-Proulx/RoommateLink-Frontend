@@ -27,7 +27,7 @@ const PropertyForm = () => {
             <form className={"pt-12 space-y-8 pb-8"}>
 
                 <div className={""}><h2 className={"header-text-big text-center"}>About Your Property</h2>
-                    <p className={"text-center font-medium"}>Information can be updated later in the profile tab</p>
+                    <p className={"text-center font-medium"}>Information can be updated later in the profile tab or skip if not applicable</p>
                 </div>
 
                 {/*Property type input*/}
