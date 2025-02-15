@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import ShadowButton from "../Shadow-Button.tsx";
-import {registerUser} from "../API/Auth.ts";
-import InputComponent from "../InputComponent.tsx";
+import ShadowButton from "../../Shadow-Button.tsx";
+import {registerUser} from "../../API/Auth.ts";
+import InputComponent from "../../InputComponent.tsx";
 import {SubmitHandler, useForm} from "react-hook-form"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEyeSlash, faHouse, } from "@fortawesome/free-solid-svg-icons";
@@ -41,6 +41,7 @@ function Register() {
 
     return (
         <div className={"flex items-center justify-center h-screen bg-primary"}>
+            <h1 className={"absolute top-0 left-0 logo"}>Roommate Link</h1>
             <div className={"w-3/5 xl:w-1/4"}>
                 {/* Sign Up Heading */}
                 <h2 className="header-text text-center mb-8 ">Sign Up</h2>
@@ -116,7 +117,8 @@ function Register() {
                     {errors.password &&
                         <div className={"text-xl font-bold text-red-500 text-center"}>{errors.password.message}</div>}
                     {errors.confirmPassword &&
-                        <div className={"text-xl font-bold text-red-500 text-center"}>{errors.confirmPassword.message}</div>}
+                        <div
+                            className={"text-xl font-bold text-red-500 text-center"}>{errors.confirmPassword.message}</div>}
 
                     {/* Sign Up Button */}
                     <div className={"flex flex-col items-center space-y-2"}>
@@ -128,7 +130,7 @@ function Register() {
                         {/*Google sso button*/}
                         <button type="button"
                                 className="w-fit text-white bg-secondary hover:bg-blue-800/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 ">
-                            <FontAwesomeIcon className="w-4 h-4 me-2" icon={faGoogle} />
+                            <FontAwesomeIcon className="w-4 h-4 me-2" icon={faGoogle}/>
                             Sign in with Google
                         </button>
                     </div>

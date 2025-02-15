@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import ShadowButton from "./Shadow-Button.tsx";
-import {authenticateUser} from "./API/Auth.ts";
+import ShadowButton from "../Shadow-Button.tsx";
+import {authenticateUser} from "../API/Auth.ts";
 import {SubmitHandler, useForm} from "react-hook-form"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faGoogle} from "@fortawesome/free-brands-svg-icons";
@@ -37,6 +37,7 @@ const Login = () => {
 
     return (
         <div className={"flex items-center justify-center h-screen bg-primary"}>
+            <h1 className={"absolute top-0 left-0 logo"}>Roommate Link</h1>
             <div className={"content-center w-3/5 md:w-2/5 xl:w-1/4"}>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -52,6 +53,8 @@ const Login = () => {
                                })}
                                id="email"
                                className="input-style"
+                               value={email}
+                               onChange={(event) => setEmail(event.target.value)}
                                placeholder="example@email.com"
                                autoComplete="on"
                                required/>
@@ -62,9 +65,12 @@ const Login = () => {
                             <input type={showPassword ? "text" : "password"}
                                    {...register<"password">("password", {
                                        required: "Password is required",
-                                       minLength: {value: 8, message: "Password must have at least 8 characters"}})}
+                                       minLength: {value: 8, message: "Password must have at least 8 characters"}
+                                   })}
                                    id="password"
                                    className="input-style"
+                                   value={password}
+                                   onChange={(event) => setPassword(event.target.value)}
                                    autoComplete="on"
                                    required/>
                             {/*<button onClick={() => setShowPassword((prev) => !prev)}*/}
@@ -76,7 +82,8 @@ const Login = () => {
                         {/*email error message*/}
                         {errors.email && <div className={"text-xl font-bold text-red-500"}>{errors.email.message}</div>}
                         {/*Password error message*/}
-                        {errors.password && <div className={"text-xl font-bold text-red-500"}>{errors.password.message}</div>}
+                        {errors.password &&
+                            <div className={"text-xl font-bold text-red-500"}>{errors.password.message}</div>}
 
                         {/*Other options*/}
                         <div className={"flex place-content-between text-sm font-medium"}>
@@ -94,7 +101,7 @@ const Login = () => {
                             {/*Google sso button*/}
                             <button type="button"
                                     className="w-fit text-white bg-secondary hover:bg-blue-800/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 ">
-                                <FontAwesomeIcon className="w-4 h-4 me-2" icon={faGoogle} />
+                                <FontAwesomeIcon className="w-4 h-4 me-2" icon={faGoogle}/>
                                 Sign in with Google
                             </button>
                         </div>

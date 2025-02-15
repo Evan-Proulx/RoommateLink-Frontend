@@ -1,18 +1,20 @@
 import './App.css'
+import Login from "./Components/Auth/Login.tsx";
+import Register from "./Components/Auth/Register/Register.tsx";
 import Survey from "./Components/Survey/Survey.tsx";
-import Login from "./Components/Login.tsx";
-import Register from "./Components/Register/Register.tsx";
+import ProfilePage from "./Components/Profile/ProfilePage.tsx";
+import ResetPassword from "./Components/Auth/ResetPassword.tsx";
+import RecoverPassword from "./Components/Auth/RecoverPassword.tsx";
 
 function App() {
 
     return (
         <>
             <div className={""}>
-                <Survey/>
+                <ResetPassword/>
             </div>
         </>
     )
-
 }
 
 export default App
