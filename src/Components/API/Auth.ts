@@ -13,6 +13,8 @@ export const registerUser = async (email: string, phone: string, password: strin
             }
         );
         console.log(response.data);
+        const token = response.data.token;
+        localStorage.setItem("token", token);
     } catch (err) {
         throw new Error(err.response?.data?.message || "Registration failed");
     }

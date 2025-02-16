@@ -7,8 +7,8 @@ import ResetPassword from "./Components/Auth/ResetPassword.tsx";
 import RecoverPassword from "./Components/Auth/RecoverPassword.tsx";
 
 function App() {
-
     return (
+
         <>
             <div className={""}>
                 <ResetPassword/>
