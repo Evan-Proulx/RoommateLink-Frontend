@@ -4,8 +4,8 @@ const SurveyStepper = ({ setActiveComponent, activeComponent }) => {
     const steps = [
         { name: "intro", label: "Intro" },
         { name: "form1", label: "About You" },
-        { name: "form2", label: "More About You" },
-        { name: "form3", label: "Profile" },
+        { name: "form2", label: "Profile" },
+        { name: "form3", label: "About your property" },
         { name: "form4", label: "About Your Roommate" },
     ];
 
@@ -14,11 +14,11 @@ const SurveyStepper = ({ setActiveComponent, activeComponent }) => {
             <ol className="flex items-center justify-center w-full p-3 space-x-2 text-sm font-medium text-center text-gray-500 rounded-lg sm:text-base sm:p-4 sm:space-x-4 rtl:space-x-reverse">
 
                 {/*Loop through steps. Set active step to blue style*/}
-                {/*OnClick sends component to the survey component*/}
+                {/*OnClick sends component index to the survey component*/}
                 {steps.map((step,index) => (
                     <li
                         key={step.name}
-                        onClick={() => setActiveComponent(step.name)}
+                        onClick={() => setActiveComponent(index)}
                         className={`flex items-center cursor-pointer ${
                             activeComponent === step.name ? "text-blue-600 font-bold" : "text-gray-500"
                         }`}

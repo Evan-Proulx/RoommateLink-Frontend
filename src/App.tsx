@@ -1,24 +1,20 @@
-import {useState} from 'react'
 import './App.css'
-import Register from "./Components/Register/Register.tsx"
-import Login from "./components/Login.tsx"
-import Navbar from "./Components/Navbar.tsx";
-import ButtonNav from "./Components/Survey/Button-Nav.tsx";
-import TimePicker from "./Components/Survey/TimePicker.tsx";
-import AddHobby from "./Components/Survey/AddHobby.tsx";
-import SurveyStepper from "./Components/Survey/SurveyStepper.tsx";
+import Login from "./Components/Auth/Login.tsx";
+import Register from "./Components/Auth/Register/Register.tsx";
 import Survey from "./Components/Survey/Survey.tsx";
+import ProfilePage from "./Components/Profile/ProfilePage.tsx";
+import ResetPassword from "./Components/Auth/ResetPassword.tsx";
+import RecoverPassword from "./Components/Auth/RecoverPassword.tsx";
 
 function App() {
 
     return (
         <>
-            <div className={"flex flex-col"}>
-                <Survey/>
+            <div className={""}>
+                <ResetPassword/>
             </div>
         </>
     )
-
 }
 
 export default App
