@@ -7,6 +7,7 @@ type FormFields = {
     email: string;
 }
 const RecoverPassword = () => {
+
     const {register, handleSubmit, formState: {errors, isSubmitting}, setError} = useForm<FormFields>();
     const [email, setEmail] = useState("")
     const [emailSent, setEmailSent] = useState(false)

@@ -4,7 +4,7 @@ import {authenticateUser, resetPassword} from "../API/Auth.ts";
 import {SubmitHandler, useForm} from "react-hook-form"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faGoogle} from "@fortawesome/free-brands-svg-icons";
-
+import {useNavigate, useParams, useSearchParams} from "react-router-dom"
 type FormFields = {
     password: string;
     confirmPassword: string;
@@ -13,10 +13,17 @@ const Login = () => {
     const { register, handleSubmit, formState: {errors, isSubmitting}, setError } = useForm<FormFields>();
 
     //email and token should be passed to this component
-    const [token, setToken] = useState("");
-    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+
+    //Get token and email from url
+    const [searchParams] = useSearchParams();
+    const email = searchParams.get("email")
+    const token = searchParams.get("token")
+
+    //Navigate to survey page after successful password reset
+    const navigate = useNavigate()
+
 
 
     // Handle form submission and validation
@@ -26,9 +33,9 @@ const Login = () => {
             event.preventDefault();
             await resetPassword(token, email, password, confirmPassword)
             //clear the form inputs after successful registration
-            setEmail("")
             setPassword("")
-            console.log("submit")
+            setConfirmPassword("")
+            navigate("/login")
         }catch (error){
             // Display error when api fails
             setError("password", {
