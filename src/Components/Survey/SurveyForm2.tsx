@@ -1,0 +1,50 @@
+import TimePicker from "./TimePicker.tsx";
+import ButtonNav from "./Button-Nav.tsx";
+
+const SurveyForm2 = () => {
+    return (
+        <div className={"pt-12"}>
+            <form className={"pt-12 space-y-8"}>
+                <h2 className={"header-text-big text-center"}>About You</h2>
+
+                <div className={"flex space-x-12"}>
+                    <div className={"flex flex-col"}>
+                        {/*Education dropdown*/}
+                        <label htmlFor="education" className="block mb-2 header2-text text-center">Education
+                            Status*</label>
+                        <select id="education"
+                                className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4"
+                                required>
+
+                            <option>Enrolled College/University</option>
+                            <option>Not In School</option>
+                        </select>
+                    </div>
+
+                    {/*School dropdown*/}
+                    <div className={"flex flex-col"}>
+                        <label htmlFor="cities" className="block mb-2 header2-text text-center">Select
+                            School</label>
+                        <select id="cities"
+                                className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4">
+                            <option>St.Clair College</option>
+                            <option>University Of Windsor</option>
+                        </select>
+                    </div>
+                </div>
+
+                {/*Profession input*/}
+                <label htmlFor="Profession" className="block mb-2 header2-text text-center">Profession</label>
+                <input type="input" id="profession"
+                       className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4"/>
+
+                <h2 className={"block mb-2 header2-text text-center"}>Select Working Times</h2>
+                {/*Time Picker*/}
+                <TimePicker/>
+            </form>
+            <ButtonNav/>
+        </div>
+    );
+};
+
+export default SurveyForm2;

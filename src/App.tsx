@@ -1,15 +1,20 @@
-import { useState } from 'react'
 import './App.css'
+import Login from "./Components/Auth/Login.tsx";
+import Register from "./Components/Auth/Register/Register.tsx";
+import Survey from "./Components/Survey/Survey.tsx";
+import ProfilePage from "./Components/Profile/ProfilePage.tsx";
+import ResetPassword from "./Components/Auth/ResetPassword.tsx";
+import RecoverPassword from "./Components/Auth/RecoverPassword.tsx";
 
 function App() {
+    return (
 
-  return (
-    <>
-      <div className={"h-screen bg-[var(--color-primary)]"}>
-        <h1 className={"p-4 logo text-4xl"}>Roommate Link</h1>
-      </div>
-    </>
-  )
+        <>
+            <div className={""}>
+                <ResetPassword/>
+            </div>
+        </>
+    )
 }
 
 export default App
