@@ -40,12 +40,41 @@ const SurveyForm1 = () => {
                 {/*City dropdown*/}
                 <label htmlFor="cities" className="block mb-2 header2-text text-center">Please
                     enter your city</label>
-                <select id="cities"
-                        className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4">
-                    {/*Temporary*/}
-                    <option>Windsor</option>
-                    <option>Toronto</option>
-                </select>
+
+                <div className="flex items-center space-x-2">
+                    <select
+                        id="cities"
+                        className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg p-4 w-[400px]"
+                    >
+                        {/* Temporary */}
+                        <option>Windsor</option>
+                        <option>Toronto</option>
+                    </select>
+
+                    <button
+
+                    >
+                        <svg
+                            className="w-10 h-10 text-gray-800 dark:text-red-500 transition-all duration-200 hover:w-12 hover:h-12 hover:text-blue-500"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                            />
+                        </svg>
+                    </button>
+
+
+                </div>
 
                 {/*Housing status*/}
                 <fieldset className={""}>
