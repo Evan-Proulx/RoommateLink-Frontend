@@ -10,6 +10,7 @@ import ResetPassword from "./Components/Auth/ResetPassword.tsx";
 import Survey from "./Components/Survey/Survey.tsx";
 import ProfilePage from "./Components/Profile/ProfilePage.tsx";
 import ErrorPage from "./ErrorPage.tsx";
+import Callback from "./Components/API/Callback.tsx";
 
 // Routes
 const router = createBrowserRouter([
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
     {
         path: '/profile',
         element: <ProfilePage />,
+    },
+    {
+        path: '/callback',
+        element: <Callback />,
     },
 
     // Add more routes here
