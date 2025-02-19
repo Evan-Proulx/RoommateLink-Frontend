@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ShadowButton from "../Shadow-Button.tsx";
 import ButtonNav from "./Button-Nav.tsx";
 import TimePicker from "./TimePicker.tsx";
+import MapPopup from "./Survey-Map-Popup.tsx";
 
 const SurveyForm1 = () => {
     const languages = [
@@ -32,6 +33,9 @@ const SurveyForm1 = () => {
 
     const diets = ["No preference", "Vegetarian", "Vegan", "Halal", "Kosher", "Pescatarian"];
 
+    const [isMapOpen, setIsMapOpen] = useState(false);
+
+
     return (
         <div className={"pt-24"}>
             <form className={"space-y-18"}>
@@ -42,25 +46,17 @@ const SurveyForm1 = () => {
                     enter your city</label>
 
                 <div className="flex items-center space-x-2">
-                    <select
-                        id="cities"
-                        className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg p-4 w-[400px]"
-                    >
-                        {/* Temporary */}
+                    <select id="cities" className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg p-4 w-[400px]">
                         <option>Windsor</option>
                         <option>Toronto</option>
                     </select>
 
-                    <button
-
-                    >
+                    <button type="button" onClick={() => setIsMapOpen(true)}>
                         <svg
                             className="w-10 h-10 text-gray-800 dark:text-red-500 transition-all duration-200 hover:w-12 hover:h-12 hover:text-blue-500"
-                            aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
                             height="24"
-                            fill="none"
                             viewBox="0 0 24 24"
                         >
                             <path
@@ -73,8 +69,13 @@ const SurveyForm1 = () => {
                         </svg>
                     </button>
 
-
+                    {/* Map Popup */}
+                    <MapPopup
+                        isOpen={isMapOpen}
+                        onClose={() => setIsMapOpen(false)}
+                    />
                 </div>
+
 
                 {/*Housing status*/}
                 <fieldset className={""}>
