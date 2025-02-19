@@ -13,13 +13,11 @@ interface MapPopupProps {
     onClose: () => void;
     latitude?: number;
     longitude?: number;
-    onLocationChange?: (lat: number, lng: number) => void; // Callback for updating location
+    onLocationChange?: (lat: number, lng: number) => void;
 }
 
 const MapPopup: React.FC<MapPopupProps> = ({ isOpen, onClose, latitude, longitude, onLocationChange }) => {
     const initialCenter = latitude && longitude ? { lat: latitude, lng: longitude } : defaultCenter;
-
-
     const [circleCenter, setCircleCenter] = useState(initialCenter);
 
     useEffect(() => {
@@ -30,13 +28,22 @@ const MapPopup: React.FC<MapPopupProps> = ({ isOpen, onClose, latitude, longitud
         }
     }, [isOpen]);
 
-
     useEffect(() => {
         if (latitude && longitude) {
             setCircleCenter({ lat: latitude, lng: longitude });
         }
     }, [latitude, longitude]);
 
+
+    const handleMapClick = (event: google.maps.MapMouseEvent) => {
+        if (event.latLng) {
+            const newCenter = { lat: event.latLng.lat(), lng: event.latLng.lng() };
+            setCircleCenter(newCenter);
+            if (onLocationChange) {
+                onLocationChange(newCenter.lat, newCenter.lng);
+            }
+        }
+    };
 
     const handleCircleDrag = (event: google.maps.MapMouseEvent) => {
         if (event.latLng) {
@@ -69,12 +76,15 @@ const MapPopup: React.FC<MapPopupProps> = ({ isOpen, onClose, latitude, longitud
 
                 <h2 className="text-center mb-4 text-2xl">Please select your area</h2>
                 <LoadScriptNext googleMapsApiKey="Key">
-                    <GoogleMap mapContainerStyle={containerStyle}
-                               center={circleCenter}
-                               zoom={10}
-                               options={{
-                                   gestureHandling: "greedy",
-                               }}>
+                    <GoogleMap
+                        mapContainerStyle={containerStyle}
+                        center={circleCenter}
+                        zoom={10}
+                        options={{
+                            gestureHandling: "greedy",
+                        }}
+                        onClick={handleMapClick}
+                    >
                         <Marker position={circleCenter} />
                         <CircleF
                             center={circleCenter}
@@ -82,9 +92,9 @@ const MapPopup: React.FC<MapPopupProps> = ({ isOpen, onClose, latitude, longitud
                             draggable={true}
                             onDragEnd={handleCircleDrag}
                             options={{
-                                fillColor: "#FF0000",
+                                fillColor: "#42008a",
                                 fillOpacity: 0.2,
-                                strokeColor: "#FF0000",
+                                strokeColor: "#003aff",
                                 strokeOpacity: 0.5,
                                 strokeWeight: 2,
                             }}
