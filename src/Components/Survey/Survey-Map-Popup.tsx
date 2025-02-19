@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {CircleF, GoogleMap, LoadScript, Marker} from "@react-google-maps/api";
+import {CircleF, GoogleMap, LoadScript, LoadScriptNext, Marker} from "@react-google-maps/api";
 
 const containerStyle = {
     width: "100%",
@@ -51,7 +51,7 @@ const MapPopup: React.FC<MapPopupProps> = ({ isOpen, onClose, latitude, longitud
                 </button>
 
                 <h2 className="text-center mb-4 text-2xl">Please select your area</h2>
-                <LoadScript googleMapsApiKey="Key">
+                <LoadScriptNext googleMapsApiKey="Key">
                     <GoogleMap mapContainerStyle={containerStyle}
                                center={center}
                                zoom={11}
@@ -72,7 +72,7 @@ const MapPopup: React.FC<MapPopupProps> = ({ isOpen, onClose, latitude, longitud
                             }}
                         />
                     </GoogleMap>
-                </LoadScript>
+                </LoadScriptNext>
             </div>
         </div>
     );
