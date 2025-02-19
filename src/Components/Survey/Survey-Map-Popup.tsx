@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {CircleF, GoogleMap, LoadScript, Marker} from "@react-google-maps/api";
 
 const containerStyle = {
-    width: "500px",
+    width: "100%",
     height: "500px",
 };
 
@@ -33,9 +33,9 @@ const MapPopup: React.FC<MapPopupProps> = ({ isOpen, onClose, latitude, longitud
         <div className="popup-overlay fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
             <div className="popup-content bg-white p-6 rounded-lg shadow-lg w-[80vw] max-w-lg relative z-60">
 
-                <button className="close-btn absolute top-2 right-2 text-xl font-bold" onClick={onClose}>
+                <button className="absolute top-2 right-2 text-xl m-4 font-bold" onClick={onClose}>
 
-                    <svg className="w-8 h-8 text-gray-800 dark:text-red-500"
+                    <svg className="w-8 h-8 text-gray-800 dark:text-red-500 hover:w-10 hover:h-10 hover:text-red-900"
                          aria-hidden="true"
                          xmlns="http://www.w3.org/2000/svg"
                          width="24" height="24" fill="none"
@@ -50,7 +50,7 @@ const MapPopup: React.FC<MapPopupProps> = ({ isOpen, onClose, latitude, longitud
 
                 </button>
 
-                <h2 className="text-center mb-4">Please select your area</h2>
+                <h2 className="text-center mb-4 text-2xl">Please select your area</h2>
                 <LoadScript googleMapsApiKey="Key">
                     <GoogleMap mapContainerStyle={containerStyle}
                                center={center}
