@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {CircleF, GoogleMap, LoadScript, Marker} from "@react-google-maps/api";
 
 const containerStyle = {
@@ -17,6 +17,15 @@ interface MapPopupProps {
 
 const MapPopup: React.FC<MapPopupProps> = ({ isOpen, onClose, latitude, longitude }) => {
     const center = latitude && longitude ? { lat: latitude, lng: longitude } : defaultCenter;
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+    }, [isOpen]);
+
 
     if (!isOpen) return null;
 
@@ -42,8 +51,14 @@ const MapPopup: React.FC<MapPopupProps> = ({ isOpen, onClose, latitude, longitud
                 </button>
 
                 <h2 className="text-center mb-4">Please select your area</h2>
-                <LoadScript googleMapsApiKey="KEY">
-                    <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={11}>
+                <LoadScript googleMapsApiKey="Key">
+                    <GoogleMap mapContainerStyle={containerStyle}
+                               center={center}
+                               zoom={11}
+                               options={{
+                                   gestureHandling: "greedy",
+                               }}
+                                >
                         <Marker position={center} />
                         <CircleF
                             center={center}
