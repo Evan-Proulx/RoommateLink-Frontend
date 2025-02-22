@@ -8,15 +8,17 @@ const Callback = () => {
         // Fetch the access token from the url Cannot use useSearchParams inside useeffect
         const params = new URLSearchParams(window.location.search);
         const token = params.get('token');
+        const isExistingUser = params.get('isExistingUser');
 
         //save token to storage and navigate to the home page
-        if (token) {
             localStorage.setItem('token', token);
-            navigate("/survey")
-        }else{
-            navigate("/login")
-        }
+            localStorage.setItem('isExistingUser', isExistingUser);
 
+            if (isExistingUser === "true"){
+                navigate("/profile")
+            }else {
+                navigate("/survey")
+            }
     }, [navigate])
 
     return (
