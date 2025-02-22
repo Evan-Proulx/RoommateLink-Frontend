@@ -1,4 +1,4 @@
-function PlaceSection() {
+function PropertySection() {
 
     return (
         <div className="p-4">
@@ -44,4 +44,4 @@ function PlaceSection() {
 
 }
 
-export default PlaceSection
+export default PropertySection

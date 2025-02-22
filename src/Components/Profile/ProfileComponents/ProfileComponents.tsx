@@ -2,7 +2,7 @@ import AboutSection from "./AboutSection.tsx";
 import InfoSection from "./InfoSection.tsx";
 import VerificationBadge from "./VerifictionBadge.tsx";
 import IdealRoommatePlace from "./IdealRoommate-Place.tsx";
-import PlaceSection from "./PlaceSection.tsx";
+import PropertySection from "./PropertySection.tsx";
 import MapSection from "./MapSection.tsx";
 import InterestedPeople from "./InterestedPeople.tsx";
 
@@ -21,7 +21,7 @@ function ProfileComponents() {
 
             <IdealRoommatePlace isLookingForRoommate={true} />
             <IdealRoommatePlace isLookingForRoommate={false} />
-            <PlaceSection/>
+            <PropertySection/>
             <MapSection/>
             <InterestedPeople/>
 
