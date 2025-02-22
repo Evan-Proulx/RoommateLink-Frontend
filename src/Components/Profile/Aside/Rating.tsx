@@ -2,7 +2,7 @@ function Rating() {
 
     return (
         <div className=" pb-5">
-            <h1 className="text-black font-bold text-center m-5 text-4xl">Rating</h1>
+            <h1 className="text-black font-bold text-left m-2 text-1xl">User Rating</h1>
 
             <div className="flex flex-col bg-white space-y-4 flex-1 mt-2 h-90 p-2 border border-black rounded-lg">
 

@@ -9,11 +9,9 @@ import ProfilePage from "./Components/Profile/ProfilePage.tsx";
 function App() {
 
   return (
-    <>
-      <div className={"h-screen flex  items-center justify-center bg-[var(--color-primary)]"}>
-                <ProfilePage/>
-      </div>
-    </>
+
+        <ProfilePage/>
+
   )
 
 }
