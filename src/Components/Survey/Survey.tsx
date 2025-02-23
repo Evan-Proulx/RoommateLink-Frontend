@@ -7,6 +7,7 @@ import ShadowButton from "../Shadow-Button.tsx";
 import { Link, Element, scroller } from "react-scroll";
 import PropertyForm from "./PropertyForm.tsx";
 import SurveyAbout from "./SurveyAbout.tsx";
+import SubmitSurvey from "./SubmitSurvey.tsx";
 
 
 const Survey = () => {
@@ -58,7 +59,7 @@ const Survey = () => {
     //Index of current survey component being viewed
     const [currentIndex, setCurrentIndex] = useState(0)
     //All component keys. Allows for navigation between components
-    const surveySections = ["intro", "form1", "form2", "form3", "form4"];
+    const surveySections = ["intro", "form1", "form2", "form3", "form4", "submit"];
 
 
     //Navigate to next component in list
@@ -112,6 +113,9 @@ const Survey = () => {
                         </Element>
                         <Element name="form4" id="form4" className={"py-20"}>
                             <SurveyFormRoommate dealBreakerData={dealBreakerData} setDealBreakerData={setDealBreakerData}/>
+                        </Element>
+                        <Element name="submit" id="submit" className={"py-20"}>
+                            <SubmitSurvey personalData={personalData} profileData={profileData} propertyData={propertyData} dealBreakerData={dealBreakerData} />
                         </Element>
                     </div>
                 </div>

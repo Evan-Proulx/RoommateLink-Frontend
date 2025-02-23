@@ -27,7 +27,7 @@ const SurveyAbout = ({ userData, setUserData }) => {
     };
     return (
         <div>
-            <form className={"space-y-14"}>
+            <form className={"pt-12 space-y-14"}>
                 <h2 className={"header-text-big text-center"}>About You</h2>
 
                     {/*City dropdown*/}

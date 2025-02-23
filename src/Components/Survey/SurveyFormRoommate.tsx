@@ -30,7 +30,7 @@ const SurveyFormRoommate = ({dealBreakerData, setDealBreakerData}) => {
 
     return (
         <div>
-            <form action="" className={"flex flex-col items-center space-y-2"}>
+            <form action="" className={"flex flex-col items-center pt-12 space-y-2"}>
 
                 {/*Header*/}
                 <div>

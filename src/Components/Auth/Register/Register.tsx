@@ -4,8 +4,9 @@ import {registerUser} from "../../API/Auth.ts";
 import InputComponent from "../../InputComponent.tsx";
 import {SubmitHandler, useForm} from "react-hook-form"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEyeSlash, faHouse, } from "@fortawesome/free-solid-svg-icons";
+import {faPiggyBank} from "@fortawesome/free-solid-svg-icons";
 import {faGoogle} from "@fortawesome/free-brands-svg-icons";
+
 import {Link} from "react-router-dom"; // Import the Google icon
 
 type FormFields = {

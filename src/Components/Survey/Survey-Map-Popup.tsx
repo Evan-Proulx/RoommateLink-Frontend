@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { CircleF, GoogleMap, LoadScriptNext, Marker } from "@react-google-maps/api";
+import React, {useState, useEffect} from "react";
+import {CircleF, GoogleMap, LoadScriptNext, Marker} from "@react-google-maps/api";
 
-    //Styling the map container
+//Styling the map container
 const containerStyle = {
     width: "100%",
     height: "500px",
 };
 
-    //Set Windsor as the default center of the map if no coordinates are passed
-const defaultCenter = { lat: 42.251236522852885, lng: -83.01928920731788 }; // Default: Windsor
+//Set Windsor as the default center of the map if no coordinates are passed
+const defaultCenter = {lat: 42.251236522852885, lng: -83.01928920731788}; // Default: Windsor
 
 
 interface MapPopupProps {
@@ -19,11 +19,11 @@ interface MapPopupProps {
     onLocationChange?: (lat: number, lng: number) => void; // Callback when location is changed
 }
 
-    // Map popup component
-const MapPopup: React.FC<MapPopupProps> = ({ isOpen, onClose, latitude, longitude, onLocationChange }) => {
+// Map popup component
+const MapPopup: React.FC<MapPopupProps> = ({isOpen, onClose, latitude, longitude, onLocationChange}) => {
 
     //Set initial map center either to Windsor or passed as props
-    const initialCenter = latitude && longitude ? { lat: latitude, lng: longitude } : defaultCenter;
+    const initialCenter = latitude && longitude ? {lat: latitude, lng: longitude} : defaultCenter;
     const [circleCenter, setCircleCenter] = useState(initialCenter); // State to track circle's center position
 
 
@@ -40,7 +40,7 @@ const MapPopup: React.FC<MapPopupProps> = ({ isOpen, onClose, latitude, longitud
     // to update the center position when latitude/longitude props change
     useEffect(() => {
         if (latitude && longitude) {
-            setCircleCenter({ lat: latitude, lng: longitude });
+            setCircleCenter({lat: latitude, lng: longitude});
         }
     }, [latitude, longitude]);
 
@@ -48,7 +48,7 @@ const MapPopup: React.FC<MapPopupProps> = ({ isOpen, onClose, latitude, longitud
     // to update the center of the circle when the user clicks on the map
     const handleMapClick = (event: google.maps.MapMouseEvent) => {
         if (event.latLng) {
-            const newCenter = { lat: event.latLng.lat(), lng: event.latLng.lng() };
+            const newCenter = {lat: event.latLng.lat(), lng: event.latLng.lng()};
             setCircleCenter(newCenter);
             if (onLocationChange) {
                 onLocationChange(newCenter.lat, newCenter.lng);
@@ -59,7 +59,7 @@ const MapPopup: React.FC<MapPopupProps> = ({ isOpen, onClose, latitude, longitud
     // to drag the circle and update its center
     const handleCircleDrag = (event: google.maps.MapMouseEvent) => {
         if (event.latLng) {
-            const newCenter = { lat: event.latLng.lat(), lng: event.latLng.lng() };
+            const newCenter = {lat: event.latLng.lat(), lng: event.latLng.lng()};
             setCircleCenter(newCenter);
             if (onLocationChange) {
                 onLocationChange(newCenter.lat, newCenter.lng);
@@ -72,7 +72,8 @@ const MapPopup: React.FC<MapPopupProps> = ({ isOpen, onClose, latitude, longitud
 
 
     return (
-        <div className="popup-overlay fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
+        <div
+            className="popup-overlay fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
             <div className="popup-content bg-white p-6 rounded-lg shadow-lg w-[80vw] max-w-lg relative z-60">
 
                 {/*Close button which is an icon X */}
@@ -94,7 +95,7 @@ const MapPopup: React.FC<MapPopupProps> = ({ isOpen, onClose, latitude, longitud
                 <h2 className="text-center mb-4 text-2xl">Please select your area</h2>
 
                 {/*Google maps component*/}
-                <LoadScriptNext googleMapsApiKey="key">
+                <LoadScriptNext googleMapsApiKey="">
                     <GoogleMap
                         mapContainerStyle={containerStyle}
                         center={circleCenter}
