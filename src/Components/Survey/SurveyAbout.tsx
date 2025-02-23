@@ -1,13 +1,12 @@
+import React, {useState} from 'react';
 import TimePicker from "./TimePicker.tsx";
 import {languages} from "../../Languages.ts";
-import React, {useEffect, useState} from "react";
 import AddHobby from "./AddHobby.tsx";
+import MapPopup from "./Survey-Map-Popup.tsx";
 
-//userdata is passed down from the parent survey component
-const SurveyFormImproved = ({ userData, setUserData }) => {
-
+const SurveyAbout = ({ userData, setUserData }) => {
     const diets = ["No preference", "Vegetarian", "Vegan", "Halal", "Kosher", "Pescatarian"];
-
+    const [isMapOpen, setIsMapOpen] = useState(false);
     //Gets times from the component and sets them
     const handleTimeChange = (from: string, to: string) => {
         updateUserData("workingTimeFrom", from);
@@ -26,24 +25,45 @@ const SurveyFormImproved = ({ userData, setUserData }) => {
             [field]: value
         }));
     };
-
     return (
         <div>
             <form className={"space-y-14"}>
                 <h2 className={"header-text-big text-center"}>About You</h2>
 
-                <div>
                     {/*City dropdown*/}
                     <label htmlFor="cities" className="block mb-2 header2-text text-center">Please
                         enter your city</label>
-                    <select id="cities"
-                            className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4"
-                            onChange={(event) => updateUserData("city", event.target.value)}>
-                        {/*Temporary*/}
-                        <option>Windsor</option>
-                        <option>Toronto</option>
-                    </select>
-                </div>
+
+                    <div className="flex items-center space-x-2">
+                        <select id="cities" className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg p-4 w-[400px]">
+                            <option>Windsor</option>
+                            <option>Toronto</option>
+                        </select>
+
+                        <button type="button" onClick={() => setIsMapOpen(true)}>
+                            <svg
+                                className="w-10 h-10 text-gray-800 dark:text-red-500 transition-all duration-200 hover:w-12 hover:h-12 hover:text-blue-500"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke="currentColor"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                                />
+                            </svg>
+                        </button>
+
+                        {/* Map Popup */}
+                        <MapPopup
+                            isOpen={isMapOpen}
+                            onClose={() => setIsMapOpen(false)}
+                        />
+                    </div>
 
                 {/*Housing status*/}
                 <fieldset className={""}>
@@ -84,10 +104,13 @@ const SurveyFormImproved = ({ userData, setUserData }) => {
                     <input id="budget" type="range" min="100" max="10000" step="300" value={userData.budget}
                            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                            onChange={(e) => {
-                               updateUserData("budget",+e.target.value)}}/>
+                               updateUserData("budget", +e.target.value)
+                           }}/>
                     <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">$100</span>
-                    <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-1/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">$500</span>
-                    <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-2/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">$1000</span>
+                    <span
+                        className="text-sm text-gray-500 dark:text-gray-400 absolute start-1/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">$500</span>
+                    <span
+                        className="text-sm text-gray-500 dark:text-gray-400 absolute start-2/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">$1000</span>
                     <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">$10000</span>
                 </div>
 
@@ -299,4 +322,4 @@ const SurveyFormImproved = ({ userData, setUserData }) => {
     );
 };
 
-export default SurveyFormImproved
+export default SurveyAbout;

@@ -6,10 +6,11 @@ import SurveyFormRoommate from "./SurveyFormRoommate.tsx";
 import ShadowButton from "../Shadow-Button.tsx";
 import { Link, Element, scroller } from "react-scroll";
 import PropertyForm from "./PropertyForm.tsx";
-import SurveyFormImproved from "./SurveyFormImproved.tsx";
+import SurveyAbout from "./SurveyAbout.tsx";
 
 
 const Survey = () => {
+    //User Data
     const [personalData, setPersonalData] = useState({
         city: "",
         hasHousing: false,
@@ -54,6 +55,7 @@ const Survey = () => {
         introductoryVideo: ""
     })
 
+    //Index of current survey component being viewed
     const [currentIndex, setCurrentIndex] = useState(0)
     //All component keys. Allows for navigation between components
     const surveySections = ["intro", "form1", "form2", "form3", "form4"];
@@ -85,7 +87,7 @@ const Survey = () => {
 
     // Log when data is updated
     useEffect(() => {
-        console.log("Updated userData:", profileData);
+        console.log("Updated userData:", personalData);
     }, [personalData, propertyData, dealBreakerData, profileData]);
 
     return (
@@ -100,7 +102,7 @@ const Survey = () => {
                             <SurveyIntro/>
                         </Element>
                         <Element name="form1" id="form1" className={"py-20"}>
-                            <SurveyFormImproved userData={personalData} setUserData={setPersonalData}/>
+                            <SurveyAbout userData={personalData} setUserData={setPersonalData}/>
                         </Element>
                         <Element name="form2" id="form2" className={"py-20"}>
                             <SurveyFormProfile profileData={profileData} setProfileData={setProfileData}/>
