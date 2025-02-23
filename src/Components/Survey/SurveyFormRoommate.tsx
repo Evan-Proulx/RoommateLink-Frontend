@@ -1,43 +1,31 @@
 import React, {useState} from 'react';
 
-const SurveyFormRoommate = () => {
-    // all states as an object
-    const [checkboxes, setCheckboxes] = useState({
-        hasPets: false,
-        smokes: false,
-        differentDiet: false,
-        differentGender: false,
-        notSameCollege: false,
-        noPlace: false,
-        notSameSociability: false,
-        notSameCleanliness: false,
-        notSameReligion: false
-    });
-
-
+//deal-breaker data is passed down from the parent survey component
+const SurveyFormRoommate = ({dealBreakerData, setDealBreakerData}) => {
 
     //Update checkboxes
     const handleCheckboxChange = (event) => {
         const { name, checked } = event.target;
-        // update the state with the new value of the checkbox with the old values
-        setCheckboxes((prev) => ({
+        // update the state with the new value of the checkbox along with the old values
+        setDealBreakerData((prev) => ({
             ...prev,
             [name]: checked
         }));
 
-        console.log(checkboxes)
     };
 
+    //List of checkbox information. Prevents us from repeating code.
+    // Names must match variable names in the state object
     const checkboxLabels = [
-        { name: "pets", label: "Has Pets" },
+        { name: "hasPets", label: "Has Pets" },
         { name: "smokes", label: "Smokes" },
-        { name: "diet", label: "Different diet" },
-        { name: "gender", label: "Different gender" },
-        { name: "college", label: "Doesn't go to your college/university" },
-        { name: "place", label: "Doesn't have a place" },
-        { name: "sociability", label: "Doesn't match your sociability" },
-        { name: "cleanliness", label: "Doesn't match your cleanliness" },
-        { name: "religion", label: "Doesn't match your religion" }
+        { name: "differentDiet", label: "Different diet" },
+        { name: "differentGender", label: "Different gender" },
+        { name: "differentCollege", label: "Doesn't go to your college/university" },
+        { name: "noPlace", label: "Doesn't have a place" },
+        { name: "differentSociability", label: "Doesn't match your sociability" },
+        { name: "differentCleanliness", label: "Doesn't match your cleanliness" },
+        { name: "differentReligion", label: "Doesn't match your religion" }
     ];
 
     return (
@@ -51,14 +39,15 @@ const SurveyFormRoommate = () => {
                         be a deal-breaker. We won't match you with users that have these attributes</h2>
                 </div>
 
-                <div className={"items-start pt-12"}>
+                <div className={"items-start py-12"}>
                     {checkboxLabels.map((option) => (
                         <div key={option.name} className="flex items-center mb-4">
+                            {/*loop through the array of checkbox information and display it*/}
                             <input
                                 id={option.name}
                                 name={option.name}
                                 type="checkbox"
-                                checked={checkboxes[option.name]}
+                                checked={dealBreakerData[option.name]}
                                 onChange={handleCheckboxChange}
                                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                             />

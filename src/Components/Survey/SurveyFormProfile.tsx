@@ -1,24 +1,29 @@
 import React, {useState} from "react";
 
-const SurveyFormProfile = () => {
-    const [bio, setBio] = useState("")
-    const [profileImage, setProfileImage] = useState("");
-    const [introductoryVideo, setIntroductoryVideo] = useState("");
+//profile data is passed down from the survey parent component
+const SurveyFormProfile = ({profileData, setProfileData}) => {
 
     // Handles file selection
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
         if (file) {
             const imageUrl = URL.createObjectURL(file);
-            setProfileImage(imageUrl);
+            updateProfileData("profilePicture",imageUrl);
         }
     };
     const handleVideoUpload = (event) => {
         const file = event.target.files[0];
         if (file) {
             const videoUrl = URL.createObjectURL(file);
-            setIntroductoryVideo(videoUrl);
+            updateProfileData("introductoryVideo", videoUrl);
         }
+    };
+
+    const updateProfileData = (field, value) => {
+        setProfileData(prevState => ({
+            ...prevState,
+            [field]: value
+        }));
     };
     return (
         <form method="post" className={"pt-12 space-y-8 w-full"}>
@@ -29,7 +34,7 @@ const SurveyFormProfile = () => {
                 <textarea id="message"
                           className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block lg:w-2/3 p-4"
                           placeholder="Write something..."
-                          onChange={e => setBio(e.target.value)}/>
+                          onChange={e => updateProfileData("bio",e.target.value)}/>
             </div>
 
             {/*Upload profile picture*/}
@@ -65,17 +70,17 @@ const SurveyFormProfile = () => {
                 {/* Display Image*/
                 }
                 {
-                    profileImage && (
+                    profileData.profilePicture && (
                         <img
-                            src={profileImage}
+                            src={profileData.profilePicture}
                             alt="Profile Preview"
                             className="mt-4 w-4 h-4 object-cover rounded-full border-1 border-black"
                         />
                     )
                 }
                 {
-                    introductoryVideo && (
-                        <video src={introductoryVideo} controls/>
+                    profileData.introductoryVideo && (
+                        <video src={profileData.introductoryVideo} controls/>
                     )
                 }
         </form>
