@@ -2,7 +2,6 @@ import React from 'react';
 import ShadowButton from "../Shadow-Button.tsx";
 
 const SubmitSurvey = ({personalData, profileData, propertyData, dealBreakerData}) => {
-
     const handleSubmit = async ( event: React.FormEvent) => {
         event.preventDefault();
 

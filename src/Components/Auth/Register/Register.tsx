@@ -7,7 +7,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPiggyBank} from "@fortawesome/free-solid-svg-icons";
 import {faGoogle} from "@fortawesome/free-brands-svg-icons";
 
-import {Link} from "react-router-dom"; // Import the Google icon
+import {Link} from "react-router-dom";
+import SSOButton from "../SSOButton.tsx"; // Import the Google icon
 
 type FormFields = {
     email: string;
@@ -134,11 +135,7 @@ function Register() {
                         <p className={"text-gray-600"}>or</p>
 
                         {/*Google sso button*/}
-                        <button type="button"
-                                className="w-fit text-white bg-secondary hover:bg-blue-800/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 ">
-                            <FontAwesomeIcon className="w-4 h-4 me-2" icon={faGoogle}/>
-                            Sign in with Google
-                        </button>
+                        <SSOButton/>
                     </div>
                 </form>
             </div>
