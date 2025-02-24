@@ -1,21 +1,66 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import SurveyIntro from "./Survey-Intro.tsx";
-import SurveyForm1 from "./Survey-Form1.tsx";
-import SurveyForm3 from "./SurveyForm3.tsx";
 import SurveyStepper from "./SurveyStepper.tsx";
 import SurveyFormProfile from "./SurveyFormProfile.tsx";
 import SurveyFormRoommate from "./SurveyFormRoommate.tsx";
 import ShadowButton from "../Shadow-Button.tsx";
 import { Link, Element, scroller } from "react-scroll";
 import PropertyForm from "./PropertyForm.tsx";
+import SurveyAbout from "./SurveyAbout.tsx";
+import SubmitSurvey from "./SubmitSurvey.tsx";
 
 
 const Survey = () => {
+    //User Data
+    const [personalData, setPersonalData] = useState({
+        city: "",
+        hasHousing: false,
+        budget: 1200,
+        school: "",
+        profession: "",
+        workingTimeFrom: "",
+        workingTimeTo: "",
+        gender: "",
+        language: "",
+        religion: "",
+        diet: "",
+        hasPets: false,
+        smokes: 1,
+        sociability: 5,
+        cleanliness: 5,
+        hobbies: []
+    });
+    const [propertyData, setPropertyData] = useState({
+        propertyType: "",
+        bedroomCount: 2,
+        bathroomCount: 1,
+        squareFeet: 1000,
+        sharedKitchen: true,
+        description: "",
+        images: [] as File[]
+    });
+    const [dealBreakerData, setDealBreakerData] = useState({
+        hasPets: false,
+        smokes: false,
+        differentDiet: false,
+        differentGender: false,
+        differentCollege: false,
+        noPlace: false,
+        differentSociability: false,
+        differentCleanliness: false,
+        differentReligion: false
+    });
+    const [profileData, setProfileData] = useState({
+        bio: "",
+        profilePicture: "",
+        introductoryVideo: ""
+    })
 
-    const [currentIndex, setCurrentIndex] = useState(0
-    )
+    //Index of current survey component being viewed
+    const [currentIndex, setCurrentIndex] = useState(0)
     //All component keys. Allows for navigation between components
-    const surveySections = ["intro", "form1", "form2", "form3", "form4"];
+    const surveySections = ["intro", "form1", "form2", "form3", "form4", "submit"];
+
 
     //Navigate to next component in list
     const navNext = () => {
@@ -23,14 +68,12 @@ const Survey = () => {
             scrollTo(currentIndex + 1)
         }
     }
-
     //Navigate to previous component in list
     const navBack = () => {
         if (currentIndex > 0){
             scrollTo(currentIndex - 1)
         }
     }
-
     //Component is scrolled to based on passed index
     const scrollTo = (index) => {
         if(index >= 0 && index < surveySections.length) {
@@ -42,6 +85,11 @@ const Survey = () => {
             setCurrentIndex(index)
         }
     };
+
+    // Log when data is updated
+    useEffect(() => {
+        console.log("Updated userData:", personalData);
+    }, [personalData, propertyData, dealBreakerData, profileData]);
 
     return (
         <>
@@ -55,17 +103,19 @@ const Survey = () => {
                             <SurveyIntro/>
                         </Element>
                         <Element name="form1" id="form1" className={"py-20"}>
-                            <SurveyForm1/>
-                            <SurveyForm3/>
+                            <SurveyAbout userData={personalData} setUserData={setPersonalData}/>
                         </Element>
                         <Element name="form2" id="form2" className={"py-20"}>
-                            <SurveyFormProfile/>
+                            <SurveyFormProfile profileData={profileData} setProfileData={setProfileData}/>
                         </Element>
                         <Element name="form3" id="form3" className={"py-20"}>
-                            <PropertyForm/>
+                            <PropertyForm propertyData={propertyData} setPropertyData={setPropertyData}/>
                         </Element>
                         <Element name="form4" id="form4" className={"py-20"}>
-                            <SurveyFormRoommate/>
+                            <SurveyFormRoommate dealBreakerData={dealBreakerData} setDealBreakerData={setDealBreakerData}/>
+                        </Element>
+                        <Element name="submit" id="submit" className={"py-20"}>
+                            <SubmitSurvey personalData={personalData} profileData={profileData} propertyData={propertyData} dealBreakerData={dealBreakerData} />
                         </Element>
                     </div>
                 </div>
