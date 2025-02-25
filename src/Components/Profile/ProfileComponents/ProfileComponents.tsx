@@ -14,11 +14,8 @@ function ProfileComponents() {
 
             <AboutSection/>
 
-            <IdealRoommatePlace isLookingForRoommate={true} />
-            <IdealRoommatePlace isLookingForRoommate={false} />
-            <PropertySection/>
-            <MapSection/>
-            <InterestedPeople/>
+
+
 
 
         </div>

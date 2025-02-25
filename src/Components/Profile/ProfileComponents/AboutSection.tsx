@@ -1,40 +1,87 @@
+import { useState } from "react";
+
 function AboutSection() {
 
-    {/* This component displays the user's status,
-    whether they are looking for a roommate or a place and their budget-Price/month
-     It also includes the "About Me" section. */}
+    const userPreferences = {
+        language: "English",
+        smokeFree: false,
+        petFree: true,
+        student: true
+    };
+
+    const roommatePreferences = [
+        userPreferences.language,
+        userPreferences.smokeFree ? "Smoke-free" : null,
+        userPreferences.petFree ? "Pet-free" : null,
+        userPreferences.student ? "Student" : null
+    ].filter(Boolean);
+
+    const propertyAmenities = {
+        internet: true,
+        parking: true,
+        petFree: true,
+        student: true
+    };
+
+
+    const propertyPreference = [
+        propertyAmenities.internet ? "Internet" : null,
+
+
+    ].filter(Boolean);
+
+    const [activeTab, setActiveTab] = useState("about");
 
     return (
-        <div className="p-4">
-            <div className="bg-white p-4 m-2 border border-black max-w-[580px]">
-                <ul className="space-y-2 text-black text-base list-inside">
-                    <li className="flex items-center">
-                        <svg className="w-4 h-4 me-2 text-green-500 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
-                        </svg>
-                        Looking for a roommate
-                    </li>
-                    <li className="flex items-center">
-                        <svg className="w-4 h-4 text-green-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 17.345a4.76 4.76 0 0 0 2.558 1.618c2.274.589 4.512-.446 4.999-2.31.487-1.866-1.273-3.9-3.546-4.49-2.273-.59-4.034-2.623-3.547-4.488.486-1.865 2.724-2.899 4.998-2.31.982.236 1.87.793 2.538 1.592m-3.879 12.171V21m0-18v2.2"/>
-                        </svg>
-                        Price/month: $600
-                    </li>
-                    <li className="flex items-center">
-                        <svg className="w-4 h-4 me-2 text-green-500 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
-                        </svg>
-                        Move Immediately
-                    </li>
-                </ul>
+        <div className="p-2">
+            {/* Tabs */}
+            <div className="flex space-x-6 mt-2">
+                <button
+                    onClick={() => setActiveTab("about")}
+                    className={`px-4 py-2 ${activeTab === "about" ? "border-b-2 border-black text-2xl font-semibold" : ""}`}
+                >
+                    About Me
+                </button>
+                <button
+                    onClick={() => setActiveTab("property")}
+                    className={`px-4 py-2 ${activeTab === "property" ? "border-b-2 border-black text-2xl font-semibold" : ""}`}
+                >
+                    My Property
+                </button>
             </div>
-            <h1 className="text-lg font-bold m-2 mb-2">About Me</h1>
 
-            <div className="max-w-[580px] bg-white p-4 m-2 border border-black">
-                <p className="text-base text-black">
-                    Track work across the enterprise through an open, collaborative platform. Link issues across Jira and ingest data from other software development tools, so your IT support and operations teams have richer contextual information to rapidly respond to requests, incidents, and changes.
-                </p>
-            </div>
+            {/* Content */}
+            {activeTab === "about" ? (
+                <div className="mt-4">
+                    <p className="text-gray-600 mt-2">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lobortis mollis purus posuere fringilla. Aliquam ac vulputate nulla.
+                    </p>
+                    <h3 className="mt-4 font-bold">My Ideal Roommate</h3>
+                    <div className="flex space-x-2 mt-2">
+                        {roommatePreferences.map((preference, index) => (
+                            <span key={index} className="px-3 py-1 bg-gray-200 rounded-full">
+                                {preference}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+            ) : (
+                <div className="mt-4">
+                    <h2 className="text-xl font-bold">My Property</h2>
+                    <div className="grid grid-cols-2 gap-2 mt-2">
+
+
+                    </div>
+                    <h3 className="mt-4 font-bold">Amenities</h3>
+                    <div className="flex space-x-2 mt-2">
+                        {roommatePreferences.map((preference, index) => (
+                            <span key={index} className="px-3 py-1 bg-gray-200 rounded-full">
+                                {preference}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

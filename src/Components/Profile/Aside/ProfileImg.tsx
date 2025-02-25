@@ -21,7 +21,7 @@ function ProfileImg() {
             <img
                 src="https://cdn-icons-png.flaticon.com/256/11748/11748483.png"
                 alt="User Profile"
-                className="w-50 h-50 rounded-full shadow-md object-cover"
+                className="w-40 h-40 rounded-full shadow-md object-cover"
             />
             <label className={`w-full mr-2 text-center font-semibold text-4xl ${getTextColor(percentage)}`}>
                 {percentage} % Link
