@@ -1,4 +1,6 @@
 import { useState } from "react";
+import {faBanSmoking, faGlobe, faGraduationCap, faPaw} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 function AboutSection() {
 
@@ -10,10 +12,25 @@ function AboutSection() {
     };
 
     const roommatePreferences = [
-        userPreferences.language,
-        userPreferences.smokeFree ? "Smoke-free" : null,
-        userPreferences.petFree ? "Pet-free" : null,
-        userPreferences.student ? "Student" : null
+        <span key="lang">
+        <FontAwesomeIcon icon={faGlobe} className="mr-1" /> {userPreferences.language}
+    </span>,
+        userPreferences.smokeFree ? (
+            <span key="smoke">
+            <FontAwesomeIcon icon={faBanSmoking} className="mr-1" /> Smoke-free
+        </span>
+        ) : null,
+
+        userPreferences.petFree ? (
+            <span key="pet">
+               <FontAwesomeIcon icon={faPaw} /> Pet-free</span>
+        ) : null,
+
+        userPreferences.student ? (
+            <span key="student">
+                <FontAwesomeIcon icon={faGraduationCap} /> Student</span>
+
+            ) : null
     ].filter(Boolean);
 
     const propertyAmenities = {
@@ -42,18 +59,18 @@ function AboutSection() {
             <div className="flex space-x-6 mt-2">
                 <button
                     onClick={() => setActiveTab("about")}
-                    className={`px-4 py-2 ${activeTab === "about" ? "border-b-2 border-black text-2xl font-semibold" : ""}`}
+                    className={`px-4 py-2 text-xl ${activeTab === "about" ? "border-b-3 border-black text-4xl font-bold" : ""}`}
                 >
                     About Me
                 </button>
                 <button
                     onClick={() => setActiveTab("property")}
-                    className={`px-4 py-2 ${activeTab === "property" ? "border-b-2 border-black text-2xl font-semibold" : ""}`}
+                    className={`px-4 text-xl py-2 ${activeTab === "property" ? "border-b-3 border-black text-4xl font-bold" : ""}`}
                 >
                     My Property
                 </button>
-            </div>
 
+            </div>
 
             {/* Content */}
             {activeTab === "about" ? (
@@ -72,11 +89,11 @@ function AboutSection() {
                 </div>
             ) : (
                 <div className="mt-4">
-                    <h2 className="text-xl font-bold">My Property</h2>
-
+                    <h2 className="text-xl pt-4 font-bold">664 Rankin, Windsor, ON</h2>
                     <div className="grid grid-cols-2 gap-2 mt-2">
-
-
+                        {Array(5).fill("https://photos.gta-homes.com/1544-darfield-road-windsor-x11939538.jpg").map((src, index) => (
+                            <img key={index} src={src} alt="House" className="rounded-lg" />
+                        ))}
                     </div>
                     <h3 className="mt-4 font-bold">Amenities</h3>
                     <div className="flex space-x-2 mt-2">
