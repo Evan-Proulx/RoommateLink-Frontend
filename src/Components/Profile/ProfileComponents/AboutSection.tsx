@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {faBanSmoking, faGlobe, faGraduationCap, faPaw} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import MapSection from "./MapSection.tsx";
 
 function AboutSection() {
 
@@ -59,31 +60,33 @@ function AboutSection() {
             <div className="flex space-x-6 mt-2">
                 <button
                     onClick={() => setActiveTab("about")}
-                    className={`px-4 py-2 text-xl ${activeTab === "about" ? "border-b-3 border-black text-4xl font-bold" : ""}`}
+                    className={`px-4 py-2 ${activeTab === "about" ? "border-b-4 border-black text-3xl font-bold" : "text-xl"}`}
                 >
                     About Me
                 </button>
                 <button
                     onClick={() => setActiveTab("property")}
-                    className={`px-4 text-xl py-2 ${activeTab === "property" ? "border-b-3 border-black text-4xl font-bold" : ""}`}
+                    className={`px-4 py-2 ${activeTab === "property" ? "border-b-4 border-black text-3xl font-bold" : "text-xl"}`}
                 >
                     My Property
                 </button>
+
 
             </div>
 
             {/* Content */}
             {activeTab === "about" ? (
                 <div className="mt-4">
-                    <p className="text-gray-600 mt-2">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lobortis mollis purus posuere fringilla. Aliquam ac vulputate nulla.
+                    <p className="text-gray-600 text-xl font-semibold mt-2">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ullamcorper venenatis nulla, vitae congue turpis scelerisque at. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in viverra ante. Proin rutrum mi metus, et imperdiet dolor pretium sed. Integer aliquet diam ut tempus elementum. Nullam vel lectus ut dolor egestas placerat. Aliquam tincidunt scelerisque erat, quis pellentesque ligula tristique in. Aliquam molestie malesuada urna ac semper. Mauris ipsum ipsum, pharetra sit amet nisi in, elementum varius diam. Maecenas in tempor turpis, sit amet tempus ipsum. Donec bibendum tempor mauris. Etiam dignissim vestibulum elit, ut bibendum libero. Phasellus congue finibus purus at fringilla. Nulla eget arcu non nisi finibus maximus. Nullam elit velit, pulvinar in arcu quis, bibendum hendrerit felis.
                     </p>
-                    <h3 className="mt-4 font-bold">My Ideal Roommate</h3>
+                    <h3 className="mt-4 p-2 font-bold">My Ideal Roommate</h3>
                     <div className="flex space-x-2 mt-2">
                         {roommatePreferences.map((preference, index) => (
-                            <span key={index} className="px-3 py-1 bg-gray-200 rounded-full">
-                                {preference}
-                            </span>
+                            <span key={index} className="px-3 py-1 bg-gray-200 font-semibold rounded-full shadow-md">
+                            {preference}
+                        </span>
+
                         ))}
                     </div>
                 </div>
@@ -103,6 +106,8 @@ function AboutSection() {
                             </span>
                         ))}
                     </div>
+
+                    <MapSection/>
                 </div>
             )}
         </div>
