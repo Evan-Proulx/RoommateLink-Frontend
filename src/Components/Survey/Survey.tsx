@@ -66,6 +66,7 @@ const Survey = () => {
     })
     //Index of current survey component being viewed
     const [currentIndex, setCurrentIndex] = useState(0)
+
     //All component keys. Allows for navigation between components in the survey
     //Filter out property section if the user specifies they don't have a property
     const surveySections = ["intro", "form1", "form2", "form3", "form4", "submit"]
@@ -99,7 +100,7 @@ const Survey = () => {
 
     // Log when data is updated
     useEffect(() => {
-        console.log("Updated userData:", searchLocation);
+        console.log("Updated userData:", personalData);
     }, [personalData, propertyData, dealBreakerData, profileData, searchLocation]);
 
     return (

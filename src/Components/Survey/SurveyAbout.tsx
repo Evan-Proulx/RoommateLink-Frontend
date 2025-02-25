@@ -3,10 +3,12 @@ import TimePicker from "./TimePicker.tsx";
 import {languages} from "../../Languages.ts";
 import AddHobby from "./AddHobby.tsx";
 import MapPopup from "./Survey-Map-Popup.tsx";
+import {getLocation} from "../API/Location.ts";
 
 const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}) => {
     const diets = ["No preference", "Vegetarian", "Vegan", "Halal", "Kosher", "Pescatarian"];
     const [isMapOpen, setIsMapOpen] = useState(false);
+    const [locationName, setLocationName] = useState("")
 
     //Gets times from the component and sets them
     const handleTimeChange = (from: string, to: string) => {
@@ -21,6 +23,7 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
     //Update changes made to the map coordinates
     const handleLocationChange = (latitude: number, longitude: number) => {
         setSearchLocation(prevState => ({ ...prevState, latitude, longitude }));
+        getLocationName().then(r => console.log());
     };
 
     //update changes made to map radius
@@ -36,6 +39,17 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
         }));
     };
 
+    //Get location from map coordinates
+    const getLocationName = async () => {
+        const data = await getLocation(searchLocation.latitude, searchLocation.longitude);
+        if (data) {
+            //Set location name to input
+            setLocationName(`${data.town}, ${data.province}`);
+            //Update location in user data
+            updateUserData("city", data.town)
+        }
+    }
+
     return (
         <div>
             <form className={"pt-12 space-y-14"}>
@@ -45,11 +59,8 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                     <label htmlFor="cities" className="block mb-2 header2-text text-center">Please
                         enter your city</label>
 
-                    <div className="flex items-center space-x-2">
-                        <select id="cities" className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg p-4 w-[400px]">
-                            <option>Windsor</option>
-                            <option>Toronto</option>
-                        </select>
+                    <div className="flex items-center justify-center space-x-2">
+                        <input id="location" value={locationName} contentEditable={false} className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg p-4 w-2/3"/>
 
                         <button type="button" onClick={() => setIsMapOpen(true)}>
                             <svg
@@ -108,7 +119,6 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                                 Looking for housing
                             </label>
                         </div>
-
                     </div>
                 </fieldset>
 

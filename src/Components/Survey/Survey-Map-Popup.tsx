@@ -134,7 +134,7 @@ const MapPopup: React.FC<MapPopupProps> = ({isOpen, onClose, latitude, longitude
                 </LoadScriptNext>
                 <div className="relative mb-6 w-full">
                     <label htmlFor="radius-range-range" className="pt-4 block mb-2 font-medium text-black">Location range in km</label>
-                    <input id="radius-range" type="range" min="500" max="100000" step="1"
+                    <input id="radius-range" type="range" min="500" max="10000" step="1" value={circleRadius}
                            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                            onChange={handleRadiusChange}/>
                     <span className="text-md font-bold absolute start-0 -bottom-6">0.5</span>
