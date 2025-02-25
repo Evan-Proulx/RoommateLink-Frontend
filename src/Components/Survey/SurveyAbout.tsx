@@ -4,9 +4,10 @@ import {languages} from "../../Languages.ts";
 import AddHobby from "./AddHobby.tsx";
 import MapPopup from "./Survey-Map-Popup.tsx";
 
-const SurveyAbout = ({ userData, setUserData }) => {
+const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}) => {
     const diets = ["No preference", "Vegetarian", "Vegan", "Halal", "Kosher", "Pescatarian"];
     const [isMapOpen, setIsMapOpen] = useState(false);
+
     //Gets times from the component and sets them
     const handleTimeChange = (from: string, to: string) => {
         updateUserData("workingTimeFrom", from);
@@ -17,6 +18,13 @@ const SurveyAbout = ({ userData, setUserData }) => {
         updateUserData("hobbies", newHobbies);
     };
 
+    const handleLocationChange = (latitude: number, longitude: number) => {
+        setSearchLocation(prevState => ({ ...prevState, latitude, longitude }));
+    };
+
+    const handleRadiusChange = (radius: number) => {
+        setSearchLocation(prevState => ({ ...prevState, radius }));
+    };
 
     //update the user data
     const updateUserData = (field, value) => {
@@ -25,6 +33,7 @@ const SurveyAbout = ({ userData, setUserData }) => {
             [field]: value
         }));
     };
+
     return (
         <div>
             <form className={"pt-12 space-y-14"}>
@@ -62,6 +71,10 @@ const SurveyAbout = ({ userData, setUserData }) => {
                         <MapPopup
                             isOpen={isMapOpen}
                             onClose={() => setIsMapOpen(false)}
+                            latitude={searchLocation.latitude}
+                            longitude={searchLocation.longitude}
+                            onRadiusChange={handleRadiusChange}
+                            onLocationChange={handleLocationChange}
                         />
                     </div>
 
@@ -74,7 +87,7 @@ const SurveyAbout = ({ userData, setUserData }) => {
                             <input id="has-housing-true" type="radio" name="countries" value="USA"
                                    className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
                                    checked={userData.hasHousing}
-                                   onChange={(event) => updateUserData("hasHousing",true)}
+                                   onChange={() => updateUserData("hasHousing",true)}
                             />
                             <label htmlFor="has-housing-true"
                                    className="block ms-2  text-sm font-medium header4-text">
@@ -86,7 +99,7 @@ const SurveyAbout = ({ userData, setUserData }) => {
                             <input id="has-housing-false" type="radio" name="countries" value="Germany"
                                    className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
                                    checked={!userData.hasHousing}
-                                   onChange={(event) => updateUserData("hasHousing",false)}
+                                   onChange={() => updateUserData("hasHousing",false)}
                             />
                             <label htmlFor="has-housing-false"
                                    className="block ms-2 text-sm font-medium header4-text dark:text-gray-300">
@@ -250,7 +263,7 @@ const SurveyAbout = ({ userData, setUserData }) => {
                                 type="radio"
                                 name="smokes"
                                 value="1"
-                                onChange={() => updateUserData("smokes",1)}
+                                onChange={() => updateUserData("smokes",true)}
                                 className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
                             />
                             <label htmlFor="smoke-option1" className="block ms-2 text-sm font-medium header4-text">
@@ -263,24 +276,11 @@ const SurveyAbout = ({ userData, setUserData }) => {
                                 type="radio"
                                 name="smokes"
                                 value="2"
-                                onChange={() => updateUserData("smokes",2)}
+                                onChange={() => updateUserData("smokes",false)}
                                 className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
                             />
                             <label htmlFor="smoke-option2" className="block ms-2 text-sm font-medium header4-text">
-                                Sometimes
-                            </label>
-                        </div>
-                        <div className="flex items-center m-4">
-                            <input
-                                id="smoke-option3"
-                                type="radio"
-                                name="smokes"
-                                value="3"
-                                onChange={() => updateUserData("smokes",3)}
-                                className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
-                            />
-                            <label htmlFor="smoke-option3" className="block ms-2 text-sm font-medium header4-text">
-                                Never
+                                No
                             </label>
                         </div>
                     </div>

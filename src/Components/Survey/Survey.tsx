@@ -4,13 +4,19 @@ import SurveyStepper from "./SurveyStepper.tsx";
 import SurveyFormProfile from "./SurveyFormProfile.tsx";
 import SurveyFormRoommate from "./SurveyFormRoommate.tsx";
 import ShadowButton from "../Shadow-Button.tsx";
-import { Link, Element, scroller } from "react-scroll";
+import { Element, scroller } from "react-scroll";
 import PropertyForm from "./PropertyForm.tsx";
 import SurveyAbout from "./SurveyAbout.tsx";
 import SubmitSurvey from "./SubmitSurvey.tsx";
 
 
 const Survey = () => {
+    //User Search radius
+    const [searchLocation, setSearchLocation] = useState({
+        latitude: 42.251236522852885,
+        longitude: -83.01928920731788,
+        radius: 8000
+    })
     //User Data
     const [personalData, setPersonalData] = useState({
         city: "",
@@ -25,7 +31,7 @@ const Survey = () => {
         religion: "",
         diet: "",
         hasPets: false,
-        smokes: 1,
+        smokes: false,
         sociability: 5,
         cleanliness: 5,
         hobbies: []
@@ -68,12 +74,14 @@ const Survey = () => {
             scrollTo(currentIndex + 1)
         }
     }
+
     //Navigate to previous component in list
     const navBack = () => {
         if (currentIndex > 0){
             scrollTo(currentIndex - 1)
         }
     }
+
     //Component is scrolled to based on passed index
     const scrollTo = (index) => {
         if(index >= 0 && index < surveySections.length) {
@@ -88,8 +96,8 @@ const Survey = () => {
 
     // Log when data is updated
     useEffect(() => {
-        console.log("Updated userData:", personalData);
-    }, [personalData, propertyData, dealBreakerData, profileData]);
+        console.log("Updated userData:", searchLocation);
+    }, [personalData, propertyData, dealBreakerData, profileData, searchLocation]);
 
     return (
         <>
@@ -103,7 +111,7 @@ const Survey = () => {
                             <SurveyIntro/>
                         </Element>
                         <Element name="form1" id="form1" className={"py-20"}>
-                            <SurveyAbout userData={personalData} setUserData={setPersonalData}/>
+                            <SurveyAbout userData={personalData} setUserData={setPersonalData} searchLocation={searchLocation} setSearchLocation={setSearchLocation}/>
                         </Element>
                         <Element name="form2" id="form2" className={"py-20"}>
                             <SurveyFormProfile profileData={profileData} setProfileData={setProfileData}/>

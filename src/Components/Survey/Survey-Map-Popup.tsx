@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import {CircleF, GoogleMap, LoadScriptNext, Marker} from "@react-google-maps/api";
-
 //Styling the map container
 const containerStyle = {
     width: "100%",
@@ -10,22 +9,24 @@ const containerStyle = {
 //Set Windsor as the default center of the map if no coordinates are passed
 const defaultCenter = {lat: 42.251236522852885, lng: -83.01928920731788}; // Default: Windsor
 
-
 interface MapPopupProps {
     isOpen: boolean; //To check if the popup is open
     onClose: () => void; // A function to close the popup if it is open
     latitude?: number; // latitude to set initial value
     longitude?: number; // longitude to set initial value
     onLocationChange?: (lat: number, lng: number) => void; // Callback when location is changed
+    onRadiusChange?: (radius: number) => void; // Callback when radius is changed
 }
 
 // Map popup component
-const MapPopup: React.FC<MapPopupProps> = ({isOpen, onClose, latitude, longitude, onLocationChange}) => {
+const MapPopup: React.FC<MapPopupProps> = ({isOpen, onClose, latitude, longitude, onLocationChange, onRadiusChange}) => {
+    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
     //Set initial map center either to Windsor or passed as props
     const initialCenter = latitude && longitude ? {lat: latitude, lng: longitude} : defaultCenter;
     const [circleCenter, setCircleCenter] = useState(initialCenter); // State to track circle's center position
-
+    //Radius in meters
+    const [circleRadius, setCircleRadius] = useState(8000); // State to track circle's radius'
 
     // To disables scroll when the map is open
     useEffect(() => {
@@ -67,6 +68,15 @@ const MapPopup: React.FC<MapPopupProps> = ({isOpen, onClose, latitude, longitude
         }
     };
 
+    //set radius on change
+    const handleRadiusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newRadius = +event.target.value;
+        setCircleRadius(newRadius);
+        if (onRadiusChange) {
+            onRadiusChange(newRadius);
+        }
+    }
+
     // return null if the popup is not open
     if (!isOpen) return null;
 
@@ -95,7 +105,7 @@ const MapPopup: React.FC<MapPopupProps> = ({isOpen, onClose, latitude, longitude
                 <h2 className="text-center mb-4 text-2xl">Please select your area</h2>
 
                 {/*Google maps component*/}
-                <LoadScriptNext googleMapsApiKey="">
+                <LoadScriptNext googleMapsApiKey={apiKey}>
                     <GoogleMap
                         mapContainerStyle={containerStyle}
                         center={circleCenter}
@@ -109,7 +119,7 @@ const MapPopup: React.FC<MapPopupProps> = ({isOpen, onClose, latitude, longitude
                         {/*The circle on the map*/}
                         <CircleF
                             center={circleCenter}
-                            radius={8000}
+                            radius={circleRadius}
                             draggable={true}
                             onDragEnd={handleCircleDrag}
                             options={{
@@ -122,6 +132,13 @@ const MapPopup: React.FC<MapPopupProps> = ({isOpen, onClose, latitude, longitude
                         />
                     </GoogleMap>
                 </LoadScriptNext>
+                <div className="relative mb-6 w-full">
+                    <label htmlFor="radius-range-range" className="pt-4 block mb-2 font-medium text-black">Location range in km</label>
+                    <input id="radius-range" type="range" min="500" max="100000" step="1"
+                           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                           onChange={handleRadiusChange}/>
+                    <span className="text-md font-bold absolute start-0 -bottom-6">0.5</span>
+                    <span className="text-md font-bold absolute end-0 -bottom-6">100</span></div>
             </div>
         </div>
     );

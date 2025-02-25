@@ -3,7 +3,7 @@ import {Simulate} from "react-dom/test-utils";
 import input = Simulate.input;
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-const AddHobby = ({ onHobbyChange}) => {
+const AddHobby = ({ onHobbyChange }) => {
     const [hobbies, setHobbies] = useState([])
     const [inputValue, setInputValue] = useState('')
 
