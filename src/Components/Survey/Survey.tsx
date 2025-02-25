@@ -11,7 +11,7 @@ import SubmitSurvey from "./SubmitSurvey.tsx";
 
 
 const Survey = () => {
-    //User Search radius
+    //Data from map
     const [searchLocation, setSearchLocation] = useState({
         latitude: 42.251236522852885,
         longitude: -83.01928920731788,
@@ -36,6 +36,7 @@ const Survey = () => {
         cleanliness: 5,
         hobbies: []
     });
+    //Data from property form
     const [propertyData, setPropertyData] = useState({
         propertyType: "",
         bedroomCount: 2,
@@ -45,6 +46,7 @@ const Survey = () => {
         description: "",
         images: [] as File[]
     });
+    //Data from deal breaker form
     const [dealBreakerData, setDealBreakerData] = useState({
         hasPets: false,
         smokes: false,
@@ -56,17 +58,18 @@ const Survey = () => {
         differentCleanliness: false,
         differentReligion: false
     });
+    //Data from profile form
     const [profileData, setProfileData] = useState({
         bio: "",
         profilePicture: "",
         introductoryVideo: ""
     })
-
     //Index of current survey component being viewed
     const [currentIndex, setCurrentIndex] = useState(0)
-    //All component keys. Allows for navigation between components
-    const surveySections = ["intro", "form1", "form2", "form3", "form4", "submit"];
-
+    //All component keys. Allows for navigation between components in the survey
+    //Filter out property section if the user specifies they don't have a property
+    const surveySections = ["intro", "form1", "form2", "form3", "form4", "submit"]
+        .filter(section => personalData.hasHousing || section !== "form3");
 
     //Navigate to next component in list
     const navNext = () => {
@@ -103,7 +106,7 @@ const Survey = () => {
         <>
             <div className={"bg-primary min-h-screen"}>
                 <nav className="sticky top-0 bg-primary shadow-sm z-50"><h1 className={"logo"}>Roommate Link</h1>
-                    <SurveyStepper setActiveComponent={scrollTo} activeComponent={surveySections[currentIndex]}/></nav>
+                    <SurveyStepper setActiveComponent={scrollTo} activeComponent={surveySections[currentIndex]} displayPropertyForm={personalData.hasHousing}/></nav>
 
                 <div className={"flex items-center justify-center"}>
                     <div className="flex flex-col items-center justify-center w-1/2 xl:w-1/3 space-y-20">
@@ -116,9 +119,12 @@ const Survey = () => {
                         <Element name="form2" id="form2" className={"py-20"}>
                             <SurveyFormProfile profileData={profileData} setProfileData={setProfileData}/>
                         </Element>
+                        {/*Only display property form if user says they have property*/}
+                        {personalData.hasHousing &&
                         <Element name="form3" id="form3" className={"py-20"}>
                             <PropertyForm propertyData={propertyData} setPropertyData={setPropertyData}/>
                         </Element>
+                        }
                         <Element name="form4" id="form4" className={"py-20"}>
                             <SurveyFormRoommate dealBreakerData={dealBreakerData} setDealBreakerData={setDealBreakerData}/>
                         </Element>

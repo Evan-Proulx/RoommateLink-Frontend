@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
-const SurveyStepper = ({ setActiveComponent, activeComponent }) => {
+import React, {useMemo, useState} from 'react';
+const SurveyStepper = ({ setActiveComponent, activeComponent, displayPropertyForm }) => {
 
-    const steps = [
+    //Holds values of steps in the stepper
+    //We filter out the property step so it isn't displayed if the user specifies they don't have a property
+    const steps =  [
         { name: "intro", label: "Intro" },
         { name: "form1", label: "About You" },
         { name: "form2", label: "Profile" },
         { name: "form3", label: "About your property" },
         { name: "form4", label: "About Your Roommate" },
-    ];
+    ].filter(step => displayPropertyForm || step.name !== "form3");
 
     return (
         <div>

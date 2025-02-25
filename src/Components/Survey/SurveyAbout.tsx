@@ -18,10 +18,12 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
         updateUserData("hobbies", newHobbies);
     };
 
+    //Update changes made to the map coordinates
     const handleLocationChange = (latitude: number, longitude: number) => {
         setSearchLocation(prevState => ({ ...prevState, latitude, longitude }));
     };
 
+    //update changes made to map radius
     const handleRadiusChange = (radius: number) => {
         setSearchLocation(prevState => ({ ...prevState, radius }));
     };
