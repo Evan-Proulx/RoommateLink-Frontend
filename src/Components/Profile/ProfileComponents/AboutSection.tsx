@@ -4,9 +4,9 @@ function AboutSection() {
 
     const userPreferences = {
         language: "English",
-        smokeFree: false,
+        smokeFree: true,
         petFree: true,
-        student: true
+        student: true,
     };
 
     const roommatePreferences = [
@@ -20,13 +20,17 @@ function AboutSection() {
         internet: true,
         parking: true,
         petFree: true,
-        student: true
+        privateCloset: true,
+        laundry: true
     };
 
 
     const propertyPreference = [
         propertyAmenities.internet ? "Internet" : null,
-
+        propertyAmenities.parking ? "Parking" : null,
+        propertyAmenities.petFree ? "Pet-free" : null,
+        propertyAmenities.privateCloset ? "Private Closet" : null,
+        propertyAmenities.laundry ? "Laundry" : null
 
     ].filter(Boolean);
 
@@ -50,6 +54,7 @@ function AboutSection() {
                 </button>
             </div>
 
+
             {/* Content */}
             {activeTab === "about" ? (
                 <div className="mt-4">
@@ -68,13 +73,14 @@ function AboutSection() {
             ) : (
                 <div className="mt-4">
                     <h2 className="text-xl font-bold">My Property</h2>
+
                     <div className="grid grid-cols-2 gap-2 mt-2">
 
 
                     </div>
                     <h3 className="mt-4 font-bold">Amenities</h3>
                     <div className="flex space-x-2 mt-2">
-                        {roommatePreferences.map((preference, index) => (
+                        {propertyPreference.map((preference, index) => (
                             <span key={index} className="px-3 py-1 bg-gray-200 rounded-full">
                                 {preference}
                             </span>
