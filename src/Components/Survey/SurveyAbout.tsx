@@ -4,6 +4,7 @@ import {languages} from "../../Languages.ts";
 import AddHobby from "./AddHobby.tsx";
 import MapPopup from "./Survey-Map-Popup.tsx";
 import {getLocation} from "../API/Location.ts";
+import CollegeInput from "./CollegeInput.tsx";
 
 const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}) => {
     const diets = ["No preference", "Vegetarian", "Vegan", "Halal", "Kosher", "Pescatarian"];
@@ -19,6 +20,10 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
     const handleHobbyChange = (newHobbies) => {
         updateUserData("hobbies", newHobbies);
     };
+
+    const handleSchoolChange = (newSchool) => {
+        updateUserData("school", newSchool);
+    }
 
     //Update changes made to the map coordinates
     const handleLocationChange = (latitude: number, longitude: number) => {
@@ -154,14 +159,7 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                     <div className={"flex flex-col w-full"}>
                         <label htmlFor="cities" className="block mb-2 header2-text text-center">Select
                             School</label>
-                        <select id="cities"
-                                className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4"
-                                onChange={(event) => {
-                                    updateUserData("school",event.target.value)
-                                }}>
-                            <option>St.Clair College</option>
-                            <option>University Of Windsor</option>
-                        </select>
+                        <CollegeInput onSchoolChange={handleSchoolChange}/>
                     </div>
                 </section>
 

@@ -11,6 +11,7 @@ import Survey from "./Components/Survey/Survey.tsx";
 import ProfilePage from "./Components/Profile/ProfilePage.tsx";
 import ErrorPage from "./ErrorPage.tsx";
 import Callback from "./Components/API/Callback.tsx";
+import CollegeInput from "./Components/Survey/CollegeInput.tsx";
 
 // Routes
 const router = createBrowserRouter([
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
     {
         path: '/callback',
         element: <Callback />,
+    },
+    {
+        path: '/college',
+        element: <CollegeInput />,
     },
 
     // Add more routes here
