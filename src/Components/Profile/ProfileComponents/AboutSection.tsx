@@ -1,5 +1,14 @@
 import { useState } from "react";
-import {faBanSmoking, faGlobe, faGraduationCap, faPaw} from "@fortawesome/free-solid-svg-icons";
+import {
+    faBan,
+    faBanSmoking,
+    faBoxOpen,
+    faCar,
+    faGlobe,
+    faGraduationCap,
+    faPaw, faTshirt,
+    faWifi
+} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import MapSection from "./MapSection.tsx";
 
@@ -24,12 +33,12 @@ function AboutSection() {
 
         userPreferences.petFree ? (
             <span key="pet">
-               <FontAwesomeIcon icon={faPaw} /> Pet-free</span>
+               <FontAwesomeIcon icon={faPaw} className="mr-1"/> Pet-free</span>
         ) : null,
 
         userPreferences.student ? (
             <span key="student">
-                <FontAwesomeIcon icon={faGraduationCap} /> Student</span>
+                <FontAwesomeIcon icon={faGraduationCap} className="mr-1"/> Student</span>
 
             ) : null
     ].filter(Boolean);
@@ -37,20 +46,39 @@ function AboutSection() {
     const propertyAmenities = {
         internet: true,
         parking: true,
-        petFree: true,
         privateCloset: true,
         laundry: true
     };
 
 
     const propertyPreference = [
-        propertyAmenities.internet ? "Internet" : null,
-        propertyAmenities.parking ? "Parking" : null,
-        propertyAmenities.petFree ? "Pet-free" : null,
-        propertyAmenities.privateCloset ? "Private Closet" : null,
-        propertyAmenities.laundry ? "Laundry" : null
+        propertyAmenities.internet ? (
+            <span key="internet">
+            <FontAwesomeIcon icon={faWifi} className="mr-1" />
+            Internet
+        </span>
+        ) : null,
+        propertyAmenities.parking ? (
+            <span key="parking">
+            <FontAwesomeIcon icon={faCar} className="mr-1" />
+            Parking
+        </span>
+        ) : null,
 
+        propertyAmenities.privateCloset ? (
+            <span key="private-closet">
+            <FontAwesomeIcon icon={faBoxOpen} className="mr-1" />
+            Private Closet
+        </span>
+        ) : null,
+        propertyAmenities.laundry ? (
+            <span key="laundry">
+            <FontAwesomeIcon icon={faTshirt} className="mr-1" />
+            Laundry
+        </span>
+        ) : null
     ].filter(Boolean);
+
 
     const [activeTab, setActiveTab] = useState("about");
 
@@ -101,7 +129,7 @@ function AboutSection() {
                     <h3 className="mt-4 font-bold">Amenities</h3>
                     <div className="flex space-x-2 mt-2">
                         {propertyPreference.map((preference, index) => (
-                            <span key={index} className="px-3 py-1 bg-gray-200 rounded-full">
+                            <span key={index} className="px-3 py-1 bg-gray-200 font-semibold rounded-full shadow-md">
                                 {preference}
                             </span>
                         ))}

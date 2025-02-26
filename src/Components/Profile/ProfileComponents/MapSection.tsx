@@ -24,7 +24,7 @@ const circleOptions = {
 
 function MapSection() {
     return (
-        <div className="p-4">
+        <div className="pt-6">
             <h1 className="text-lg font-bold mb-2 flex items-center">
                 {/* Location Icon */}
                 <svg
