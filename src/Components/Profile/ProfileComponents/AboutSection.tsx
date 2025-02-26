@@ -186,7 +186,10 @@ function AboutSection() {
     ];
 
 
+    // How far is the property to the user location
     const theLocation = 26;
+
+    //Changing the color based on how far it is
     const getTextColor = (percentage) => {
         if (percentage <= 25) {
             return 'text-green-500'; // Green for less than 25 KM

@@ -23,13 +23,13 @@ function UserInfoSection() {
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z"/>
                         </svg>
-                        <h1 className="pl-1 text-2xl font-semibold text-center text-gray-500">Windsor, On</h1>
+                        <h1 className="pl-1 text-xl font-semibold text-center text-gray-500">Windsor, On</h1>
                     </div>
 
                     {/* User's Budget */}
                     <div className="flex items-center m-3">
-                        <FontAwesomeIcon icon={faPiggyBank} className="text-gray-500 text-2xl" />
-                        <h1 className="pl-2 text-2xl font-semibold text-center text-gray-500">
+                        <FontAwesomeIcon icon={faPiggyBank} className="text-gray-500 text-xl" />
+                        <h1 className="pl-2 text-xl font-semibold text-center text-gray-500">
                             Budget: $900/month
                         </h1>
                     </div>
@@ -40,7 +40,7 @@ function UserInfoSection() {
                             <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
                         </svg>
 
-                        <h1 className="pl-1 text-2xl font-semibold text-center text-gray-500">Looking for: Roommate</h1>
+                        <h1 className="pl-1 text-xl font-semibold text-center text-gray-500">Looking for: Roommate</h1>
                     </div>
                 </div>
             </div>
