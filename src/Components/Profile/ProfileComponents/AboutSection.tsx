@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import MapSection from "./MapSection.tsx";
+import InterestedPeople from "./InterestedPeople.tsx";
 
 // Property Images
 // Component to display an image gallery
@@ -225,7 +226,7 @@ function AboutSection() {
             {activeTab === "about" ? (
                 <div className="mt-4">
                     {/*About Me Section*/}
-                    <p className="text-gray-600 text-xl font-semibold mt-2">
+                    <p className="text-gray-600 m-2 text-lg font-semibold mt-2">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ullamcorper venenatis nulla, vitae congue turpis scelerisque at. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in viverra ante. Proin rutrum mi metus, et imperdiet dolor pretium sed. Integer aliquet diam ut tempus elementum. Nullam vel lectus ut dolor egestas placerat. Aliquam tincidunt scelerisque erat, quis pellentesque ligula tristique in. Aliquam molestie malesuada urna ac semper. Mauris ipsum ipsum, pharetra sit amet nisi in, elementum varius diam. Maecenas in tempor turpis, sit amet tempus ipsum. Donec bibendum tempor mauris. Etiam dignissim vestibulum elit, ut bibendum libero. Phasellus congue finibus purus at fringilla. Nulla eget arcu non nisi finibus maximus. Nullam elit velit, pulvinar in arcu quis, bibendum hendrerit felis.
                     </p>
 
@@ -236,9 +237,10 @@ function AboutSection() {
                             <span key={index} className="px-3 py-1 m-3 bg-gray-200 font-semibold rounded-full shadow-md">
                             {preference}
                         </span>
-
                         ))}
                     </div>
+
+                    <InterestedPeople/>
                 </div>
             )  : hasProperty ? (
                 <div className="mt-4">
@@ -259,13 +261,13 @@ function AboutSection() {
                     <ImageGallery images={propertyImages} />
                 </div>
 
-                    <h3 className="mt-6 font-bold m-2 text-xl">About My Property</h3>
-                    <p className="text-gray-600 text-xl font-semibold mt-2">
+                    <h3 className="mt-12 font-bold m-2 text-xl">About My Property</h3>
+                    <p className="text-gray-600 m-2 text-lg font-semibold mt-2">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ullamcorper venenatis nulla, vitae congue turpis scelerisque at. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in viverra ante. Proin rutrum mi metus, et imperdiet dolor pretium sed. Integer aliquet diam ut tempus elementum. Nullam vel lectus ut dolor egestas placerat. Aliquam tincidunt scelerisque erat, quis pellentesque ligula tristique in. Aliquam molestie malesuada urna ac semper. Mauris ipsum ipsum, pharetra sit amet nisi in, elementum varius diam. Maecenas in tempor turpis, sit amet tempus ipsum. Donec bibendum tempor mauris. Etiam dignissim vestibulum elit, ut bibendum libero. Phasellus congue finibus purus at fringilla. Nulla eget arcu non nisi finibus maximus. Nullam elit velit, pulvinar in arcu quis, bibendum hendrerit felis.
                     </p>
 
                     {/* Property Amenities */}
-                    <h3 className="mt-6 font-bold m-4 text-xl">Amenities</h3>
+                    <h3 className="mt-10 font-bold m-2 text-xl">Amenities</h3>
                     <div className="flex space-x-2 mt-2">
                         {propertyPreference.map((preference, index) => (
                             <span key={index} className="px-3 m-3 py-1 bg-gray-200 font-semibold rounded-full shadow-md">
