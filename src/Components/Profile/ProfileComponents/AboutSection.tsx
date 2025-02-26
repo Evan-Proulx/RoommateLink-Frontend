@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-    faBan,
     faBanSmoking,
     faBoxOpen,
     faCar,
@@ -11,6 +10,84 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import MapSection from "./MapSection.tsx";
+
+// Component to display property image gallery
+function ImageGallery({ images }) {
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+
+    const openImage = (index) => {
+        setSelectedImage(images[index]);
+        setCurrentIndex(index);
+    };
+
+    const closeModal = () => {
+        setSelectedImage(null);
+    };
+
+    const prevImage = (e) => {
+        e.stopPropagation();
+        setCurrentIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
+        setSelectedImage(images[currentIndex > 0 ? currentIndex - 1 : images.length - 1]);
+    };
+
+    const nextImage = (e) => {
+        e.stopPropagation();
+        setCurrentIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0));
+        setSelectedImage(images[currentIndex < images.length - 1 ? currentIndex + 1 : 0]);
+    };
+
+    return (
+        <div>
+            {/* Image Grid */}
+            <div className="grid grid-cols-2 gap-2 mt-2">
+                {/* Main Large Image */}
+                <div className="col-span-1">
+                    <img
+                        src={images[0]}
+                        alt="Main Property"
+                        className="w-full h-full object-cover rounded-lg cursor-pointer"
+                        onClick={() => openImage(0)}
+                    />
+                </div>
+
+                {/* Smaller Images */}
+                <div className="grid grid-cols-2 gap-2">
+                    {images.slice(1, 4).map((src, index) => (
+                        <img
+                            key={index}
+                            src={src}
+                            alt={`Property ${index + 2}`}
+                            className="w-full h-24 object-cover rounded-lg cursor-pointer"
+                            onClick={() => openImage(index + 1)}
+                        />
+                    ))}
+
+                    {/* Last image with overlay for extra images */}
+                    <div className="relative cursor-pointer" onClick={() => openImage(4)}>
+                        <img src={images[4]} alt="More Properties" className="w-full h-24 object-cover rounded-lg" />
+                        <div className="absolute inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center text-white font-bold text-lg">
+                            +{images.length - 4}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Modal for Enlarged Image */}
+            {selectedImage && (
+                <div
+                    className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50"
+                    onClick={closeModal}
+                >
+                    <button className="absolute left-4 text-white text-3xl" onClick={prevImage}>&#10094;</button>
+                    <img src={selectedImage} alt="Enlarged" className="max-w-full max-h-[90vh] rounded-lg shadow-lg" />
+                    <button className="absolute right-4 text-white text-3xl" onClick={nextImage}>&#10095;</button>
+                </div>
+            )}
+        </div>
+    );
+}
 
 function AboutSection() {
 
@@ -83,7 +160,19 @@ function AboutSection() {
     ].filter(Boolean);
 
 
+
+    const propertyImages = [
+        "https://photos.gta-homes.com/1544-darfield-road-windsor-x11939538.jpg",
+        "https://www.movemeto.com/ontario/img/medium/real-estate.jpg",
+        "https://www.movemeto.com/ontario/img/medium/single-family-homes-for-sale.jpg",
+        "https://cdn1.zoocasa.com/images/listings/f9988f5e-4ba4-4983-be5b-64c3efc44f14.jpg",
+        "https://cdn4.thecanadianhome.com/wecar/Photo25003221-1.jpeg?user=&ml_num=25003221&is_property=1&listing_type=1&width=1920&aspect_ratio=40:33&quality=30",
+
+    ];
+
+
     const [activeTab, setActiveTab] = useState("about");
+
 
     return (
         <div className="p-2">
@@ -125,11 +214,10 @@ function AboutSection() {
             )  : hasProperty ? (
                 <div className="mt-4">
                     <h2 className="text-xl pt-4 font-bold">664 Rankin, Windsor, ON</h2>
-                    <div className="grid grid-cols-2 gap-2 mt-2">
-                        {Array(5).fill("https://photos.gta-homes.com/1544-darfield-road-windsor-x11939538.jpg").map((src, index) => (
-                            <img key={index} src={src} alt="House" className="rounded-lg" />
-                        ))}
-                    </div>
+                    <div className="w-128">
+                    <ImageGallery images={propertyImages} />
+                </div>
+
                     <h3 className="mt-4 font-bold">Amenities</h3>
                     <div className="flex space-x-2 mt-2">
                         {propertyPreference.map((preference, index) => (
