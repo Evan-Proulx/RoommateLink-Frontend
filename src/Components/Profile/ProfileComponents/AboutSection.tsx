@@ -14,6 +14,9 @@ import MapSection from "./MapSection.tsx";
 
 function AboutSection() {
 
+    //If the user has a property then the My Property Tab will be displayed
+    const hasProperty = true;
+
     const userPreferences = {
         language: "English",
         smokeFree: true,
@@ -92,14 +95,15 @@ function AboutSection() {
                 >
                     About Me
                 </button>
-                <button
-                    onClick={() => setActiveTab("property")}
-                    className={`px-4 py-2 ${activeTab === "property" ? "border-b-4 border-black text-3xl font-bold" : "text-xl"}`}
-                >
-                    My Property
-                </button>
 
-
+                { hasProperty && (
+                    <button
+                        onClick={() => setActiveTab("property")}
+                        className={`px-4 py-2 ${activeTab === "property" ? "border-b-4 border-black text-3xl font-bold" : "text-xl"}`}
+                    >
+                        My Property
+                    </button>
+                )}
             </div>
 
             {/* Content */}
@@ -118,7 +122,7 @@ function AboutSection() {
                         ))}
                     </div>
                 </div>
-            ) : (
+            )  : hasProperty ? (
                 <div className="mt-4">
                     <h2 className="text-xl pt-4 font-bold">664 Rankin, Windsor, ON</h2>
                     <div className="grid grid-cols-2 gap-2 mt-2">
@@ -135,9 +139,9 @@ function AboutSection() {
                         ))}
                     </div>
 
-                    <MapSection/>
+                    <MapSection />
                 </div>
-            )}
+            ) : null}
         </div>
     );
 }
