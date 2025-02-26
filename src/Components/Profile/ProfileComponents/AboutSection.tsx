@@ -11,27 +11,31 @@ import {
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import MapSection from "./MapSection.tsx";
 
-// Component to display property image gallery
+// Property Images
+// Component to display an image gallery
 function ImageGallery({ images }) {
     const [selectedImage, setSelectedImage] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0);
 
-
+    // Open the model with the selected image
     const openImage = (index) => {
         setSelectedImage(images[index]);
         setCurrentIndex(index);
     };
 
+    // Close the model
     const closeModal = () => {
         setSelectedImage(null);
     };
 
+    // Navigate to the previous image
     const prevImage = (e) => {
         e.stopPropagation();
         setCurrentIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
         setSelectedImage(images[currentIndex > 0 ? currentIndex - 1 : images.length - 1]);
     };
 
+    // Navigate to the next image
     const nextImage = (e) => {
         e.stopPropagation();
         setCurrentIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0));
@@ -89,11 +93,14 @@ function ImageGallery({ images }) {
     );
 }
 
+
 function AboutSection() {
 
     //If the user has a property then the My Property Tab will be displayed
     const hasProperty = true;
 
+    // WE NEED TO ADD MORE ROOMMATE PREFERENCES
+    // User preferences for an ideal roommate
     const userPreferences = {
         language: "English",
         smokeFree: true,
@@ -101,6 +108,7 @@ function AboutSection() {
         student: true,
     };
 
+    //Mapping user preferences
     const roommatePreferences = [
         <span key="lang">
         <FontAwesomeIcon icon={faGlobe} className="mr-1" /> {userPreferences.language}
@@ -123,6 +131,8 @@ function AboutSection() {
             ) : null
     ].filter(Boolean);
 
+    // WE NEED TO ADD MORE
+    // Amenities that's available in the property
     const propertyAmenities = {
         internet: true,
         parking: true,
@@ -131,6 +141,7 @@ function AboutSection() {
     };
 
 
+    // Mapping property amenities
     const propertyPreference = [
         propertyAmenities.internet ? (
             <span key="internet">
@@ -138,6 +149,7 @@ function AboutSection() {
             Internet
         </span>
         ) : null,
+
         propertyAmenities.parking ? (
             <span key="parking">
             <FontAwesomeIcon icon={faCar} className="mr-1" />
@@ -151,6 +163,7 @@ function AboutSection() {
             Private Closet
         </span>
         ) : null,
+
         propertyAmenities.laundry ? (
             <span key="laundry">
             <FontAwesomeIcon icon={faTshirt} className="mr-1" />
@@ -161,6 +174,7 @@ function AboutSection() {
 
 
 
+    // Images of the property, it depends on how many images did the user upload
     const propertyImages = [
         "https://photos.gta-homes.com/1544-darfield-road-windsor-x11939538.jpg",
         "https://www.movemeto.com/ontario/img/medium/real-estate.jpg",
@@ -176,7 +190,7 @@ function AboutSection() {
 
     return (
         <div className="p-2">
-            {/* Tabs */}
+            {/* Tabs for switching between "About Me" and "My Property" */}
             <div className="flex space-x-6 mt-2">
                 <button
                     onClick={() => setActiveTab("about")}
@@ -185,6 +199,7 @@ function AboutSection() {
                     About Me
                 </button>
 
+                {/* Show "My Property" only if the user has a property */}
                 { hasProperty && (
                     <button
                         onClick={() => setActiveTab("property")}
@@ -195,16 +210,19 @@ function AboutSection() {
                 )}
             </div>
 
-            {/* Content */}
+            {/* Content Section - Displaying the content of "About Me" or "My Property"*/}
             {activeTab === "about" ? (
                 <div className="mt-4">
+                    {/*About Me Section*/}
                     <p className="text-gray-600 text-xl font-semibold mt-2">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ullamcorper venenatis nulla, vitae congue turpis scelerisque at. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in viverra ante. Proin rutrum mi metus, et imperdiet dolor pretium sed. Integer aliquet diam ut tempus elementum. Nullam vel lectus ut dolor egestas placerat. Aliquam tincidunt scelerisque erat, quis pellentesque ligula tristique in. Aliquam molestie malesuada urna ac semper. Mauris ipsum ipsum, pharetra sit amet nisi in, elementum varius diam. Maecenas in tempor turpis, sit amet tempus ipsum. Donec bibendum tempor mauris. Etiam dignissim vestibulum elit, ut bibendum libero. Phasellus congue finibus purus at fringilla. Nulla eget arcu non nisi finibus maximus. Nullam elit velit, pulvinar in arcu quis, bibendum hendrerit felis.
                     </p>
-                    <h3 className="mt-4 p-2 font-bold">My Ideal Roommate</h3>
+
+                    {/* Roommate Preferences */}
+                    <h3 className="mt-4 p-2 font-bold text-xl">My Ideal Roommate</h3>
                     <div className="flex space-x-2 mt-2">
                         {roommatePreferences.map((preference, index) => (
-                            <span key={index} className="px-3 py-1 bg-gray-200 font-semibold rounded-full shadow-md">
+                            <span key={index} className="px-3 py-1 m-3 bg-gray-200 font-semibold rounded-full shadow-md">
                             {preference}
                         </span>
 
@@ -213,23 +231,28 @@ function AboutSection() {
                 </div>
             )  : hasProperty ? (
                 <div className="mt-4">
+                    {/*My Property Section */}
                     <h2 className="text-xl pt-4 font-bold">664 Rankin, Windsor, ON</h2>
-                    <div className="w-128">
+
+                    {/* Property Images Gallery */}
+                    <div className="w-128 m-4">
                     <ImageGallery images={propertyImages} />
                 </div>
 
-                    <h3 className="mt-4 font-bold">Amenities</h3>
+                    {/* Property Amenities */}
+                    <h3 className="mt-6 font-bold m-4 text-xl">Amenities</h3>
                     <div className="flex space-x-2 mt-2">
                         {propertyPreference.map((preference, index) => (
-                            <span key={index} className="px-3 py-1 bg-gray-200 font-semibold rounded-full shadow-md">
+                            <span key={index} className="px-3 m-3 py-1 bg-gray-200 font-semibold rounded-full shadow-md">
                                 {preference}
                             </span>
                         ))}
                     </div>
 
+                    {/* Map Section for Property Location */}
                     <MapSection />
                 </div>
-            ) : null}
+            ) : null} {/* To display nothing if the user has no property */}
         </div>
     );
 }
