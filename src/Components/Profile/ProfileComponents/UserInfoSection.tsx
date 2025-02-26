@@ -4,6 +4,7 @@ import {faPiggyBank} from "@fortawesome/free-solid-svg-icons";
 
 function UserInfoSection() {
 
+
     return (
         <div className="p-4 flex items-start">
             <div className="w-1/2 pr-4">
