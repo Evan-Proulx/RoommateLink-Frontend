@@ -60,6 +60,9 @@ const Survey = () => {
     });
     //Data from profile form
     const [profileData, setProfileData] = useState({
+        firstName: "",
+        lastName: "",
+        age: "",
         bio: "",
         profilePicture: "",
         introductoryVideo: ""
@@ -100,7 +103,7 @@ const Survey = () => {
 
     // Log when data is updated
     useEffect(() => {
-        console.log("Updated userData:", personalData);
+        console.log("Updated userData:", profileData);
     }, [personalData, propertyData, dealBreakerData, profileData, searchLocation]);
 
     return (

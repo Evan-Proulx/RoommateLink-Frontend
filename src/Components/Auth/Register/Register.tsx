@@ -128,9 +128,9 @@ function Register() {
                             className={"text-xl font-bold text-red-500 text-center"}>{errors.confirmPassword.message}</div>}
 
                     {/* Sign Up Button */}
-                    <div className={"flex flex-col items-center space-y-2"}>
+                    <div className={"flex flex-col items-center space-y-2 "}>
                         <ShadowButton disabled={isSubmitting} type="submit"
-                                      value={isSubmitting ? "Logging in..." : "Sign up"}/>
+                                      value={isSubmitting ? "Logging in..." : "Sign up"} width={"64"}/>
 
                         <p className={"text-gray-600"}>or</p>
 

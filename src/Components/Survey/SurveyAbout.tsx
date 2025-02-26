@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import TimePicker from "./TimePicker.tsx";
-import {languages} from "../../Languages.ts";
+import {data, languages, religions} from "../../data.ts";
 import AddHobby from "./AddHobby.tsx";
 import MapPopup from "./Survey-Map-Popup.tsx";
 import {getLocation} from "../API/Location.ts";
@@ -60,12 +60,15 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
             <form className={"pt-12 space-y-14"}>
                 <h2 className={"header-text-big text-center"}>About You</h2>
 
-                    {/*City dropdown*/}
-                    <label htmlFor="cities" className="block mb-2 header2-text text-center">Please
-                        enter your city</label>
+
+                {/*Location select*/}
+                <section>
+                    <label htmlFor="cities" className="block header2-text text-center">Please
+                        select your city</label>
 
                     <div className="flex items-center justify-center space-x-2">
-                        <input id="location" value={locationName} contentEditable={false} className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg p-4 w-2/3"/>
+                        <input id="location" value={locationName} contentEditable={false}
+                               className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg p-4 w-2/3"/>
 
                         <button type="button" onClick={() => setIsMapOpen(true)}>
                             <svg
@@ -95,6 +98,7 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                             onLocationChange={handleLocationChange}
                         />
                     </div>
+                </section>
 
                 {/*Housing status*/}
                 <fieldset className={""}>
@@ -105,7 +109,7 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                             <input id="has-housing-true" type="radio" name="countries" value="USA"
                                    className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
                                    checked={userData.hasHousing}
-                                   onChange={() => updateUserData("hasHousing",true)}
+                                   onChange={() => updateUserData("hasHousing", true)}
                             />
                             <label htmlFor="has-housing-true"
                                    className="block ms-2  text-sm font-medium header4-text">
@@ -117,7 +121,7 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                             <input id="has-housing-false" type="radio" name="countries" value="Germany"
                                    className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
                                    checked={!userData.hasHousing}
-                                   onChange={() => updateUserData("hasHousing",false)}
+                                   onChange={() => updateUserData("hasHousing", false)}
                             />
                             <label htmlFor="has-housing-false"
                                    className="block ms-2 text-sm font-medium header4-text dark:text-gray-300">
@@ -130,8 +134,8 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                 {/*Budget Slider*/}
                 <div className="relative mb-6 ">
                     <label htmlFor="budget"
-                           className={"block mb-2 header2-text text-center"}>Budget: ${userData.budget}</label>
-                    <input id="budget" type="range" min="100" max="10000" step="300" value={userData.budget}
+                           className={"block mb-2 header2-text text-center"}>Rent Budget: ${userData.budget}/month</label>
+                    <input id="budget" type="range" min="100" max="10000" step="100" value={userData.budget}
                            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                            onChange={(e) => {
                                updateUserData("budget", +e.target.value)
@@ -144,14 +148,14 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                     <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">$10000</span>
                 </div>
 
-                <section className={"flex justify-center items-end"}>
+                <section className={"flex justify-center items-end space-x-3"}>
                     {/*Profession input*/}
                     <div className={"flex flex-col items-center w-full"}>
                         <label htmlFor="Profession" className="block mb-2 header2-text text-center">Profession</label>
                         <input type="input" id="profession"
-                               className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block p-4"
+                               className="input-style-survey"
                                onChange={(event) => {
-                                   updateUserData("profession",event.target.value)
+                                   updateUserData("profession", event.target.value)
                                }}/>
                     </div>
 
@@ -170,14 +174,14 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                 </div>
 
                 {/*Gender and language*/}
-                <section className={"flex justify-center items-end space-x-12"}>
+                <section className={"flex justify-center items-end space-x-3"}>
                     <div className={"flex flex-col w-fit"}>
                         {/*gender dropdown*/}
                         <label htmlFor="gender" className="block mb-2 header2-text text-center">Gender</label>
                         <select id="gender"
-                                className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4"
+                                className="input-style-survey"
                                 onChange={(event) => {
-                                    updateUserData("gender",event.target.value)
+                                    updateUserData("gender", event.target.value)
                                 }}
                                 required>
                             <option>Male</option>
@@ -192,9 +196,9 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                         <label htmlFor="language" className="block mb-2 header2-text text-center">Select
                             language</label>
                         <select id="language"
-                                className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4"
+                                className="input-style-survey"
                                 onChange={(event) => {
-                                    updateUserData("language",event.target.value)
+                                    updateUserData("language", event.target.value)
                                 }}>
                             {languages.map((lang) => (
                                 <option key={lang.code} value={lang.code}>
@@ -206,25 +210,30 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                 </section>
 
                 {/*Religion and diet*/}
-                <section className={"flex justify-center items-end"}>
+                <section className={"flex justify-center items-end space-x-3"}>
                     {/*religion input*/}
                     <div className={"flex flex-col w-full items-center"}>
-                        <label htmlFor="religion" className="block header2-text text-center">Religion</label>
-                        <label htmlFor="religion" className="text-end">*if applicable</label>
-                        <input type="input" id="religion" value={userData.religion}
-                               className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block p-4"
+                        <label htmlFor="religion" className="block mb-2 header2-text text-center">Religion</label>
+                        <select id="religion" value={userData.religion}
+                               className="input-style-survey"
                                onChange={(event) => {
-                                   updateUserData("religion",event.target.value)
-                               }}/>
-                    </div>
+                                   updateUserData("religion", event.target.value)
+                               }}>
+                            {religions.map((religion) => (
+                                <option key={religion.code} value={religion.code}>
+                                    {religion.name}
+                                </option>
+                                ))}
+                            </select>
+                        </div>
 
                     {/*diet dropdown*/}
                     <div className={"flex flex-col w-full items-center space-x-3 md:space-x-0"}>
                         <label htmlFor="diet" className="block mb-2 header2-text text-center">Diet preferences</label>
                         <select id="diet" value={userData.diet}
-                                className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4"
+                                className="input-style-survey"
                                 onChange={(event) => {
-                                    updateUserData("diet",event.target.value)
+                                    updateUserData("diet", event.target.value)
                                 }}>
                             {diets.map((diet) => (
                                 <option key={diet} value={diet}>
@@ -242,7 +251,7 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                         <div className="flex items-center m-4">
                             <input id="pet-option1" type="radio" name="has-pets" value="yes"
                                    className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
-                                   onChange={() => updateUserData("hasPets",true)}
+                                   onChange={() => updateUserData("hasPets", true)}
                                    checked={userData.hasPets}/>
                             <label htmlFor="pet-option1"
                                    className="block ms-2  text-sm font-medium header4-text">
@@ -253,7 +262,7 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                         <div className="flex items-center m-4">
                             <input id="pet-option2" type="radio" name="has-pets" value="no"
                                    className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
-                                   onChange={() => updateUserData("hasPets",false)}
+                                   onChange={() => updateUserData("hasPets", false)}
                                    checked={!userData.hasPets}/>
                             <label htmlFor="pet-option2"
                                    className="block ms-2 text-sm font-medium header4-text dark:text-gray-300">
@@ -273,7 +282,7 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                                 type="radio"
                                 name="smokes"
                                 value="1"
-                                onChange={() => updateUserData("smokes",true)}
+                                onChange={() => updateUserData("smokes", true)}
                                 className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
                             />
                             <label htmlFor="smoke-option1" className="block ms-2 text-sm font-medium header4-text">
@@ -286,7 +295,7 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                                 type="radio"
                                 name="smokes"
                                 value="2"
-                                onChange={() => updateUserData("smokes",false)}
+                                onChange={() => updateUserData("smokes", false)}
                                 className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
                             />
                             <label htmlFor="smoke-option2" className="block ms-2 text-sm font-medium header4-text">
@@ -304,7 +313,8 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                         <input id="" type="range" min="1" max="10" step="1"
                                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                                onChange={(e) => {
-                                   updateUserData("sociability",+e.target.value)}}/>
+                                   updateUserData("sociability", +e.target.value)
+                               }}/>
                         <span className="text-md font-bold absolute start-0 -bottom-6">1</span>
                         <span className="text-md font-bold absolute end-0 -bottom-6">10</span>
                     </div>
@@ -317,7 +327,8 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                         <input id="" type="range" min="1" max="10" step="1"
                                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                                onChange={(e) => {
-                                   updateUserData("cleanliness",+e.target.value)}}/>
+                                   updateUserData("cleanliness", +e.target.value)
+                               }}/>
                         <span className="text-md font-bold absolute start-0 -bottom-6">1</span>
                         <span className="text-md font-bold absolute end-0 -bottom-6">10</span>
                     </div>

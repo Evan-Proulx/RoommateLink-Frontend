@@ -13,7 +13,8 @@ const SubmitSurvey = ({personalData, profileData, propertyData, dealBreakerData}
         }
 
         //TODO: Send data to server
-        console.log(allData)
+
+        console.log(allData);
     }
 
     return (
