@@ -4,7 +4,7 @@ import {
     faBoxOpen,
     faCar,
     faGlobe,
-    faGraduationCap,
+    faGraduationCap, faLocationDot,
     faPaw, faTshirt,
     faWifi
 } from "@fortawesome/free-solid-svg-icons";
@@ -185,6 +185,17 @@ function AboutSection() {
     ];
 
 
+    const theLocation = 26;
+    const getTextColor = (percentage) => {
+        if (percentage <= 25) {
+            return 'text-green-500'; // Green for less than 25 KM
+        } else if (percentage <= 50) {
+            return 'text-orange-500'; // Orange for less than 50
+        } else {
+            return 'text-red-500'; // Red for 51 and above
+        }
+    };
+
     const [activeTab, setActiveTab] = useState("about");
 
 
@@ -194,7 +205,7 @@ function AboutSection() {
             <div className="flex space-x-6 mt-2">
                 <button
                     onClick={() => setActiveTab("about")}
-                    className={`px-4 py-2 ${activeTab === "about" ? "border-b-4 border-black text-3xl font-bold" : "text-xl"}`}
+                    className={`px-4 py-2 cursor-pointer ${activeTab === "about" ? "border-b-4 border-black text-3xl font-bold" : "text-xl"}`}
                 >
                     About Me
                 </button>
@@ -203,7 +214,7 @@ function AboutSection() {
                 { hasProperty && (
                     <button
                         onClick={() => setActiveTab("property")}
-                        className={`px-4 py-2 ${activeTab === "property" ? "border-b-4 border-black text-3xl font-bold" : "text-xl"}`}
+                        className={`px-4 py-2 cursor-pointer ${activeTab === "property" ? "border-b-4 border-black text-3xl font-bold" : "text-xl"}`}
                     >
                         My Property
                     </button>
@@ -232,12 +243,26 @@ function AboutSection() {
             )  : hasProperty ? (
                 <div className="mt-4">
                     {/*My Property Section */}
-                    <h2 className="text-xl pt-4 font-bold">664 Rankin, Windsor, ON</h2>
+                    <h2 className="text-xl pt-2 font-bold m-2">664 Rankin, Windsor, ON</h2>
+
+                    <div className="flex items-center justify-between w-128">
+                        <h4 className="pl-2 text-gray-600 font-semibold"> 2 bedrooms + 1 Bathroom · 800 Square Feet</h4>
+                        <h4 className={`text-center font-semibold ${getTextColor(theLocation)}`}>
+                            {theLocation}Km away
+                            <FontAwesomeIcon icon={faLocationDot} className="ml-1"/>
+                        </h4>
+                    </div>
+
 
                     {/* Property Images Gallery */}
-                    <div className="w-128 m-4">
+                    <div className="w-128 m-2">
                     <ImageGallery images={propertyImages} />
                 </div>
+
+                    <h3 className="mt-6 font-bold m-2 text-xl">About My Property</h3>
+                    <p className="text-gray-600 text-xl font-semibold mt-2">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ullamcorper venenatis nulla, vitae congue turpis scelerisque at. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in viverra ante. Proin rutrum mi metus, et imperdiet dolor pretium sed. Integer aliquet diam ut tempus elementum. Nullam vel lectus ut dolor egestas placerat. Aliquam tincidunt scelerisque erat, quis pellentesque ligula tristique in. Aliquam molestie malesuada urna ac semper. Mauris ipsum ipsum, pharetra sit amet nisi in, elementum varius diam. Maecenas in tempor turpis, sit amet tempus ipsum. Donec bibendum tempor mauris. Etiam dignissim vestibulum elit, ut bibendum libero. Phasellus congue finibus purus at fringilla. Nulla eget arcu non nisi finibus maximus. Nullam elit velit, pulvinar in arcu quis, bibendum hendrerit felis.
+                    </p>
 
                     {/* Property Amenities */}
                     <h3 className="mt-6 font-bold m-4 text-xl">Amenities</h3>
