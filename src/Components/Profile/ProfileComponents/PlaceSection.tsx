@@ -32,7 +32,7 @@ function PlaceSection() {
 
 
 
-                <h1 className="text-lg font-bold m-2 mb-2">Place's Images</h1>
+                <h1 className="text-lg font-bold m-2 pt-8 mb-2">Place's Images</h1>
             <div className="bg-white p-4 m-2 border border-black max-w-[580px]">
                 <p>Displaying Images here</p>
             </div>
