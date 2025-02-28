@@ -30,21 +30,30 @@ const PropertyForm = ({ propertyData, setPropertyData}) => {
         <div>
             <form className={"pt-12 space-y-8 pb-8"}>
 
-                <div className={""}><h2 className={"header-text-big text-center"}>About Your Property</h2>
-                    <p className={"text-center font-medium"}>Information can be updated later in the profile tab or skip if not applicable</p>
+                <div className={""}>
+                    <h2 className={"header-text-big text-center"}>About Your Property</h2>
                 </div>
 
                 {/*Property type input*/}
                 <div className={"flex flex-col items-center"}>
-                    <label htmlFor="Profession" className="block mb-2 header2-text text-center">Property type</label>
-                    <input type="input" id="profession"
+                    <label htmlFor="property-type" className="block mb-2 header2-text text-center">Property type</label>
+                    <select id="property-type"
                            className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-1/2 p-4"
-                           onChange={(e) => updatePropertyData("propertyType", e.target.value)}/>
+                            onChange={(e) => updatePropertyData("propertyType", e.target.value)}>
+                        <option>Apartment</option>
+                        <option>Dorm</option>
+                        <option>Condo</option>
+                        <option>Townhouse</option>
+                        <option>Detached House</option>
+                        <option>Studio</option>
+                        <option>Loft</option>
+                        <option>Basement</option>
+                    </select>
                 </div>
 
-                <div className="flex justify-center p-4 flex-wrap items-end space-x-8 space-y-8">
+                <div className="flex justify-center p-4 flex-wrap items-end space-x-8">
                     {/*Bedroom Input*/}
-                    <div className={"flex flex-col justify-center items-center"}>
+                    <div className={"flex flex-col justify-center items-center pb-8"}>
                         <label htmlFor="quantity-input"
                                className="block mb-2 header4-text">Bedrooms: {propertyData.bedroomCount}</label>
                         <div className="relative flex items-center max-w-[8rem]">
@@ -70,7 +79,7 @@ const PropertyForm = ({ propertyData, setPropertyData}) => {
                     </div>
 
                     {/*Bathroom Input*/}
-                    <div className={"flex flex-col justify-center items-center"}>
+                    <div className={"flex flex-col justify-center items-center pb-8"}>
                         <label htmlFor="quantity-input"
                                className="block mb-2 header4-text">Bathrooms: {propertyData.bathroomCount}</label>
                         <div className="relative flex items-center max-w-[8rem]">

@@ -4,13 +4,19 @@ import SurveyStepper from "./SurveyStepper.tsx";
 import SurveyFormProfile from "./SurveyFormProfile.tsx";
 import SurveyFormRoommate from "./SurveyFormRoommate.tsx";
 import ShadowButton from "../Shadow-Button.tsx";
-import { Link, Element, scroller } from "react-scroll";
+import { Element, scroller } from "react-scroll";
 import PropertyForm from "./PropertyForm.tsx";
 import SurveyAbout from "./SurveyAbout.tsx";
 import SubmitSurvey from "./SubmitSurvey.tsx";
 
 
 const Survey = () => {
+    //Data from map
+    const [searchLocation, setSearchLocation] = useState({
+        latitude: 42.251236522852885,
+        longitude: -83.01928920731788,
+        radius: 8000
+    })
     //User Data
     const [personalData, setPersonalData] = useState({
         city: "",
@@ -25,11 +31,12 @@ const Survey = () => {
         religion: "",
         diet: "",
         hasPets: false,
-        smokes: 1,
+        smokes: false,
         sociability: 5,
         cleanliness: 5,
         hobbies: []
     });
+    //Data from property form
     const [propertyData, setPropertyData] = useState({
         propertyType: "",
         bedroomCount: 2,
@@ -39,6 +46,7 @@ const Survey = () => {
         description: "",
         images: [] as File[]
     });
+    //Data from deal breaker form
     const [dealBreakerData, setDealBreakerData] = useState({
         hasPets: false,
         smokes: false,
@@ -50,17 +58,22 @@ const Survey = () => {
         differentCleanliness: false,
         differentReligion: false
     });
+    //Data from profile form
     const [profileData, setProfileData] = useState({
+        firstName: "",
+        lastName: "",
+        age: "",
         bio: "",
         profilePicture: "",
         introductoryVideo: ""
     })
-
     //Index of current survey component being viewed
     const [currentIndex, setCurrentIndex] = useState(0)
-    //All component keys. Allows for navigation between components
-    const surveySections = ["intro", "form1", "form2", "form3", "form4", "submit"];
 
+    //All component keys. Allows for navigation between components in the survey
+    //Filter out property section if the user specifies they don't have a property
+    const surveySections = ["intro", "form1", "form2", "form3", "form4", "submit"]
+        .filter(section => personalData.hasHousing || section !== "form3");
 
     //Navigate to next component in list
     const navNext = () => {
@@ -68,12 +81,14 @@ const Survey = () => {
             scrollTo(currentIndex + 1)
         }
     }
+
     //Navigate to previous component in list
     const navBack = () => {
         if (currentIndex > 0){
             scrollTo(currentIndex - 1)
         }
     }
+
     //Component is scrolled to based on passed index
     const scrollTo = (index) => {
         if(index >= 0 && index < surveySections.length) {
@@ -88,14 +103,14 @@ const Survey = () => {
 
     // Log when data is updated
     useEffect(() => {
-        console.log("Updated userData:", personalData);
-    }, [personalData, propertyData, dealBreakerData, profileData]);
+        console.log("Updated userData:", profileData);
+    }, [personalData, propertyData, dealBreakerData, profileData, searchLocation]);
 
     return (
         <>
             <div className={"bg-primary min-h-screen"}>
                 <nav className="sticky top-0 bg-primary shadow-sm z-50"><h1 className={"logo"}>Roommate Link</h1>
-                    <SurveyStepper setActiveComponent={scrollTo} activeComponent={surveySections[currentIndex]}/></nav>
+                    <SurveyStepper setActiveComponent={scrollTo} activeComponent={surveySections[currentIndex]} displayPropertyForm={personalData.hasHousing}/></nav>
 
                 <div className={"flex items-center justify-center"}>
                     <div className="flex flex-col items-center justify-center w-1/2 xl:w-1/3 space-y-20">
@@ -103,14 +118,17 @@ const Survey = () => {
                             <SurveyIntro/>
                         </Element>
                         <Element name="form1" id="form1" className={"py-20"}>
-                            <SurveyAbout userData={personalData} setUserData={setPersonalData}/>
+                            <SurveyAbout userData={personalData} setUserData={setPersonalData} searchLocation={searchLocation} setSearchLocation={setSearchLocation}/>
                         </Element>
                         <Element name="form2" id="form2" className={"py-20"}>
                             <SurveyFormProfile profileData={profileData} setProfileData={setProfileData}/>
                         </Element>
+                        {/*Only display property form if user says they have property*/}
+                        {personalData.hasHousing &&
                         <Element name="form3" id="form3" className={"py-20"}>
                             <PropertyForm propertyData={propertyData} setPropertyData={setPropertyData}/>
                         </Element>
+                        }
                         <Element name="form4" id="form4" className={"py-20"}>
                             <SurveyFormRoommate dealBreakerData={dealBreakerData} setDealBreakerData={setDealBreakerData}/>
                         </Element>

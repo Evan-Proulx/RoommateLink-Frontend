@@ -19,46 +19,59 @@
 }
 
 .header-text {
-    font-size: 3rem; /* Equivalent to text-5xl */
+    font-size: 3rem;
     font-weight: bold;
     color: var(--color-text);
 }
 
 .header2-text {
-    font-size: 1.875rem; /* Equivalent to text-3xl */
+    font-size: 1.875rem;
     font-weight: bold;
     color: var(--color-text);
 }
 
 .header3-text {
-    font-size: 1.5rem; /* Equivalent to text-2xl */
+    font-size: 1.5rem;
     font-weight: bold;
     color: var(--color-text);
 }
 
 .header4-text {
-    font-size: 1.25rem; /* Equivalent to text-xl */
+    font-size: 1.25rem;
     font-weight: bold;
     color: var(--color-text);
 }
 
 .header-text-big {
-    font-size: 3.75rem; /* Equivalent to text-6xl */
+    font-size: 3.75rem;
     font-weight: bold;
     color: var(--color-text);
 }
 
 .input-style {
-    margin-top: 0.25rem; /* Equivalent to mt-1 */
+    margin-top: 0.25rem;
     background-color: white;
     border: 2px solid black;
-    color: #1F2937; /* Equivalent to text-gray-900 */
-    border-radius: 0.5rem; /* Equivalent to rounded-lg */
+    color: #1F2937;
+    border-radius: 0.5rem;
     display: block;
     width: 100%;
-    padding: 1rem; /* Equivalent to p-4 */
+    padding: .9rem;
 }
 
+.input-style-survey {
+    background-color: white;
+    border: 2px solid black;
+    color: #1F2937;
+    border-radius: 0.5rem;
+    display: block;
+    width: 100%;
+    padding: .9rem;
+}
+
+.input-style-survey:hover{
+    border: 2px solid darkgray;
+}
 
 .shadow-btn{
     box-shadow: 11px 13px 4px rgba(0, 0, 0, 0.25);
