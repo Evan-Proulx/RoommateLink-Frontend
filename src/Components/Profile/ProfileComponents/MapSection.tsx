@@ -24,7 +24,7 @@ const circleOptions = {
 
 function MapSection() {
     return (
-        <div className="p-4">
+        <div className="pt-6">
             <h1 className="text-lg font-bold mb-2 flex items-center">
                 {/* Location Icon */}
                 <svg
@@ -53,6 +53,11 @@ function MapSection() {
                 </svg>
                 Location
             </h1>
+
+            {/* Displaying the Location here*/}
+            <h2 className="text-gray-600 flex items-center ml-2">
+                664 Rankin, Windsor, ON
+            </h2>
             <div className="bg-white p-4 m-2 border border-black max-w-[580px]">
                 <LoadScript googleMapsApiKey="API_KEY">
                     <GoogleMap
