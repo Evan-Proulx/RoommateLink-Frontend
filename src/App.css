@@ -18,6 +18,14 @@
     padding: 1rem 0 0 1rem;
 }
 
+.logo-navbar{
+    font-family: "Supermercado One", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #FF3033;
+    font-size: 2rem;
+}
+
 .header-text {
     font-size: 3rem;
     font-weight: bold;
@@ -47,6 +55,16 @@
     font-weight: bold;
     color: var(--color-text);
 }
+.header-text-huge {
+    font-size: 3rem;
+    font-weight: bolder;
+    color: var(--color-text);
+}
+@screen lg {
+    .header-text-huge {
+        font-size: 6rem;
+    }
+}
 
 .input-style {
     margin-top: 0.25rem;
@@ -73,6 +91,11 @@
     border: 2px solid darkgray;
 }
 
+.card-text-light {
+    color: #6b7280;
+    font-weight: 500;
+}
+
 .shadow-btn{
     box-shadow: 11px 13px 4px rgba(0, 0, 0, 0.25);
 }
@@ -80,3 +103,17 @@
     transition: 200ms ease-in-out;
     background-color: #5c83cc;
 }
+
+.card-shadow{
+    -webkit-box-shadow: 5px 5px 6px 2px rgba(0,0,0,0.4);
+    -moz-box-shadow: 5px 5px 6px 2px rgba(0,0,0,0.4);
+    box-shadow: 5px 5px 6px 2px rgba(0,0,0,0.4);
+}
+
+/*.bg-pattern {*/
+/*    background: radial-gradient(circle, rgba(255, 48, 51, 0.25) 10%, transparent 11%);*/
+/*    background-size: 3em 3em;*/
+/*    background-color: #FFF4C6;*/
+/*    opacity: 1*/
+/*}*/
+

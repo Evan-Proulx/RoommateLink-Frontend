@@ -19,7 +19,7 @@ interface MapPopupProps {
 }
 
 // Map popup component
-const MapPopup: React.FC<MapPopupProps> = ({isOpen, onClose, latitude, longitude, onLocationChange, onRadiusChange}) => {
+const MapPopup: React.FC<MapPopupProps> = ({isOpen, onClose, latitude, longitude, onLocationChange, onRadiusChange, onProfileMap = false}) => {
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
     //Set initial map center either to Windsor or passed as props
@@ -102,7 +102,7 @@ const MapPopup: React.FC<MapPopupProps> = ({isOpen, onClose, latitude, longitude
                 </button>
 
                 {/*Title of the popup*/}
-                <h2 className="text-center mb-4 text-2xl">Please select your area</h2>
+                <h2 className="text-center mb-4 text-2xl">{onProfileMap ? "User's Location" : "Please select your area"}</h2>
 
                 {/*Google maps component*/}
                 <LoadScriptNext googleMapsApiKey={apiKey}>
@@ -132,13 +132,17 @@ const MapPopup: React.FC<MapPopupProps> = ({isOpen, onClose, latitude, longitude
                         />
                     </GoogleMap>
                 </LoadScriptNext>
-                <div className="relative mb-6 w-full">
-                    <label htmlFor="radius-range-range" className="pt-4 block mb-2 font-medium text-black">Location range in km</label>
-                    <input id="radius-range" type="range" min="500" max="10000" step="1" value={circleRadius}
-                           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-                           onChange={handleRadiusChange}/>
-                    <span className="text-md font-bold absolute start-0 -bottom-6">0.5</span>
-                    <span className="text-md font-bold absolute end-0 -bottom-6">100</span></div>
+
+                {/*only display range in survey*/}
+                {!onProfileMap &&
+                    <div className="relative mb-6 w-full">
+                        <label htmlFor="radius-range-range" className="pt-4 block mb-2 font-medium text-black">Location
+                            range in km</label>
+                        <input id="radius-range" type="range" min="500" max="10000" step="1" value={circleRadius}
+                               className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                               onChange={handleRadiusChange}/>
+                        <span className="text-md font-bold absolute start-0 -bottom-6">0.5</span>
+                        <span className="text-md font-bold absolute end-0 -bottom-6">100</span></div>}
             </div>
         </div>
     );

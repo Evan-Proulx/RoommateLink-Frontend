@@ -5,13 +5,14 @@ import Survey from "./Components/Survey/Survey.tsx";
 import ProfilePage from "./Components/Profile/ProfilePage.tsx";
 import ResetPassword from "./Components/Auth/ResetPassword.tsx";
 import RecoverPassword from "./Components/Auth/RecoverPassword.tsx";
+import FeedCard from "./Components/Feed/FeedCard.tsx";
 
 function App() {
     return (
 
         <>
             <div className={""}>
-                <ResetPassword/>
+                <FeedCard/>
             </div>
         </>
     )

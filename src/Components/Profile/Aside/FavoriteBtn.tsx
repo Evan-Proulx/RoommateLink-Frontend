@@ -2,10 +2,10 @@ function FavoriteBtn() {
     return (
         <button
             type="button"
-            className="flex items-center text-red-700 bg-white hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-3 text-center min-w-[160px] m-5 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-300 dark:focus:ring-red-800"
+            className="flex items-center text-white bg-red-700 hover:bg-red-800 border border-black font-medium rounded-lg text-sm px-6 py-3 text-center min-w-[160px] m-5"
         >
             <svg
-                className="w-5 h-5 text-red-700 me-2"
+                className="w-5 h-5 text-white me-2"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -24,6 +24,7 @@ function FavoriteBtn() {
 
             Bookmark User
         </button>
+
     )
 }
 
