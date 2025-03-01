@@ -12,7 +12,9 @@ import ProfilePage from "./Components/Profile/ProfilePage.tsx";
 import ErrorPage from "./ErrorPage.tsx";
 import Callback from "./Components/API/Callback.tsx";
 import CollegeInput from "./Components/Survey/CollegeInput.tsx";
-
+import Navbar from "./Components/Navbar.tsx";
+import FeedCard from "./Components/Feed/FeedCard.tsx";
+import Feed from "./Components/Feed/Feed.tsx";
 // Routes
 const router = createBrowserRouter([
     {
@@ -51,6 +53,10 @@ const router = createBrowserRouter([
     {
         path: '/college',
         element: <CollegeInput />,
+    },
+    {
+        path: '/test',
+        element: <FeedCard/>,
     },
 
     // Add more routes here

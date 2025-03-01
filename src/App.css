@@ -18,6 +18,14 @@
     padding: 1rem 0 0 1rem;
 }
 
+.logo-navbar{
+    font-family: "Supermercado One", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #FF3033;
+    font-size: 2rem;
+}
+
 .header-text {
     font-size: 3rem;
     font-weight: bold;
@@ -73,6 +81,11 @@
     border: 2px solid darkgray;
 }
 
+.card-text-light {
+    color: #6b7280;
+    font-weight: 500;
+}
+
 .shadow-btn{
     box-shadow: 11px 13px 4px rgba(0, 0, 0, 0.25);
 }
@@ -80,3 +93,5 @@
     transition: 200ms ease-in-out;
     background-color: #5c83cc;
 }
+
+
