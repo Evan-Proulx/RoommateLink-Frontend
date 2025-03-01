@@ -8,7 +8,7 @@ import {
 } from "@mui/icons-material";
 const Navbar = () => {
     return (
-        <div>
+        <div className={"sticky top-0"}>
             <div className="flex justify-between items-center bg-white border-8 border-black px-9 py-2">
                 <div className={"flex "}><h1 className="logo-navbar p-0 text-4xl">Roommate Link</h1></div>
 
