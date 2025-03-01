@@ -4,17 +4,26 @@ import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 
 //propertyData is passed down from the survey parent component
 const PropertyForm = ({ propertyData, setPropertyData}) => {
+    const [displayImages, setDisplayImages] = useState<File[]>([]);
 
-    //update images from file input
+    //update images from file input for both the propertyData and the displayImages array
+    //We need two arrays since the backend only needs the file name but we need the whole file to display them
     const handleFilesAdd = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (propertyData.images.length <= 10) {
             if (event.target.files) {
-                //files being added
+                //Get the files being added
                 const files = Array.from(event.target.files);
+
+                //Store only the names of the files
+                const fileNames = files.map(file => file.name);
+
                 //combine oldfiles with new files
-                const newFiles = [...propertyData.images, ...files]
+                const newFiles = [...propertyData.images, ...fileNames]
                 //update images array with new array
                 updatePropertyData("images", newFiles);
+
+                //Update displayImages with new files
+                setDisplayImages(prevFiles => [...prevFiles, ...files]);
             }
         }
     }
@@ -169,9 +178,9 @@ const PropertyForm = ({ propertyData, setPropertyData}) => {
                     <p className="mt-1 text-sm text-text text-start">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
                 </div>
 
-                {/* Display the images */}
+                {/*Display images*/}
                 <div className="flex gap-3 mt-2 overflow-x-auto">
-                    {propertyData.images.map((image, index) => (
+                    {displayImages.map((image, index) => (
                         <img key={index} src={URL.createObjectURL(image)} alt={`Upload Preview ${index}`}
                              className="w-32 h-32 object-cover rounded-lg"/>
                     ))}

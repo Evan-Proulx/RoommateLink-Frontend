@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import TimePicker from "./TimePicker.tsx";
-import {data, languages, religions} from "../../data.ts";
+import { languages, religions} from "../../data.ts";
 import AddHobby from "./AddHobby.tsx";
 import MapPopup from "./Survey-Map-Popup.tsx";
 import {getLocation} from "../API/Location.ts";
@@ -283,6 +283,7 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                                 name="smokes"
                                 value="1"
                                 onChange={() => updateUserData("smokes", true)}
+                                checked={userData.smokes}
                                 className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
                             />
                             <label htmlFor="smoke-option1" className="block ms-2 text-sm font-medium header4-text">
@@ -296,6 +297,7 @@ const SurveyAbout = ({ userData, setUserData, searchLocation, setSearchLocation}
                                 name="smokes"
                                 value="2"
                                 onChange={() => updateUserData("smokes", false)}
+                                checked={!userData.smokes}
                                 className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
                             />
                             <label htmlFor="smoke-option2" className="block ms-2 text-sm font-medium header4-text">

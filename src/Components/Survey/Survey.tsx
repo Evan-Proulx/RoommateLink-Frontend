@@ -24,12 +24,12 @@ const Survey = () => {
         budget: 1200,
         school: "",
         profession: "",
-        workingTimeFrom: "",
-        workingTimeTo: "",
-        gender: "",
-        language: "",
-        religion: "",
-        diet: "",
+        workingTimeFrom: "09:00",
+        workingTimeTo: "18:00",
+        gender: "Male",
+        language: "English",
+        religion: "Non-religious",
+        diet: "No preference",
         hasPets: false,
         smokes: false,
         sociability: 5,
@@ -38,13 +38,13 @@ const Survey = () => {
     });
     //Data from property form
     const [propertyData, setPropertyData] = useState({
-        propertyType: "",
+        propertyType: "Apartment",
         bedroomCount: 2,
         bathroomCount: 1,
         squareFeet: 1000,
         sharedKitchen: true,
         description: "",
-        images: [] as File[]
+        images: []
     });
     //Data from deal breaker form
     const [dealBreakerData, setDealBreakerData] = useState({
@@ -62,7 +62,7 @@ const Survey = () => {
     const [profileData, setProfileData] = useState({
         firstName: "",
         lastName: "",
-        age: "",
+        age: 18,
         bio: "",
         profilePicture: "",
         introductoryVideo: ""
@@ -103,7 +103,7 @@ const Survey = () => {
 
     // Log when data is updated
     useEffect(() => {
-        console.log("Updated userData:", profileData);
+        console.log("Updated userData:", propertyData);
     }, [personalData, propertyData, dealBreakerData, profileData, searchLocation]);
 
     return (

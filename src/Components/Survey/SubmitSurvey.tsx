@@ -1,20 +1,23 @@
 import React from 'react';
 import ShadowButton from "../Shadow-Button.tsx";
+import {authenticateUser} from "../API/Auth.ts";
+import {createProfile} from "../API/Profile.ts";
 
 const SubmitSurvey = ({personalData, profileData, propertyData, dealBreakerData}) => {
     const handleSubmit = async ( event: React.FormEvent) => {
         event.preventDefault();
 
+        //TODO: Add deal breaker data later
         const allData = {
             personalData,
             profileData,
-            propertyData,
-            dealBreakerData
+            ...(personalData.hasHousing && { propertyData }),  //Only include housing data if user has property
         }
 
-        //TODO: Send data to server
+        const data = JSON.stringify(allData);
+        console.log(data);
 
-        console.log(allData);
+        await createProfile(data)
     }
 
     return (
