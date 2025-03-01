@@ -9,9 +9,10 @@ const Feed = () => {
 
     return (
 
-        <div>
-            <Navbar />
-            <div className={"flex flex-col justify-center items-center bg-primary w-full h-full"}>
+        <div className={"w-full bg-primary"}>
+            <Navbar/>
+            <h1 className="py-3 pl-3 lg:pl-32 bg-primary text-start header-text-huge">Your Links</h1>
+            <div className={"flex flex-col w-full h-full"}>
                 <div className={"flex flex-col justify-center items-center w-full h-full"}>
                     {feedItems}
                 </div>

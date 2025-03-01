@@ -56,7 +56,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/test',
-        element: <FeedCard/>,
+        element: <Feed />,
     },
 
     // Add more routes here

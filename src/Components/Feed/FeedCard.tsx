@@ -16,8 +16,8 @@ const FeedCard = () => {
     const [isMapOpen, setIsMapOpen] = useState(false);
 
     return (
-        <div className={"flex items-center justify-center bg-primary h-screen w-full"}>
-            <div className={"bg-white border-2 border-black rounded w-144 xl:w-1/3 m-4 h-72 lg:h-64"}>
+        <div className={"flex items-center justify-center bg-primary w-full"}>
+            <div className={"bg-white border border-black rounded w-144 xl:w-1/3 m-4 h-72 lg:h-64 card-shadow"}>
                 <div className={"flex items-start justify-between"}>
 
                     <div className={"flex"}>
@@ -69,16 +69,16 @@ const FeedCard = () => {
                             )}
                         </div>
                 </div>
-
+                {/* Map Popup that displays when location is clicked*/}
+                <MapPopup
+                    isOpen={isMapOpen}
+                    onClose={() => setIsMapOpen(false)}
+                    onProfileMap={true}
+                />
             </div>
 
-            {/* Map Popup that displays when location is clicked*/}
-            <MapPopup
-                isOpen={isMapOpen}
-                onClose={() => setIsMapOpen(false)}
-                onProfileMap={true}
-            />
-        </div>
+
+      </div>
     );
 };
 
