@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import ShadowButton from "../Shadow-Button.tsx";
 import {authenticateUser} from "../API/Auth.ts";
 import {SubmitHandler, useForm} from "react-hook-form"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faGoogle} from "@fortawesome/free-brands-svg-icons";
 import {Link} from "react-router-dom";
 import SSOButton from "./SSOButton.tsx";
 
