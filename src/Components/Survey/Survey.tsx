@@ -67,6 +67,9 @@ const Survey = () => {
         profilePicture: "",
         introductoryVideo: ""
     })
+    //This is passed to the submit component to prevent submission if values are invalid
+    const [validationError, setValidationError] = useState(false);
+
     //Index of current survey component being viewed
     const [currentIndex, setCurrentIndex] = useState(0)
 
@@ -133,7 +136,7 @@ const Survey = () => {
                             <SurveyFormRoommate dealBreakerData={dealBreakerData} setDealBreakerData={setDealBreakerData}/>
                         </Element>
                         <Element name="submit" id="submit" className={"py-20"}>
-                            <SubmitSurvey personalData={personalData} profileData={profileData} propertyData={propertyData} dealBreakerData={dealBreakerData} />
+                            <SubmitSurvey personalData={personalData} profileData={profileData} propertyData={propertyData} dealBreakerData={dealBreakerData}/>
                         </Element>
                     </div>
                 </div>

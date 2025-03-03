@@ -91,6 +91,7 @@
     border: 2px solid darkgray;
 }
 
+
 .card-text-light {
     color: #6b7280;
     font-weight: 500;
@@ -110,10 +111,10 @@
     box-shadow: 5px 5px 6px 2px rgba(0,0,0,0.4);
 }
 
-/*.bg-pattern {*/
-/*    background: radial-gradient(circle, rgba(255, 48, 51, 0.25) 10%, transparent 11%);*/
-/*    background-size: 3em 3em;*/
-/*    background-color: #FFF4C6;*/
-/*    opacity: 1*/
-/*}*/
+.bg-pattern {
+    background: radial-gradient(circle, rgba(255, 48, 51, 0.25) 10%, transparent 11%);
+    background-size: 3em 3em;
+    background-color: #FFF4C6;
+    opacity: 1
+}
 

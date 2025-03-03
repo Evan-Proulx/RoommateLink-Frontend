@@ -15,6 +15,8 @@ import CollegeInput from "./Components/Survey/CollegeInput.tsx";
 import Navbar from "./Components/Navbar.tsx";
 import FeedCard from "./Components/Feed/FeedCard.tsx";
 import Feed from "./Components/Feed/Feed.tsx";
+import SurveyValidationTest from "./Components/SurveyValidationTest.tsx";
+import Discovery from "./Components/Feed/Discovery.tsx";
 // Routes
 const router = createBrowserRouter([
     {
@@ -56,7 +58,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/test',
-        element: <Feed />,
+        element: <Discovery/>,
     },
 
     // Add more routes here
