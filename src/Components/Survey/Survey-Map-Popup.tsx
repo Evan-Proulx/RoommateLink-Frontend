@@ -105,7 +105,7 @@ const MapPopup: React.FC<MapPopupProps> = ({isOpen, onClose, latitude, longitude
                 <h2 className="text-center mb-4 text-2xl">{onProfileMap ? "User's Location" : "Please select your area"}</h2>
 
                 {/*Google maps component*/}
-                <LoadScriptNext googleMapsApiKey={apiKey}>
+                <LoadScriptNext googleMapsApiKey="AIzaSyAhwQmNrXMvPL1mmS5qyO0YJd8kBXeFSaU">
                     <GoogleMap
                         mapContainerStyle={containerStyle}
                         center={circleCenter}

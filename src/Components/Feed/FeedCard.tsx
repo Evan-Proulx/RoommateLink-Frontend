@@ -17,7 +17,7 @@ const FeedCard = () => {
 
     return (
         <div className={"flex items-center justify-center w-full"}>
-            <div className={"bg-white border border-black rounded w-144 xl:w-1/3 m-4 h-72 lg:h-64 card-shadow"}>
+            <div className={"bg-white border border-black rounded w-144  m-4 h-72 lg:h-64 card-shadow"}>
                 <div className={"flex items-start justify-between"}>
 
                     <div className={"flex"}>
