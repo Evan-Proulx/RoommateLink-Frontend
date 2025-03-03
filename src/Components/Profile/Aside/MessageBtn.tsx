@@ -6,7 +6,7 @@ function MessageBtn() {
     hover:text-white border border-black hover:bg-blue-600
     font-medium rounded-lg text-sm px-6 py-3 text-center
     min-w-[165px] m-5 dark:border-black dark:text-white
-    dark:hover:text-white dark:hover:bg-blue-600"
+    dark:hover:text-white dark:hover:bg-blue-600 w-full"
         >
             {/* Green Icon */}
             <svg className="w-5 h-5 text-white me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
