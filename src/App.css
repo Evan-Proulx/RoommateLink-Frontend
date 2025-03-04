@@ -102,7 +102,6 @@
 }
 .shadow-btn:hover{
     transition: 200ms ease-in-out;
-    background-color: #5c83cc;
 }
 
 .card-shadow{

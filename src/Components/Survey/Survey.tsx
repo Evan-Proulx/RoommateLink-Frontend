@@ -8,6 +8,8 @@ import { Element, scroller } from "react-scroll";
 import PropertyForm from "./PropertyForm.tsx";
 import SurveyAbout from "./SurveyAbout.tsx";
 import SubmitSurvey from "./SubmitSurvey.tsx";
+import {FormProvider, useForm} from "react-hook-form";
+import {createProfile} from "../API/Profile.ts";
 
 
 const Survey = () => {
@@ -67,8 +69,8 @@ const Survey = () => {
         profilePicture: "",
         introductoryVideo: ""
     })
-    //This is passed to the submit component to prevent submission if values are invalid
-    const [validationError, setValidationError] = useState(false);
+    //useForm describes how the form validation should behave. This is passed to the FormProvider
+    const methods = useForm({mode: "onBlur"});
 
     //Index of current survey component being viewed
     const [currentIndex, setCurrentIndex] = useState(0)
@@ -109,9 +111,25 @@ const Survey = () => {
         console.log("Updated userData:", propertyData);
     }, [personalData, propertyData, dealBreakerData, profileData, searchLocation]);
 
+    const onSubmit = async () => {
+        //TODO: Add deal breaker data later
+        //combine all data into one object
+        const allData = {
+            personalData,
+            profileData,
+            ...(personalData.hasHousing && {propertyData}),  //Only include housing data if user has property
+        }
+        const data = JSON.stringify(allData);
+        console.log(data);
+
+        //Send data to API
+        await createProfile(data)
+    }
+
     return (
-        <>
-            <div className={"bg-primary min-h-screen"}>
+        //use form provider for form validation for the location and names
+        <FormProvider {...methods}>
+            <form onSubmit={methods.handleSubmit(onSubmit)} className={"bg-primary min-h-screen"}>
                 <nav className="sticky top-0 bg-primary shadow-sm z-50"><h1 className={"logo"}>Roommate Link</h1>
                     <SurveyStepper setActiveComponent={scrollTo} activeComponent={surveySections[currentIndex]} displayPropertyForm={personalData.hasHousing}/></nav>
 
@@ -144,12 +162,12 @@ const Survey = () => {
                 {/*Bottom button navigation*/}
                 <div className={"fixed bottom-1 w-full hidden md:block"}>
                     <div className={"flex justify-between mx-5 p-8"}>
-                        <ShadowButton value={"Back"} onClick={navBack} color={"red"}/>
+                        <ShadowButton value={"Back"} onClick={navBack} color={"text"}/>
                         <ShadowButton value={"Next"} onClick={navNext}/>
                     </div>
                 </div>
-            </div>
-        </>
+            </form>
+        </FormProvider>
     );
 };
 

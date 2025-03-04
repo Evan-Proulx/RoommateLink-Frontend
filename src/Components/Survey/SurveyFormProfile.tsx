@@ -1,14 +1,9 @@
 import React, {useState} from "react";
-import {useForm} from "react-hook-form";
+import {useForm, useFormContext} from "react-hook-form";
 
 //profile data is passed down from the survey parent component
 const SurveyFormProfile = ({profileData, setProfileData, setValidationError}) => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        trigger
-    } = useForm({ mode: "onBlur" });
+    const { register, formState: { errors ,isValid, isDirty},  } = useFormContext();
 
     //Create an array with a length of 82 numbers from 18-100
     const ageArray = Array.from({ length: 82 }, (_, i) => 18 + i)
@@ -38,14 +33,14 @@ const SurveyFormProfile = ({profileData, setProfileData, setValidationError}) =>
 
 
     return (
-        <form method="post" className={"pt-12 space-y-8 w-full"}>
+        <div className={"pt-12 space-y-8 w-full"}>
             <h2 className={"header-text-big text-center"}>Profile</h2>
 
             {/*Name input*/}
             <section className={"flex justify-center items-end space-x-3"}>
                 {/*Firstname input -- validation ensures it is required, length is between 2 and 50 and has no special characters*/}
                 <div className={"flex flex-col items-center min-h-40"}>
-                    <label htmlFor="firstname" className="block mb-2 header2-text text-center">First Name</label>
+                    <label htmlFor="firstname" className="block mb-2 header2-text text-center">First Name*</label>
                     <input type="input" id="firstname" placeholder={"Last Name"} min={2} max={50} required
                            className="input-style-survey"
                            {...register("firstname", {
@@ -64,7 +59,7 @@ const SurveyFormProfile = ({profileData, setProfileData, setValidationError}) =>
 
                 {/*Lastname input validation ensures it is required, length is between 2 and 50 and has no special characters*/}
                 <div className={"flex flex-col min-h-40"}>
-                    <label htmlFor="lastname" className="block mb-2 header2-text text-center">Last Name</label>
+                    <label htmlFor="lastname" className="block mb-2 header2-text text-center">Last Name*</label>
                     <input type="input" id="lastname" placeholder={"Last Name"} min={2} max={50} required
                            className="input-style-survey"
                            {...register("lastname", {
@@ -155,7 +150,7 @@ const SurveyFormProfile = ({profileData, setProfileData, setValidationError}) =>
                     <video src={profileData.introductoryVideo} controls/>
                 )
             }
-        </form>
+        </div>
     )
         ;
 };
