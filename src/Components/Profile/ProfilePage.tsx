@@ -6,6 +6,7 @@ import {getProfileData} from "../API/Profile.ts";
 import {UserProfile} from "../../ProfileData.ts"
 import UserInfoSection from "./ProfileComponents/UserInfoSection.tsx";
 import AboutSection from "./ProfileComponents/AboutSection.tsx";
+import Navbar from "../Navbar.tsx";
 
 export const ProfileContext = createContext(null)
 function ProfilePage() {
@@ -46,11 +47,16 @@ function ProfilePage() {
     //pass profile data to child components
     return (
         <ProfileContext.Provider value={profileData}>
-        <div className="flex overflow-y-auto h-screen bg-profile">
-                <Aside/>
-                <div className="flex-1 ml-10 p-4">
-                    <UserInfoSection/>
-                    <AboutSection/>
+            <div className="flex flex-col h-screen overflow-y-hidden">
+                <Navbar/>
+                <div className="flex justify-center bg-primary bg-pattern">
+                    <div className="items-center overflow-y-auto h-screen bg-profile lg:w-2/3 shadow-2xl">
+                        <UserInfoSection/>
+                        <div className="flex">
+                            <Aside/>
+                            <AboutSection/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </ProfileContext.Provider>

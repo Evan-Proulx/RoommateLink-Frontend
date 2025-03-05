@@ -12,8 +12,8 @@ function UserInfoSection() {
     const user = userProfile as UserProfile;
 
     return (
-        <div className="p-4 flex justify-between items-start w-full">
-            <div className={"flex space-x-3"}>
+        <div className="p-4 flex justify-between items-start w-full shadow-md">
+            <div className={"flex space-x-3 px-4 lg:px-12"}>
                 <ProfileImg/>
                 <div className="">
                     {/* User name */}
@@ -37,13 +37,13 @@ function UserInfoSection() {
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                                   d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z"/>
                         </svg>
-                        <h1 className="pl-1 text-xl font-semibold text-center text-gray-500">{user.personalData.city}</h1>
+                        <h1 className="pl-1 text-md lg:text-xl font-semibold text-center text-gray-500">{user.personalData.city}</h1>
                     </div>
 
                     {/* User's Budget */}
                     <div className="flex items-center m-3">
                         <FontAwesomeIcon icon={faPiggyBank} className="text-gray-500 text-xl"/>
-                        <h1 className="pl-2 text-xl font-semibold text-center text-gray-500">
+                        <h1 className="pl-2 text-md lg:text-xl font-semibold text-center text-gray-500">
                             Budget: ${user.personalData.budget}/month
                         </h1>
                     </div>
@@ -56,14 +56,14 @@ function UserInfoSection() {
                                   d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
                         </svg>
 
-                        <h1 className="pl-1 text-xl font-semibold text-center text-gray-500">Looking
+                        <h1 className="pl-1 text-md lg:text-xl font-semibold text-center text-gray-500">Looking
                             for: {user.personalData.has_housing ? "roommate" : "roommate + housing"}</h1>
                     </div>
                 </div>
             </div>
 
             {/* Video Component */}
-            <div className="justify-end">
+            <div className="hidden sm:block align-bottom">
                 <Video/>
             </div>
 

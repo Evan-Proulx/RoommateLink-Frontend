@@ -16,7 +16,7 @@ function Aside() {
     const renderInterestedPeople = activeTab === "My property";
 
     return (
-        <div className="h-auto w-56 bg-profile p-4 m-2">
+        <div className="h-auto w-56 bg-profile pr-4 m-2">
             <MessageBtn />
             <FavoriteBtn />
             <ReportBtn/>

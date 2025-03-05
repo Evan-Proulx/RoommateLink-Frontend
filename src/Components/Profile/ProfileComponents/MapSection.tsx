@@ -1,4 +1,7 @@
 import { CircleF, GoogleMap, LoadScript } from "@react-google-maps/api";
+import {UserProfile} from "../../../ProfileData.ts";
+import {useContext} from "react";
+import {ProfileContext} from "../ProfilePage.tsx";
 
 
     //Map's container size
@@ -23,6 +26,11 @@ const circleOptions = {
 };
 
 function MapSection() {
+    //Get user data
+    const userProfile = useContext(ProfileContext);
+    const user = userProfile as UserProfile;
+    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
     return (
         <div className="pt-6">
             <h1 className="text-lg font-bold mb-2 flex items-center">
@@ -56,10 +64,10 @@ function MapSection() {
 
             {/* Displaying the Location here*/}
             <h2 className="text-gray-600 flex items-center ml-2">
-                664 Rankin, Windsor, ON
+                {user.personalData.city}
             </h2>
             <div className="bg-white p-4 m-2 border border-black max-w-[580px]">
-                <LoadScript googleMapsApiKey="API_KEY">
+                <LoadScript googleMapsApiKey={apiKey}>
                     <GoogleMap
                         options={{
                             //Allowing the user only to zoom in & out

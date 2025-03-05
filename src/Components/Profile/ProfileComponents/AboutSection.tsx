@@ -210,7 +210,7 @@ function AboutSection() {
     const [activeTab, setActiveTab] = useState("about");
 
     return (
-        <div className="p-2">
+        <div className="p-4">
             {/* Tabs for switching between "About Me" and "My Property" */}
             <div className="flex space-x-6 mt-2">
                 <button
