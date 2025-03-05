@@ -7,6 +7,7 @@ import {UserProfile} from "../../../ProfileData.ts";
 import ProfileImg from "../Aside/ProfileImg.tsx";
 
 function UserInfoSection() {
+    //Get user data
     const userProfile = useContext(ProfileContext);
     const user = userProfile as UserProfile;
 
