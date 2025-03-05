@@ -17,13 +17,13 @@ function ProfileImg() {
 
 
     return (
-        <div className="flex flex-col items-center justify-center space-y-4 flex-1 mt-2 w-60 mb-10">
+        <div className="flex flex-col items-center justify-center mt-2">
             <img
                 src="https://cdn-icons-png.flaticon.com/256/11748/11748483.png"
                 alt="User Profile"
-                className="w-40 h-40 rounded-full shadow-md object-cover"
+                className="w-32 rounded-full shadow-md"
             />
-            <label className={`w-full mr-2 text-center font-semibold text-4xl ${getTextColor(percentage)}`}>
+            <label className={`text-center font-black text-4xl ${getTextColor(percentage)}`}>
                 {percentage} % Link
             </label>
         </div>

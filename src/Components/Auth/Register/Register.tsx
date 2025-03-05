@@ -71,7 +71,6 @@ function Register() {
                             <label htmlFor="tel" className="block mb-2 header2-text">Phone</label>
                             <input type="tel"
                                    {...register<"phone">("phone", {
-                                       required: "Phone is required",
                                        minLength: {value: 10, message: "Please input a valid phone number"}
                                    })}
                                    id="tel"
@@ -79,8 +78,7 @@ function Register() {
                                    onChange={(event) => setPhone(event.target.value)}
                                    className={"input-style w-full"}
                                    placeholder="222-222-2222"
-                                   autoComplete="on"
-                                   required/>
+                                   autoComplete="on"/>
                         </div>
                     </div>
 

@@ -6,8 +6,7 @@ function ProfileComponents() {
 
     return (
         <div>
-            <UserInfoSection/>
-            <AboutSection/>
+
 
         </div>
     )
