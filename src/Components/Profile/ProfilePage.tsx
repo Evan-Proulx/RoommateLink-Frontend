@@ -49,7 +49,7 @@ function ProfilePage() {
         <ProfileContext.Provider value={profileData}>
             <div className="flex flex-col h-screen overflow-y-hidden">
                 <Navbar/>
-                <div className="flex justify-center bg-primary bg-pattern">
+                <div className="flex justify-center bg-primary">
                     <div className="items-center overflow-y-auto h-screen bg-profile lg:w-2/3 shadow-2xl">
                         <UserInfoSection/>
                         <div className="flex">

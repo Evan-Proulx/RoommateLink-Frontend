@@ -23,7 +23,6 @@
     font-weight: 400;
     font-style: normal;
     color: #FF3033;
-    font-size: 2rem;
 }
 
 .header-text {
@@ -117,6 +116,21 @@
     opacity: 1
 }
 
+.rounded-underline {
+    position: relative;
+}
+
+.rounded-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 4px;
+    background-color: var(--color-text);
+    border-radius:10px;
+}
 
 
 

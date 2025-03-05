@@ -12,7 +12,7 @@ const Feed = () => {
 
     return (
 
-        <div className={"w-full bg-primary"}>
+        <div className={"w-full bg-primary overflow-y-hidden"}>
             <Navbar/>
             <div className={"flex items-baseline py-3 space-x-3"}>
                 <h1 className="pl-3 lg:pl-32 text-start header-text-huge">Your Links</h1>

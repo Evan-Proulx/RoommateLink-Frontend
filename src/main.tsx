@@ -53,8 +53,12 @@ const router = createBrowserRouter([
         element: <Callback />,
     },
     {
-        path: '/college',
-        element: <CollegeInput />,
+        path: '/feed',
+        element: <Feed/>,
+    },
+    {
+        path: '/discovery',
+        element: <Discovery/>,
     },
     {
         path: '/test',
