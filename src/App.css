@@ -18,6 +18,16 @@
     padding: 1rem 0 0 1rem;
 }
 
+.landingPageLogo{
+    font-family: "Supermercado One", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #FF3033;
+    font-size: 4rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
 .header-text {
     font-size: 3rem;
     font-weight: bold;
