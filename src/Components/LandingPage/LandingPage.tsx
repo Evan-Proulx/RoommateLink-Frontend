@@ -1,13 +1,24 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faComments, faMagnifyingGlassPlus, faUser} from "@fortawesome/free-solid-svg-icons";
+import {Link} from "react-router-dom";
 
 const FirstSection = () => {
     return (
-        <section className="bg-gradient-to-r from-white to-yellow-100 text-center py-10 pl-0 pr-10">
+        <section className="bg-gradient-to-r from-white to-yellow-100 text-center pb-10 pl-0 pr-10">
+
+            <div className="flex justify-end items-center space-x-4 pr-10">
+                <h2 className="text-xl px-6 pt-4 font-bold text-red-600">Have an account?</h2>
+                <Link to="/login">
+                    <button className="mt-2 px-3 py-2 bg-red-500 text-white font-semibold rounded-full hover:bg-red-600 transition-transform duration-300 hover:scale-110">
+                        Login
+                    </button>
+                </Link>
+            </div>
+
             <div className="flex flex-col items-center justify-center text-center">
-                <h1 className={"landingPageLogo"}>Roommate Link</h1>
-                <h1 className="text-4xl font-bold text-red-600">Find the Perfect Roommate or Place with Ease!</h1>
+                <h1 className="landingPageLogo mt-[-30px]">Roommate Link</h1>
+                <h1 className="text-3xl font-bold text-red-600 mt-[-20px]">Find the Perfect Roommate or Place with Ease!</h1>
 
                 <div className="flex items-center justify-between mt-8 max-w-6xl mx-auto">
                     <div className="max-w-2xl">
@@ -19,20 +30,21 @@ const FirstSection = () => {
                             </div>
                         </div>
                         <div className="bg-yellow-100 w-[500px] p-4 rounded-lg shadow-2xl m-5 text-left transition-transform duration-300 hover:scale-105">
-
-                        <div className="p-2">
-                            <p className="text-xl font-normal text-red-600">
-                                Stay safe with verified listings and secure chats. Join thousands who found their ideal living situation—quick, easy, and stress-free!
-                            </p>
+                            <div className="p-2">
+                                <p className="text-xl font-normal text-red-600">
+                                    Stay safe with verified listings and secure chats. Join thousands who found their ideal living situation—quick, easy, and stress-free!
+                                </p>
+                            </div>
                         </div>
-                        </div>
 
-                        <button className="mt-2 px-6 py-3 bg-red-500 text-white font-semibold rounded-full  hover:bg-red-600 transition-transform duration-300 hover:scale-125">
-                            Join Now
-                        </button>
+                        <Link to="/register">
+                            <button className="mt-2 px-6 py-3 bg-red-500 text-white font-semibold rounded-full hover:bg-red-600 transition-transform duration-300 hover:scale-125">
+                                Join Now
+                            </button>
+                        </Link>
                     </div>
                     <div>
-                        <img src="/src/Components/LandingPage/img1.jpg" alt="Create Profile" className="mx-auto mb-4 p-5" style={{ width: '550px', filter: 'blur(2px)' }} />
+                        <img src="/src/Components/LandingPage/img4.jpg" alt="Create Profile" className="mx-auto mb-4 p-5" style={{ width: '500px'}} />
                     </div>
                 </div>
             </div>
@@ -40,12 +52,14 @@ const FirstSection = () => {
     );
 };
 
+
+
 const HowItWorks = () => {
     return (
         <section className="bg-gradient-to-r from-white to-yellow-100 text-center py-10 pl-0 pr-10">
             <div className="mt-8 flex flex-col md:flex-row items-center justify-center gap-6">
                 <div>
-                    <img src="/src/Components/LandingPage/img2.jpg" alt="Create Profile" className="mx-auto mb-4" style={{ width: '320px' ,  filter: 'blur(2px)' }} />
+                    <img src="/src/Components/LandingPage/img3.jpg" alt="Create Profile" className="mx-auto mb-4" style={{ width: '310px'  }} />
                 </div>
                 <div className="flex flex-col gap-6">
                     <h2 className="text-3xl font-bold text-red-600 text-left">How It Works</h2>
@@ -114,7 +128,22 @@ const LandingPage = () => {
             <HowItWorks />
             <WhyChooseUs />
             <footer className="text-center py-6 bg-red-600 text-white">
-                <p>RoommateLink &copy; 2025</p>
+                <div className="mb-5 flex justify-center space-x-16">
+                    <button className="px-12 py-6 text-white font-semibold transition-transform duration-300 hover:scale-125">
+                        Terms of Use
+                    </button>
+                    <button className="px-12 py-6 text-white font-semibold transition-transform duration-300 hover:scale-125">
+                        FAQ
+                    </button>
+
+                    <Link to="/register">
+                        <button className="px-12 py-6 text-white font-semibold transition-transform duration-300 hover:scale-125">
+                            Privacy Policy
+                        </button>
+                    </Link>
+                </div>
+
+                <p className="pt-4">RoommateLink &copy; 2025</p>
             </footer>
         </div>
     );
