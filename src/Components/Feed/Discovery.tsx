@@ -24,7 +24,8 @@ const Discovery = () => {
                 <div><h1 className="pl-3 lg:pl-32 text-start header-text-huge">Discovery</h1>
                     <h2 className="pl-3 lg:pl-32 text-start header4-text">Refine your roommate search</h2></div>
             </div>
-            <div className={"flex space-x-3 items-end justify-center"}>
+
+            <div className={"flex flex-wrap space-x-3 items-end justify-center"}>
                 {/*Location select*/}
                 <section className={""}>
                     <label htmlFor="cities" className="block text-lg font-bold text-center">Location</label>

@@ -53,8 +53,9 @@ const SurveyAbout = ({userData, setUserData, searchLocation, setSearchLocation})
         if (data) {
             //Set location name to input
             setLocationName(`${data.town}, ${data.province}`);
-            //Update location in user data
-            updateUserData("city", data.town)
+            //Update city and province in user data
+            updateUserData("city", data.town);
+            updateUserData("province", data.province);
         }
     }
 

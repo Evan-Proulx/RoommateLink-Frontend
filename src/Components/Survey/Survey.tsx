@@ -22,6 +22,7 @@ const Survey = () => {
     //User Data
     const [personalData, setPersonalData] = useState({
         city: "",
+        province: "",
         hasHousing: false,
         budget: 1200,
         school: "",
@@ -115,6 +116,7 @@ const Survey = () => {
         //TODO: Add deal breaker data later
         //combine all data into one object
         const allData = {
+            searchLocation,
             personalData,
             profileData,
             ...(personalData.hasHousing && {propertyData}),  //Only include housing data if user has property

@@ -15,9 +15,25 @@ const FeedCard = () => {
     const [attributes, setAttributes] = useState(["non-smoker", "English", "Vegan"]);
     const [isMapOpen, setIsMapOpen] = useState(false);
 
+    const actionButtons = (
+        <div className={"m-4 w-3/4"}>
+            <p className={"sm:block text-center sm:text-end text-sm sm:text-lg font-black text-green-400"}>98% Link</p>
+            <div className={"flex justify-end space-x-3"}>
+                <button className={""} title={"Start a Chat"}><ForumOutlined/></button>
+                <button className={""} title={"Bookmark User"} onClick={() => setIsBookmarked(!isBookmarked)}>
+                    {!isBookmarked ? (
+                        <BookmarkAddOutlined sx={{color: orange[600]}}/>
+                    ) : (
+                        <Bookmark sx={{color: orange[600]}}/>
+                    )}
+                </button>
+            </div>
+        </div>
+    );
+
     return (
         <div className={"flex items-center justify-center w-full"}>
-            <div className={"bg-white border border-black rounded w-144  m-4 h-72 lg:h-64 card-shadow"}>
+            <div className={"bg-white border border-black rounded w-144 m-4 h-auto card-shadow"}>
                 <div className={"flex items-start justify-between"}>
 
                     <div className={"flex"}>
@@ -38,30 +54,22 @@ const FeedCard = () => {
                         </div>
                     </div>
 
-                    {/*Link/Actions*/}
-                    <div className={"m-4"}>
-                        <p className={"text-lg font-black text-green-400"}>98% Link</p>
-                        <div className={"flex justify-end space-x-3"}>
-                            <button className={""} title={"Start a Chat"}><ForumOutlined/></button>
-                            <button className={""} title={"Bookmark User"} onClick={() => setIsBookmarked(!isBookmarked)}>
-                                {!isBookmarked ?(
-                                <BookmarkAddOutlined sx={{color: orange[600]}} />
-                            ) : (
-                                <Bookmark sx={{color: orange[600]}} />
-                            )}
-                            </button>
-                        </div>
-                    </div>
+                    {/*display buttons next to name on larger screen*/}
+                    <div className={"hidden sm:block"}>{actionButtons}</div>
                 </div>
 
                 <div className={"flex justify-between "}>
-                    <div className={"ml-4 mb-4 card-text-light w-1/2"}>
+                    <div className={"flex justify-between content-end items-end align-bottom sm:justify-start sm:block ml-4 card-text-light w-full sm:w-1/2"}>
                         <p className={""}>Looking for: Roommate + Place</p>
-                        <p className={"text-sm pt-2"}>Hey, I'm John! I'm looking for a chill and respectful roommate to
-                            share a place.... </p>
+                        {/*dont display on small screens*/}
+                        <p className={"hidden sm:block text-sm pt-2"}>Hey, I'm John! I'm looking for a chill and respectful roommate to
+                            share a place....</p>
+
+                        <div className={"sm:hidden"}>{actionButtons}</div>
                     </div>
 
-                        <div className={"flex flex-row-reverse flex-wrap align-bottom items-end m-4 w-1/2"}>
+                        {/*Dont display on small screens*/}
+                        <div className={"hidden sm:flex flex-row-reverse flex-wrap align-bottom items-end m-4 w-1/2"}>
                             {attributes.map(attributes =>
                                 <div>
                                     <p className="px-2 py-1 me-1 text-sm font-medium text-white rounded-sm bg-secondary">{attributes}</p>
