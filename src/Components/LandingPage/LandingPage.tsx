@@ -1,19 +1,48 @@
-import React from "react";
+import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faComments, faMagnifyingGlassPlus, faUser} from "@fortawesome/free-solid-svg-icons";
 import {Link} from "react-router-dom";
 
+
+
 const FirstSection = () => {
+    const [isOn, setIsOn] = useState(false);
+
     return (
         <section className="bg-gradient-to-r from-white to-yellow-100 text-center pb-10 pl-0 pr-10">
 
-            <div className="flex justify-end items-center space-x-4 pr-10">
-                <h2 className="text-xl px-6 pt-4 font-bold text-red-600">Have an account?</h2>
-                <Link to="/login">
-                    <button className="mt-2 px-3 py-2 bg-red-500 text-white font-semibold rounded-full hover:bg-red-600 transition-transform duration-300 hover:scale-110">
-                        Login
-                    </button>
-                </Link>
+            <div className="flex justify-between items-center w-full px-10 py-4">
+                {/* Language Toggle (Left Side) */}
+                <div className="flex items-center space-x-3">
+                    <span className="text-gray-700 font-semibold text-xl">En</span>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                            type="checkbox"
+                            className="sr-only peer"
+                            checked={isOn}
+                            onChange={() => setIsOn(!isOn)}
+                        />
+                        <div className="w-14 h-7 bg-red-500 rounded-full peer-checked:bg-blue-400 transition-colors duration-300">
+                            <div
+                                className={`absolute top-1 left-1 h-5 w-5 bg-white rounded-full transition-all duration-300 ${
+                                    isOn ? "translate-x-7" : ""
+                                }`}
+                            ></div>
+                        </div>
+                    </label>
+                    <span className="text-gray-700 font-semibold text-xl">Fr</span>
+                </div>
+
+                {/* Account Section (Right Side) */}
+                <div className="flex items-center space-x-6">
+                    <h2 className="text-xl font-bold text-red-600">Have an account?</h2>
+                    <a href="/login">
+                        <button className="px-4 py-2 bg-red-500 text-white font-semibold rounded-full
+                        hover:bg-red-600 transition-transform duration-300 hover:scale-110">
+                            Login
+                        </button>
+                    </a>
+                </div>
             </div>
 
             <div className="flex flex-col items-center justify-center text-center">
@@ -51,6 +80,7 @@ const FirstSection = () => {
         </section>
     );
 };
+
 
 
 
@@ -112,9 +142,13 @@ const WhyChooseUs = () => {
 
             <div className="flex items-center justify-center text-center space-x-4 mt-8">
                 <h2 className="text-xl px-6 py-4 font-bold text-red-600">So, What are you waiting for?</h2>
+                <Link to="/register">
+
                 <button className="mt-2 px-6 py-4 bg-red-500 text-white font-semibold rounded-full hover:bg-red-600 transition-transform duration-300 hover:scale-105">
                     Get Started Now
                 </button>
+                </Link>
+
             </div>
 
         </section>
@@ -136,11 +170,9 @@ const LandingPage = () => {
                         FAQ
                     </button>
 
-                    <Link to="/register">
                         <button className="px-12 py-6 text-white font-semibold transition-transform duration-300 hover:scale-125">
                             Privacy Policy
                         </button>
-                    </Link>
                 </div>
 
                 <p className="pt-4">RoommateLink &copy; 2025</p>
