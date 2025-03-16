@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {fetchUsers, fetchConversations, handleCreateConversation} from '../API/Messaging.ts'
-const CreateCoversations = (onSetConversation) => {
+const CreateCoversations = () => {
     const [users, setUsers] = useState([]);
     const [userConversations, setUserConversations] = useState([]);
     const [selectedUserId, setSelectedUserId] = useState("");
@@ -48,7 +48,6 @@ const CreateCoversations = (onSetConversation) => {
         //get the conversation from array of user's conversations
         const selectedConversation = userConversations.find(convo => convo.id === parseInt(conversation));
         //send conversation to chatBox
-        onSetConversation(selectedConversation);
     }
 
     return (

@@ -6,7 +6,7 @@ export const fetchUsers = async () => {
     const token = localStorage.getItem("token");
 
     try {
-        const response = await axios.get(`${rootUrl}/api/users`, {
+        const response = await axios.get(`${rootUrl}/api/accounts`, {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
@@ -58,13 +58,15 @@ export const handleCreateConversation = async (userId) => {
 
 
 //Create message in conversation
-
 export const createMessage = async (text, conversationId) => {
     const token = localStorage.getItem("token");
 
     try {
-        const response = await axios.post(`${rootUrl}/api/conversations`,
-            {text, conversationId}, {
+        const response = await axios.post(`${rootUrl}/api/message`,
+            {
+                text,
+                conversation_id: conversationId
+            }, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -73,4 +75,20 @@ export const createMessage = async (text, conversationId) => {
         console.log("Message created successfully:", response.data);
         return response.data;
     }catch (error){console.error('Could not create message: ', error)}
+}
+
+
+export const getConversationMessages = async (conversationId) => {
+    const token = localStorage.getItem("token");
+    console.log("Conversation: " + conversationId);
+    try {
+        const response = await axios.get(`${rootUrl}/api/messages/${conversationId}`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+        });
+        console.log("Messages fetched successfully:", response.data);
+        return response.data;
+    }catch (err){console.error(err)}
 }

@@ -1,9 +1,10 @@
 import axios from "axios";
+const rootUrl = import.meta.env.VITE_ROOT_URL;
 
 export const createProfile = async (profileData) => {
     const token = localStorage.getItem("token");
     try {
-        const response = await axios.post('http://127.0.0.1:8000/api/profile', profileData,
+        const response = await axios.post(`${rootUrl}/api/profile`, profileData,
             {
                 headers: {
                     "Content-Type": "application/json",
@@ -18,7 +19,7 @@ export const createProfile = async (profileData) => {
 }
 export const getProfileData = async (token) => {
     try {
-        const response = await axios.get('http://127.0.0.1:8000/api/profile',
+        const response = await axios.get(`${rootUrl}/api/profile`,
             {
                 headers: {
                     "Content-Type": "application/json",
@@ -36,7 +37,7 @@ export const uploadImage = async (imageFile) => {
         const formData = new FormData();
         formData.append("file", imageFile);
 
-        const response = await axios.post("http://127.0.0.1:8000/api/image", formData, {
+        const response = await axios.post(`${rootUrl}/api/image`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
@@ -50,4 +51,20 @@ export const uploadImage = async (imageFile) => {
     }
 };
 
+export const getAuthenticatedUser = async () => {
+    const token = localStorage.getItem("token");
+
+    try{
+        const response = await axios.get(`${rootUrl}/api/account`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        console.log(response.data)
+        return response.data;
+    }catch (err) {
+        console.log(err)
+    }
+}
 
