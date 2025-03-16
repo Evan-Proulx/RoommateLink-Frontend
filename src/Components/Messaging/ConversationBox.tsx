@@ -14,11 +14,13 @@ const ConversationBox = ({user, conversation}) => {
     const scroll = useRef();
 
     //Check if user id against user1 and 2 to find recipient
-    const receiverId = conversation.user_one.id === user.id ? conversation.user_two : conversation.user_one;
+    const receiver = conversation.user_one.id === user.id ? conversation.user_two : conversation.user_one;
     const receiverName = conversation.user_one.email === user.email ? conversation.user_two.email : conversation.user_one.email
 
     const connectWebSocket = () => {
         const channel = echo.private(webSocketChannel);
+        console.log(channel)
+        console.log("connected?")
         channel.listen('GotMessage', async (e) => {
             console.log("Message received")
             await getMessages();
@@ -69,11 +71,11 @@ const ConversationBox = ({user, conversation}) => {
                         }
                         {/*<span ref={scroll}></span>*/}
                     </div>
-                    {/*<div className={`text-center ${userTyping ? "typing" : ""}`}>*/}
-                    {/*    {userTyping ? `User is typing...` : ""}*/}
-                    {/*</div>*/}
+                    <div className={`text-center ${userTyping ? "typing" : ""}`}>
+                        {userTyping ? `User is typing...` : ""}
+                    </div>
                     <div className="card-footer">
-                        <MessageInput conversation={conversation} receiver={receiverId}/>
+                        <MessageInput conversation={conversation} receiverId={receiver.id}/>
                     </div>
                 </div>
             </div>

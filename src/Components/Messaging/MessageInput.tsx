@@ -1,15 +1,14 @@
-import React, {useRef, useState} from 'react';
-import {createMessage} from '../API/Messaging.ts'
+import React, {useEffect, useRef, useState} from 'react';
+import {createMessage, setTyping} from '../API/Messaging.ts'
 import axios from 'axios'
-const MessageInput = ({conversation}) => {
+const MessageInput = ({conversation, receiverId}) => {
     const [message, setMessage] = useState("");
     const [userTyping, setUserTyping] = useState(false);
-    const typingTimeout = useRef(null);
     const [loading, setLoading] = useState(true);
+    const typingTimeout = useRef<number | null>(null);
 
     //Create message in conversation
     const messageRequest = async (text) => {
-        //Conversation gets nested in another object for some reason
         try {
             setLoading(true);
             console.log(conversation.id)
@@ -26,32 +25,43 @@ const MessageInput = ({conversation}) => {
             alert("Please enter a message!");
             return;
         }
-        // setTyping(false);
-        // setUserTyping(false);
+        setTypingStatus(false);
+        setUserTyping(false);
 
         messageRequest(message);
         setMessage("");
     };
 
+
+    //Send typing event to server to indicate user is typing.
+    const setTypingStatus = async (typing) => {
+        console.log(receiverId, conversation.id, typing)
+        const response = await setTyping(receiverId, conversation.id, typing);
+    }
+
+
     const handleTyping = (e) => {
         const currentText = e.target.value;
         setMessage(currentText);
 
-        // if (typingTimeout.current){
-        //     clearTimeout(typingTimeout.current);
-        // }
-        //
-        // if (!userTyping && currentText.trim() !== ""){
-        //     setUserTyping(true);
-        //     setTyping(true);
-        // }
-        //
-        // typingTimeout.current = setTimeout(() => {
-        //     if (userTyping) {
-        //         setUserTyping(false);
-        //         setTyping(false);
-        //     }
-        // }, 1000);  // 5 seconds delay before sending typing status
+        //Clear previous timeout when user starts typing
+        if (typingTimeout.current !== null){
+            clearTimeout(typingTimeout.current as number);
+        }
+
+        //Set typing status to true if user types in the input field
+        if (!userTyping && currentText.trim() !== ""){
+            setUserTyping(true);
+            setTypingStatus(true);
+        }
+
+        //Set typing status to false after 5 seconds idle
+        typingTimeout.current = setTimeout(() => {
+            if (userTyping) {
+                setUserTyping(false);
+                setTypingStatus(false);
+            }
+        }, 5000);
     }
 
 
@@ -85,7 +95,7 @@ const MessageInput = ({conversation}) => {
 
 
                     <textarea id="chat" rows="1"
-                              onChange={handleTyping}
+                              onChange={handleTyping} value={message}
                               className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="Your message..."></textarea>
                     <button type="submit"

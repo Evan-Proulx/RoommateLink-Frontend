@@ -78,6 +78,7 @@ export const createMessage = async (text, conversationId) => {
 }
 
 
+//Get messages from conversation
 export const getConversationMessages = async (conversationId) => {
     const token = localStorage.getItem("token");
     console.log("Conversation: " + conversationId);
@@ -91,4 +92,24 @@ export const getConversationMessages = async (conversationId) => {
         console.log("Messages fetched successfully:", response.data);
         return response.data;
     }catch (err){console.error(err)}
+}
+
+//Set user typing status in conversation
+export const setTyping = async (receiverId, conversationId, isTyping) => {
+    const token = localStorage.getItem("token");
+    try {
+        const response = await axios.post(`${rootUrl}/api/typing`, {
+            receiver_id: receiverId,
+            conversation_id: conversationId,
+            isTyping: isTyping,
+        },{
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+        });
+        console.log("Typing status response: ", response)
+    } catch (err) {
+        console.error("Error updating typing status:", err.message);
+    }
 }
