@@ -94,6 +94,21 @@ export const getConversationMessages = async (conversationId) => {
     }catch (err){console.error(err)}
 }
 
+export const getConversationsProfiles = async () => {
+    const token = localStorage.getItem("token");
+
+    try{
+        const response  = await axios.get(`${rootUrl}/api/conversations/profiles`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+        });
+        console.log("Profiles fetched successfully:", response.data);
+        return response.data;
+    }catch (err){console.error(err)}
+}
+
 //Set user typing status in conversation
 export const setTyping = async (receiverId, conversationId, isTyping) => {
     const token = localStorage.getItem("token");

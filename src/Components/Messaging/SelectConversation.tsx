@@ -1,26 +1,28 @@
 import React, {useEffect, useState} from 'react';
-import {fetchConversations, fetchUsers} from "../API/Messaging.ts";
+import {fetchConversations, fetchUsers, getConversationsProfiles} from "../API/Messaging.ts";
 
 const SelectConversation = ({onSetConversation}) => {
     const [users, setUsers] = useState([]);
     const [userConversations, setUserConversations] = useState([]);
+    const [conversationProfiles, setConversationProfiles] = useState([]);
     const [selectedUserId, setSelectedUserId] = useState("");
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getUsers();
+        // getUsers();
         getUserConversations();
+        getConversationProfiles();
     },[]);
 
-    const getUsers = async () => {
-        try{
-            setLoading(true);
-            const response = await fetchUsers();
-            setUsers(response.data);
-        }catch(err){
-            console.error(err);
-        }finally{setLoading(false)}
-    }
+    // const getUsers = async () => {
+    //     try{
+    //         setLoading(true);
+    //         const response = await fetchUsers();
+    //         setUsers(response.data);
+    //     }catch(err){
+    //         console.error(err);
+    //     }finally{setLoading(false)}
+    // }
 
     const getUserConversations = async () => {
         try{
@@ -29,6 +31,16 @@ const SelectConversation = ({onSetConversation}) => {
             setUserConversations(response)
         }catch (error) {
             console.error("Error fetching conversations:", error);
+        } finally {setLoading(false)}
+    }
+
+    const getConversationProfiles = async () => {
+        try{
+            setLoading(true)
+            const response = await getConversationsProfiles();
+            setConversationProfiles(response);
+        }catch (error) {
+            console.error("Error fetching conversation profiles:", error);
         } finally {setLoading(false)}
     }
 
