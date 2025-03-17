@@ -29,7 +29,7 @@ const Conversation = () => {
 
 
     return (
-        <div>
+        <div className={"h-screen flex flex-col overflow-y-hidden"}>
             <Navbar/>
             <div className={"flex w-full bg-primary"}>
                 <div className={"w-1/4 border bg-gray-300"}><SelectConversation onSetConversation={handleConversationSelect}/></div>

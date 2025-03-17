@@ -3,6 +3,7 @@ import MessageInput from "./MessageInput.tsx";
 import echo from "../../../echo.js"
 import {getConversationMessages} from "../API/Messaging.ts";
 import Message from "./Message.tsx";
+import {More, MoreVert, Settings} from "@mui/icons-material";
 
 
 const ConversationBox = ({user, conversation}) => {
@@ -55,13 +56,21 @@ const ConversationBox = ({user, conversation}) => {
     }, [conversation]);
 
     return (
-        <div>
-            <div className={"w-full bg-red-800 border-b-gray-500"}>
-
+        <div className={"h-screen flex flex-col relative"}>
+            <div className="flex justify-between w-full h-20 border-2 border-b-gray-400 bg-primary items-center p-4 absolute top-0 left-0 right-0 z-10">
+                <div className="flex items-center">
+                    <div className="w-10 h-10 bg-red-800 rounded-full m-2"></div>
+                    <div>
+                        <p className="font-extrabold text-xl">Username</p>
+                        <p className="font-bold text-md text-gray-600">Last sent message...</p>
+                    </div>
+                </div>
+                <div>
+                    <MoreVert />
+                </div>
             </div>
-            <div className="flex justify-center">
-                <div className="w-full p-6">
-                    <div className="h-auto overflow-auto">
+            <div className="flex-grow overflow-auto p-6 mt-20 mb-28 justify-center">
+                    <div className="h-auto">
                         {
                             messages?.map((message) => (
                                 <Message key={message.id}
@@ -76,10 +85,9 @@ const ConversationBox = ({user, conversation}) => {
                     <div className={`text-center ${userTyping ? "typing" : ""}`}>
                         {userTyping ? `User is typing...` : ""}
                     </div>
-                    <div className="card-footer">
-                        <MessageInput conversation={conversation} receiverId={receiver.id}/>
+                <div className="fixed bottom-0 right-0 w-3/4 p-4 z-10 mt-60">
+                    <MessageInput conversation={conversation} receiverId={receiver.id}/>
                     </div>
-                </div>
             </div>
         </div>
     );
