@@ -65,8 +65,8 @@ const SelectConversation = ({onSetConversation}) => {
     }
 
     return (
-        <div className="user-selector mb-4">
-            <h4>Select a user to chat with:</h4>
+        <div className=" user-selector mb-4">
+            <h1 className={" p-2 text-2xl font-black"}>Your Chats</h1>
             {loading ? (
                 <p>Loading users...</p>
             ) : (
@@ -85,6 +85,18 @@ const SelectConversation = ({onSetConversation}) => {
                     })}
                 </select>
             )}
+
+            <ul className={"w-full"}>
+                <li className={"w-full p-1 border-y-2 border-gray-400"}>
+                    {/*Change to img*/}
+                    <div className={"flex"}>
+                        <div className={"w-10 h-10 bg-red-800 rounded-full m-2"}></div>
+                        <div><p className={"font-extrabold text-xl mt-1"}>Name</p>
+                            <p className={"font-bold text-md text-gray-600 "}>Last sent message...</p></div>
+                    </div>
+
+                </li>
+            </ul>
         </div>
     );
 };

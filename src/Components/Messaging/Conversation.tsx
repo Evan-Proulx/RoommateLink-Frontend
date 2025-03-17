@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import SelectConversation from "./SelectConversation.tsx";
 import ConversationBox from "./ConversationBox.tsx";
 import {getAuthenticatedUser} from "../API/Profile.ts";
+import Navbar from "../Navbar.tsx";
 
 const Conversation = () => {
     const [conversation, setConversation] = useState(null);
@@ -29,15 +30,18 @@ const Conversation = () => {
 
     return (
         <div>
-            <SelectConversation onSetConversation={handleConversationSelect}/>
+            <Navbar/>
+            <div className={"flex w-full bg-primary"}>
+                <div className={"w-1/4 border bg-gray-300"}><SelectConversation onSetConversation={handleConversationSelect}/></div>
 
-            {conversation ? (
-                <ConversationBox user={user} conversation={conversation}/>
-            ) : (
-                <div className="alert alert-info">
-                    Please select a user to start a conversation.
-                </div>
-            )}
+                <div className={"w-3/4"}>{conversation ? (
+                    <ConversationBox user={user} conversation={conversation}/>
+                ) : (
+                    <div className="alert alert-info">
+                        Please select a user to start a conversation.
+                    </div>
+                )}</div>
+            </div>
         </div>
     );
 };

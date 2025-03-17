@@ -55,11 +55,13 @@ const ConversationBox = ({user, conversation}) => {
     }, [conversation]);
 
     return (
-        <div className="flex justify-center">
-            <div className="w-3/4">
-                <div className="border border-gray-300 rounded-lg">
-                    <div className="bg-gray-100 p-4">Chat Box</div>
-                    <div className="p-4 h-auto overflow-auto">
+        <div>
+            <div className={"w-full bg-red-800 border-b-gray-500"}>
+
+            </div>
+            <div className="flex justify-center">
+                <div className="w-full p-6">
+                    <div className="h-auto overflow-auto">
                         {
                             messages?.map((message) => (
                                 <Message key={message.id}
