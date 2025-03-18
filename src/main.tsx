@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         element: <ProfilePage />,
     },
     {
-        path: '/callback',
+        path: '/callback', //Callback url
         element: <Callback />,
     },
     {
@@ -67,13 +67,9 @@ const router = createBrowserRouter([
         element: <Conversation/>,
     },
     {
-        path: '/landingPage',
+        path: '/home',
         element: <LandingPage />,
     },
-
-
-
-    // Add more routes here
 ]);
 
 createRoot(document.getElementById('root')!).render(

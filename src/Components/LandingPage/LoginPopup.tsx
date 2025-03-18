@@ -11,6 +11,12 @@ interface LoginPopupProps {
 const LoginPopup: React.FC<LoginPopupProps> = ({ isOpen, onClose }) => {
     const popupRef = useRef<HTMLDivElement | null>(null);
 
+    //Navigate user to correct oauth route
+    const toAuth = (provider: string) =>{
+        const rootUrl = import.meta.env.VITE_ROOT_URL;
+        window.location.href = `${rootUrl}/api/auth/${provider}/redirect`;
+    }
+
     // Close the popup if clicked outside
     useEffect(() => {
         if (!isOpen) return;
@@ -60,13 +66,13 @@ const LoginPopup: React.FC<LoginPopupProps> = ({ isOpen, onClose }) => {
 
                 {/* Login Buttons */}
                 <div className="mt-5 space-y-3">
-                    <button className="w-full flex items-center justify-center gap-2 bg-blue-600 py-2 rounded-lg hover:bg-blue-700">
+                    <button onClick={() => toAuth("google")} className="w-full flex items-center justify-center gap-2 bg-blue-600 py-2 rounded-lg hover:bg-blue-700">
                         <FontAwesomeIcon icon={faGoogle} size="xl"/> Continue with Google
                     </button>
-                    <button className="w-full flex items-center justify-center gap-2 bg-blue-500 py-2 rounded-lg hover:bg-gray-600">
+                    <button onClick={() => toAuth("linkedin-openid")} className="w-full flex items-center justify-center gap-2 bg-blue-500 py-2 rounded-lg hover:bg-gray-600">
                         <FontAwesomeIcon icon={faLinkedin} size="xl" /> Log in with LinkedIn
                     </button>
-                    <button className="w-full flex items-center justify-center gap-2 bg-gray-700 py-2 rounded-lg hover:bg-blue-900">
+                    <button onClick={() => toAuth("github")} className="w-full flex items-center justify-center gap-2 bg-gray-700 py-2 rounded-lg hover:bg-blue-900">
                         <FontAwesomeIcon icon={faGithub} size="xl"/> Log in with GitHub
                     </button>
 
