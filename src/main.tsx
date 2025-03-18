@@ -15,6 +15,7 @@ import CollegeInput from "./Components/Survey/CollegeInput.tsx";
 import LandingPage from "./Components/LandingPage/LandingPage.tsx";
 import ListingCard from "./Components/ListingCard.tsx";
 import BookmarkedUser from "./Components/BookmarkedUser.tsx";
+import LoginPopup from "./Components/LandingPage/LoginPopup.tsx";
 
 // Routes
 const router = createBrowserRouter([
@@ -59,6 +60,8 @@ const router = createBrowserRouter([
         path: '/landingPage',
         element: <LandingPage />,
     },
+
+
 
     // Add more routes here
 ]);

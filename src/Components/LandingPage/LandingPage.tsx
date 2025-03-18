@@ -2,11 +2,23 @@ import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faComments, faMagnifyingGlassPlus, faUser} from "@fortawesome/free-solid-svg-icons";
 import {Link} from "react-router-dom";
+import MapPopup from "../Survey/Survey-Map-Popup.tsx";
+import LoginPopup from "./LoginPopup.tsx";
 
 
 
 const FirstSection = () => {
     const [isOn, setIsOn] = useState(false);
+
+    const [isPopupOpen, setPopupOpen] = useState(false);
+
+    const handleOpenPopup = () => {
+        setPopupOpen(true);
+    };
+
+    const handleClosePopup = () => {
+        setPopupOpen(false);
+    };
 
     return (
         <section className="bg-gradient-to-r from-white to-yellow-100 text-center pb-10 pl-0 pr-10">
@@ -34,14 +46,13 @@ const FirstSection = () => {
                 </div>
 
                 {/* Account Section (Right Side) */}
-                <div className="flex items-center space-x-6">
-                    <h2 className="text-xl font-bold text-red-600">Have an account?</h2>
-                    <a href="/login">
-                        <button className="px-4 py-2 bg-red-500 text-white font-semibold rounded-full
-                        hover:bg-red-600 transition-transform duration-300 hover:scale-110">
-                            Login
+                <div className="flex items-center space-x-6" onClick={handleOpenPopup}>
+                        <button className="px-4 py-2 bg-red-500 text-white font-semibold text-xl rounded-full
+                        hover:bg-red-600 transition-transform duration-300 hover:scale-110"
+                        >
+                            Log in
                         </button>
-                    </a>
+                    <LoginPopup isOpen={isPopupOpen} onClose={handleClosePopup} />
                 </div>
             </div>
 
@@ -65,12 +76,13 @@ const FirstSection = () => {
                                 </p>
                             </div>
                         </div>
-
-                        <Link to="/register">
-                            <button className="mt-2 px-6 py-3 bg-red-500 text-white font-semibold rounded-full hover:bg-red-600 transition-transform duration-300 hover:scale-125">
-                                Join Now
-                            </button>
-                        </Link>
+                        <div className="bg-yellow-100 w-[500px] p-4 rounded-lg shadow-2xl m-5 text-left transition-transform duration-300 hover:scale-105">
+                            <div className="p-2">
+                                <p className="text-xl font-normal text-red-600">
+                                    Find your next home effortlessly and start living comfortably with a roommate who truly matches your vibe!
+                                </p>
+                            </div>
+                        </div>
                     </div>
                     <div>
                         <img src="/src/Components/LandingPage/img4.jpg" alt="Create Profile" className="mx-auto mb-4 p-5" style={{ width: '500px'}} />
@@ -122,6 +134,17 @@ const HowItWorks = () => {
 };
 
 const WhyChooseUs = () => {
+    const [isOn, setIsOn] = useState(false);
+
+    const [isPopupOpen, setPopupOpen] = useState(false);
+
+    const handleOpenPopup = () => {
+        setPopupOpen(true);
+    };
+
+    const handleClosePopup = () => {
+        setPopupOpen(false);
+    };
     return (
         <section className="py-16 text-center bg-gradient-to-r from-white to-yellow-100">
             <h2 className="text-3xl font-bold text-red-600">Why Choose Us?</h2>
@@ -142,12 +165,14 @@ const WhyChooseUs = () => {
 
             <div className="flex items-center justify-center text-center space-x-4 mt-8">
                 <h2 className="text-xl px-6 py-4 font-bold text-red-600">So, What are you waiting for?</h2>
-                <Link to="/register">
-
-                <button className="mt-2 px-6 py-4 bg-red-500 text-white font-semibold rounded-full hover:bg-red-600 transition-transform duration-300 hover:scale-105">
-                    Get Started Now
-                </button>
-                </Link>
+                <div onClick={handleOpenPopup}>
+                    <button className="px-4 py-2 bg-red-500 text-white font-semibold text-xl rounded-full
+                        hover:bg-red-600 transition-transform duration-300 hover:scale-110"
+                    >
+                        Join Now
+                    </button>
+                    <LoginPopup isOpen={isPopupOpen} onClose={handleClosePopup} />
+                </div>
 
             </div>
 
