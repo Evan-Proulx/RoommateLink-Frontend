@@ -12,8 +12,9 @@ import ErrorPage from "./ErrorPage.tsx";
 import Callback from "./Components/API/Callback.tsx";
 import Feed from "./Components/Feed/Feed.tsx";
 import Discovery from "./Components/Feed/Discovery.tsx";
-import CreateCoversations from "./Components/Messaging/CreateCoversations.tsx";
 import Conversation from "./Components/Messaging/Conversation.tsx";
+import LandingPage from "./Components/LandingPage/LandingPage.tsx";
+
 // Routes
 const router = createBrowserRouter([
     {
@@ -64,7 +65,13 @@ const router = createBrowserRouter([
     {
         path: '/test',
         element: <Conversation/>,
-    }
+    },
+    {
+        path: '/landingPage',
+        element: <LandingPage />,
+    },
+
+
 
     // Add more routes here
 ]);
