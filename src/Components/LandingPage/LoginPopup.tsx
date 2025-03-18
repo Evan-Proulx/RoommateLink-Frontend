@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { FaGoogle, FaFacebook, FaPhone, FaTimes } from "react-icons/fa";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFacebook, faGoogle, faLinkedin} from "@fortawesome/free-brands-svg-icons";
+import {faFacebook, faGithub, faGoogle, faLinkedin} from "@fortawesome/free-brands-svg-icons";
 
 interface LoginPopupProps {
     isOpen: boolean; // To check if the popup is open
@@ -41,7 +41,7 @@ const LoginPopup: React.FC<LoginPopupProps> = ({ isOpen, onClose }) => {
 
                 {/* Logo */}
                 <div className="flex justify-center mb-4">
-                    <h1 className="loginPopupLogo text-2xl font-bold transition-transform duration-200 hover:scale-110">
+                    <h1 className="loginPopupLogo text-2xl font-bold transition-transform duration-300 hover:scale-110">
                         Roommate Link
                     </h1>
 
@@ -52,10 +52,10 @@ const LoginPopup: React.FC<LoginPopupProps> = ({ isOpen, onClose }) => {
                 <h2 className="text-center text-red-600 text-4xl m-4 font-bold">Get Started</h2>
                 <p className="text-sm text-gray-700 text-center mt-2">
                     By tapping Log In or Continue, you agree to our{" "}
-                    <a href="#" className="text-blue-400">Terms</a>.
+                    <a href="#" className="text-blue-600">Terms</a>.
                     Learn how we process your data in our{" "}
-                    <a href="#" className="text-blue-400">Privacy Policy</a> and{" "}
-                    <a href="#" className="text-blue-400">Cookie Policy</a>.
+                    <a href="#" className="text-blue-600">Privacy Policy</a> and{" "}
+                    <a href="#" className="text-blue-600">Cookie Policy</a>.
                 </p>
 
                 {/* Login Buttons */}
@@ -63,12 +63,13 @@ const LoginPopup: React.FC<LoginPopupProps> = ({ isOpen, onClose }) => {
                     <button className="w-full flex items-center justify-center gap-2 bg-blue-600 py-2 rounded-lg hover:bg-blue-700">
                         <FontAwesomeIcon icon={faGoogle} size="xl"/> Continue with Google
                     </button>
-                    <button className="w-full flex items-center justify-center gap-2 bg-blue-800 py-2 rounded-lg hover:bg-blue-900">
-                        <FontAwesomeIcon icon={faFacebook} size="xl"/>Log in with Facebook
+                    <button className="w-full flex items-center justify-center gap-2 bg-blue-500 py-2 rounded-lg hover:bg-gray-600">
+                        <FontAwesomeIcon icon={faLinkedin} size="xl" /> Log in with LinkedIn
                     </button>
-                    <button className="w-full flex items-center justify-center gap-3 bg-gray-700 py-2 rounded-lg hover:bg-gray-600">
-                    <FontAwesomeIcon icon={faLinkedin} size="xl" /> Log in with LinkedIn
-                </button>
+                    <button className="w-full flex items-center justify-center gap-2 bg-gray-700 py-2 rounded-lg hover:bg-blue-900">
+                        <FontAwesomeIcon icon={faGithub} size="xl"/> Log in with GitHub
+                    </button>
+
                 </div>
             </div>
         </div>
