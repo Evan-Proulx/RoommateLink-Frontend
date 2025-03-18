@@ -4,6 +4,7 @@ import echo from "../../../echo.js"
 import {getConversationMessages} from "../API/Messaging.ts";
 import Message from "./Message.tsx";
 import {More, MoreVert, Settings} from "@mui/icons-material";
+import { Element, scroller } from "react-scroll";
 
 
 const ConversationBox = ({user, conversation}) => {
@@ -12,7 +13,9 @@ const ConversationBox = ({user, conversation}) => {
 
     const [messages, setMessages] = useState([]);
     const [userTyping, setUserTyping] = useState(false);
-    const scroll = useRef();
+
+    const scroll = useRef(null);
+    const messageRef = useRef(null);
 
     //Check if user id against user1 and 2 to find recipient
     const receiver = conversation.user_one.id === user.id ? conversation.user_two : conversation.user_one;
@@ -20,8 +23,6 @@ const ConversationBox = ({user, conversation}) => {
 
     const connectWebSocket = () => {
         const channel = echo.private(webSocketChannel);
-        console.log(channel)
-        console.log("connected?")
         channel.listen('GotMessage', async (e) => {
             console.log("Message received")
             await getMessages();
@@ -36,16 +37,30 @@ const ConversationBox = ({user, conversation}) => {
         });
     }
 
+
     const getMessages = async () => {
         try{
             const response = await getConversationMessages(conversation.id);
             setMessages(response);
+            setTimeout(scrollToBottom, 0);
             console.log(...messages)
         } catch (err) {
             console.error("Error fetching messages:", err);
         }
     }
 
+    //Scrolls to bottom of component
+    const scrollToBottom = () => {
+            if (messageRef.current) {
+                messageRef.current.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'end',
+                        inline: 'nearest'
+                    })
+            }
+    };
+
+    //Get messages from conversation and connect to new channel when conversation is selected
     useEffect(() => {
         getMessages();
         connectWebSocket();
@@ -69,9 +84,10 @@ const ConversationBox = ({user, conversation}) => {
                     <MoreVert />
                 </div>
             </div>
-            <div className="flex-grow overflow-auto p-6 mt-20 mb-28 justify-center">
-                    <div className="h-auto">
+            <div className="flex-grow overflow-auto p-6 mt-20 mb-40 justify-center">
+                    <div className="h-auto" ref={messageRef}>
                         {
+                            //Display messages in message array
                             messages?.map((message) => (
                                 <Message key={message.id}
                                          userId={user.id}
@@ -80,14 +96,13 @@ const ConversationBox = ({user, conversation}) => {
                                 />
                             ))
                         }
-                        {/*<span ref={scroll}></span>*/}
                     </div>
                     <div className={`text-center ${userTyping ? "typing" : ""}`}>
                         {userTyping ? `User is typing...` : ""}
                     </div>
                 <div className="fixed bottom-0 right-0 w-3/4 p-4 z-10 mt-60">
                     <MessageInput conversation={conversation} receiverId={receiver.id}/>
-                    </div>
+                </div>
             </div>
         </div>
     );

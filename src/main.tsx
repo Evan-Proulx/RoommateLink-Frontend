@@ -58,6 +58,10 @@ const router = createBrowserRouter([
         element: <Discovery/>,
     },
     {
+        path: '/chats',
+        element: <Conversation />,
+    },
+    {
         path: '/test',
         element: <Conversation/>,
     }
