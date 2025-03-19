@@ -31,17 +31,23 @@ const Conversation = () => {
     return (
         <div className={"h-screen flex flex-col overflow-y-hidden"}>
             <Navbar/>
-            <div className={"flex w-full bg-primary h-screen"}>
-                <div className={"w-1/4 border-2 border-r-gray-400 bg-gray-300"}><SelectConversation onSetConversation={handleConversationSelect}/></div>
+            {user ? (
+                <div className={"flex w-full bg-primary h-screen"}>
+                    <div className={"w-1/4 border-2 border-r-gray-400 bg-gray-300 ease-in truncate"}><SelectConversation onSetConversation={handleConversationSelect}/></div>
 
-                <div className={"w-3/4"}>{conversation ? (
-                    <ConversationBox user={user} conversation={conversation}/>
-                ) : (
-                    <div className="flex w-full h-full text-lg font-bold items-center justify-center">
-                        Please select a user to start a conversation.
-                    </div>
-                )}</div>
-            </div>
+                    <div className={"w-3/4"}>{conversation? (
+                        <ConversationBox user={user} conversation={conversation}/>
+                    ) : (
+                        <div className="flex w-full h-full text-lg font-bold items-center justify-center">
+                            Please select a user to start a conversation.
+                        </div>
+                    )}</div>
+                </div>
+            ) : (
+                <div className={"loader"}></div>
+            )}
+
+
         </div>
     );
 };

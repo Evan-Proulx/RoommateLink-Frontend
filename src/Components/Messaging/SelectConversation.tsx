@@ -78,13 +78,21 @@ const SelectConversation = ({onSetConversation}) => {
             <ul className={"w-full"}>
                 {userConversations.map(convo => {
                     return (
-                        <li key={convo.id} value={convo.id} className={"w-full p-1 border-t-2 border-gray-400"}
+                        <li key={convo.id} value={convo.id} className={"w-full p-1 border-t-2 border-gray-400 cursor-pointer hover:bg-gray-400"}
                             onClick={() => handleSetConversation(convo.id)}>
                             {/*Change to img*/}
                             <div className={"flex"}>
                                 <div className={"w-10 h-10 bg-red-800 rounded-full m-2"}></div>
-                                <div><p className={"font-extrabold text-xl mt-1"}>{convo.user_two.email.slice(0,5)}</p>
-                                    <p className={"font-bold text-md text-gray-600 "}>Last sent message...</p></div>
+                                <div>
+                                    <p className={"font-extrabold text-xl mt-1"}>{convo.user_two.name}</p>
+                                    <p className={"font-bold text-md text-gray-600 truncate pr-2 "}>
+                                        {convo.last_message ? (
+                                            convo.last_message.length > 20 ? convo.last_message.substring(0, 20) + "..." : convo.last_message
+                                        ):(
+                                            "No messages..."
+                                        )}
+                                    </p>
+                                </div>
                             </div>
 
                         </li>

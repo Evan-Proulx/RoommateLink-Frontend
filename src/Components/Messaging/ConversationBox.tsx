@@ -64,6 +64,8 @@ const ConversationBox = ({user, conversation}) => {
     useEffect(() => {
         getMessages();
         connectWebSocket();
+        
+
 
         return () => {
             echo.leave(webSocketChannel);
@@ -76,8 +78,7 @@ const ConversationBox = ({user, conversation}) => {
                 <div className="flex items-center">
                     <div className="w-10 h-10 bg-red-800 rounded-full m-2"></div>
                     <div>
-                        <p className="font-extrabold text-xl">Username</p>
-                        <p className="font-bold text-md text-gray-600">Last sent message...</p>
+                        <p className="font-extrabold text-xl">{receiver.name}</p>
                     </div>
                 </div>
                 <div>
@@ -92,7 +93,7 @@ const ConversationBox = ({user, conversation}) => {
                                 <Message key={message.id}
                                          userId={user.id}
                                          message={message}
-                                         username={user.id === message.sender_id ? user.email : receiverName}
+                                         username={user.id === message.sender_id ? user.name : receiver.name}
                                 />
                             ))
                         }
