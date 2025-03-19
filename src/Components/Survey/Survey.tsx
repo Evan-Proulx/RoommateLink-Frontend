@@ -41,7 +41,7 @@ const Survey = () => {
     });
     //Data from property form
     const [propertyData, setPropertyData] = useState({
-        propertyType: "Apartment",
+        propertyType: "",
         bedroomCount: 2,
         bathroomCount: 1,
         squareFeet: 1000,
@@ -119,7 +119,9 @@ const Survey = () => {
             searchLocation,
             personalData,
             profileData,
-            ...(personalData.hasHousing && {propertyData}),  //Only include housing data if user has property
+            // TODO: FIX this. Property data shouldn't be set if they dont have a property
+            // ...(personalData.hasHousing && {propertyData}),  //Only include housing data if user has property
+            propertyData
         }
         const data = JSON.stringify(allData);
         console.log(data);
