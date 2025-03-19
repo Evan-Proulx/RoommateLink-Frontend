@@ -24,12 +24,23 @@ const BookmarkedUser = () => {
             <div className="bg-white w-[650px] p-4 rounded-lg border-2 border-black">
 
                 <div className="grid grid-cols-[auto,1fr,auto] gap-x-4 items-start">
-                    <img
-                        src="https://images.surferseo.art/3e8e3027-36da-4ca6-8d77-76b74405d002.webp"
-                        alt="Profile"
-                        className="w-28 h-28 rounded-lg"
-                    />
+                    <div className="grid grid-cols-[auto,1fr,auto] gap-x-4 items-start">
+                        <div className="relative">
+                            {/* First Image (Rectangle) */}
+                            <img
+                                src="https://images.surferseo.art/3e8e3027-36da-4ca6-8d77-76b74405d002.webp"
+                                alt="Profile"
+                                className="w-28 h-28 rounded-lg"
+                            />
 
+                            {/* Second Image (Circle, Overlapping the First at Bottom-Right) */}
+                            <img
+                                src="https://tse1.mm.bing.net/th?id=OIP.XFxYJ_1-lhzvbadeCPDW-QHaE8&pid=Api&P=0&h=180"
+                                alt="Profile"
+                                className="absolute bottom-8 right-0 w-20 h-20 rounded-full border-2 border-blue-600 transform translate-y-1/2 translate-x-1/2"
+                            />
+                        </div>
+                    </div>
 
                     <div className="flex flex-col w-fit space-y-1">
                         {/* Name, Icon, and Percentage in one row */}
