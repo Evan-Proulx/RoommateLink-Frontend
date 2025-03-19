@@ -1,11 +1,11 @@
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { useState } from "react";
 
-const BookmarkedUser = () => {
+const BookmarkedUserCard = () => {
 
     const [saved, setSaved] = useState(false);
 
-
+    const hasProperty = true;
 
         //Link Percentage
         const percentage = 79;
@@ -28,17 +28,19 @@ const BookmarkedUser = () => {
                         <div className="relative">
                             {/* First Image (Rectangle) */}
                             <img
-                                src="https://images.surferseo.art/3e8e3027-36da-4ca6-8d77-76b74405d002.webp"
+                                src="https://static.wikia.nocookie.net/469a1cd9-3f5a-47f8-9fc6-1acccdce51d7/scale-to-width/370"
                                 alt="Profile"
                                 className="w-28 h-28 rounded-lg"
                             />
 
                             {/* Second Image (Circle, Overlapping the First at Bottom-Right) */}
-                            <img
-                                src="https://tse1.mm.bing.net/th?id=OIP.XFxYJ_1-lhzvbadeCPDW-QHaE8&pid=Api&P=0&h=180"
-                                alt="Profile"
-                                className="absolute bottom-8 right-0 w-20 h-20 rounded-full border-2 border-blue-600 transform translate-y-1/2 translate-x-1/2"
-                            />
+                            {hasProperty && (
+                                <img
+                                    src="https://brennanrogers.com/wp-content/uploads/2024/01/House.jpg"
+                                    alt="Profile"
+                                    className="absolute bottom-8 right-0 w-16 h-16 rounded-full border-2 border-blue-600 transform translate-y-1/2 translate-x-1/2"
+                                />
+                            )}
                         </div>
                     </div>
 
@@ -59,21 +61,25 @@ const BookmarkedUser = () => {
                         {/* User Details */}
                         <div className="text-gray-500 font-medium text-sm">
                             <div className="flex items-center space-x-1">
-                                <p>Windsor, ON</p>
+                                <p className="font-semibold">Windsor, ON</p>
                                 <svg className="w-4 h-4 text-gray-800 dark:text-gray-500" aria-hidden="true" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z"/>
                                 </svg>
                             </div>
-                            <p>$ 1,800</p>
-                            <p>Looking for: Roommate</p>
+                            <p className="font-semibold">$ 1,800</p>
+                            <p className="font-semibold">Looking for: Roommate</p>
+                            {hasProperty && (
+
+                                <p className="pt-2 text-xs">4Km away • room + bathroom • 664 Rankin, Windsor</p>
+                                )}
                         </div>
                     </div>
 
                     {/* Action Buttons */}
                     <div className="flex items-center gap-2">
                         <button>
-                            <svg className="w-6 h-6 text-gray-800 dark:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <svg className="w-6 h-6 text-gray-800 dark:text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17h6l3 3v-3h2V9h-2M4 4h11v8H9l-3 3v-3H4V4Z"/>
                             </svg>
                         </button>
@@ -91,5 +97,5 @@ const BookmarkedUser = () => {
         );
 };
 
-export default BookmarkedUser;
+export default BookmarkedUserCard;
 

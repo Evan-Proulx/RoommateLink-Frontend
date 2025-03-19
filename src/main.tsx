@@ -14,7 +14,7 @@ import Callback from "./Components/API/Callback.tsx";
 import CollegeInput from "./Components/Survey/CollegeInput.tsx";
 import LandingPage from "./Components/LandingPage/LandingPage.tsx";
 import ListingCard from "./Components/ListingCard.tsx";
-import BookmarkedUser from "./Components/BookmarkedUser.tsx";
+import BookmarkedUserCard from "./Components/BookmarkedUserCard.tsx";
 import LoginPopup from "./Components/LandingPage/LoginPopup.tsx";
 
 // Routes
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/landingPage',
-        element: <ListingCard />,
+        element: <LandingPage />,
     },
 
 
