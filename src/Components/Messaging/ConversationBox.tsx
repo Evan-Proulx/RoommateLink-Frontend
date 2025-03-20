@@ -7,7 +7,7 @@ import {More, MoreVert, Settings} from "@mui/icons-material";
 import { Element, scroller } from "react-scroll";
 
 
-const ConversationBox = ({user, conversation}) => {
+const ConversationBox = ({user, conversation, receiver}) => {
     //Channel name for chat.
     const webSocketChannel = `private-chat.${conversation.id}`;
 
@@ -18,9 +18,6 @@ const ConversationBox = ({user, conversation}) => {
     const messageRef = useRef(null);
 
     //Check if user id against user1 and 2 to find recipient
-    const receiver = conversation.user_one.id === user.id ? conversation.user_two : conversation.user_one;
-    const receiverName = conversation.user_one.email === user.email ? conversation.user_two.email : conversation.user_one.email
-
     const connectWebSocket = () => {
         const channel = echo.private(webSocketChannel);
         channel.listen('GotMessage', async (e) => {
