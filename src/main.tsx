@@ -16,7 +16,7 @@ import LandingPage from "./Components/LandingPage/LandingPage.tsx";
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Login />,
+        element: <LandingPage />,
         errorElement: <ErrorPage />,
     },
     {
