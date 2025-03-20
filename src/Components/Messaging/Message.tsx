@@ -4,7 +4,7 @@ const Message = ({ userId, message, username }) => {
     const [delivered, setDelivered] = useState(true)
     //Full date with time. Visible when message is hovered
     const [fullDate, setFullDate] = useState("");
-
+    const [isSender, setIsSender] = useState(false);
     const getReadableTime = (time) => {
         //Current time in milliseconds since epoch
         const now = Date.now();
@@ -34,32 +34,41 @@ const Message = ({ userId, message, username }) => {
 
         const date = new Date(message.created_at);
         const readableFullDate = date.toUTCString(); //Looks like Tue, 12 May 2020 23:50:21 GMT
-
         setFullDate(readableFullDate);
+        setIsSender(userId === message.sender_id);
     }, [message.created_at])
 
     return (
-        <div className={`flex ${userId === message.sender_id ? "justify-end" : "justify-start"} mb-4`}>
+        <div className={`flex ${isSender ? "justify-end" : "justify-start"} mb-4`}>
             <div className="flex items-start gap-2.5">
-                {/*IMG here*/}
-                <div className={"w-full"}>
-                    <div className={"w-8 h-8 rounded-full bg-black"}></div>
-                </div>
+                {!isSender && (
+                    <div className={""}>
+                        <div className={"w-8 h-8 rounded-full bg-black"}></div>
+                    </div>
+                )}
                 <div className="flex flex-col gap-1 w-full max-w-[320px]" title={`Sent: ${fullDate}`}>
-                    <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                        <span className="text-sm font-semibold text-gray-500">{username}</span>
-                        {/*<span className="text-sm font-normal text-gray-500 dark:text-gray-400">{time}</span>*/}
+                <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                        <span className="text-sm font-semibold text-gray-900">{isSender ? "You" : username}</span>
+                        {/*This is a separator*/}
+                        <span className="w-1 h-1 rounded-full bg-gray-500"></span>
+                        <span className="text-sm font-normal text-gray-500">{getReadableTime(message.created_at)}</span>
                     </div>
-                    <div className={`flex flex-col leading-1.5 p-4 border-gray-200 ${
-                            userId === message.sender_id //display differently based on sender and recipient
-                                ? "bg-blue-500 text-white rounded-xl rounded-tr-none" //Does not round top right
-                                : "bg-gray-500 text-white rounded-xl rounded-tl-none" //Does not round top left
-                        } `}>
-                        <p className="text-sm font-normal text-gray-900 dark:text-white">{message.text}</p>
+                    <div className={`flex flex-col leading-1.5 p-4 ${
+                        isSender //display differently based on sender and recipient
+                            ? "bg-blue-500 text-white rounded-2xl rounded-tr-none" //Does not round top right
+                            : "bg-gray-500 text-white rounded-2xl rounded-tl-none" //Does not round top left
+                    }`}>
+                        <p className="text-sm font-normal text-white break-words overflow-wrap-anywhere ">{message.text}</p>
                     </div>
-                    <span
-                        className="text-sm w-full font-normal text-gray-500 dark:text-gray-400">{getReadableTime(message.created_at)}</span>
+                    <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                {isSender ? "Delivered" : ""}
+            </span>
                 </div>
+                {isSender && (
+                    <div>
+                        <div className="w-8 h-8 rounded-full bg-black"></div>
+                    </div>
+                )}
             </div>
         </div>
     );

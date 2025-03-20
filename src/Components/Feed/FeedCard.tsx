@@ -45,7 +45,7 @@ const FeedCard = (user) => {
                         <div className={"flex mt-4"}>
                             {/*Main info*/}
                             <div className="flex flex-col ">
-                                <div className={"flex space-x-3"}><h1 className={"text-3xl font-bold"}>{profileInfo.first_name + " " + profileInfo.last_name}</h1>
+                                <div className={"flex space-x-3"}><h1 className={"text-3xl font-bold"}>Placeholder</h1>
                                     <div className={"w-6 h-6 bg-blue-600 rounded-full"}></div>
                                 </div>
                                 <div className={"flex items-end card-text-light cursor-pointer hover:underline"} onClick={() => setIsMapOpen(true)}>

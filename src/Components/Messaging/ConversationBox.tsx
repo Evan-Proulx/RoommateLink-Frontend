@@ -61,13 +61,12 @@ const ConversationBox = ({user, conversation, receiver}) => {
     useEffect(() => {
         getMessages();
         connectWebSocket();
-        
-
 
         return () => {
             echo.leave(webSocketChannel);
         }
     }, [conversation]);
+
 
     return (
         <div className={"h-screen flex flex-col relative"}>

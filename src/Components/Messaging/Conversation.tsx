@@ -35,9 +35,9 @@ const Conversation = () => {
             <Navbar/>
             {user ? (
                 <div className={"flex w-full bg-primary h-screen"}>
-                    <div className={"w-1/4 border-2 border-r-gray-400 bg-gray-300 ease-in truncate"}><SelectConversation user={user} onSetConversation={handleConversationSelect}/></div>
+                    <div className={"w-1/4 max-w-80 border-2 border-r-gray-400 bg-gray-300 ease-in truncate"}><SelectConversation user={user} onSetConversation={handleConversationSelect}/></div>
 
-                    <div className={"w-3/4"}>{conversation? (
+                    <div className={"w-full"}>{conversation? (
                         <ConversationBox user={user} conversation={conversation} receiver={receiver}/>
                     ) : (
                         <div className="flex w-full h-full text-lg font-bold items-center justify-center">

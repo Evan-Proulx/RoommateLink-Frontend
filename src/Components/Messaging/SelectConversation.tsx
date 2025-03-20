@@ -103,7 +103,6 @@ const SelectConversation = ({user, onSetConversation}) => {
                                     </p>
                                 </div>
                             </div>
-
                         </li>
                     );
                 })}
