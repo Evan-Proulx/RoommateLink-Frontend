@@ -68,3 +68,21 @@ export const getAuthenticatedUser = async () => {
     }
 }
 
+//Gets matching users for the feed.
+export const getMatchingUsers = async () => {
+    const token = localStorage.getItem("token");
+
+    try{
+        const response = await axios.get(`${rootUrl}/api/matchingUsers`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        console.log(response.data)
+        return response.data;
+    }catch (err) {
+        console.log(err)
+    }
+}
+

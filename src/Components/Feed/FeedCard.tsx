@@ -10,10 +10,14 @@ import {
 import { orange, pink } from '@mui/material/colors';
 import MapPopup from "../Survey/Survey-Map-Popup.tsx";
 
-const FeedCard = () => {
+const FeedCard = (user) => {
     const [isBookmarked, setIsBookmarked] = useState(false);
     const [attributes, setAttributes] = useState(["non-smoker", "English", "Vegan"]);
     const [isMapOpen, setIsMapOpen] = useState(false);
+
+    const personalInfo = user.personalData;
+    const profileInfo = user.profileData;
+
 
     const actionButtons = (
         <div className={"m-4 w-3/4"}>
@@ -41,7 +45,7 @@ const FeedCard = () => {
                         <div className={"flex mt-4"}>
                             {/*Main info*/}
                             <div className="flex flex-col ">
-                                <div className={"flex space-x-3"}><h1 className={"text-3xl font-bold"}>John Doe</h1>
+                                <div className={"flex space-x-3"}><h1 className={"text-3xl font-bold"}>{profileInfo.first_name + " " + profileInfo.last_name}</h1>
                                     <div className={"w-6 h-6 bg-blue-600 rounded-full"}></div>
                                 </div>
                                 <div className={"flex items-end card-text-light cursor-pointer hover:underline"} onClick={() => setIsMapOpen(true)}>
