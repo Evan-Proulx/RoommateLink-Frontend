@@ -14,6 +14,7 @@ import LandingPage from "./Components/LandingPage/LandingPage.tsx";
 import InputComponent from "./Components/InputComponent.tsx";
 import BookmarkedUserCard from "./Components/BookmarkedUserCard.tsx";
 import ListingCard from "./Components/Feed/ListingCard.tsx";
+import Bookmarks from "./Components/Feed/Bookmarks.tsx"
 
 // Routes
 const router = createBrowserRouter([
@@ -47,8 +48,12 @@ const router = createBrowserRouter([
         element: <Conversation />,
     },
     {
+        path: '/bookmarks',
+        element: <Bookmarks />,
+    },
+    {
         path: '/test',
-        element: <ListingCard/>,
+        element: <Bookmarks/>,
     },
     {
         path: '/home',

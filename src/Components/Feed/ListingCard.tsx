@@ -188,7 +188,7 @@ const ListingCard = (user: UserProfile) => {
                     {isToggled ? (
                         <div>
                             <h3 className="mt-4 font-bold m-2 text-xl">About Me</h3>
-                            <p className="text-gray-600 m-2 font-normal">{truncatedText}</p>
+                            <p className="text-gray-600 m-2 font-normal">{userData.profileData.bio}</p>
                             <div className="p-2">
                                 <label className="bg-blue-500 text-white text-center font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
                                     respectful
@@ -254,7 +254,7 @@ const ListingCard = (user: UserProfile) => {
 
                             {/* Description */}
                             <div>
-                                <p className="text-gray-700 text-sm mt-2 w-[450px]">{truncatedText(isToggled ? userData.profileData.bio : userData.propertyData.description)}</p>
+                                <p className="text-gray-700 text-sm mt-2 w-[450px] truncate">{truncatedText(userData.profileData.bio)}</p>
                             </div>
                         </>
                     )}
