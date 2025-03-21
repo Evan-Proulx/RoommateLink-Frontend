@@ -4,6 +4,7 @@ import {faComments, faMagnifyingGlassPlus, faUser} from "@fortawesome/free-solid
 import {Link} from "react-router-dom";
 import MapPopup from "../Survey/Survey-Map-Popup.tsx";
 import LoginPopup from "./LoginPopup.tsx";
+import RatingPopup from "../Rating/RatingPopup.tsx";
 
 
 
