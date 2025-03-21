@@ -7,7 +7,6 @@ import {UserProfile} from "../../ProfileData.ts"
 import UserInfoSection from "./ProfileComponents/UserInfoSection.tsx";
 import AboutSection from "./ProfileComponents/AboutSection.tsx";
 import Navbar from "../Navbar.tsx";
-
 export const ProfileContext = createContext(null)
 function ProfilePage() {
     const [profileData, setProfileData] = useState<UserProfile>();

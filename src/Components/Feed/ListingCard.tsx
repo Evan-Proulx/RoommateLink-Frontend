@@ -1,17 +1,23 @@
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouseUser, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import {UserProfile} from "../../ProfileData.ts";
+import {ForumOutlined} from "@mui/icons-material";
+import {grey} from "@mui/material/colors";
 
-const ListingCard = () => {
+const ListingCard = (user: UserProfile) => {
     const [saved, setSaved] = useState(false);
     const [isToggled, setIsToggled] = useState(false);
+    const [userData, setUserData] = useState<UserProfile | null>(null);
 
     // Set max characters for user's description
     const maxLength = 250;
     const userDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ullamcorper venenatis nulla, vitae congue turpis scelerisque at. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in viverra ante. Proin rutrum mi metus, et imperdiet dolor pretium sed. Integer aliquet diam ut tempus elementum. Nullam vel lectus ut dolor egestas placerat. Aliquam tincidunt scelerisque erat, quis pellentesque ligula tristique in. Aliquam molestie malesuada urna ac semper.";
 
-    const truncatedText = userDescription.length > maxLength ? userDescription.slice(0, maxLength) + "..." : userDescription;
+    const truncatedText = (text) => {
+        return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+    }
 
     // Images of the property, it depends on how many images the user uploaded
     const propertyImages = [
@@ -60,7 +66,23 @@ const ListingCard = () => {
         setIsToggled(!isToggled);
     };
 
+    useEffect(() => {
+        //Set user as state
+        if(user){
+            //User gets nested
+            setUserData(user.user);
+            console.log(userData)
+        }
+    }, [user])
+
+    // TODO card should be fixed with a better loader
+    if (!userData) return <div className={"flex flex-col justify-center items-center h-screen w-full bg-gray-300"}>
+        <span className={"loader"}></span>
+        <h2 className={"header4-text text-center pt-4"}>Loading...</h2>
+    </div>
+
     return (
+
         <div className="bg-white w-[750px] p-4 rounded-lg flex flex-col gap-4 border-2 border-black">
             {/* Profile & Listing Details */}
             <div className="flex gap-4">
@@ -72,7 +94,7 @@ const ListingCard = () => {
                         className="w-28 h-28 rounded-lg"
                     />
                     <div className="flex items-center space-x-2 mt-2">
-                        <h4 className="font-bold">John Doe</h4>
+                        <h4 className="font-bold">{userData.profileData.first_name + " " + userData.profileData.last_name}</h4>
                         <svg
                             className="w-5 h-5 text-gray-800 dark:text-blue-700"
                             aria-hidden="true"
@@ -90,90 +112,76 @@ const ListingCard = () => {
                         </svg>
                     </div>
 
-                    <p className={`w-full mt-2 font-semibold text-xl ${LinkPercentageColor(percentage)}`}>
-                        {percentage} % Link
+                    <p className={`w-full mt-2 font-semibold text-xl ${LinkPercentageColor(userData.compatibilityScore)}`}>
+                        {userData?.compatibilityScore} % Link
                     </p>
 
                     <div className="flex flex-col items-start mt-2">
-                        <p className="text-gray-500 font-semibold">Windsor, ON</p>
-                        <p className="text-gray-500 font-semibold">Age: 31</p>
-                        <p className="text-gray-500 font-semibold">$ 1,800</p>
+                        <p className="text-gray-500 font-semibold">{userData.personalData.city + ", " + userData.personalData.province}</p>
+                        <p className="text-gray-500 font-semibold">Age: {userData.profileData.age}</p>
+                        <p className="text-gray-500 font-semibold">${userData.personalData.budget}</p>
                     </div>
                 </div>
 
                 {/* Listing Section */}
                 <div className="flex-1">
                     <div className="flex justify-between items-start">
-                        <h2 className="text-lg font-semibold">123 Placeholder St.</h2>
+                        <h2 className="text-2xl font-bold">{userData.personalData.city + ", " + userData.personalData.province}</h2>
 
-                        <div className="flex items-center gap-2">
-                            <button className="flex items-center">
-                                <svg
-                                    className="w-6 h-6 text-gray-800 dark:text-gray-500 leading-none"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M9 17h6l3 3v-3h2V9h-2M4 4h11v8H9l-3 3v-3H4V4Z"
-                                    />
-                                </svg>
-                            </button>
+                        <div className={""}>
+                            <div className="flex items-center gap-2">
+                                <button className="flex items-center">
+                                    <ForumOutlined sx={{color: grey[500]}}/>
+                                </button>
 
-                            <button onClick={() => setSaved(!saved)} className="flex items-center">
-                                {saved ? (
-                                    <FaBookmark className="text-red-500 text-xl leading-none" />
-                                ) : (
-                                    <FaRegBookmark className="text-gray-500 text-xl leading-none" />
-                                )}
-                            </button>
+                                <button onClick={() => setSaved(!saved)} className="flex items-center">
+                                    {saved ? (
+                                        <FaBookmark className="text-red-500 text-xl leading-none"/>
+                                    ) : (
+                                        <FaRegBookmark className="text-gray-500 text-xl leading-none"/>
+                                    )}
+                                </button>
+                            </div>
+                            
+                            {/* Toggle Switch */}
+                            <div className="m-2">
+                                <label htmlFor="toggle" className="flex items-center cursor-pointer">
+                                    <div className="relative">
+                                        {/* Actual Checkbox (Hidden) */}
+                                        <input
+                                            type="checkbox"
+                                            id="toggle"
+                                            className="sr-only"
+                                            checked={isToggled}
+                                            onChange={handleToggle}
+                                        />
+                                        {/* Toggle Background */}
+                                        <div
+                                            className={`w-12 h-6 rounded-full shadow-inner transition ${
+                                                isToggled ? "bg-green-500" : "bg-gray-300"
+                                            }`}
+                                        ></div>
+
+                                        {/* Toggle Handle */}
+                                        <FontAwesomeIcon
+                                            icon={faHouseUser}
+                                            className={`absolute top-1 w-4 h-4 transition-transform ${
+                                                isToggled ? "translate-x-6 text-white" : "translate-x-1 text-gray-500"
+                                            }`}
+                                        />
+                                    </div>
+                                </label>
+                            </div>
                         </div>
                     </div>
 
                     <div className="flex items-center gap-16">
-                        <p className="text-gray-600 text-sm">1 Bedroom + 1 Bathroom • 4km away</p>
+                        {/*TODO GET distance away from user*/}
+                        <p className="text-gray-600 text-sm">{userData.propertyData.bedroom_count} Bedroom + {userData.propertyData.bathroom_count} Bathroom</p>
                         <h4 className={`text-center font-semibold ${getTextColor(theLocation)}`}>
                             {theLocation}Km away
                             <FontAwesomeIcon icon={faLocationDot} className="ml-1" />
                         </h4>
-
-                        {/* Toggle Switch */}
-                        <div className="m-2">
-                            <label htmlFor="toggle" className="flex items-center cursor-pointer">
-                                <div className="relative">
-                                    {/* Actual Checkbox (Hidden) */}
-                                    <input
-                                        type="checkbox"
-                                        id="toggle"
-                                        className="sr-only"
-                                        checked={isToggled}
-                                        onChange={handleToggle}
-                                    />
-
-                                    {/* Toggle Background */}
-                                    <div
-                                        className={`w-12 h-6 rounded-full shadow-inner transition ${
-                                            isToggled ? "bg-green-500" : "bg-gray-300"
-                                        }`}
-                                    ></div>
-
-                                    {/* Toggle Handle */}
-                                    <FontAwesomeIcon
-                                        icon={faHouseUser}
-                                        className={`absolute top-1 w-4 h-4 transition-transform ${
-                                            isToggled ? "translate-x-6 text-white" : "translate-x-1 text-gray-500"
-                                        }`}
-                                    />
-                                </div>
-                            </label>
-                        </div>
                     </div>
 
                     {/* Conditionally Render About Me */}
@@ -246,7 +254,7 @@ const ListingCard = () => {
 
                             {/* Description */}
                             <div>
-                                <p className="text-gray-700 text-sm mt-2 w-[450px]">{truncatedText}</p>
+                                <p className="text-gray-700 text-sm mt-2 w-[450px]">{truncatedText(isToggled ? userData.profileData.bio : userData.propertyData.description)}</p>
                             </div>
                         </>
                     )}

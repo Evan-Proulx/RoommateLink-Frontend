@@ -11,6 +11,9 @@ import Feed from "./Components/Feed/Feed.tsx";
 import Discovery from "./Components/Feed/Discovery.tsx";
 import Conversation from "./Components/Messaging/Conversation.tsx";
 import LandingPage from "./Components/LandingPage/LandingPage.tsx";
+import InputComponent from "./Components/InputComponent.tsx";
+import BookmarkedUserCard from "./Components/BookmarkedUserCard.tsx";
+import ListingCard from "./Components/Feed/ListingCard.tsx";
 
 // Routes
 const router = createBrowserRouter([
@@ -45,7 +48,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/test',
-        element: <Conversation/>,
+        element: <ListingCard/>,
     },
     {
         path: '/home',
