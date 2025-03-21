@@ -58,7 +58,7 @@ const Bookmarks = () => {
             </div>
             <div className={"flex flex-col w-full h-full"}>
                 <div className={"flex flex-col justify-center items-center w-full h-full"}>
-                    <div className={"flex flex-col items-center w-full h-full"}>
+                    <div className={"flex flex-col items-center space-y-4 w-full h-full"}>
                         {bookmarkedProfiles ? (
                             bookmarkedProfiles.map((user) => (
                                 <BookmarkedUserCard key={user.personalData.id} user={user}/>
