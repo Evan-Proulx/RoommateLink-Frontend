@@ -179,15 +179,13 @@ const FeedCard = (user: UserProfile) => {
                                 <p className={"text-sm card-text-light"}>${userData.personalData.budget}</p>
                             </div>
                         </div>
+                        <div className={"hidden sm:block justify-end"}>{actionButtons}</div>
 
-                        {/*Display the action buttons */}
-                        {!propertyView ? (<div>
-                            <div className={"hidden sm:block"}>{actionButtons}</div>
-                        </div>) :  null}
+
                     </div>
 
                     {propertyView ? (
-                    <div>
+                        <div>
                         <div className="flex flex-col w-3/4 mt-4">
                             <h2 className="text-2xl font-bold">{userData.personalData.city + ", " + userData.personalData.province}</h2>
 

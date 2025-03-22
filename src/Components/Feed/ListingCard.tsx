@@ -8,7 +8,7 @@ import {grey} from "@mui/material/colors";
 import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts"
 
 const ListingCard = (user: UserProfile) => {
-    const [isToggled, setIsToggled] = useState(false);
+    const [profileView, setProfileView] = useState(false);
     const [userData, setUserData] = useState<UserProfile | null>(null);
     const [isBookmarked, setIsBookmarked] = useState(false);
 
@@ -64,7 +64,7 @@ const ListingCard = (user: UserProfile) => {
     };
 
     const handleToggle = () => {
-        setIsToggled(!isToggled);
+        setProfileView(!profileView);
     };
 
     const toggleBookmark = async () => {
@@ -99,57 +99,65 @@ const ListingCard = (user: UserProfile) => {
         //TODO Fix width for mobile and large screen
         <div className="bg-white p-4 rounded-lg flex flex-col gap-4 border-2 border-black">
             {/* Profile & Listing Details */}
-            <div className="flex gap-4">
+            <div className={`flex ${profileView ? "flex-col" : ""} gap-4`}>
                 {/* Profile Section */}
-                <div className="w-[150px] flex flex-col items-start">
+                <div className={`flex ${!profileView ? "flex-col" : "flex-row"}`}>
                     <img
                         src="https://images.surferseo.art/3e8e3027-36da-4ca6-8d77-76b74405d002.webp"
                         alt="Profile"
-                        className="w-28 h-28 rounded-lg"
-                    />
-                    <div className="flex items-center space-x-2 mt-2">
-                        <h4 className="font-bold">{userData.profileData.first_name + " " + userData.profileData.last_name}</h4>
-                        {/*Verification badge*/}
-                        <svg className="w-5 h-5 text-gray-800 dark:text-blue-700" aria-hidden="true"
-                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                             viewBox="0 0 24 24">
-                            <path fillRule="evenodd"
-                                  d="M12 2c-.791 0-1.55.314-2.11.874l-.893.893a.985.985 0 0 1-.696.288H7.04A2.984 2.984 0 0 0 4.055 7.04v1.262a.986.986 0 0 1-.288.696l-.893.893a2.984 2.984 0 0 0 0 4.22l.893.893a.985.985 0 0 1 .288.696v1.262a2.984 2.984 0 0 0 2.984 2.984h1.262c.261 0 .512.104.696.288l.893.893a2.984 2.984 0 0 0 4.22 0l.893-.893a.985.985 0 0 1 .696-.288h1.262a2.984 2.984 0 0 0 2.984-2.984V15.7c0-.261.104-.512.288-.696l.893-.893a2.984 2.984 0 0 0 0-4.22l-.893-.893a.985.985 0 0 1-.288-.696V7.04a2.984 2.984 0 0 0-2.984-2.984h-1.262a.985.985 0 0 1-.696-.288l-.893-.893A2.984 2.984 0 0 0 12 2Zm3.683 7.73a1 1 0 1 0-1.414-1.413l-4.253 4.253-1.277-1.277a1 1 0 0 0-1.415 1.414l1.985 1.984a1 1 0 0 0 1.414 0l4.96-4.96Z"
-                                  clipRule="evenodd"/>
-                        </svg>
-                    </div>
+                        className={`w-28 h-28 rounded-lg ${!profileView ? "0" : "mr-4"}`}/>
 
-                    <p className={`w-full mt-2 font-semibold text-xl ${LinkPercentageColor(userData.compatibilityScore)}`}>
-                        {userData?.compatibilityScore} % Link
-                    </p>
+                    <div className={"flex flex-col w-full"}>
+                        <div className="flex items-center space-x-2">
+                            <h4 className="text-2xl font-bold">{userData.profileData.first_name + " " + userData.profileData.last_name}</h4>
+                            {/*Verification badge*/}
+                            <svg className="w-5 h-5 text-gray-800 dark:text-blue-700" aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                 viewBox="0 0 24 24">
+                                <path fillRule="evenodd"
+                                      d="M12 2c-.791 0-1.55.314-2.11.874l-.893.893a.985.985 0 0 1-.696.288H7.04A2.984 2.984 0 0 0 4.055 7.04v1.262a.986.986 0 0 1-.288.696l-.893.893a2.984 2.984 0 0 0 0 4.22l.893.893a.985.985 0 0 1 .288.696v1.262a2.984 2.984 0 0 0 2.984 2.984h1.262c.261 0 .512.104.696.288l.893.893a2.984 2.984 0 0 0 4.22 0l.893-.893a.985.985 0 0 1 .696-.288h1.262a2.984 2.984 0 0 0 2.984-2.984V15.7c0-.261.104-.512.288-.696l.893-.893a2.984 2.984 0 0 0 0-4.22l-.893-.893a.985.985 0 0 1-.288-.696V7.04a2.984 2.984 0 0 0-2.984-2.984h-1.262a.985.985 0 0 1-.696-.288l-.893-.893A2.984 2.984 0 0 0 12 2Zm3.683 7.73a1 1 0 1 0-1.414-1.413l-4.253 4.253-1.277-1.277a1 1 0 0 0-1.415 1.414l1.985 1.984a1 1 0 0 0 1.414 0l4.96-4.96Z"
+                                      clipRule="evenodd"/>
+                            </svg>
+                            {/*Display link next to name when not in property view*/}
+                            {profileView ? <p className={`font-bold text-lg ${LinkPercentageColor(userData.compatibilityScore)}`}>
+                                {userData?.compatibilityScore} % Link
+                            </p> : null}
+                        </div>
+                        {/*Display link next to name when not in property view*/}
+                        {!profileView ? <p className={`font-bold text-lg ${LinkPercentageColor(userData.compatibilityScore)}`}>
+                            {userData?.compatibilityScore} % Link
+                        </p> : null}
 
-                    <div className="flex flex-col items-start mt-2">
-                        <p className="text-gray-500 font-semibold">{userData.personalData.city + ", " + userData.personalData.province}</p>
-                        <p className="text-gray-500 font-semibold">Age: {userData.profileData.age}</p>
-                        <p className="text-gray-500 font-semibold">${userData.personalData.budget}</p>
+                        <div className="flex flex-col items-start">
+                            <p className="text-gray-500 font-semibold">{userData.personalData.city + ", " + userData.personalData.province}</p>
+                            <p className="text-gray-500 font-semibold">Age: {userData.profileData.age}</p>
+                            <p className="text-gray-500 font-semibold">${userData.personalData.budget}</p>
+                        </div>
                     </div>
                 </div>
 
-                {/* //////////////////ACTION BUTTONS */}
                 <div className="flex-1">
-
                     {/* ////////////////////LISTING DETAILS */}
                     <div className={"flex justify-between"}>
                         <div className="flex flex-col w-3/4">
-                            <h2 className="text-2xl font-bold">{userData.personalData.city + ", " + userData.personalData.province}</h2>
+                            {!profileView ? (
+                                <div><h2
+                                    className="text-2xl font-bold">{userData.personalData.city + ", " + userData.personalData.province}</h2>
+                                    <div className={"flex items-center space-x-2"}>
+                                        {/*Bathroom bedroom count*/}
+                                        <p className="text-gray-600 text-sm">{userData?.propertyData.bedroom_count} Bedroom
+                                            + {userData?.propertyData.bathroom_count} Bathroom</p>
+                                        {/*Separator*/}
+                                        <span className="w-1 h-1 rounded-full bg-gray-500"></span>
+                                        {/*Location away from user TODO Get actual data*/}
+                                        <h4 className={`text-center font-semibold ${getTextColor(theLocation)}`}>
+                                            {theLocation}Km away
+                                            <FontAwesomeIcon icon={faLocationDot} className="ml-1"/>
+                                        </h4>
+                                    </div>
+                                </div>
+                                ) :null}
 
-                            <div className={"flex items-center space-x-2"}>
-                                {/*Bathroom bedroom count*/}
-                                <p className="text-gray-600 text-sm">{userData.propertyData.bedroom_count} Bedroom
-                                    + {userData.propertyData.bathroom_count} Bathroom</p>
-                                {/*Separator*/}
-                                <span className="w-1 h-1 rounded-full bg-gray-500"></span>
-                                {/*Location away from user TODO Get actual data*/}
-                                <h4 className={`text-center font-semibold ${getTextColor(theLocation)}`}>
-                                    {theLocation}Km away
-                                    <FontAwesomeIcon icon={faLocationDot} className="ml-1"/>
-                                </h4>
-                            </div>
                         </div>
                         {/*ACTION BUTTONS*/}
                         <div className={""}>
@@ -174,12 +182,12 @@ const ListingCard = (user: UserProfile) => {
                                         {/* Actual Checkbox (Hidden) */}
                                         <input type="checkbox" id="toggle"
                                                className="sr-only"
-                                               checked={isToggled}
+                                               checked={profileView}
                                                onChange={handleToggle}
                                         />
                                         {/* Toggle Background */}
                                         <div className={`w-12 h-6 rounded-full shadow-inner transition ${
-                                            isToggled ? "bg-green-500" : "bg-gray-300"
+                                            profileView ? "bg-green-500" : "bg-gray-300"
                                         }`}
                                         ></div>
 
@@ -187,7 +195,7 @@ const ListingCard = (user: UserProfile) => {
                                         <FontAwesomeIcon
                                             icon={faHouseUser}
                                             className={`absolute top-1 w-4 h-4 transition-transform ${
-                                                isToggled ? "translate-x-6 text-white" : "translate-x-1 text-gray-500"
+                                                profileView ? "translate-x-6 text-white" : "translate-x-1 text-gray-500"
                                             }`}
                                         />
                                     </div>
@@ -197,7 +205,7 @@ const ListingCard = (user: UserProfile) => {
                     </div>
 
                     {/* Conditionally Render About Me */}
-                    {isToggled ? (
+                    {profileView ? (
                         <div>
                             <h3 className="mt-4 font-bold m-2 text-xl">About Me</h3>
                             <p className="text-gray-600 m-2 font-normal">{userData.profileData.bio}</p>
