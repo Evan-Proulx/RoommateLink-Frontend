@@ -5,11 +5,12 @@ import {faHouseUser, faLocationDot} from "@fortawesome/free-solid-svg-icons";
 import {UserProfile} from "../../ProfileData.ts";
 import {ForumOutlined} from "@mui/icons-material";
 import {grey} from "@mui/material/colors";
+import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts"
 
 const ListingCard = (user: UserProfile) => {
-    const [saved, setSaved] = useState(false);
     const [isToggled, setIsToggled] = useState(false);
     const [userData, setUserData] = useState<UserProfile | null>(null);
+    const [isBookmarked, setIsBookmarked] = useState(false);
 
     // Set max characters for user's description
     const maxLength = 250;
@@ -66,6 +67,19 @@ const ListingCard = (user: UserProfile) => {
         setIsToggled(!isToggled);
     };
 
+    const toggleBookmark = async () => {
+        try{
+            if (isBookmarked) {
+                await unbookmarkUser(userData?.profileData.account_id);
+            }else{
+                await bookmarkUser(userData?.profileData.account_id);
+            }
+            setIsBookmarked(!isBookmarked)
+        }catch(err){
+            console.error(err)
+        }
+    }
+
     useEffect(() => {
         //Set user as state
         if (user) {
@@ -118,9 +132,6 @@ const ListingCard = (user: UserProfile) => {
 
                 {/* //////////////////ACTION BUTTONS */}
                 <div className="flex-1">
-                    <div className="flex justify-end">
-
-                    </div>
 
                     {/* ////////////////////LISTING DETAILS */}
                     <div className={"flex justify-between"}>
@@ -147,8 +158,8 @@ const ListingCard = (user: UserProfile) => {
                                     <ForumOutlined sx={{color: grey[500]}}/>
                                 </button>
 
-                                <button onClick={() => setSaved(!saved)} className="flex items-center">
-                                    {saved ? (
+                                <button onClick={() => toggleBookmark()} className="flex items-center">
+                                    {isBookmarked ? (
                                         <FaBookmark className="text-red-500 text-xl leading-none"/>
                                     ) : (
                                         <FaRegBookmark className="text-gray-500 text-xl leading-none"/>

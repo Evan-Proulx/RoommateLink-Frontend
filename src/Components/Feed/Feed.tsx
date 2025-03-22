@@ -56,7 +56,8 @@ const Feed = () => {
                     <div className={"flex flex-col items-center w-full h-full"}>
                         {users ? (
                             users.map((user) => (
-                                <ListingCard key={user.personalData.id} user={user}/>
+                                // <ListingCard key={user.personalData.id} user={user}/>
+                                <FeedCard key={user.personalData.id} user={user}/>
                             ))
                         ) : (
                             <div className="flex items-center justify-center text-gray-500">
@@ -65,6 +66,7 @@ const Feed = () => {
                         )}
                     </div>
                 </div>
+
             </div>
         </div>
     );

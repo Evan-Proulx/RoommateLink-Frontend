@@ -21,7 +21,7 @@ export const getBookmarks = async () => {
 export const bookmarkUser = async (id) => {
     const token = localStorage.getItem("token");
     try {
-        const response = await axios.post(`${rootUrl}/api/bookmark/${id}`,
+        const response = await axios.post(`${rootUrl}/api/bookmark/${id}`, {},
             {
                 headers: {
                     "Content-Type": "application/json",
@@ -31,7 +31,7 @@ export const bookmarkUser = async (id) => {
         );
         console.log(response.data);
     } catch (err) {
-        throw new Error(err.response?.data?.message || "Failed to create profile");
+        throw new Error(err.response?.data?.message || "Failed to create bookmark");
     }
 }
 
