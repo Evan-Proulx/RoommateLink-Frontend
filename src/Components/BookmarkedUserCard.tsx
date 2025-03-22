@@ -1,32 +1,49 @@
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {UserProfile} from "../ProfileData.ts";
 import {ForumOutlined} from "@mui/icons-material";
 import {grey} from "@mui/material/colors";
+import {bookmarkUser, unbookmarkUser} from "./API/Bookmarks.ts";
 
-const BookmarkedUserCard = (user: UserProfile) => {
+interface BookmarkedUserCardProps {
+    user: UserProfile;
+    onUnbookmark: (userId: number | undefined) => void;
+}
+
+const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookmark}) => {
     const [userData, setUserData] = useState<UserProfile | null>(null);
     const [saved, setSaved] = useState(false);
-
+    const [isBookmarked, setIsBookmarked] = useState(false);
     const hasProperty = true;
+    //Link Percentage
+    const percentage = 79;
+    const LinkPercentageColor = (percentage) => {
+        if (percentage >= 80) {
+            return 'text-green-500'; // Green for 80-100%
+        } else if (percentage >= 65) {
+            return 'text-orange-500'; // Orange for 65-79%
+        } else {
+            return 'text-red-500'; // Red for 64 and below
+        }
+    };
 
-        //Link Percentage
-        const percentage = 79;
-        const LinkPercentageColor = (percentage) => {
-            if (percentage >= 80) {
-                return 'text-green-500'; // Green for 80-100%
-            } else if (percentage >= 65) {
-                return 'text-orange-500'; // Orange for 65-79%
-            } else {
-                return 'text-red-500'; // Red for 64 and below
-            }
-        };
+    //Unbookmark user when bookmark button is clicked
+    const unBookmark = async () => {
+        try{
+            //API call to remove bookmark
+            await unbookmarkUser(userData?.profileData.account_id);
+            //Send userId to parent component to update the state
+            onUnbookmark(userData?.profileData.account_id);
+        }catch(err){
+            console.error(err)
+        }
+    }
 
     useEffect(() => {
         //Set user as state
         if(user){
             //User gets nested
-            setUserData(user.user);
+            setUserData(user);
         }
     }, [user])
 
@@ -70,7 +87,7 @@ const BookmarkedUserCard = (user: UserProfile) => {
                                     <path fillRule="evenodd" d="M12 2c-.791 0-1.55.314-2.11.874l-.893.893a.985.985 0 0 1-.696.288H7.04A2.984 2.984 0 0 0 4.055 7.04v1.262a.986.986 0 0 1-.288.696l-.893.893a2.984 2.984 0 0 0 0 4.22l.893.893a.985.985 0 0 1 .288.696v1.262a2.984 2.984 0 0 0 2.984 2.984h1.262c.261 0 .512.104.696.288l.893.893a2.984 2.984 0 0 0 4.22 0l.893-.893a.985.985 0 0 1 .696-.288h1.262a2.984 2.984 0 0 0 2.984-2.984V15.7c0-.261.104-.512.288-.696l.893-.893a2.984 2.984 0 0 0 0-4.22l-.893-.893a.985.985 0 0 1-.288-.696V7.04a2.984 2.984 0 0 0-2.984-2.984h-1.262a.985.985 0 0 1-.696-.288l-.893-.893A2.984 2.984 0 0 0 12 2Zm3.683 7.73a1 1 0 1 0-1.414-1.413l-4.253 4.253-1.277-1.277a1 1 0 0 0-1.415 1.414l1.985 1.984a1 1 0 0 0 1.414 0l4.96-4.96Z" clipRule="evenodd"/>
                                 </svg>
                             </div>
-                            {/*TODO Get link % possibly? Not accessable with the data returned*/}
+                            {/*TODO Get link % possibly? Not accessable with the data currently returned*/}
                             {/*<p className={`w-full mt-2 font-semibold text-xl ${LinkPercentageColor(userData.compatibilityScore)}`}>*/}
                             {/*    {userData?.compatibilityScore} % Link*/}
                             {/*</p>*/}
@@ -99,12 +116,8 @@ const BookmarkedUserCard = (user: UserProfile) => {
                         <button>
                             <ForumOutlined sx={{color: grey[500]}}/>
                         </button>
-                        <button onClick={() => setSaved(!saved)}>
-                            {saved ? (
-                                <FaBookmark className="text-red-500 text-xl"/>
-                            ) : (
-                                <FaRegBookmark className="text-gray-500 text-xl"/>
-                            )}
+                        <button onClick={() => unBookmark()}>
+                            <FaBookmark className="text-red-500 text-xl"/>
                         </button>
                     </div>
                 </div>

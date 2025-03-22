@@ -7,48 +7,39 @@ import Navbar from "../Navbar.tsx";
 
 const Bookmarks = () => {
     const [bookmarkedProfiles, setBookmarkedProfiles] = useState<UserProfile[]>([]);
-    const [userId, setUserId] = useState();
 
+    //Get bookmarked profiles when the page loads
     useEffect(() => {
         retrieveBookmarks();
     }, [])
     useEffect(() => {
         console.log(...bookmarkedProfiles)
     }, [bookmarkedProfiles])
+
+    //Get all of the users bookmarked profiles and convert them to UserProfile objects
     const retrieveBookmarks = async () => {
         try {
             const response = await getBookmarks();
-            setBookmarkedProfiles(response.bookmarked_accounts.map((user) => ({
-                    profileData: user.profileData,
-                    personalData: user.personalData,
-                    propertyData: user.propertyData,
-                }))
-            );
+            // TODO THis shouldn't run if the response has no users
+            if (response) {
+                setBookmarkedProfiles(response.bookmarked_accounts.map((user) => ({
+                        profileData: user.profileData,
+                        personalData: user.personalData,
+                        propertyData: user.propertyData,
+                    }))
+                );
+            }
             console.log(bookmarkedProfiles)
         } catch (err) {
             console.log(err)
         }
     };
 
-    const bookmark = async () => {
-        if (!userId) {
-            return;
-        }
-        try {
-            const response = await bookmarkUser(userId)
-        } catch (err) {
-            console.log(err)
-        }
-    };
-
-    const unbookmark = async (userId: string) => {
-        try {
-            const response = await unbookmarkUser(userId);
-        } catch (err) {
-            console.log(err)
-        }
-    };
-
+    //Removes user from bookmarked list when unbookmarked in the card component
+    const removeBookmark = (userId: number) => {
+        const updatedBookmarks = bookmarkedProfiles.filter(prev => prev.profileData.account_id !== userId)
+        setBookmarkedProfiles(updatedBookmarks);
+    }
 
     return (
         <div className={"w-full bg-primary h-screen overflow-y-hidden"}>
@@ -61,7 +52,7 @@ const Bookmarks = () => {
                     <div className={"flex flex-col items-center space-y-4 w-full h-full"}>
                         {bookmarkedProfiles ? (
                             bookmarkedProfiles.map((user) => (
-                                <BookmarkedUserCard key={user.personalData.id} user={user}/>
+                                <BookmarkedUserCard key={user.personalData.id} user={user} onUnbookmark={removeBookmark}/>
                             ))
                             ) : (
                             <div className="flex items-center justify-center text-gray-500">
