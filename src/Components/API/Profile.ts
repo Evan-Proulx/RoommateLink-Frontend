@@ -1,4 +1,5 @@
 import axios from "axios";
+import {forEach} from "@react-google-maps/api/dist/utils/foreach";
 const rootUrl = import.meta.env.VITE_ROOT_URL;
 
 export const createProfile = async (profileData) => {
@@ -75,7 +76,6 @@ export const getMatchingUsers = async () => {
     try{
         const response = await axios.get(`${rootUrl}/api/matchingUsers`, {
             headers: {
-                "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             }
         });
@@ -83,6 +83,44 @@ export const getMatchingUsers = async () => {
         return response.data;
     }catch (err) {
         console.log(err)
+    }
+}
+
+export const uploadProfileMedia = async (image, video) => {
+    const token = localStorage.getItem("token");
+    const formData = new FormData();
+    if (image) formData.append("profilePicture", image);
+    if (video) formData.append("introductoryVideo", video);
+
+
+    try {
+        const response = await axios.post(`${rootUrl}/api/uploadProfileMedia`, formData, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        console.log(response.data)
+    } catch (err) {
+        console.error("Upload error:", err.response?.data || err.message);
+        throw err;
+    }
+}
+export const uploadPropertyImages = async (images) => {
+    const token = localStorage.getItem("token");
+    const formData = new FormData();
+    if (images) images.forEach((image) => formData.append("images[]", image));
+
+
+    try {
+        const response = await axios.post(`${rootUrl}/api/uploadPropertyMedia`, formData, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        console.log(response.data)
+    } catch (err) {
+        console.error("Upload error:", err.response?.data || err.message);
+        throw err;
     }
 }
 

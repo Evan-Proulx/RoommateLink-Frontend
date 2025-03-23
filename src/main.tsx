@@ -12,9 +12,10 @@ import Discovery from "./Components/Feed/Discovery.tsx";
 import Conversation from "./Components/Messaging/Conversation.tsx";
 import LandingPage from "./Components/LandingPage/LandingPage.tsx";
 import InputComponent from "./Components/InputComponent.tsx";
-import BookmarkedUserCard from "./Components/BookmarkedUserCard.tsx";
+import BookmarkedUserCard from "./Components/Feed/BookmarkedUserCard.tsx";
 import ListingCard from "./Components/Feed/ListingCard.tsx";
 import Bookmarks from "./Components/Feed/Bookmarks.tsx"
+import ImageUploadTest from "./Components/ImageUploadTest.tsx";
 
 // Routes
 const router = createBrowserRouter([
@@ -53,7 +54,11 @@ const router = createBrowserRouter([
     },
     {
         path: '/test',
-        element: <Bookmarks/>,
+        element: <ImageUploadTest/>,
+    },
+    {
+        path: '/login',
+        element: <Login />,
     },
     {
         path: '/home',

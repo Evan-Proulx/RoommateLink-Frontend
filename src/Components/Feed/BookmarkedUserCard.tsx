@@ -1,9 +1,9 @@
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import React, {useEffect, useState} from "react";
-import {UserProfile} from "../ProfileData.ts";
+import {UserProfile} from "../../ProfileData.ts";
 import {ForumOutlined} from "@mui/icons-material";
 import {grey} from "@mui/material/colors";
-import {bookmarkUser, unbookmarkUser} from "./API/Bookmarks.ts";
+import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts";
 
 interface BookmarkedUserCardProps {
     user: UserProfile;

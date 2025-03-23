@@ -22,7 +22,7 @@ const Login = () => {
         try{
             //this prevents the page from reloading when submitting
             event.preventDefault();
-            await authenticateUser(email, password)
+            await authenticateUser(email)
             //clear the form inputs after successful registration
             setEmail("")
             setPassword("")
@@ -61,30 +61,30 @@ const Login = () => {
                                required/>
 
                         {/*Password Input with password visibility toggle*/}
-                        <label htmlFor="password" className="block mb-2 mt-4 header2-text inter">Password</label>
-                        <div className="relative">
-                            <input type={showPassword ? "text" : "password"}
-                                   {...register<"password">("password", {
-                                       required: "Password is required",
-                                       minLength: {value: 8, message: "Password must have at least 8 characters"}
-                                   })}
-                                   id="password"
-                                   className="input-style"
-                                   value={password}
-                                   onChange={(event) => setPassword(event.target.value)}
-                                   autoComplete="on"
-                                   required/>
-                            {/*<button onClick={() => setShowPassword((prev) => !prev)}*/}
-                            {/*        className="absolute end-0.5 bottom-2.5 text-sm px-4 py-1 hover:cursor-pointer">*/}
-                            {/*    <FontAwesomeIcon className={"fa-xl"} icon={showPassword ? faEyeSlash : faEye}/>*/}
-                            {/*</button>*/}
-                        </div>
+                        {/*<label htmlFor="password" className="block mb-2 mt-4 header2-text inter">Password</label>*/}
+                        {/*<div className="relative">*/}
+                        {/*    <input type={showPassword ? "text" : "password"}*/}
+                        {/*           {...register<"password">("password", {*/}
+                        {/*               required: "Password is required",*/}
+                        {/*               minLength: {value: 8, message: "Password must have at least 8 characters"}*/}
+                        {/*           })}*/}
+                        {/*           id="password"*/}
+                        {/*           className="input-style"*/}
+                        {/*           value={password}*/}
+                        {/*           onChange={(event) => setPassword(event.target.value)}*/}
+                        {/*           autoComplete="on"*/}
+                        {/*           required/>*/}
+                        {/*    /!*<button onClick={() => setShowPassword((prev) => !prev)}*!/*/}
+                        {/*    /!*        className="absolute end-0.5 bottom-2.5 text-sm px-4 py-1 hover:cursor-pointer">*!/*/}
+                        {/*    /!*    <FontAwesomeIcon className={"fa-xl"} icon={showPassword ? faEyeSlash : faEye}/>*!/*/}
+                        {/*    /!*</button>*!/*/}
+                        {/*</div>*/}
 
                         {/*email error message*/}
                         {errors.email && <div className={"text-xl font-bold text-red-500"}>{errors.email.message}</div>}
                         {/*Password error message*/}
-                        {errors.password &&
-                            <div className={"text-xl font-bold text-red-500"}>{errors.password.message}</div>}
+                        {/*{errors.password &&*/}
+                        {/*    <div className={"text-xl font-bold text-red-500"}>{errors.password.message}</div>}*/}
 
                         {/*Other options*/}
                         <div className={"flex place-content-between text-sm font-medium"}>

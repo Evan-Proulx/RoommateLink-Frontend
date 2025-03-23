@@ -9,7 +9,7 @@ import PropertyForm from "./PropertyForm.tsx";
 import SurveyAbout from "./SurveyAbout.tsx";
 import SubmitSurvey from "./SubmitSurvey.tsx";
 import {FormProvider, useForm} from "react-hook-form";
-import {createProfile} from "../API/Profile.ts";
+import {createProfile, uploadProfileMedia, uploadPropertyImages} from "../API/Profile.ts";
 
 
 const Survey = () => {
@@ -70,6 +70,12 @@ const Survey = () => {
         profilePicture: "",
         introductoryVideo: ""
     })
+
+    //Files set separately from the rest of the data
+    const [profilePicture, setProfilePicture] = useState(null);
+    const [introductoryVideo, setIntroductoryVideo] = useState(null);
+    const [propertyImages, setPropertyImages] = useState([null]);
+
     //useForm describes how the form validation should behave. This is passed to the FormProvider
     const methods = useForm({mode: "onBlur"});
 
@@ -107,6 +113,34 @@ const Survey = () => {
         }
     };
 
+    //Updates image and video state sent from profile form
+    const onSetAvatar = (image) => {setProfilePicture(image)}
+    const onSetVideo = (video) => {setIntroductoryVideo(video)}
+    //Updates property images state sent from property form
+    const onSetPropertyImages = (images) => {setPropertyImages(images)}
+
+    //Submits file data to server. Files are handled separately from the rest of the profile data.
+    const handleFileSubmission = async () => {
+        // Check profile picture and video and send files to server
+        if (profilePicture && introductoryVideo) {
+            try {
+                const response = await uploadProfileMedia(profilePicture, introductoryVideo);
+                console.log(response);
+            }catch (error) {
+                alert("Error uploading files: " + error.message);
+            }
+        }
+        // Check property images and send files to server
+        if (propertyImages) {
+            try {
+                const response = await uploadPropertyImages(propertyImages);
+                console.log(response);
+            }catch (error) {
+                alert("Error uploading files: " + error.message);
+            }
+        }
+    }
+
     // Log when data is updated
     useEffect(() => {
         console.log("Updated userData:", propertyData);
@@ -126,8 +160,10 @@ const Survey = () => {
         const data = JSON.stringify(allData);
         console.log(data);
 
-        //Send data to API
+        //Send profile data to server
         await createProfile(data)
+        //Send file data to server
+        await handleFileSubmission();
     }
 
     return (
@@ -146,12 +182,12 @@ const Survey = () => {
                             <SurveyAbout userData={personalData} setUserData={setPersonalData} searchLocation={searchLocation} setSearchLocation={setSearchLocation}/>
                         </Element>
                         <Element name="form2" id="form2" className={"py-20"}>
-                            <SurveyFormProfile profileData={profileData} setProfileData={setProfileData}/>
+                            <SurveyFormProfile profileData={profileData} setProfileData={setProfileData} onSetAvatar={onSetAvatar} onSetVideo={onSetVideo}/>
                         </Element>
                         {/*Only display property form if user says they have property*/}
                         {personalData.hasHousing &&
                         <Element name="form3" id="form3" className={"py-20"}>
-                            <PropertyForm propertyData={propertyData} setPropertyData={setPropertyData}/>
+                            <PropertyForm propertyData={propertyData} setPropertyData={setPropertyData} onSetPropertyImages={onSetPropertyImages}/>
                         </Element>
                         }
                         <Element name="form4" id="form4" className={"py-20"}>

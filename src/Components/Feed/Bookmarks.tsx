@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {bookmarkUser, getBookmarks, unbookmarkUser} from "../API/Bookmarks.ts";
-import BookmarkedUserCard from "../BookmarkedUserCard.tsx";
+import BookmarkedUserCard from "./BookmarkedUserCard.tsx";
 import {UserProfile} from "../../ProfileData.ts";
 import ListingCard from "./ListingCard.tsx";
 import Navbar from "../Navbar.tsx";
@@ -50,13 +50,13 @@ const Bookmarks = () => {
             <div className={"flex flex-col w-full h-full"}>
                 <div className={"flex flex-col justify-center items-center w-full h-full"}>
                     <div className={"flex flex-col items-center space-y-4 w-full h-full"}>
-                        {bookmarkedProfiles ? (
+                        {bookmarkedProfiles.length > 0 ? (
                             bookmarkedProfiles.map((user) => (
                                 <BookmarkedUserCard key={user.personalData.id} user={user} onUnbookmark={removeBookmark}/>
                             ))
                             ) : (
                             <div className="flex items-center justify-center text-gray-500">
-                                <p>No matching users found.</p>
+                                <p>You have no bookmarks :(</p>
                             </div>
                     )}
                     </div>
