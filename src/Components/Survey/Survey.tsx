@@ -131,7 +131,7 @@ const Survey = () => {
             }
         }
         // Check property images and send files to server
-        if (propertyImages) {
+        if (propertyImages && personalData.hasHousing) {
             try {
                 const response = await uploadPropertyImages(propertyImages);
                 console.log(response);

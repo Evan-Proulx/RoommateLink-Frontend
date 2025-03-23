@@ -8,6 +8,7 @@ import {grey} from "@mui/material/colors";
 import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts"
 
 const ListingCard = (user: UserProfile) => {
+    const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
     const [profileView, setProfileView] = useState(false);
     const [userData, setUserData] = useState<UserProfile | null>(null);
     const [isBookmarked, setIsBookmarked] = useState(false);
@@ -64,7 +65,9 @@ const ListingCard = (user: UserProfile) => {
     };
 
     const handleToggle = () => {
-        setProfileView(!profileView);
+        if (userData?.personalData.has_housing){
+            setProfileView(!profileView);
+        }
     };
 
     const toggleBookmark = async () => {
@@ -103,7 +106,7 @@ const ListingCard = (user: UserProfile) => {
                 {/* Profile Section */}
                 <div className={`flex ${!profileView ? "flex-col" : "flex-row"}`}>
                     <img
-                        src="https://images.surferseo.art/3e8e3027-36da-4ca6-8d77-76b74405d002.webp"
+                        src={userData.profileData.profile_picture ? imgUrl + userData.profileData.profile_picture : "https://archive.org/download/instagram-plain-round/instagram%20dip%20in%20hair.jpg"}
                         alt="Profile"
                         className={`w-28 h-28 rounded-lg ${!profileView ? "0" : "mr-4"}`}/>
 
