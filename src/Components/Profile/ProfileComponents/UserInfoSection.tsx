@@ -7,6 +7,7 @@ import {UserProfile} from "../../../ProfileData.ts";
 import ProfileImg from "../Aside/ProfileImg.tsx";
 
 function UserInfoSection() {
+    const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
     //Get user data
     const userProfile = useContext(ProfileContext);
     const user = userProfile as UserProfile;
@@ -14,7 +15,7 @@ function UserInfoSection() {
     return (
         <div className="p-4 flex justify-between items-start w-full shadow-md">
             <div className={"flex space-x-3 px-4 lg:px-12"}>
-                <ProfileImg/>
+                <ProfileImg url={imgUrl + user.profileData.profile_picture}/>
                 <div className="">
                     {/* User name */}
                     <div className="flex items-center m-3">
