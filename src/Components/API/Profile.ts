@@ -105,6 +105,7 @@ export const uploadProfileMedia = async (image, video) => {
         throw err;
     }
 }
+
 export const uploadPropertyImages = async (images) => {
     const token = localStorage.getItem("token");
     const formData = new FormData();
@@ -118,6 +119,24 @@ export const uploadPropertyImages = async (images) => {
             }
         });
         console.log(response.data)
+    } catch (err) {
+        console.error("Upload error:", err.response?.data || err.message);
+        throw err;
+    }
+}
+
+export const retrievePropertyImages = async (propertyId) => {
+    const token = localStorage.getItem("token");
+
+    try {
+        const response = await axios.get(`${rootUrl}/api/propertyImages/${propertyId}`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        console.log(response.data)
+        return response.data;
     } catch (err) {
         console.error("Upload error:", err.response?.data || err.message);
         throw err;
