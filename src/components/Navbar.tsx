@@ -8,8 +8,6 @@ import {
 } from "@mui/icons-material";
 import {Link, useNavigate, useLocation} from "react-router-dom";
 const Navbar = () => {
-    //Allows for navigation between components
-    const navigate = useNavigate();
     //Allows for tracking the current path of the application
     const location = useLocation();
     const [dropdownDisplayed, setDropdownDisplayed] = useState(false);

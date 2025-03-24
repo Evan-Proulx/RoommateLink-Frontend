@@ -5,10 +5,12 @@ import Popover from "./PopoverButton.tsx";
 import {getMatchingUsers} from "../API/Profile.ts"
 import ListingCard from "./ListingCard.tsx";
 import {UserProfile} from "../../ProfileData.ts";
+import ProfileCard from "./ProfileCard.tsx";
 
 const Feed = () => {
     const [showPopover, setShowPopover] = useState(false);
     const [users, setUsers] = useState<UserProfile[]>([]);
+    const [listingDisplayed, setListingDisplayed] = useState(false);
 
     useEffect(() => {
         getLinks();
@@ -35,6 +37,10 @@ const Feed = () => {
         console.log("USERS", users)
     }, [users])
 
+    const handleListingToggle = (displayListing) => {
+        setListingDisplayed(displayListing);
+    }
+
     //Show loading screen if profile data is not loaded yet
     if (!users) return (
         <div className={"flex flex-col justify-center items-center h-screen w-full bg-gray-300"}>
@@ -56,8 +62,16 @@ const Feed = () => {
                     <div className={"flex flex-col items-center w-full h-full"}>
                         {users ? (
                             users.map((user) => (
-                                <ListingCard key={user.personalData.id} user={user}/>
-                                // <FeedCard key={user.personalData.id} user={user}/>
+                                <div key={user.personalData.id}>
+                                    {listingDisplayed ? (
+                                        <ListingCard user={user} onSetListingToggle={handleListingToggle}/>
+                                    ) : (
+                                        <ProfileCard
+                                            user={user}
+                                            onSetListingToggle={handleListingToggle}
+                                        />
+                                    )}
+                                </div>
                             ))
                         ) : (
                             <div className="flex items-center justify-center text-gray-500">

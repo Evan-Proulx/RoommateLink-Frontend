@@ -1,21 +1,26 @@
-import {FaBookmark, FaRegBookmark} from "react-icons/fa";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState} from 'react';
+import {UserProfile} from "../../ProfileData.ts";
+import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHouseUser, faLocationDot} from "@fortawesome/free-solid-svg-icons";
-import {UserProfile} from "../../ProfileData.ts";
 import {ForumOutlined} from "@mui/icons-material";
 import {grey} from "@mui/material/colors";
-import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts"
+import {FaBookmark, FaRegBookmark} from "react-icons/fa";
+import {fetchConversations, handleCreateConversation} from "../API/Messaging.ts";
+import {useNavigate} from "react-router-dom";
 
-interface ListingCardProps{
+interface ProfileCardProps {
     user: UserProfile;
     onSetListingToggle;
 }
-const ListingCard: React.FC<ListingCardProps> = ({user, onSetListingToggle}) => {
+const ProfileCard: React.FC<ProfileCardProps> = ({user, onSetListingToggle}) => {
     const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
     const [profileView, setProfileView] = useState(true);
     const [userData, setUserData] = useState<UserProfile | null>(null);
     const [isBookmarked, setIsBookmarked] = useState(false);
+
+    const navigate = useNavigate();
+
 
     // Set max characters for user's description
     const maxLength = 250;
@@ -41,9 +46,6 @@ const ListingCard: React.FC<ListingCardProps> = ({user, onSetListingToggle}) => 
         console.log(`Opening image at index: ${index}`);
     };
 
-    // How far is the property to the user location
-    const theLocation = 26;
-
     // Changing the color based on how far it is
     const getTextColor = (percentage) => {
         if (percentage <= 25) {
@@ -56,7 +58,6 @@ const ListingCard: React.FC<ListingCardProps> = ({user, onSetListingToggle}) => 
     };
 
     // Link Percentage
-    const percentage = 79;
     const LinkPercentageColor = (percentage) => {
         if (percentage >= 80) {
             return "text-green-500"; // Green for 80-100%
@@ -71,6 +72,20 @@ const ListingCard: React.FC<ListingCardProps> = ({user, onSetListingToggle}) => 
         setProfileView(!profileView);
         onSetListingToggle(!profileView);
     };
+
+    //Creates conversation with selected profile.
+    //If a conversation already exists between users the conversation id is still returned.
+    const createConversations = async () => {
+        try{
+            const response = await handleCreateConversation(userData?.profileData.account_id);
+            console.log(response);
+
+            // Get the conversation ID from the conversation
+            navigate(`/chats`);
+        }catch (error) {
+            console.error("Error creating conversation:", error);
+        }
+    }
 
     const toggleBookmark = async () => {
         try {
@@ -104,13 +119,13 @@ const ListingCard: React.FC<ListingCardProps> = ({user, onSetListingToggle}) => 
         //TODO Fix width for mobile and large screen
         <div className="bg-white p-4 rounded-lg flex flex-col gap-4 border-2 border-black">
             {/* Profile & Listing Details */}
-            <div className={`flex gap-4`}>
+            <div className={`flex flex-col gap-4`}>
                 {/* Profile Section */}
-                <div className={`flex flex-col`}>
+                <div className={`flex`}>
                     <img
                         src={userData.profileData.profile_picture ? imgUrl + userData.profileData.profile_picture : "https://archive.org/download/instagram-plain-round/instagram%20dip%20in%20hair.jpg"}
                         alt="Profile"
-                        className={`w-28 h-28 rounded-lg`}/>
+                        className={`w-28 h-28 rounded-lg mr-4`}/>
 
                     <div className={"flex flex-col w-full"}>
                         <div className="flex items-center space-x-2">
@@ -123,11 +138,11 @@ const ListingCard: React.FC<ListingCardProps> = ({user, onSetListingToggle}) => 
                                       d="M12 2c-.791 0-1.55.314-2.11.874l-.893.893a.985.985 0 0 1-.696.288H7.04A2.984 2.984 0 0 0 4.055 7.04v1.262a.986.986 0 0 1-.288.696l-.893.893a2.984 2.984 0 0 0 0 4.22l.893.893a.985.985 0 0 1 .288.696v1.262a2.984 2.984 0 0 0 2.984 2.984h1.262c.261 0 .512.104.696.288l.893.893a2.984 2.984 0 0 0 4.22 0l.893-.893a.985.985 0 0 1 .696-.288h1.262a2.984 2.984 0 0 0 2.984-2.984V15.7c0-.261.104-.512.288-.696l.893-.893a2.984 2.984 0 0 0 0-4.22l-.893-.893a.985.985 0 0 1-.288-.696V7.04a2.984 2.984 0 0 0-2.984-2.984h-1.262a.985.985 0 0 1-.696-.288l-.893-.893A2.984 2.984 0 0 0 12 2Zm3.683 7.73a1 1 0 1 0-1.414-1.413l-4.253 4.253-1.277-1.277a1 1 0 0 0-1.415 1.414l1.985 1.984a1 1 0 0 0 1.414 0l4.96-4.96Z"
                                       clipRule="evenodd"/>
                             </svg>
+                            {/*Display link next to name when not in property view*/}
+                            <p className={`font-bold text-lg ${LinkPercentageColor(userData.compatibilityScore)}`}>
+                                {userData?.compatibilityScore} % Link
+                            </p>
                         </div>
-                        {/*Display link next to name */}
-                        <p className={`font-bold text-lg ${LinkPercentageColor(userData.compatibilityScore)}`}>
-                            {userData?.compatibilityScore} % Link
-                        </p>
 
                         <div className="flex flex-col items-start">
                             <p className="text-gray-500 font-semibold">{userData.personalData.city + ", " + userData.personalData.province}</p>
@@ -135,45 +150,25 @@ const ListingCard: React.FC<ListingCardProps> = ({user, onSetListingToggle}) => 
                             <p className="text-gray-500 font-semibold">${userData.personalData.budget}</p>
                         </div>
                     </div>
-                </div>
 
-                <div className="flex-1">
-                    {/* ////////////////////LISTING DETAILS */}
-                    <div className={"flex justify-between"}>
-                        <div className="flex flex-col w-3/4">
-                            <div><h2
-                                className="text-2xl font-bold">{userData.personalData.city + ", " + userData.personalData.province}</h2>
-                                <div className={"flex items-center space-x-2"}>
-                                    {/*Bathroom bedroom count*/}
-                                    <p className="text-gray-600 text-sm">{userData?.propertyData.bedroom_count} Bedroom
-                                        + {userData?.propertyData.bathroom_count} Bathroom</p>
-                                    {/*Separator*/}
-                                    <span className="w-1 h-1 rounded-full bg-gray-500"></span>
-                                    {/*Location away from user TODO Get actual data*/}
-                                    <h4 className={`text-center font-semibold ${getTextColor(theLocation)}`}>
-                                        {theLocation}Km away
-                                        <FontAwesomeIcon icon={faLocationDot} className="ml-1"/>
-                                    </h4>
-                                </div>
-                            </div>
+                    {/*Action buttons*/}
+                    <div className={""}>
+                        <div className="flex items-center gap-2">
+                            <button className="flex items-center">
+                                <ForumOutlined onClick={createConversations} sx={{color: grey[500]}}/>
+                            </button>
+
+                            <button onClick={() => toggleBookmark()} className="flex items-center">
+                                {isBookmarked ? (
+                                    <FaBookmark className="text-red-500 text-xl leading-none"/>
+                                ) : (
+                                    <FaRegBookmark className="text-gray-500 text-xl leading-none"/>
+                                )}
+                            </button>
                         </div>
-                        {/*ACTION BUTTONS*/}
-                        <div className={""}>
-                            <div className="flex items-center gap-2">
-                                <button className="flex items-center">
-                                    <ForumOutlined sx={{color: grey[500]}}/>
-                                </button>
 
-                                <button onClick={() => toggleBookmark()} className="flex items-center">
-                                    {isBookmarked ? (
-                                        <FaBookmark className="text-red-500 text-xl leading-none"/>
-                                    ) : (
-                                        <FaRegBookmark className="text-gray-500 text-xl leading-none"/>
-                                    )}
-                                </button>
-                            </div>
-
-                            {/* Toggle Switch */}
+                        {/*Only display property toggle if they have a property*/}
+                        {/*{userData.personalData.has_housing ? (*/}
                             <div className="m-2">
                                 <label htmlFor="toggle" className="flex items-center cursor-pointer">
                                     <div className="relative">
@@ -199,54 +194,38 @@ const ListingCard: React.FC<ListingCardProps> = ({user, onSetListingToggle}) => 
                                     </div>
                                 </label>
                             </div>
-                        </div>
+                        {/*) : null*/}
+                        {/*}*/}
                     </div>
-                    {/*Render Image Gallery and Description*/}
-                    <div className="flex gap-2 mt-2">
-                        {/* Image Grid */}
-                        <div className="grid grid-cols-2 gap-2 w-[450px]">
-                            {/* Main Large Image */}
-                            <div className="col-span-1">
-                                <img
-                                    src={propertyImages[0]}
-                                    alt="Main Property"
-                                    className="w-full h-full object-cover rounded-lg cursor-pointer"
-                                    onClick={() => openImage(0)}
-                                />
-                            </div>
+                </div>
 
-                            {/* Smaller Images */}
-                            <div className="grid grid-cols-2 gap-2">
-                                {propertyImages.slice(1, 4).map((src, index) => (
-                                    <img
-                                        key={index}
-                                        src={src}
-                                        alt={`Property ${index + 2}`}
-                                        className="w-full h-24 object-cover rounded-lg cursor-pointer"
-                                        onClick={() => openImage(index + 1)}
-                                    />
-                                ))}
-
-                                {/* Last image with overlay for extra images */}
-                                {propertyImages.length > 5 && (
-                                    <div className="relative cursor-pointer" onClick={() => openImage(4)}>
-                                        <img
-                                            src={propertyImages[4]}
-                                            alt="More Properties"
-                                            className="w-full h-24 object-cover rounded-lg"
-                                        />
-                                        <div
-                                            className="absolute inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center text-white font-bold text-lg">
-                                            +{propertyImages.length - 4}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                    {/* BIO/LISTING DESCRIPTION */}
+                {/*About User*/}
+                <div className={"flex justify-between"}>
                     <div>
-                        <p className="text-gray-700 text-sm mt-2 w-[450px] truncate">{truncatedText(userData.profileData.bio)}</p>
+                        <h3 className="mt-4 font-bold m-2 text-xl">About Me</h3>
+                        <p className="text-gray-600 m-2 font-normal">{userData.profileData.bio}</p>
+                        <div className="p-2">
+                            <label
+                                className="bg-blue-500 text-white text-center font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
+                                respectful
+                            </label>
+                            <label
+                                className="bg-blue-500 text-white text-center font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
+                                Clean
+                            </label>
+                            <label
+                                className="bg-blue-500 text-white text-center font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
+                                Communicative
+                            </label>
+                            <label
+                                className="bg-blue-500 text-white text-center font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
+                                Friendly
+                            </label>
+                            <label
+                                className="bg-blue-500 text-white text-center font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
+                                Honest
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -254,4 +233,4 @@ const ListingCard: React.FC<ListingCardProps> = ({user, onSetListingToggle}) => 
     );
 };
 
-export default ListingCard
+export default ProfileCard;
