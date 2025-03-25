@@ -16,26 +16,37 @@ import ImageGallery from "../Profile/ProfileComponents/ImageGallery.tsx";
 
 const ProfileCard = ({user}) => {
     const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
+    const navigate = useNavigate();
+
     const [profileView, setProfileView] = useState(true);
     const [profileData, setProfileData] = useState<UserProfile | null>(null);
     const [isBookmarked, setIsBookmarked] = useState(false);
-    // Images of the property, it depends on how many images the user uploaded
     const [propertyImages, setPropertyImages] = useState<string[]>([]);
-
-    const navigate = useNavigate();
 
     // Set max characters for user's description
     const maxLength = 250;
     const theLocation = 26;
 
+    useEffect(() => {
+        //Set user as state
+        if (user) {
+            //User gets nested
+            setProfileData(user);
+            console.log(profileData)
+        }
+    }, [user]);
+
+    // Get property images when the profile is set
+    useEffect(() => {
+        if (profileData?.propertyData.id){
+            getPropertyImages();
+        }
+    },[profileData]);
+
+
     const truncatedText = (text) => {
         return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
     }
-
-    // Function to handle image click (for future modal or zoom)
-    const openImage = (index) => {
-        console.log(`Opening image at index: ${index}`);
-    };
 
     // Changing the color based on how far it is
     const getTextColor = (percentage) => {
@@ -53,21 +64,16 @@ const ProfileCard = ({user}) => {
         if (percentage >= 80) {
             return "text-green-500"; // Green for 80-100%
         } else if (percentage >= 65) {
-            return "text-orange-500"; // Orange for 65-79%
+            return "text-yellow-500"; // Orange for 65-79%
         } else {
             return "text-red-500"; // Red for 64 and below
         }
     };
 
+    //Toggle between profile and property views
     const handleToggle = () => {
         setProfileView(!profileView);
     };
-
-    useEffect(() => {
-        if (profileData?.propertyData.id){
-            getPropertyImages();
-        }
-    },[profileData]);
 
     //Gets array of property image urls
     const getPropertyImages = async () => {
@@ -87,15 +93,6 @@ const ProfileCard = ({user}) => {
         }
     }
 
-    useEffect(() => {
-        //Set user as state
-        if (user) {
-            //User gets nested
-            setProfileData(user);
-            console.log(profileData)
-        }
-    }, [user])
-
     //Navigate to profile page with the user's profile.
     // Specify that it is not the logged in user's profile page
     const navigateToProfile = () => {
@@ -106,7 +103,6 @@ const ProfileCard = ({user}) => {
     if (!profileData) return (
         <CardSkeletonLoader/>
     )
-    
 
     return (
         //TODO Fix width for mobile and large screen
