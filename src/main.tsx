@@ -12,8 +12,8 @@ import Discovery from "./Components/Feed/Discovery.tsx";
 import Conversation from "./Components/Messaging/Conversation.tsx";
 import LandingPage from "./Components/LandingPage/LandingPage.tsx";
 import InputComponent from "./Components/InputComponent.tsx";
-import BookmarkedUserCard from "./Components/Feed/BookmarkedUserCard.tsx";
-import ListingCard from "./Components/Feed/ListingCard.tsx";
+import BookmarkedUserCard from "./Components/CardComponents/BookmarkedUserCard.tsx";
+import ListingCard from "./Components/CardComponents/ListingCard.tsx";
 import Bookmarks from "./Components/Feed/Bookmarks.tsx"
 import ImageUploadTest from "./Components/ImageUploadTest.tsx";
 

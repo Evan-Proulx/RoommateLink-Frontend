@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {bookmarkUser, getBookmarks, unbookmarkUser} from "../API/Bookmarks.ts";
-import BookmarkedUserCard from "./BookmarkedUserCard.tsx";
+import BookmarkedUserCard from "../CardComponents/BookmarkedUserCard.tsx";
 import {UserProfile} from "../../ProfileData.ts";
-import ListingCard from "./ListingCard.tsx";
+import ListingCard from "../CardComponents/ListingCard.tsx";
 import Navbar from "../Navbar.tsx";
 
 const Bookmarks = () => {

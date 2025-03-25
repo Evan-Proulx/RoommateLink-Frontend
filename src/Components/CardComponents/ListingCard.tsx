@@ -6,6 +6,8 @@ import {UserProfile} from "../../ProfileData.ts";
 import {ForumOutlined} from "@mui/icons-material";
 import {grey} from "@mui/material/colors";
 import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts"
+import {handleCreateConversation} from "../API/Messaging.ts";
+import CardActions from "./CardActions.tsx";
 
 interface ListingCardProps{
     user: UserProfile;
@@ -69,7 +71,6 @@ const ListingCard: React.FC<ListingCardProps> = ({user, onSetListingToggle}) => 
 
     const handleToggle = () => {
         setProfileView(!profileView);
-        onSetListingToggle(!profileView);
     };
 
     const toggleBookmark = async () => {
@@ -158,48 +159,13 @@ const ListingCard: React.FC<ListingCardProps> = ({user, onSetListingToggle}) => 
                             </div>
                         </div>
                         {/*ACTION BUTTONS*/}
-                        <div className={""}>
-                            <div className="flex items-center gap-2">
-                                <button className="flex items-center">
-                                    <ForumOutlined sx={{color: grey[500]}}/>
-                                </button>
-
-                                <button onClick={() => toggleBookmark()} className="flex items-center">
-                                    {isBookmarked ? (
-                                        <FaBookmark className="text-red-500 text-xl leading-none"/>
-                                    ) : (
-                                        <FaRegBookmark className="text-gray-500 text-xl leading-none"/>
-                                    )}
-                                </button>
-                            </div>
-
-                            {/* Toggle Switch */}
-                            <div className="m-2">
-                                <label htmlFor="toggle" className="flex items-center cursor-pointer">
-                                    <div className="relative">
-                                        {/* Actual Checkbox (Hidden) */}
-                                        <input type="checkbox" id="toggle"
-                                               className="sr-only"
-                                               checked={profileView}
-                                               onChange={handleToggle}
-                                        />
-                                        {/* Toggle Background */}
-                                        <div className={`w-12 h-6 rounded-full shadow-inner transition ${
-                                            profileView ? "bg-green-500" : "bg-gray-300"
-                                        }`}
-                                        ></div>
-
-                                        {/* Toggle Handle */}
-                                        <FontAwesomeIcon
-                                            icon={faHouseUser}
-                                            className={`absolute top-1 w-4 h-4 transition-transform ${
-                                                profileView ? "translate-x-6 text-white" : "translate-x-1 text-gray-500"
-                                            }`}
-                                        />
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
+                        <CardActions
+                            userId={userData?.profileData.account_id}
+                            hasHousing={userData?.personalData?.has_housing ?? false}
+                            initialProfileView={profileView}
+                            initialBookmarkStatus={isBookmarked}
+                            onSetListingToggle={handleToggle}
+                        />
                     </div>
                     {/*Render Image Gallery and Description*/}
                     <div className="flex gap-2 mt-2">

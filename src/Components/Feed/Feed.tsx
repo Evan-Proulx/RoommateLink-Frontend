@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import FeedCard from "./FeedCard.tsx";
+import FeedCard from "../CardComponents/FeedCard.tsx";
 import Navbar from "../Navbar.tsx";
 import Popover from "./PopoverButton.tsx";
 import {getMatchingUsers} from "../API/Profile.ts"
-import ListingCard from "./ListingCard.tsx";
+import ListingCard from "../CardComponents/ListingCard.tsx";
 import {UserProfile} from "../../ProfileData.ts";
-import ProfileCard from "./ProfileCard.tsx";
+import ProfileCard from "../CardComponents/ProfileCard.tsx";
 
 const Feed = () => {
     const [showPopover, setShowPopover] = useState(false);
@@ -37,10 +37,6 @@ const Feed = () => {
         console.log("USERS", users)
     }, [users])
 
-    const handleListingToggle = (displayListing) => {
-        setListingDisplayed(displayListing);
-    }
-
     //Show loading screen if profile data is not loaded yet
     if (!users) return (
         <div className={"flex flex-col justify-center items-center h-screen w-full bg-gray-300"}>
@@ -59,19 +55,10 @@ const Feed = () => {
             </div>
             <div className={"flex flex-col w-full h-full"}>
                 <div className={"flex flex-col justify-center items-center w-full h-full"}>
-                    <div className={"flex flex-col items-center w-full h-full"}>
+                    <div className={"flex flex-col items-center w-3/4 xl:w-1/2 h-full"}>
                         {users ? (
                             users.map((user) => (
-                                <div key={user.personalData.id}>
-                                    {listingDisplayed ? (
-                                        <ListingCard user={user} onSetListingToggle={handleListingToggle}/>
-                                    ) : (
-                                        <ProfileCard
-                                            user={user}
-                                            onSetListingToggle={handleListingToggle}
-                                        />
-                                    )}
-                                </div>
+                                        <ProfileCard user={user}/>
                             ))
                         ) : (
                             <div className="flex items-center justify-center text-gray-500">

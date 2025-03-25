@@ -1,0 +1,96 @@
+import React, {useState} from 'react';
+import {ForumOutlined} from "@mui/icons-material";
+import {grey} from "@mui/material/colors";
+import {FaBookmark, FaRegBookmark} from "react-icons/fa";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faHouseUser} from "@fortawesome/free-solid-svg-icons";
+import {useNavigate} from "react-router-dom";
+import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts";
+import {handleCreateConversation} from "../API/Messaging.ts";
+
+
+const CardActions= ({userId, hasHousing, startingProfileView, onSetListingToggle}) => {
+    const [profileView, setProfileView] = useState(startingProfileView);
+    const [isBookmarked, setIsBookmarked] = useState(false);
+    const navigate = useNavigate();
+
+    //Pass the card view to the parent component
+    const handleToggle = () => {
+        onSetListingToggle()
+        setProfileView(!profileView);
+    };
+
+    //Creates conversation with selected profile.
+    //If a conversation already exists between users the conversation id is still returned.
+    const createConversations = async () => {
+        try {
+            await handleCreateConversation(userId);
+            navigate(`/chats`);
+        } catch (error) {
+            console.error("Error creating conversation:", error);
+        }
+    };
+
+    const toggleBookmark = async () => {
+        try {
+            if (isBookmarked) {
+                await unbookmarkUser(userId);
+            } else {
+                await bookmarkUser(userId);
+            }
+            setIsBookmarked(!isBookmarked);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    return (
+        <div>
+            <div className="flex items-center gap-2">
+                <button className="flex items-center" onClick={createConversations}>
+                    <ForumOutlined sx={{color: grey[500]}}/>
+                </button>
+
+                <button onClick={toggleBookmark} className="flex items-center">
+                    {isBookmarked ? (
+                        <FaBookmark className="text-red-500 text-xl leading-none"/>
+                    ) : (
+                        <FaRegBookmark className="text-gray-500 text-xl leading-none"/>
+                    )}
+                </button>
+            </div>
+
+            {hasHousing && (
+                <div className="m-2">
+                    <label htmlFor="toggle" className="flex items-center cursor-pointer">
+                        <div className="relative">
+                            <input
+                                type="checkbox"
+                                id="toggle"
+                                className="sr-only"
+                                checked={profileView as boolean}
+                                onChange={handleToggle}
+                            />
+                            <div
+                                className={`w-12 h-6 rounded-full shadow-inner transition ${
+                                    profileView ? "bg-gray-300" : "bg-green-500"
+                                }`}
+                            ></div>
+
+                            <FontAwesomeIcon
+                                icon={faHouseUser}
+                                className={`absolute top-1 w-4 h-4 transition-transform ${
+                                    profileView
+                                        ? "translate-x-1 text-gray-500"
+                                        : "translate-x-6 text-white"
+                                }`}
+                            />
+                        </div>
+                    </label>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default CardActions;
