@@ -1,20 +1,28 @@
 import Aside from "./Aside/Aside.tsx";
 import ProfileComponents from "./ProfileComponents/ProfileComponents.tsx";
 import {createContext, useEffect, useRef, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {getProfileData, retrievePropertyImages} from "../API/Profile.ts";
 import {UserProfile} from "../../ProfileData.ts"
 import UserInfoSection from "./ProfileComponents/UserInfoSection.tsx";
 import AboutSection from "./ProfileComponents/AboutSection.tsx";
 import Navbar from "../Navbar.tsx";
 export const ProfileContext = createContext(null)
+
 function ProfilePage() {
-    const [profileData, setProfileData] = useState<UserProfile>();
-    const [propertyImages, setPropertyImages] = useState<string[]>([]);
     const navigate = useNavigate();
+    //This is the state passed when the page is navigated to
+    //It sends the user's profile and if it is the logged in user's profile or a different user's profile
+    //This allows us to use the same component for different types of users
+    const {state} = useLocation();
+    const profile = state?.profile;
+    const myProfileDisplayed = state?.myProfileDisplayed ?? true;
+
     const hasRun = useRef(false)
     const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
 
+    const [profileData, setProfileData] = useState<UserProfile>();
+    const [propertyImages, setPropertyImages] = useState<string[]>([]);
 
     //Fetch profile data from the api when the page first loads
     useEffect(() => {
@@ -22,8 +30,17 @@ function ProfilePage() {
         if (hasRun.current) return;
         hasRun.current = true;
 
-        getData()
-    }, [navigate])
+        //Get the logged in user's data if they are on their profile page
+        if (myProfileDisplayed) {
+            getData();
+        }else{
+            console.log("Profile",profile)
+            if (profile) {
+                //Get the profile data for the given user id if selected from a feed
+                setProfileData(profile);
+            }
+        }
+    }, [navigate]);
 
     //Fetch profile data with token
     const getData = async () =>{
@@ -46,18 +63,21 @@ function ProfilePage() {
         }
     },[profileData]);
 
+    //Gets array of property image urls
     const getPropertyImages = async () => {
-        const propertyID = profileData?.propertyData.id;
-        if (!propertyID) {return}
+        //Check if user has housing property before fetching images
+        if(profileData?.personalData.has_housing) {
+            const propertyID = profileData?.propertyData.id;
+            if (!propertyID) {return}
 
-        try{
-            const response = await retrievePropertyImages(propertyID);
-
-            const fixedImgUrls = response.map(image => imgUrl + image)
-            console.log(fixedImgUrls)
-            setPropertyImages(fixedImgUrls);
-        }catch (err) {
-            console.log(err)
+            try {
+                const response = await retrievePropertyImages(propertyID);
+                //Add url root to urls
+                const fixedImgUrls = response.map(image => imgUrl + image)
+                setPropertyImages(fixedImgUrls);
+            } catch (err) {
+                console.log(err);
+            }
         }
     }
 

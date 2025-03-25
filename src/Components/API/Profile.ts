@@ -18,6 +18,7 @@ export const createProfile = async (profileData) => {
         throw new Error(err.response?.data?.message || "Failed to create profile");
     }
 }
+//Get the authenticated user's profile
 export const getProfileData = async (token) => {
     try {
         const response = await axios.get(`${rootUrl}/api/profile`,

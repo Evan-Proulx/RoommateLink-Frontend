@@ -8,6 +8,7 @@ import {grey} from "@mui/material/colors";
 import {FaBookmark, FaRegBookmark} from "react-icons/fa";
 import {fetchConversations, handleCreateConversation} from "../API/Messaging.ts";
 import {useNavigate} from "react-router-dom";
+import ProfilePage from "../Profile/ProfilePage.tsx";
 
 interface ProfileCardProps {
     user: UserProfile;
@@ -109,6 +110,10 @@ const ProfileCard: React.FC<ProfileCardProps> = ({user, onSetListingToggle}) => 
         }
     }, [user])
 
+    //Navigate to profile page with the user's profile.
+    // Specify that it is not the logged in user's profile page
+    const navigateToProfile = () => {navigate('/profile', {state: {profile: userData, myProfileDisplayed: false}});}
+
     // TODO card should be fixed with a better loader
     if (!userData) return <div className={"flex flex-col justify-center items-center h-screen w-full bg-gray-300"}>
         <span className={"loader"}></span>
@@ -122,14 +127,15 @@ const ProfileCard: React.FC<ProfileCardProps> = ({user, onSetListingToggle}) => 
             <div className={`flex flex-col gap-4`}>
                 {/* Profile Section */}
                 <div className={`flex`}>
-                    <img
-                        src={userData.profileData.profile_picture ? imgUrl + userData.profileData.profile_picture : "https://archive.org/download/instagram-plain-round/instagram%20dip%20in%20hair.jpg"}
+                    <img onClick={navigateToProfile}
+                        src={userData.profileData.profile_picture ? imgUrl + userData.profileData.profile_picture :
+                            "https://archive.org/download/instagram-plain-round/instagram%20dip%20in%20hair.jpg"}
                         alt="Profile"
-                        className={`w-28 h-28 rounded-lg mr-4`}/>
+                        className={`w-28 h-28 rounded-lg mr-4 cursor-pointer`}/>
 
                     <div className={"flex flex-col w-full"}>
                         <div className="flex items-center space-x-2">
-                            <h4 className="text-2xl font-bold">{userData.profileData.first_name + " " + userData.profileData.last_name}</h4>
+                            <h4  onClick={navigateToProfile} className="text-2xl font-bold hover:underline cursor-pointer">{userData.profileData.first_name + " " + userData.profileData.last_name}</h4>
                             {/*Verification badge*/}
                             <svg className="w-5 h-5 text-gray-800 dark:text-blue-700" aria-hidden="true"
                                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
