@@ -48,7 +48,7 @@ function ProfilePage() {
         if (!token) {return}
 
         try {
-            const response = await getProfileData(token);
+            const response = await getProfileData();
             console.log(response)
             setProfileData(response);
         }catch (err) {

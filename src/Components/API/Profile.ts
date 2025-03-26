@@ -19,7 +19,9 @@ export const createProfile = async (profileData) => {
     }
 }
 //Get the authenticated user's profile
-export const getProfileData = async (token) => {
+export const getProfileData = async () => {
+    const token = localStorage.getItem("token");
+
     try {
         const response = await axios.get(`${rootUrl}/api/profile`,
             {
