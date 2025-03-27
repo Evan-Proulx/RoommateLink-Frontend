@@ -44,9 +44,9 @@ const ProfileCard = ({user}) => {
 
     // Get property images when the profile is set
     useEffect(() => {
-        // if (profileData?.propertyData.id){
-        //     getPropertyImages();
-        // }
+        if (profileData?.propertyData.id){
+            getPropertyImages();
+        }
     },[profileData]);
 
 
