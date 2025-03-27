@@ -8,9 +8,7 @@ import {UserProfile} from "../../ProfileData.ts";
 import ProfileCard from "../CardComponents/ProfileCard.tsx";
 
 const Feed = () => {
-    const [showPopover, setShowPopover] = useState(false);
     const [users, setUsers] = useState<UserProfile[]>([]);
-    const [listingDisplayed, setListingDisplayed] = useState(false);
 
     useEffect(() => {
         getLinks();
@@ -47,7 +45,7 @@ const Feed = () => {
 
     return (
 
-        <div className={"w-full bg-primary h-screen overflow-y-hidden"}>
+        <div className={"w-full bg-primary overflow-y-hidden"}>
             <Navbar/>
             <div className={"flex items-baseline py-3 space-x-3"}>
                 <h1 className="pl-3 lg:pl-32 text-start header-text-huge">Your Links</h1>
@@ -55,10 +53,10 @@ const Feed = () => {
             </div>
             <div className={"flex flex-col w-full h-full"}>
                 <div className={"flex flex-col justify-center items-center w-full h-full"}>
-                    <div className={"flex flex-col items-center w-3/4 xl:w-1/2 h-full"}>
+                    <div className={"flex flex-col items-center space-y-4 w-3/4 xl:w-1/2 h-full"}>
                         {users ? (
-                            users.map((user) => (
-                                        <ProfileCard user={user}/>
+                            users.map((user, index) => (
+                                    <ProfileCard key={index} user={user}/>
                             ))
                         ) : (
                             <div className="flex items-center justify-center text-gray-500">

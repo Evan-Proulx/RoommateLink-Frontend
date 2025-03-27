@@ -5,6 +5,8 @@ import {ForumOutlined} from "@mui/icons-material";
 import {grey} from "@mui/material/colors";
 import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts";
 import {useNavigate} from "react-router-dom";
+import {retrievePropertyImages} from "../API/Profile.ts";
+import CardActions from "./CardActions.tsx";
 
 interface BookmarkedUserCardProps {
     user: UserProfile;
@@ -15,9 +17,9 @@ const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookma
     const navigate = useNavigate();
 
     const [profileData, setProfileData] = useState<UserProfile | null>(null);
+    const [propertyImage, setPropertyImage] = useState("");
     const [saved, setSaved] = useState(false);
     const [isBookmarked, setIsBookmarked] = useState(false);
-    const hasProperty = true;
     //Link Percentage
     const percentage = 79;
     const LinkPercentageColor = (percentage) => {
@@ -29,6 +31,15 @@ const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookma
             return 'text-red-500'; // Red for 64 and below
         }
     };
+
+    useEffect(() => {
+        //Set user as state
+        if(user){setProfileData(user);}
+
+        //Get property image when profileData is set
+        if (profileData){getPropertyImage();}
+    }, [user])
+
 
     //Unbookmark user when bookmark button is clicked
     const unBookmark = async () => {
@@ -42,19 +53,28 @@ const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookma
         }
     }
 
+    const getPropertyImage = async () => {
+        //Check if user has housing property before fetching images
+        if(profileData?.personalData.has_housing) {
+            const propertyID = profileData?.propertyData.id;
+            if (!propertyID) {return}
+
+            try {
+                const response = await retrievePropertyImages(propertyID);
+                //Get first image and add root url
+                const fixedImgUrl = imgUrl + response[0];
+                setPropertyImage(fixedImgUrl);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    }
+
     //Navigate to profile page with the user's profile.
     // Specify that it is not the logged in user's profile page
     const navigateToProfile = () => {
         navigate('/profile', {state: {profile: profileData, myProfileDisplayed: false}});
     }
-
-    useEffect(() => {
-        //Set user as state
-        if(user){
-            //User gets nested
-            setProfileData(user);
-        }
-    }, [user])
 
     // TODO card should be fixed with a better loader
     if (!profileData) return <div className={"flex flex-col justify-center items-center h-screen w-full bg-gray-300"}>
@@ -64,7 +84,16 @@ const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookma
 
 
     return (
-        <div className="bg-white w-[650px] p-4 rounded-lg border-2 border-black">
+        <div className="relative bg-white w-7/12 p-4 rounded-lg border-2 border-black">
+
+            <div className={"absolute top-2 right-2 pt-2"}>
+            <CardActions
+                userId={profileData?.profileData.account_id}
+                hasHousing={profileData?.personalData?.has_housing}
+                profileView={true}
+                bookmarkDisplay={true}//Doesn't display toggle switch
+            />
+            </div>
 
             <div className="grid grid-cols-[auto,1fr,auto] gap-x-4 items-start">
                 <div className="grid grid-cols-[auto,1fr,auto] gap-x-4 items-start">
@@ -80,7 +109,7 @@ const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookma
                         {/* Second Image (Circle, Overlapping the First at Bottom-Right) */}
                         {profileData.personalData.has_housing === 1 && (
                             <img
-                                src="https://brennanrogers.com/wp-content/uploads/2024/01/House.jpg"
+                                src={propertyImage}
                                 alt="Profile"
                                 className="absolute bottom-8 right-0 w-16 h-16 rounded-full border-2 border-blue-600 transform translate-y-1/2 translate-x-1/2"
                             />
@@ -119,16 +148,6 @@ const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookma
                             <p className="pt-2 text-xs">{`4Km away • ${profileData.propertyData.bedroom_count} rooms + ${profileData.propertyData.bathroom_count} bathrooms • ${profileData.personalData.city}, ${profileData.personalData.province}`}</p>)
                         }
                     </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex items-center gap-2">
-                    <button>
-                        <ForumOutlined sx={{color: grey[500]}}/>
-                    </button>
-                    <button onClick={() => unBookmark()}>
-                        <FaBookmark className="text-red-500 text-xl"/>
-                    </button>
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ForumOutlined} from "@mui/icons-material";
 import {grey} from "@mui/material/colors";
 import {FaBookmark, FaRegBookmark} from "react-icons/fa";
@@ -9,16 +9,20 @@ import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts";
 import {handleCreateConversation} from "../API/Messaging.ts";
 
 
-const CardActions= ({userId, hasHousing, startingProfileView, onSetListingToggle}) => {
-    const [profileView, setProfileView] = useState(startingProfileView);
-    const [isBookmarked, setIsBookmarked] = useState(false);
+const CardActions= ({userId, hasHousing, profileView, onSetListingToggle = () => {}, bookmarkDisplay = false}) => {
+    const [isBookmarked, setIsBookmarked] = useState(bookmarkDisplay);
     const navigate = useNavigate();
 
     //Pass the card view to the parent component
     const handleToggle = () => {
         onSetListingToggle()
-        setProfileView(!profileView);
+        console.log(userId)
     };
+
+    useEffect(() => {
+        console.log(userId)
+    }, []);
+
 
     //Creates conversation with selected profile.
     //If a conversation already exists between users the conversation id is still returned.
@@ -60,7 +64,7 @@ const CardActions= ({userId, hasHousing, startingProfileView, onSetListingToggle
                 </button>
             </div>
 
-            {hasHousing && (
+            {hasHousing && !bookmarkDisplay && (
                 <div className="m-2">
                     <label htmlFor="toggle" className="flex items-center cursor-pointer">
                         <div className="relative">
@@ -68,8 +72,8 @@ const CardActions= ({userId, hasHousing, startingProfileView, onSetListingToggle
                                 type="checkbox"
                                 id="toggle"
                                 className="sr-only"
-                                checked={profileView as boolean}
-                                onChange={handleToggle}
+                                checked={profileView}
+                                onClick={() => handleToggle()}
                             />
                             <div
                                 className={`w-12 h-6 rounded-full shadow-inner transition ${

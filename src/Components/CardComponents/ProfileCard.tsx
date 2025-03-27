@@ -20,7 +20,6 @@ const ProfileCard = ({user}) => {
 
     const [profileView, setProfileView] = useState(true);
     const [profileData, setProfileData] = useState<UserProfile | null>(null);
-    const [isBookmarked, setIsBookmarked] = useState(false);
     const [propertyImages, setPropertyImages] = useState<string[]>([]);
 
     // Set max characters for user's description
@@ -106,13 +105,13 @@ const ProfileCard = ({user}) => {
 
     return (
         //TODO Fix width for mobile and large screen
-        <div className="relative bg-white p-4 rounded-lg flex flex-col gap-4 border-2 border-black">
+        <div className="relative bg-white p-4 rounded-lg w-5/6 flex flex-col gap-4 border-2 border-black">
             {/*Display the card actions independently of the view*/}
             <div className={"absolute top-2 right-2 pt-2"}>
                 <CardActions
                     userId={profileData?.profileData.account_id}
                     hasHousing={profileData?.personalData?.has_housing}
-                    startingProfileView={profileView}
+                    profileView={profileView}
                     onSetListingToggle={handleToggle}/>
             </div>
 
