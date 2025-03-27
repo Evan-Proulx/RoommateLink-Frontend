@@ -9,7 +9,15 @@ import ProfileCard from "../CardComponents/ProfileCard.tsx";
 
 const Feed = () => {
     const [users, setUsers] = useState<UserProfile[]>([]);
+    const [toggledCards, setToggledCards] = useState({});
 
+    const handleCardToggle = (userId) => {
+        setToggledCards(prev => ({
+            ...prev,
+            [userId]: !prev[userId]
+        }));
+        console.log(userId)
+    };
     useEffect(() => {
         getLinks();
     }, [])
@@ -56,7 +64,11 @@ const Feed = () => {
                     <div className={"flex flex-col items-center space-y-4 w-3/4 xl:w-1/2 h-full"}>
                         {users ? (
                             users.map((user, index) => (
-                                    <ProfileCard key={index} user={user}/>
+                                    <ProfileCard key={user.profileData.account_id} user={user}
+                                                 isToggled={toggledCards[user.profileData.account_id]}
+                                                 onToggle={() => handleCardToggle(user.profileData.account_id)}
+                                    />
+
                             ))
                         ) : (
                             <div className="flex items-center justify-center text-gray-500">

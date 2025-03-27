@@ -18,7 +18,7 @@ const ProfileCard = ({user}) => {
     const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
     const navigate = useNavigate();
 
-    const [profileView, setProfileView] = useState(true);
+    const [profileView, setProfileView] = useState(false);
     const [profileData, setProfileData] = useState<UserProfile | null>(null);
     const [propertyImages, setPropertyImages] = useState<string[]>([]);
 
@@ -35,11 +35,18 @@ const ProfileCard = ({user}) => {
         }
     }, [user]);
 
+    const handleToggle = (userId) => {
+        console.log('Toggling for userId:', userId);
+        setProfileView(prev => !prev);
+    };
+
+
+
     // Get property images when the profile is set
     useEffect(() => {
-        if (profileData?.propertyData.id){
-            getPropertyImages();
-        }
+        // if (profileData?.propertyData.id){
+        //     getPropertyImages();
+        // }
     },[profileData]);
 
 
@@ -67,11 +74,6 @@ const ProfileCard = ({user}) => {
         } else {
             return "text-red-500"; // Red for 64 and below
         }
-    };
-
-    //Toggle between profile and property views
-    const handleToggle = () => {
-        setProfileView(!profileView);
     };
 
     //Gets array of property image urls

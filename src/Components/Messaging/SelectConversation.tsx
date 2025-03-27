@@ -30,7 +30,6 @@ const SelectConversation = ({user, onSetConversation}) => {
         }
     }
 
-    // TODO: DELETE if we can get user name stored in the account table
     const getConversationProfiles = async () => {
         try {
             setLoading(true)
@@ -39,7 +38,7 @@ const SelectConversation = ({user, onSetConversation}) => {
             const profileInfo = response.map(profile => ({
                 id: profile.profileData.account_id,
                 name: `${profile.profileData.first_name} ${profile.profileData.last_name}`,
-                avatar: imgUrl + profile.profileData.profile_picture ?? "https://archive.org/download/instagram-plain-round/instagram%20dip%20in%20hair.jpg",
+                avatar: imgUrl + profile.profileData.profile_picture,
             }));
             setConversationProfiles(profileInfo);
         } catch (error) {

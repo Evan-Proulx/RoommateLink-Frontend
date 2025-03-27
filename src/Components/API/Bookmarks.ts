@@ -51,3 +51,20 @@ export const unbookmarkUser = async (id) => {
         throw new Error(err.response?.data?.message || "Failed to delete bookmark");
     }
 }
+
+export const getInterestedUsers = async (id) => {
+    const token = localStorage.getItem("token");
+    try {
+        const response = await axios.get(`${rootUrl}/api/interested/${id}`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            }
+        );
+        console.log(response.data);
+    } catch (err) {
+        throw new Error(err.response?.data?.message || "Failed to get interested users");
+    }
+}

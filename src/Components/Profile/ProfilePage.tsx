@@ -7,6 +7,7 @@ import {UserProfile} from "../../ProfileData.ts"
 import UserInfoSection from "./ProfileComponents/UserInfoSection.tsx";
 import AboutSection from "./ProfileComponents/AboutSection.tsx";
 import Navbar from "../Navbar.tsx";
+import {getInterestedUsers} from "../API/Bookmarks.ts";
 export const ProfileContext = createContext(null)
 
 function ProfilePage() {
@@ -60,6 +61,7 @@ function ProfilePage() {
     useEffect(() => {
         if (profileData?.propertyData.id){
             getPropertyImages();
+            handleInterestedUsers();
         }
     },[profileData]);
 
@@ -81,6 +83,15 @@ function ProfilePage() {
         }
     }
 
+    const handleInterestedUsers = async () => {
+        const id = profileData?.profileData.account_id;
+        try {
+            const response = await getInterestedUsers(id);
+            console.log(response);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     //Show loading screen if profile data is not loaded yet
     if (!profileData) return <div className={"flex flex-col justify-center items-center h-screen w-full bg-gray-300"}>
