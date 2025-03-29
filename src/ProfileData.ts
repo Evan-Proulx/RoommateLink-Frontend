@@ -1,4 +1,4 @@
-interface ProfileData {
+export interface ProfileData {
     account_id: number;
     age: number;
     bio: string;
@@ -10,11 +10,14 @@ interface ProfileData {
     updated_at: string;
 }
 
-interface PersonalData {
+export interface PersonalData {
     account_id: number;
     budget: number;
     city: string;
     province: string;
+    longitude: number;
+    latitude: number;
+    radius: number;
     cleanliness: number;
     diet: string;
     gender: string;

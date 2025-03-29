@@ -118,7 +118,7 @@ const SurveyFormProfile = ({profileData, setProfileData, setValidationError, onS
                 <p className="mt-1 text-sm text-text text-start">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
             </div>
 
-            {/*Upload profile picture file uplaod*/}
+            {/*Upload introductory video uplaod*/}
             <div className="flex flex-col items-center justify-center w-full">
                 <h2 className={"header2-text mb-2 text-center"}>Upload a video introducing yourself to potential
                     roommates</h2>
