@@ -8,6 +8,8 @@ import { Element, scroller } from "react-scroll";
 import PropertyForm from "./PropertyForm.tsx";
 import SurveyAbout from "./SurveyAbout.tsx";
 import SubmitSurvey from "./SubmitSurvey.tsx";
+import {FormProvider, useForm} from "react-hook-form";
+import {createProfile} from "../API/Profile.ts";
 
 
 const Survey = () => {
@@ -20,16 +22,17 @@ const Survey = () => {
     //User Data
     const [personalData, setPersonalData] = useState({
         city: "",
+        province: "",
         hasHousing: false,
         budget: 1200,
         school: "",
         profession: "",
-        workingTimeFrom: "",
-        workingTimeTo: "",
-        gender: "",
-        language: "",
-        religion: "",
-        diet: "",
+        workingTimeFrom: "09:00",
+        workingTimeTo: "18:00",
+        gender: "Male",
+        language: "English",
+        religion: "Non-religious",
+        diet: "No preference",
         hasPets: false,
         smokes: false,
         sociability: 5,
@@ -44,7 +47,7 @@ const Survey = () => {
         squareFeet: 1000,
         sharedKitchen: true,
         description: "",
-        images: [] as File[]
+        images: []
     });
     //Data from deal breaker form
     const [dealBreakerData, setDealBreakerData] = useState({
@@ -62,11 +65,14 @@ const Survey = () => {
     const [profileData, setProfileData] = useState({
         firstName: "",
         lastName: "",
-        age: "",
+        age: 18,
         bio: "",
         profilePicture: "",
         introductoryVideo: ""
     })
+    //useForm describes how the form validation should behave. This is passed to the FormProvider
+    const methods = useForm({mode: "onBlur"});
+
     //Index of current survey component being viewed
     const [currentIndex, setCurrentIndex] = useState(0)
 
@@ -103,12 +109,31 @@ const Survey = () => {
 
     // Log when data is updated
     useEffect(() => {
-        console.log("Updated userData:", profileData);
+        console.log("Updated userData:", propertyData);
     }, [personalData, propertyData, dealBreakerData, profileData, searchLocation]);
 
+    const onSubmit = async () => {
+        //TODO: Add deal breaker data later
+        //combine all data into one object
+        const allData = {
+            searchLocation,
+            personalData,
+            profileData,
+            // TODO: FIX this. Property data shouldn't be set if they dont have a property
+            // ...(personalData.hasHousing && {propertyData}),  //Only include housing data if user has property
+            propertyData
+        }
+        const data = JSON.stringify(allData);
+        console.log(data);
+
+        //Send data to API
+        await createProfile(data)
+    }
+
     return (
-        <>
-            <div className={"bg-primary min-h-screen"}>
+        //use form provider for form validation for the location and names
+        <FormProvider {...methods}>
+            <form onSubmit={methods.handleSubmit(onSubmit)} className={"bg-primary min-h-screen"}>
                 <nav className="sticky top-0 bg-primary shadow-sm z-50"><h1 className={"logo"}>Roommate Link</h1>
                     <SurveyStepper setActiveComponent={scrollTo} activeComponent={surveySections[currentIndex]} displayPropertyForm={personalData.hasHousing}/></nav>
 
@@ -133,7 +158,7 @@ const Survey = () => {
                             <SurveyFormRoommate dealBreakerData={dealBreakerData} setDealBreakerData={setDealBreakerData}/>
                         </Element>
                         <Element name="submit" id="submit" className={"py-20"}>
-                            <SubmitSurvey personalData={personalData} profileData={profileData} propertyData={propertyData} dealBreakerData={dealBreakerData} />
+                            <SubmitSurvey personalData={personalData} profileData={profileData} propertyData={propertyData} dealBreakerData={dealBreakerData}/>
                         </Element>
                     </div>
                 </div>
@@ -141,12 +166,12 @@ const Survey = () => {
                 {/*Bottom button navigation*/}
                 <div className={"fixed bottom-1 w-full hidden md:block"}>
                     <div className={"flex justify-between mx-5 p-8"}>
-                        <ShadowButton value={"Back"} onClick={navBack} color={"red"}/>
+                        <ShadowButton value={"Back"} onClick={navBack} color={"text"}/>
                         <ShadowButton value={"Next"} onClick={navNext}/>
                     </div>
                 </div>
-            </div>
-        </>
+            </form>
+        </FormProvider>
     );
 };
 

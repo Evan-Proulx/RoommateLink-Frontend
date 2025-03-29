@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useContext, useState} from "react";
 import {
     faBanSmoking,
     faBoxOpen,
@@ -11,12 +11,19 @@ import {
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import MapSection from "./MapSection.tsx";
 import InterestedPeople from "./InterestedPeople.tsx";
+import {ProfileContext} from "../ProfilePage.tsx";
+import {UserProfile} from "../../../ProfileData.ts";
 
 // Property Images
 // Component to display an image gallery
 function ImageGallery({ images }) {
+    //Get user data
+    const userProfile = useContext(ProfileContext);
+    const user = userProfile as UserProfile;
+
     const [selectedImage, setSelectedImage] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0);
+
 
     // Open the model with the selected image
     const openImage = (index) => {
@@ -96,6 +103,9 @@ function ImageGallery({ images }) {
 
 
 function AboutSection() {
+    //Get user data
+    const userProfile = useContext(ProfileContext);
+    const user = userProfile as UserProfile;
 
     //If the user has a property then the My Property Tab will be displayed
     const hasProperty = true;
@@ -173,8 +183,6 @@ function AboutSection() {
         ) : null
     ].filter(Boolean);
 
-
-
     // Images of the property, it depends on how many images did the user upload
     const propertyImages = [
         "https://photos.gta-homes.com/1544-darfield-road-windsor-x11939538.jpg",
@@ -184,7 +192,6 @@ function AboutSection() {
         "https://cdn4.thecanadianhome.com/wecar/Photo25003221-1.jpeg?user=&ml_num=25003221&is_property=1&listing_type=1&width=1920&aspect_ratio=40:33&quality=30",
 
     ];
-
 
     // How far is the property to the user location
     const theLocation = 26;
@@ -202,9 +209,8 @@ function AboutSection() {
 
     const [activeTab, setActiveTab] = useState("about");
 
-
     return (
-        <div className="p-2">
+        <div className="p-4">
             {/* Tabs for switching between "About Me" and "My Property" */}
             <div className="flex space-x-6 mt-2">
                 <button
@@ -230,7 +236,7 @@ function AboutSection() {
                 <div className="mt-4">
                     {/*About Me Section*/}
                     <p className="text-gray-600 m-2 text-lg font-semibold mt-2">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ullamcorper venenatis nulla, vitae congue turpis scelerisque at. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in viverra ante. Proin rutrum mi metus, et imperdiet dolor pretium sed. Integer aliquet diam ut tempus elementum. Nullam vel lectus ut dolor egestas placerat. Aliquam tincidunt scelerisque erat, quis pellentesque ligula tristique in. Aliquam molestie malesuada urna ac semper. Mauris ipsum ipsum, pharetra sit amet nisi in, elementum varius diam. Maecenas in tempor turpis, sit amet tempus ipsum. Donec bibendum tempor mauris. Etiam dignissim vestibulum elit, ut bibendum libero. Phasellus congue finibus purus at fringilla. Nulla eget arcu non nisi finibus maximus. Nullam elit velit, pulvinar in arcu quis, bibendum hendrerit felis.
+                        {user.profileData.bio}
                     </p>
 
                     {/* Roommate Preferences */}
@@ -245,13 +251,13 @@ function AboutSection() {
 
                     <InterestedPeople/>
                 </div>
-            )  : hasProperty ? (
+            )  : user.personalData.has_housing ? (
                 <div className="mt-4">
                     {/*My Property Section */}
-                    <h2 className="text-xl pt-2 font-bold m-2">664 Rankin, Windsor, ON</h2>
+                    <h2 className="text-xl pt-2 font-bold m-2">{user.personalData.city}</h2>
 
                     <div className="flex items-center justify-between w-128">
-                        <h4 className="pl-2 text-gray-600 font-semibold"> 2 bedrooms + 1 Bathroom · 800 Square Feet</h4>
+                        <h4 className="pl-2 text-gray-600 font-semibold"> {user.propertyData.bedroom_count} bedrooms + {user.propertyData.bathroom_count} Bathroom · {user.propertyData.square_feet} Square Feet</h4>
                         <h4 className={`text-center font-semibold ${getTextColor(theLocation)}`}>
                             {theLocation}Km away
                             <FontAwesomeIcon icon={faLocationDot} className="ml-1"/>
@@ -266,7 +272,7 @@ function AboutSection() {
 
                     <h3 className="mt-12 font-bold m-2 text-xl">About My Property</h3>
                     <p className="text-gray-600 m-2 text-lg font-semibold mt-2">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ullamcorper venenatis nulla, vitae congue turpis scelerisque at. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in viverra ante. Proin rutrum mi metus, et imperdiet dolor pretium sed. Integer aliquet diam ut tempus elementum. Nullam vel lectus ut dolor egestas placerat. Aliquam tincidunt scelerisque erat, quis pellentesque ligula tristique in. Aliquam molestie malesuada urna ac semper. Mauris ipsum ipsum, pharetra sit amet nisi in, elementum varius diam. Maecenas in tempor turpis, sit amet tempus ipsum. Donec bibendum tempor mauris. Etiam dignissim vestibulum elit, ut bibendum libero. Phasellus congue finibus purus at fringilla. Nulla eget arcu non nisi finibus maximus. Nullam elit velit, pulvinar in arcu quis, bibendum hendrerit felis.
+                        {user.propertyData.description}
                     </p>
 
                     {/* Property Amenities */}

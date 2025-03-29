@@ -13,6 +13,8 @@ export default {
                 'tertiary': '#002BFF',
                 'text': '#FF3033',
                 'black': '#000000',
+                'disabled': '#6c6c6c',
+                'profile': '#F3F3F3',
             },
             fontFamily: {
                 sans: ['Inter', 'sans-serif'],

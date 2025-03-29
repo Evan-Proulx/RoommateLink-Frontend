@@ -2,7 +2,7 @@ function FavoriteBtn() {
     return (
         <button
             type="button"
-            className="flex items-center text-white bg-red-700 hover:bg-red-800 border border-black font-medium rounded-lg text-sm px-6 py-3 text-center min-w-[160px] m-5"
+            className="flex items-center text-white bg-red-700 hover:bg-red-800 border border-black font-medium rounded-lg text-sm px-6 py-3 text-center min-w-[160px] w-full m-5"
         >
             <svg
                 className="w-5 h-5 text-white me-2"
