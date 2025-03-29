@@ -21,10 +21,10 @@ export const registerUser = async (email: string, phone: string, password: strin
 };
 
 // Authenticate user
-export const authenticateUser = async (email: string, password: string) => {
+export const authenticateUser = async (email: string) => {
     try {
         const response = await axios.post('http://127.0.0.1:8000/api/login',
-            {email, password}, // Data object
+            {email}, // Data object
             {
                 headers: {
                     'Content-Type': 'application/json',

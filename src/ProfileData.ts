@@ -14,6 +14,7 @@ interface PersonalData {
     account_id: number;
     budget: number;
     city: string;
+    province: string;
     cleanliness: number;
     diet: string;
     gender: string;
@@ -48,7 +49,8 @@ interface PropertyData {
 }
 
 export interface UserProfile {
-    profileData: ProfileData;
+    compatibilityScore?: number;
     personalData: PersonalData;
+    profileData: ProfileData;
     propertyData: PropertyData;
 }

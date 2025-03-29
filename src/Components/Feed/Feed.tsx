@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import FeedCard from "./FeedCard.tsx";
+import FeedCard from "../CardComponents/FeedCard.tsx";
 import Navbar from "../Navbar.tsx";
 import Popover from "./PopoverButton.tsx";
 import {getMatchingUsers} from "../API/Profile.ts"
+import ListingCard from "../CardComponents/ListingCard.tsx";
+import {UserProfile} from "../../ProfileData.ts";
+import ProfileCard from "../CardComponents/ProfileCard.tsx";
 
 const Feed = () => {
-    const [showPopover, setShowPopover] = useState(false);
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState<UserProfile[]>([]);
 
     useEffect(() => {
         getLinks();
@@ -16,14 +18,21 @@ const Feed = () => {
         try {
             const response = await getMatchingUsers();
             console.log(response)
-            setUsers(response.userMatches);
+            //THis ensures the users are in the correct format for the UserProfile object
+            setUsers(response.userMatches.map((user) => ({
+                    compatibilityScore: user.compatibilityScore,
+                    profileData: user.userProfileData,
+                    personalData: user.userPersonalData,
+                    propertyData: user.userPropertyData,
+                }))
+            );
         } catch (err) {
             console.error("Error getting matches", err)
         }
     }
 
     useEffect(() => {
-        console.log(users)
+        console.log("USERS", users)
     }, [users])
 
     //Show loading screen if profile data is not loaded yet
@@ -44,10 +53,10 @@ const Feed = () => {
             </div>
             <div className={"flex flex-col w-full h-full"}>
                 <div className={"flex flex-col justify-center items-center w-full h-full"}>
-                    <div className={"flex flex-col justify-center items-center w-full h-full"}>
+                    <div className={"flex flex-col items-center space-y-4 w-3/4 xl:w-1/2 h-full"}>
                         {users ? (
-                            users.map((user) => (
-                                <FeedCard key={user.id} user={user}/>
+                            users.map((user, index) => (
+                                    <ProfileCard key={user.profileData.account_id} user={user}/>
                             ))
                         ) : (
                             <div className="flex items-center justify-center text-gray-500">
@@ -56,6 +65,7 @@ const Feed = () => {
                         )}
                     </div>
                 </div>
+
             </div>
         </div>
     );

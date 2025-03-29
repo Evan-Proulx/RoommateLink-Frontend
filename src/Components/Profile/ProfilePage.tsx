@@ -1,19 +1,29 @@
 import Aside from "./Aside/Aside.tsx";
 import ProfileComponents from "./ProfileComponents/ProfileComponents.tsx";
 import {createContext, useEffect, useRef, useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {getProfileData} from "../API/Profile.ts";
+import {useLocation, useNavigate} from "react-router-dom";
+import {getProfileData, retrievePropertyImages} from "../API/Profile.ts";
 import {UserProfile} from "../../ProfileData.ts"
 import UserInfoSection from "./ProfileComponents/UserInfoSection.tsx";
 import AboutSection from "./ProfileComponents/AboutSection.tsx";
 import Navbar from "../Navbar.tsx";
-
+import {getInterestedUsers} from "../API/Bookmarks.ts";
 export const ProfileContext = createContext(null)
-function ProfilePage() {
-    const [profileData, setProfileData] = useState<UserProfile>();
-    const navigate = useNavigate();
-    const hasRun = useRef(false)
 
+function ProfilePage() {
+    const navigate = useNavigate();
+    //This is the state passed when the page is navigated to
+    //It sends the user's profile and if it is the logged in user's profile or a different user's profile
+    //This allows us to use the same component for different types of users
+    const {state} = useLocation();
+    const profile = state?.profile;
+    const myProfileDisplayed = state?.myProfileDisplayed ?? true;
+
+    const hasRun = useRef(false)
+    const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
+
+    const [profileData, setProfileData] = useState<UserProfile>();
+    const [propertyImages, setPropertyImages] = useState<string[]>([]);
 
     //Fetch profile data from the api when the page first loads
     useEffect(() => {
@@ -21,8 +31,17 @@ function ProfilePage() {
         if (hasRun.current) return;
         hasRun.current = true;
 
-        getData()
-    }, [navigate])
+        //Get the logged in user's data if they are on their profile page
+        if (myProfileDisplayed) {
+            getData();
+        }else{
+            console.log("Profile",profile)
+            if (profile) {
+                //Get the profile data for the given user id if selected from a feed
+                setProfileData(profile);
+            }
+        }
+    }, [navigate]);
 
     //Fetch profile data with token
     const getData = async () =>{
@@ -30,11 +49,47 @@ function ProfilePage() {
         if (!token) {return}
 
         try {
-            const response = await getProfileData(token);
+            const response = await getProfileData();
             console.log(response)
             setProfileData(response);
         }catch (err) {
             console.log(err)
+        }
+    }
+
+    //Get images once the profile is set
+    useEffect(() => {
+        if (profileData?.propertyData.id){
+            getPropertyImages();
+            handleInterestedUsers();
+        }
+    },[profileData]);
+
+    //Gets array of property image urls
+    const getPropertyImages = async () => {
+        //Check if user has housing property before fetching images
+        if(profileData?.personalData.has_housing) {
+            const propertyID = profileData?.propertyData.id;
+            if (!propertyID) {return}
+
+            try {
+                const response = await retrievePropertyImages(propertyID);
+                //Add url root to urls
+                const fixedImgUrls = response.map(image => imgUrl + image)
+                setPropertyImages(fixedImgUrls);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    }
+
+    const handleInterestedUsers = async () => {
+        const id = profileData?.profileData.account_id;
+        try {
+            const response = await getInterestedUsers(id);
+            console.log(response);
+        } catch (err) {
+            console.log(err);
         }
     }
 
@@ -50,11 +105,11 @@ function ProfilePage() {
             <div className="flex flex-col h-screen overflow-y-hidden">
                 <Navbar/>
                 <div className="flex justify-center bg-primary">
-                    <div className="items-center overflow-y-auto h-screen bg-profile lg:w-2/3 shadow-2xl">
+                    <div className="items-center overflow-y-auto h-screen bg-profile xl:w-2/3 shadow-2xl">
                         <UserInfoSection/>
                         <div className="flex">
                             <Aside/>
-                            <AboutSection/>
+                            <AboutSection propertyImages={propertyImages}/>
                         </div>
                     </div>
                 </div>

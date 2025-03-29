@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {fetchConversations, fetchUsers, getConversationsProfiles} from "../API/Messaging.ts";
 
 const SelectConversation = ({user, onSetConversation}) => {
+    const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
+
     const [users, setUsers] = useState([]);
     const [userConversations, setUserConversations] = useState([]);
     const [conversationProfiles, setConversationProfiles] = useState([]);
@@ -28,7 +30,6 @@ const SelectConversation = ({user, onSetConversation}) => {
         }
     }
 
-    // TODO: DELETE if we can get user name stored in the account table
     const getConversationProfiles = async () => {
         try {
             setLoading(true)
@@ -36,7 +37,8 @@ const SelectConversation = ({user, onSetConversation}) => {
             //Only get id and name from the profile. //Todo add avatar to this
             const profileInfo = response.map(profile => ({
                 id: profile.profileData.account_id,
-                name: `${profile.profileData.first_name} ${profile.profileData.last_name}`
+                name: `${profile.profileData.first_name} ${profile.profileData.last_name}`,
+                avatar: imgUrl + profile.profileData.profile_picture,
             }));
             setConversationProfiles(profileInfo);
         } catch (error) {
@@ -91,7 +93,9 @@ const SelectConversation = ({user, onSetConversation}) => {
                             onClick={() => handleSetConversation(convo.id, userProfile)}>
                             {/*Change to img*/}
                             <div className={"flex"}>
-                                <div className={"w-10 h-10 bg-red-800 rounded-full m-2"}></div>
+                                <img src={userProfile?.avatar}
+                                     alt="Profile"
+                                     className={`w-10 h-10 m-2 rounded-full`}/>
                                 <div>
                                     <p className={"font-extrabold text-xl mt-1"}>{userProfile ? userProfile.name : "Username"}</p>
                                     <p className={"font-bold text-md text-gray-600 truncate pr-2 "}>

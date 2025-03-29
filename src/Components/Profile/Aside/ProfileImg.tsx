@@ -1,10 +1,7 @@
-function ProfileImg() {
+import {useEffect} from "react";
 
-
+function ProfileImg({url, percentage}) {
     //Link Percentage
-    const percentage = 97;
-
-
     const getTextColor = (percentage) => {
         if (percentage >= 80) {
             return 'text-green-500'; // Green for 80-100%
@@ -15,17 +12,20 @@ function ProfileImg() {
         }
     };
 
+    useEffect(() => {
+        console.log(url)
+    }, []);
 
     return (
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center space-y-2">
             <img
-                src="https://cdn-icons-png.flaticon.com/256/11748/11748483.png"
+                src={url ? url : "https://archive.org/download/instagram-plain-round/instagram%20dip%20in%20hair.jpg"}
                 alt="User Profile"
-                className="w-32 rounded-full shadow-md"
+                className="w-32 h-32 rounded-full shadow-md"
             />
-            <label className={`text-center font-black text-3xl ${getTextColor(percentage)}`}>
+            {percentage ? <label className={`text-center font-black text-3xl ${getTextColor(percentage)}`}>
                 {percentage} % Link
-            </label>
+            </label> : null}
         </div>
 
     );

@@ -72,7 +72,9 @@ const ConversationBox = ({user, conversation, receiver}) => {
         <div className={"h-screen flex flex-col relative"}>
             <div className="flex justify-between w-full h-20 border-2 border-b-gray-400 bg-primary items-center p-4 absolute top-0 left-0 right-0 z-10">
                 <div className="flex items-center">
-                    <div className="w-10 h-10 bg-red-800 rounded-full m-2"></div>
+                    <img src={receiver?.avatar}
+                         alt="Profile"
+                         className={`w-10 h-10 m-2 rounded-full`}/>
                     <div>
                         <p className="font-extrabold text-xl">{receiver.name}</p>
                     </div>
@@ -85,7 +87,7 @@ const ConversationBox = ({user, conversation, receiver}) => {
                     <div className="h-auto" ref={messageRef}>
                         {
                             //Display messages in message array
-                            messages?.map((message) => (
+                            messages?.map((message, index) => (
                                 <Message key={message.id}
                                          userId={user.id}
                                          message={message}

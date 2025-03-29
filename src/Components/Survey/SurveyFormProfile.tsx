@@ -2,25 +2,27 @@ import React, {useState} from "react";
 import {useForm, useFormContext} from "react-hook-form";
 
 //profile data is passed down from the survey parent component
-const SurveyFormProfile = ({profileData, setProfileData, setValidationError}) => {
+const SurveyFormProfile = ({profileData, setProfileData, setValidationError, onSetAvatar, onSetVideo}) => {
     const { register, formState: { errors ,isValid, isDirty},  } = useFormContext();
 
     //Create an array with a length of 82 numbers from 18-100
     const ageArray = Array.from({ length: 82 }, (_, i) => 18 + i)
 
     // Handles file selection
-    const handleImageUpload = (event) => {
+
+    const handleFileChange = (event, type) => {
         const file = event.target.files[0];
-        if (file) {
-            const imageUrl = URL.createObjectURL(file);
-            updateProfileData("profilePicture",imageUrl);
+        if (!file) return;
+
+        if (file.size === 0) {
+            alert("Selected file is empty. Please choose a valid file.");
+            return;
         }
-    };
-    const handleVideoUpload = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const videoUrl = URL.createObjectURL(file);
-            updateProfileData("introductoryVideo", videoUrl);
+
+        if (type === "image") {
+            onSetAvatar(file);
+        } else {
+            onSetVideo(file);
         }
     };
 
@@ -108,16 +110,12 @@ const SurveyFormProfile = ({profileData, setProfileData, setValidationError}) =>
             <div className="flex flex-col items-center justify-center w-full">
                 <h2 className={"header2-text mb-2 text-center"}>Upload a profile picture</h2>
                 <input
-                    multiple
                     className="block w-3/4 text-md text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                     id="large_size"
                     type="file"
-                    onChange={handleImageUpload}
-                />
+                    accept="image/jpeg, image/png, image/jpg"
+                    onChange={(e) => handleFileChange(e, "image")}/>
                 <p className="mt-1 text-sm text-text text-start">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
-
-                <input id="profile-dropzone" type="file" name="file" className="hidden"
-                       onChange={(e) => handleImageUpload(e)}/>
             </div>
 
             {/*Upload profile picture file uplaod*/}
@@ -125,12 +123,11 @@ const SurveyFormProfile = ({profileData, setProfileData, setValidationError}) =>
                 <h2 className={"header2-text mb-2 text-center"}>Upload a video introducing yourself to potential
                     roommates</h2>
                 <input
-                    multiple
                     className="block w-3/4 text-md text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                     id="large_size"
                     type="file"
-                    onChange={handleVideoUpload}
-                />
+                    accept="video/mp4"
+                    onChange={(e) => handleFileChange(e, "video")}/>
                 <p className="mt-1 text-sm text-text text-start">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
             </div>
 

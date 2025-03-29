@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-const Message = ({ userId, message, username }) => {
+const Message = ({ userId, message, username}) => {
     const [delivered, setDelivered] = useState(true)
     //Full date with time. Visible when message is hovered
     const [fullDate, setFullDate] = useState("");
@@ -41,13 +41,8 @@ const Message = ({ userId, message, username }) => {
     return (
         <div className={`flex ${isSender ? "justify-end" : "justify-start"} mb-4`}>
             <div className="flex items-start gap-2.5">
-                {!isSender && (
-                    <div className={""}>
-                        <div className={"w-8 h-8 rounded-full bg-black"}></div>
-                    </div>
-                )}
                 <div className="flex flex-col gap-1 w-full max-w-[320px]" title={`Sent: ${fullDate}`}>
-                <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                    <div className="flex items-center space-x-2 rtl:space-x-reverse">
                         <span className="text-sm font-semibold text-gray-900">{isSender ? "You" : username}</span>
                         {/*This is a separator*/}
                         <span className="w-1 h-1 rounded-full bg-gray-500"></span>
@@ -64,11 +59,7 @@ const Message = ({ userId, message, username }) => {
                 {isSender ? "Delivered" : ""}
             </span>
                 </div>
-                {isSender && (
-                    <div>
-                        <div className="w-8 h-8 rounded-full bg-black"></div>
-                    </div>
-                )}
+
             </div>
         </div>
     );

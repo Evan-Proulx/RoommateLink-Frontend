@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import FeedCard from "./FeedCard.tsx";
+import FeedCard from "../CardComponents/FeedCard.tsx";
 import Navbar from "../Navbar.tsx";
 import Popover from "./PopoverButton.tsx";
 import MapPopup from "../Survey/Survey-Map-Popup.tsx";

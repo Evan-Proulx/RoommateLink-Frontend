@@ -3,27 +3,21 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 
 //propertyData is passed down from the survey parent component
-const PropertyForm = ({ propertyData, setPropertyData}) => {
+const PropertyForm = ({ propertyData, setPropertyData, onSetPropertyImages}) => {
     const [displayImages, setDisplayImages] = useState<File[]>([]);
 
-    //update images from file input for both the propertyData and the displayImages array
-    //We need two arrays since the backend only needs the file name but we need the whole file to display them
+    //update images from file input. Allow for images to be added more than once
     const handleFilesAdd = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (propertyData.images.length <= 10) {
+        if (displayImages.length <= 10) {
             if (event.target.files) {
                 //Get the files being added
                 const files = Array.from(event.target.files);
-
-                //Store only the names of the files
-                const fileNames = files.map(file => file.name);
-
-                //combine oldfiles with new files
-                const newFiles = [...propertyData.images, ...fileNames]
-                //update images array with new array
-                updatePropertyData("images", newFiles);
-
-                //Update displayImages with new files
-                setDisplayImages(prevFiles => [...prevFiles, ...files]);
+                if (files.length + displayImages.length < 10){
+                    //Update displayImages with new files
+                    const updatedFiles: File[] = [...displayImages, ...files];
+                    setDisplayImages(updatedFiles);
+                    onSetPropertyImages(updatedFiles)
+                }
             }
         }
     }
@@ -167,7 +161,7 @@ const PropertyForm = ({ propertyData, setPropertyData}) => {
 
                 {/*Upload property picture file drop*/}
                 <div className="flex flex-col items-center justify-center">
-                    <h2 className="header2-text mb-2 text-center">Upload pictures of property {propertyData.images.length}/10</h2>
+                    <h2 className="header2-text mb-2 text-center">Upload pictures of property {displayImages.length}/10</h2>
                     <input
                         multiple
                         className="block w-3/4 text-md text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
