@@ -1,28 +1,38 @@
 import Video from "../Aside/Video.tsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPiggyBank} from "@fortawesome/free-solid-svg-icons";
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import {ProfileContext} from "../ProfilePage.tsx";
 import {UserProfile} from "../../../ProfileData.ts";
 import ProfileImg from "../Aside/ProfileImg.tsx";
-import {PersonPinCircle, PinDrop, PinDropOutlined, Search} from "@mui/icons-material";
+import {Edit, PersonPinCircle, PinDrop, PinDropOutlined, Search} from "@mui/icons-material";
 import {grey} from "@mui/material/colors";
+import UpdateModal from "../../UpdateModal.tsx";
+import UpdateProfile from "../../../UpdateProfile.tsx";
 
-function UserInfoSection() {
+function UserInfoSection(myProfileDisplayed: boolean) {
     const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
     //Get user data
     const userProfile = useContext(ProfileContext);
     const user = userProfile as UserProfile;
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
+    // Toggle modal display
     return (
         <div className="p-4 flex justify-between items-start w-full shadow-md">
+
+
             <div className={"flex space-x-3 px-4 lg:px-12"}>
                 {/* User's profile picture img url and link % is passed if they have one*/}
-                <ProfileImg url={imgUrl + user.profileData.profile_picture} percentage={user.compatibilityScore ? user.compatibilityScore : null}/>
+                <ProfileImg url={imgUrl + user.profileData.profile_picture}
+                            percentage={user.compatibilityScore ? user.compatibilityScore : null}/>
                 <div className="">
                     {/* User name */}
                     <div className="flex items-center m-3">
-                        <h1 className="text-5xl font-bold text-start">{user.profileData.first_name + " " + user.profileData.last_name}</h1>
+                        <div className={"flex"}>
+                            {myProfileDisplayed && <Edit className={"cursor-pointer"} onClick={() => setModalIsOpen(true)}/>}
+                            <h1 className="text-5xl font-bold text-start">{user.profileData.first_name + " " + user.profileData.last_name}</h1>
+                        </div>
                         {/*Verified badge*/}
                         <svg className="w-10 h-10 text-gray-800 dark:text-blue-700" aria-hidden="true"
                              xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -61,6 +71,10 @@ function UserInfoSection() {
                 <Video/>
             </div>
 
+
+            <UpdateModal open={modalIsOpen} close={() => setModalIsOpen(false)}>
+                <UpdateProfile/>
+            </UpdateModal>
         </div>
     )
 }

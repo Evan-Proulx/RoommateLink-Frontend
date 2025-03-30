@@ -8,6 +8,8 @@ import UserInfoSection from "./ProfileComponents/UserInfoSection.tsx";
 import AboutSection from "./ProfileComponents/AboutSection.tsx";
 import Navbar from "../Navbar.tsx";
 import {getInterestedUsers} from "../API/Bookmarks.ts";
+import UpdateProfile from "../../UpdateProfile.tsx";
+import UpdateModal from "../UpdateModal.tsx";
 export const ProfileContext = createContext(null)
 
 function ProfilePage() {
@@ -106,7 +108,7 @@ function ProfilePage() {
                 <Navbar/>
                 <div className="flex justify-center bg-primary">
                     <div className="items-center overflow-y-auto h-screen bg-profile xl:w-2/3 shadow-2xl">
-                        <UserInfoSection/>
+                        <UserInfoSection myProfileDisplayed={myProfileDisplayed}/>
                         <div className="flex">
                             <Aside/>
                             <AboutSection propertyImages={propertyImages}/>

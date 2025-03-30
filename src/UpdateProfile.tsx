@@ -7,18 +7,19 @@ import {getLocation} from "./Components/API/Location.ts";
 import {FormProvider, useForm, useFormContext} from "react-hook-form";
 
 const UpdateProfile = () => {
-    const { register, formState: { errors}} = useForm();
+    const {register, formState: {errors}} = useForm();
 
     const [profileData, setProfileData] = useState<UserProfile>();
     const [updatedPersonalData, setUpdatedPersonalData] = useState<PersonalData>();
     const [updatedProfileData, setUpdatedProfileData] = useState<ProfileData>();
     const [isMapOpen, setIsMapOpen] = useState(false);
-    const [locationName, setLocationName] = useState("")
+    const [locationName, setLocationName] = useState("");
     const defaultLocation = {
         latitude: 42.251236522852885,
         longitude: -83.01928920731788,
         radius: 8000
     }
+    // Default values for validation
     const methods = useForm({
         defaultValues: {
             firstname: profileData?.profileData.first_name,
@@ -26,27 +27,28 @@ const UpdateProfile = () => {
         }
     });
 
+    // Get profile on load
     useEffect(() => {
         getData();
-
     }, []);
 
-    //Fetch profile data with token
-    const getData = async () =>{
-        const token = localStorage.getItem('token');
-        if (!token) {return}
-
+    //Fetch profile data
+    const getData = async () => {
         try {
             const response = await getProfileData();
             console.log(response)
+            // Set original profile
             setProfileData(response);
+            //Set only personalData
             setUpdatedPersonalData(response.personalData);
+            //Set only profileData
             setUpdatedProfileData(response.profileData);
-        }catch (err) {
+        } catch (err) {
             console.log(err)
         }
     }
 
+    //////////// LOCATION METHODS////////////
     //Update changes made to the map coordinates
     const handleLocationChange = (latitude: number, longitude: number) => {
         updatePersonalData("latitude", latitude);
@@ -54,7 +56,9 @@ const UpdateProfile = () => {
         getLocationName(latitude, longitude);
     };
     //update changes made to map radius
-    const handleRadiusChange = (radius: number) => {updatePersonalData("radius", radius);};
+    const handleRadiusChange = (radius: number) => {
+        updatePersonalData("radius", radius);
+    };
 
     //Gets names for location from set coordinates
     const getLocationName = async (latitude: number, longitude: number) => {
@@ -67,8 +71,10 @@ const UpdateProfile = () => {
             updatePersonalData("province", data.province);
         }
     }
+    /////////////////////////////////////////
 
-    //Updates the specified property in the updatedPersonalData state
+
+    //////Update the state for both the personal and profile data/////
     const updatePersonalData = (field: string, value: any) => {
         setUpdatedPersonalData((prev) => {
             if (!prev) return prev;
@@ -89,16 +95,27 @@ const UpdateProfile = () => {
         });
         console.log(updatedProfileData);
     };
+//////////////////////////////////////////////
 
+
+    useEffect(() => {
+        console.log(updatedPersonalData);
+        console.log(updatedProfileData);
+    }, [updatePersonalData, updateProfileData]);
+
+    //Update the user's profile with the new information that was set
     const handleUpdateProfile = async () => {
-        if (!updatedPersonalData) {
+        // Only update if new information is set
+        if (updatedPersonalData === profileData?.personalData && updatedProfileData === profileData?.profileData) {
             console.log("No profile data to update");
             return;
         }
 
-        console.log("PROFILE",updatedPersonalData)
+        console.log("PROFILE", updatedPersonalData)
         try {
-            await updateProfile("personal", updatedPersonalData)
+            // Pass the data and the type of data to update
+            await updateProfile("personal", updatedPersonalData);
+            await updateProfile("profile", updatedProfileData);
             console.log("Profile updated successfully");
         } catch (err) {
             console.log(err)
@@ -106,11 +123,12 @@ const UpdateProfile = () => {
     }
 
     return (
-        <div className={"h-screen "}>
-            <div className={"p-10 w-1/2"}>
-                <h1 className={"header2-text pb-3"}>Update profile info</h1>
-                <FormProvider{...methods}>
+        <div className={"flex flex-col justify-center items-center border-2 border-black p-10 w-full rounded-lg"}>
+            <h1 className={"header2-text pb-3"}>Update your profile info</h1>
+            <FormProvider{...methods}>
                 <form onSubmit={handleUpdateProfile} className={"space-y-12"}>
+
+                    {/*LOCATION INPUT*/}
                     <section className={""}>
                         <label htmlFor="cities" className="block header4-text text-start">Please
                             select your city*</label>
@@ -162,52 +180,58 @@ const UpdateProfile = () => {
                     <section className={"flex justify-center items-end space-x-3"}>
                         {/*Firstname input -- validation ensures it is required, length is between 2 and 50 and has no special characters*/}
                         <div className={"flex flex-col "}>
-                            <label htmlFor="firstname" className="block mb-2 header4-text">First Name*</label>
+                            <label htmlFor="firstname" className="block mb-2 header4-text">First Name</label>
                             <input type="input"
                                    id="firstname"
                                    name="firstname"
-                                   placeholder={"First Name"}
+                                   value={updatedProfileData?.first_name}
                                    min={2} max={50} required
                                    className="input-style-survey"
                                    {...register("firstname", {
                                        required: "First name is required",
-                                       minLength: { value: 2, message: "Must be at least 2 characters" },
-                                       maxLength: { value: 50, message: "Cannot exceed 50 characters" },
+                                       minLength: {value: 2, message: "Must be at least 2 characters"},
+                                       maxLength: {value: 50, message: "Cannot exceed 50 characters"},
                                        pattern: {
                                            value: /^[A-Za-z0-9 ]+$/,
                                            message: "No special characters allowed",
                                        },
                                    })}
-                                   onChange={(e) => {updateProfileData("first_name", e.target.value);}}/>
+                                   onChange={(e) => {
+                                       updateProfileData("first_name", e.target.value);
+                                   }}/>
                             {/*Display validation error*/}
-                            {errors.firstname && <p className={"text-red-600 text-center min-h-12"}>{errors.firstname.message}</p>}
+                            {errors.firstname &&
+                                <p className={"text-red-600 text-center min-h-12"}>{errors.firstname.message}</p>}
                         </div>
 
                         {/*Lastname input validation ensures it is required, length is between 2 and 50 and has no special characters*/}
                         <div className={"flex flex-col"}>
-                            <label htmlFor="lastname" className="block mb-2 header4-text">Last Name*</label>
+                            <label htmlFor="lastname" className="block mb-2 header4-text">Last Name</label>
                             <input type="input"
                                    id="lastname"
                                    name="lastname"
-                                   placeholder={"Last Name"}
+                                   value={updatedProfileData?.last_name}
                                    min={2} max={50} required
                                    className="input-style-survey"
                                    {...register("lastname", {
                                        required: "Last name is required",
-                                       minLength: { value: 2, message: "Must be at least 2 characters" },
-                                       maxLength: { value: 50, message: "Cannot exceed 50 characters" },
+                                       minLength: {value: 2, message: "Must be at least 2 characters"},
+                                       maxLength: {value: 50, message: "Cannot exceed 50 characters"},
                                        pattern: {
                                            value: /^[A-Za-z0-9 ]+$/,
                                            message: "No special characters allowed",
                                        },
                                    })}
-                                   onChange={(e) => {updateProfileData("last_name", e.target.value);
+                                   onChange={(e) => {
+                                       updateProfileData("last_name", e.target.value);
                                    }}/>
                             {/*Display validation error*/}
-                            {errors.lastname && <p className={"text-red-600 text-center min-h-12"}>{errors.lastname.message}</p>}
+                            {errors.lastname &&
+                                <p className={"text-red-600 text-center min-h-12"}>{errors.lastname.message}</p>}
                         </div>
                     </section>
 
+                    {/*BIO INPUT*/}
                     <div className={"w-full"}>
                         <label htmlFor="message" className="block mb-2 header4-text text-start">Write a short
                             bio</label>
@@ -215,16 +239,16 @@ const UpdateProfile = () => {
                                   className="input-style-survey lg:w-1/2 p-4"
                                   placeholder="Write something..."
                                   value={updatedProfileData?.bio}
-                                  onChange={e => {updateProfileData("bio", e.target.value)}}/>
+                                  onChange={e => {
+                                      updateProfileData("bio", e.target.value)
+                                  }}/>
                     </div>
-
 
                     <div className={"justify-end h-8"}>
                         <button>Submit</button>
                     </div>
                 </form>
-                </FormProvider>
-            </div>
+            </FormProvider>
         </div>
     );
 };

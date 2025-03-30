@@ -148,7 +148,7 @@ export const retrievePropertyImages = async (propertyId) => {
 }
 
 
-export const updateProfile = async (type: string, updatedProfile: PersonalData) => {
+export const updateProfile = async (type: string, updatedProfile) => {
     const token = localStorage.getItem("token");
 
     try {

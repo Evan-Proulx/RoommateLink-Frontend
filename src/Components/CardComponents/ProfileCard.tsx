@@ -117,7 +117,7 @@ const ProfileCard = ({user}) => {
                     onSetListingToggle={handleToggle}/>
             </div>
 
-            {profileView ? (
+            {!profileView ? (
                 //Profile & Listing Details
                 <div className={`flex flex-col gap-4`}>
                     {/* Profile Section */}
