@@ -16,7 +16,7 @@ import BookmarkedUserCard from "./Components/CardComponents/BookmarkedUserCard.t
 import ListingCard from "./Components/CardComponents/ListingCard.tsx";
 import Bookmarks from "./Components/Feed/Bookmarks.tsx"
 import ImageUploadTest from "./Components/ImageUploadTest.tsx";
-import UpdateProfile from "./UpdateProfile.tsx";
+import UpdateProfile from "./Components/Profile/UpdateForms/UpdateProfile.tsx";
 
 // Routes
 const router = createBrowserRouter([

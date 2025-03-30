@@ -8,7 +8,7 @@ import UserInfoSection from "./ProfileComponents/UserInfoSection.tsx";
 import AboutSection from "./ProfileComponents/AboutSection.tsx";
 import Navbar from "../Navbar.tsx";
 import {getInterestedUsers} from "../API/Bookmarks.ts";
-import UpdateProfile from "../../UpdateProfile.tsx";
+import UpdateProfile from "./UpdateForms/UpdateProfile.tsx";
 import UpdateModal from "../UpdateModal.tsx";
 export const ProfileContext = createContext(null)
 

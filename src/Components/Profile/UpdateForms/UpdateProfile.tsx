@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {getProfileData, updateProfile} from "./Components/API/Profile.ts";
-import {PersonalData, ProfileData, UserProfile} from "./ProfileData.ts";
+import {getProfileData, updateProfile} from "../../API/Profile.ts";
+import {PersonalData, ProfileData, UserProfile} from "../../../ProfileData.ts";
 import {LocationSearching} from "@mui/icons-material";
-import MapPopup from "./Components/Survey/Survey-Map-Popup.tsx";
-import {getLocation} from "./Components/API/Location.ts";
+import MapPopup from "../../Survey/Survey-Map-Popup.tsx";
+import {getLocation} from "../../API/Location.ts";
 import {FormProvider, useForm, useFormContext} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 

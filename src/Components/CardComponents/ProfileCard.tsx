@@ -56,9 +56,9 @@ const ProfileCard = ({user}) => {
     }, [profileView]);
 
 
-    const truncatedText = (text) => {
-        return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
-    }
+    // const truncatedText = (text) => {
+    //     return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+    // }
 
     // Changing the color based on how far it is
     const getTextColor = (percentage) => {
@@ -267,7 +267,7 @@ const ProfileCard = ({user}) => {
                         {/* BIO/LISTING DESCRIPTION */}
                         <div>
                             <p className="text-gray-700 text-sm mt-2 w-[450px] truncate">
-                                {truncatedText(profileData.profileData.bio)}
+                                {profileData.profileData.bio}
                             </p>
                         </div>
                     </div>

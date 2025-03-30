@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import ReactDom from 'react-dom'
-import UpdateProfile from "../UpdateProfile.tsx";
+import UpdateProfile from "./Profile/UpdateForms/UpdateProfile.tsx";
 import {Close} from "@mui/icons-material";
 
 const UpdateModal = ({open, close, children}) => {
