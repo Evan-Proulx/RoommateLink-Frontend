@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import React, {useContext, useState} from "react";
 import {
     faBanSmoking,
     faBoxOpen,
@@ -14,15 +14,25 @@ import InterestedPeople from "./InterestedPeople.tsx";
 import {ProfileContext} from "../ProfilePage.tsx";
 import {UserProfile} from "../../../ProfileData.ts";
 import ImageGallery from "./ImageGallery.tsx";
+import {Edit} from "@mui/icons-material";
+import UpdateProfile from "../UpdateForms/UpdateProfile.tsx";
+import UpdateFiles from "../UpdateForms/UpdateFiles.tsx";
+import UpdateProperty from "../UpdateForms/UpdateProperty.tsx";
+import UpdateModal from "../../UpdateModal.tsx";
 
+interface AboutSectionProps{
+    propertyImages: string[],
+    myProfileDisplayed: boolean
+}
 
-function AboutSection({propertyImages}) {
+function AboutSection({propertyImages, myProfileDisplayed}: AboutSectionProps) {
     //Get user data
     const userProfile = useContext(ProfileContext);
     const user = userProfile as UserProfile;
-
     //If the user has a property then the My Property Tab will be displayed
     const hasProperty = true;
+    //Modal States
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     // WE NEED TO ADD MORE ROOMMATE PREFERENCES
     // User preferences for an ideal roommate
@@ -158,7 +168,13 @@ function AboutSection({propertyImages}) {
             )  : user.personalData.has_housing ? (
                 <div className="mt-4">
                     {/*My Property Section */}
-                    <h2 className="text-xl pt-2 font-bold m-2">{user.personalData.city}</h2>
+                    <div className={"flex items-center"}><h2
+                        className="text-xl pt-2 font-bold m-2">{user.personalData.city + ", " + user.personalData.province}</h2>
+                        {/*Edit property modal toggle*/}
+                        {myProfileDisplayed &&
+                            <div className={"cursor-pointer"} onClick={() => setModalIsOpen(true)}>
+                                <Edit sx={{fontSize: 22}}/>
+                            </div>}</div>
 
                     <div className="flex items-center justify-between w-128">
                         <h4 className="pl-2 text-gray-600 font-semibold"> {user.propertyData.bedroom_count} bedrooms + {user.propertyData.bathroom_count} Bathroom · {user.propertyData.square_feet} Square Feet</h4>
@@ -193,6 +209,10 @@ function AboutSection({propertyImages}) {
                     <MapSection />
                 </div>
             ) : null} {/* To display nothing if the user has no property */}
+
+            <UpdateModal open={modalIsOpen} close={() => setModalIsOpen(false)}>
+                    <UpdateProperty property={user.propertyData} closeModal={() => setModalIsOpen(false)}/>
+            </UpdateModal>
         </div>
     );
 }

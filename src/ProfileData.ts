@@ -37,7 +37,7 @@ export interface PersonalData {
     updated_at: string;
 }
 
-interface PropertyData {
+export interface PropertyData {
     account_id: number;
     bathroom_count: number;
     bedroom_count: number;

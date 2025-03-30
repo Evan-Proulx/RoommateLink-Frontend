@@ -10,8 +10,9 @@ import {grey} from "@mui/material/colors";
 import UpdateModal from "../../UpdateModal.tsx";
 import UpdateProfile from "../UpdateForms/UpdateProfile.tsx";
 import UpdateFiles from "../UpdateForms/UpdateFiles.tsx";
+import UpdateProperty from "../UpdateForms/UpdateProperty.tsx";
 
-type UserInfoSectionProps = {
+interface UserInfoSectionProps{
     myProfileDisplayed: boolean;
 };
 function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
@@ -20,10 +21,10 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
     const userProfile = useContext(ProfileContext);
     const user = userProfile as UserProfile;
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [modalContent, setModalContent] = useState<"updateProfile" | "updateFiles" | null>(null);
+    const [modalContent, setModalContent] = useState<"updateProfile" | "updateFiles" | "updateProperty" | null>(null);
 
     // Allows for modal display and content to be set onClick
-    const setModal = (content: "updateProfile" | "updateFiles") => {
+    const setModal = (content: "updateProfile" | "updateFiles" | "updateProperty") => {
         setModalContent(content);
         setModalIsOpen(true);
     }
@@ -50,7 +51,6 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
                             <Edit sx={{fontSize: 28}}/>
                         </div>
                     }
-
                 </div>
 
                 <div className="">
@@ -73,7 +73,7 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
                     {/* User's City */}
                     <div className="flex items-center m-3">
                         <PersonPinCircle sx={{color: grey[600]}}/>
-                        <h1 className="pl-1 text-md lg:text-xl font-semibold text-center text-gray-500">{user.personalData.city}</h1>
+                        <h1 className="pl-1 text-md lg:text-xl font-semibold text-center text-gray-500">{user.personalData.city + "," + user.personalData.province}</h1>
                     </div>
 
                     {/* User's Budget */}
@@ -98,14 +98,18 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
                 <Video/>
             </div>
 
-
+            {/*Set modal content with specified components*/}
             <UpdateModal open={modalIsOpen} close={() => setModalIsOpen(false)}>
+
                 {modalContent === "updateProfile" &&
-                    <UpdateProfile closeModal={() => setModalIsOpen(false)}/>
-                }
+                    <UpdateProfile closeModal={() => setModalIsOpen(false)}/>}
+
                 {modalContent === "updateFiles" &&
-                    <UpdateFiles closeModal={() => setModalIsOpen(false)}/>
-                }
+                    <UpdateFiles closeModal={() => setModalIsOpen(false)}/>}
+
+                {modalContent === "updateProperty" && user.propertyData &&
+                    <UpdateProperty property={user.propertyData} closeModal={() => setModalIsOpen(false)}/>}
+
             </UpdateModal>
         </div>
     )

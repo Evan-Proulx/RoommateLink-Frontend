@@ -111,7 +111,7 @@ function ProfilePage() {
                         <UserInfoSection myProfileDisplayed={myProfileDisplayed}/>
                         <div className="flex">
                             <Aside/>
-                            <AboutSection propertyImages={propertyImages}/>
+                            <AboutSection propertyImages={propertyImages} myProfileDisplayed={myProfileDisplayed}/>
                         </div>
                     </div>
                 </div>
