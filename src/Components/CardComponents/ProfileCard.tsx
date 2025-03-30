@@ -47,6 +47,7 @@ const ProfileCard = ({user}) => {
         if (profileData?.propertyData.id){
             getPropertyImages();
         }
+        setProfileView(!profileData?.personalData.has_housing);
     },[profileData]);
 
 

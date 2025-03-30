@@ -71,7 +71,7 @@ const CardActions= ({userId, hasHousing, profileView, onSetListingToggle, bookma
                 </button>
             </div>
 
-            {hasHousing && !bookmarkDisplay && (
+            {hasHousing === 1 && !bookmarkDisplay && (
                 <div className="m-2 relative">
                     <label className="inline-flex items-center mb-5 cursor-pointer">
                         <input type="checkbox" value="" className="sr-only peer" defaultChecked={profileView}
