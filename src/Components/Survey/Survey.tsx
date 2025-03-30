@@ -11,7 +11,6 @@ import SubmitSurvey from "./SubmitSurvey.tsx";
 import {FormProvider, useForm} from "react-hook-form";
 import {createProfile, uploadProfileMedia, uploadPropertyImages} from "../API/Profile.ts";
 
-
 const Survey = () => {
     //Data from map
     const [searchLocation, setSearchLocation] = useState({

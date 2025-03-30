@@ -78,13 +78,13 @@ const CardActions= ({userId, hasHousing, profileView, onSetListingToggle, bookma
                                onChange={handleToggle}/>
                         <div
                             className={`w-12 h-6 rounded-full shadow-inner transition ${
-                                profileView ? "bg-gray-300" : "bg-green-500"
+                                !profileView ? "bg-gray-300" : "bg-green-500"
                             }`}
                         ></div>
                         <FontAwesomeIcon
                             icon={faHouseUser}
                             className={`absolute top-1 w-4 h-4 transition-transform ${
-                                profileView
+                                !profileView
                                     ? "translate-x-1 text-gray-500"
                                     : "translate-x-6 text-white"
                             }`}

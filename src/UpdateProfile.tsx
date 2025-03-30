@@ -5,13 +5,16 @@ import {LocationSearching} from "@mui/icons-material";
 import MapPopup from "./Components/Survey/Survey-Map-Popup.tsx";
 import {getLocation} from "./Components/API/Location.ts";
 import {FormProvider, useForm, useFormContext} from "react-hook-form";
+import {useNavigate} from "react-router-dom";
 
-const UpdateProfile = () => {
+const UpdateProfile = ({closeModal}) => {
     const {register, formState: {errors}} = useForm();
+    const navigate = useNavigate();
 
     const [profileData, setProfileData] = useState<UserProfile>();
     const [updatedPersonalData, setUpdatedPersonalData] = useState<PersonalData>();
     const [updatedProfileData, setUpdatedProfileData] = useState<ProfileData>();
+    const [displayAlert, setDisplayAlert] = useState(false);
     const [isMapOpen, setIsMapOpen] = useState(false);
     const [locationName, setLocationName] = useState("");
     const defaultLocation = {
@@ -104,10 +107,12 @@ const UpdateProfile = () => {
     }, [updatePersonalData, updateProfileData]);
 
     //Update the user's profile with the new information that was set
-    const handleUpdateProfile = async () => {
+    const handleUpdateProfile = async (e: React.FormEvent) => {
+        e.preventDefault();
         // Only update if new information is set
         if (updatedPersonalData === profileData?.personalData && updatedProfileData === profileData?.profileData) {
-            console.log("No profile data to update");
+            // Alert the user that there is nothing to update
+            setDisplayAlert(true);
             return;
         }
 
@@ -117,6 +122,12 @@ const UpdateProfile = () => {
             await updateProfile("personal", updatedPersonalData);
             await updateProfile("profile", updatedProfileData);
             console.log("Profile updated successfully");
+
+            // Send close notification to parent
+            closeModal();
+
+            //Refreshes the current page
+            navigate(0);
         } catch (err) {
             console.log(err)
         }
@@ -233,8 +244,9 @@ const UpdateProfile = () => {
 
                     {/*BIO INPUT*/}
                     <div className={"w-full"}>
-                        <label htmlFor="message" className="block mb-2 header4-text text-start">Write a short
-                            bio</label>
+                        <label htmlFor="message" className="block mb-2 header4-text text-start">
+                            Write a short bio
+                        </label>
                         <textarea id="message"
                                   className="input-style-survey lg:w-1/2 p-4"
                                   placeholder="Write something..."
@@ -244,8 +256,12 @@ const UpdateProfile = () => {
                                   }}/>
                     </div>
 
-                    <div className={"justify-end h-8"}>
-                        <button>Submit</button>
+
+                    <div>
+                        {displayAlert && <p className={"font-bold text-lg"}>Nothing to update!</p>}
+                        <div className={"justify-end h-8"}>
+                            <button>Submit</button>
+                        </div>
                     </div>
                 </form>
             </FormProvider>

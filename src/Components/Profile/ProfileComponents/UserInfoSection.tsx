@@ -1,7 +1,7 @@
 import Video from "../Aside/Video.tsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPiggyBank} from "@fortawesome/free-solid-svg-icons";
-import {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {ProfileContext} from "../ProfilePage.tsx";
 import {UserProfile} from "../../../ProfileData.ts";
 import ProfileImg from "../Aside/ProfileImg.tsx";
@@ -24,8 +24,13 @@ function UserInfoSection(myProfileDisplayed: boolean) {
 
             <div className={"flex space-x-3 px-4 lg:px-12"}>
                 {/* User's profile picture img url and link % is passed if they have one*/}
-                <ProfileImg url={imgUrl + user.profileData.profile_picture}
-                            percentage={user.compatibilityScore ? user.compatibilityScore : null}/>
+                <div className={"relative"}>
+                    <ProfileImg url={imgUrl + user.profileData.profile_picture}
+                               percentage={user.compatibilityScore ? user.compatibilityScore : null}/>
+                    <div className="absolute bottom-8 right-0 p-1 rounded-full bg-gray-300 transform -translate-y-8 -translate-x-1/4 cursor-pointer hover:bg-gray-400 ease-in-out">
+                        <Edit sx={{fontSize: 28}}/>
+                    </div>
+                </div>
                 <div className="">
                     {/* User name */}
                     <div className="flex items-center m-3">
@@ -73,7 +78,7 @@ function UserInfoSection(myProfileDisplayed: boolean) {
 
 
             <UpdateModal open={modalIsOpen} close={() => setModalIsOpen(false)}>
-                <UpdateProfile/>
+                <UpdateProfile user={userProfile} closeModal={() => setModalIsOpen(false)}/>
             </UpdateModal>
         </div>
     )

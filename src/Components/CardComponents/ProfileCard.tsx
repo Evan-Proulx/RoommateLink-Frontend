@@ -18,7 +18,7 @@ const ProfileCard = ({user}) => {
     const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
     const navigate = useNavigate();
 
-    const [profileView, setProfileView] = useState(false);
+    const [profileView, setProfileView] = useState(true);
     const [profileData, setProfileData] = useState<UserProfile | null>(null);
     const [propertyImages, setPropertyImages] = useState<string[]>([]);
 
@@ -47,8 +47,13 @@ const ProfileCard = ({user}) => {
         if (profileData?.propertyData.id){
             getPropertyImages();
         }
-        setProfileView(!profileData?.personalData.has_housing);
+        setProfileView(profileData?.personalData.has_housing ?? true);
     },[profileData]);
+
+
+    useEffect(() => {
+        console.log("VIEW", profileView);
+    }, [profileView]);
 
 
     const truncatedText = (text) => {
