@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {RatingStar} from "flowbite-react";
 import RatingStars from "./RatingStars.tsx";
-import {PropertyData, Rating} from "./../../ProfileData.ts";
-import {setUserRating} from "../API/Ratings.ts";
+import {PropertyData, Rating} from "../../../ProfileData.ts";
+import {setUserRating} from "../../API/Ratings.ts";
 interface RatingModalProps{
     revieweeId: number,
     closeModal: () => void,

@@ -1,9 +1,9 @@
 import {Add, StarRounded} from "@mui/icons-material";
 import Modal from "../../Modal.tsx";
 import React, {useEffect, useState} from "react";
-import RatingModal from "../../Rating/RatingModal.tsx";
+import RatingModal from "../Rating/RatingModal.tsx";
 import {getRating} from "../../API/Ratings.ts";
-import RatingInfoPopover from "../../Rating/RatingInfoPopover.tsx";
+import RatingInfoPopover from "../Rating/RatingInfoPopover.tsx";
 import {RatingScore} from "../../../ProfileData.ts";
 
 interface RatingProps{
@@ -11,7 +11,6 @@ interface RatingProps{
     revieweeId?: number
 }
 function Rating({myProfileDisplayed, revieweeId}: RatingProps) {
-    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const [ratingData, setRatingData] = useState<RatingScore>({
         overallAverage: 0,
@@ -61,7 +60,7 @@ function Rating({myProfileDisplayed, revieweeId}: RatingProps) {
             </div>
 
             {!myProfileDisplayed && revieweeId &&
-                <button type="button" onClick={() => setModalIsOpen(true)}
+                <button type="button"
                         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4
                      focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center
                       inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -70,10 +69,6 @@ function Rating({myProfileDisplayed, revieweeId}: RatingProps) {
                 </button>
             }
 
-            <Modal open={modalIsOpen} close={() => setModalIsOpen(false)} width={"rating"}>
-                {!myProfileDisplayed && revieweeId &&
-                    <RatingModal closeModal={() => setModalIsOpen(false)} revieweeId={revieweeId}/>}
-            </Modal>
         </div>
 
     )

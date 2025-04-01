@@ -19,6 +19,7 @@ export const createProfile = async (profileData) => {
         throw new Error(err.response?.data?.message || "Failed to create profile");
     }
 }
+
 //Get the authenticated user's profile
 export const getProfileData = async () => {
     const token = localStorage.getItem("token");
@@ -37,6 +38,7 @@ export const getProfileData = async () => {
         throw new Error(err.response?.data?.message || "Failed to create profile");
     }
 }
+
 export const uploadImage = async (imageFile) => {
     try {
         const formData = new FormData();

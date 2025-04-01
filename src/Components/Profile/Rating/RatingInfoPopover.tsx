@@ -3,7 +3,7 @@ import type {InstanceOptions, PopoverInterface, PopoverOptions} from "flowbite";
 import {Popover} from "flowbite";
 import {Help, Info, InfoOutlined} from "@mui/icons-material";
 import {grey} from "@mui/material/colors";
-import {RatingScore} from "../../ProfileData.ts";
+import {RatingScore} from "../../../ProfileData.ts";
 interface RatingInfoPopoverProps {
     ratingScore: RatingScore;
 }
@@ -16,21 +16,19 @@ const RatingInfoPopover = ({ratingScore}: RatingInfoPopoverProps) => {
         }
     }, []);
 
-    const checkScore = (score): {text: string, color: string} => {
-        if (score >= 8) {
-            return {text: "Excellent",color: "bg-blue-200"};
+    const checkScore = (score: number): { text: string; color: string } => {
+        if (score === 0) {
+            return { text: "Unrated", color: "bg-white" };
         } else if (score >= 4.5) {
-            return {text: "Very Good",color: "bg-green-200"}
+            return { text: "Excellent", color: "bg-blue-200" };
         } else if (score >= 4) {
-            return {text: "Good",color: "bg-yellow-200"};
-        } else if (score >= 3) {
-            return {text: "Fair",color: "bg-grey-200"};
-        } else if (score >= 2){
-            return {text: "Ok",color: "bg-orange-200"};
-        }else{
-            return {text: "Not Great",color: "bg-red-200"};
+            return { text: "Very Good", color: "bg-green-200" };
+        } else if (score >= 2) {
+            return { text: "Ok", color: "bg-orange-200" };
+        } else {
+            return { text: "Not Great", color: "bg-red-200" };
         }
-    }
+    };
     const {text, color} = checkScore(ratingScore.overallAverage);
 
     return (
@@ -43,7 +41,7 @@ const RatingInfoPopover = ({ratingScore}: RatingInfoPopoverProps) => {
                 <InfoOutlined sx={{color: grey[500]}}/>
             </button>
             {isHovered && (
-                <div className={"absolute bg-black w-1/2 p-4 rounded-lg"}>
+                <div className={"absolute bg-black w-128 p-4 rounded-lg"}>
                     <p className=" text-xl font-extrabold text-gray-900 dark:text-white text-center mb-4">User Rating</p>
                     <div className="flex items-center mb-5">
                         <p className={`text-md font-semibold inline-flex items-center justify-center p-1.5 rounded-sm ${color} text-black w-10 h-10`}>{ratingScore.overallAverage}</p>
