@@ -2,7 +2,9 @@ import {Add, StarRounded} from "@mui/icons-material";
 import Modal from "../../Modal.tsx";
 import React, {useEffect, useState} from "react";
 import RatingModal from "../../Rating/RatingModal.tsx";
-import {getRating, setUserRating} from "../../API/Ratings.ts";
+import {getRating} from "../../API/Ratings.ts";
+import RatingInfoPopover from "../../Rating/RatingInfoPopover.tsx";
+import {RatingScore} from "../../../ProfileData.ts";
 
 interface RatingProps{
     myProfileDisplayed: boolean,
@@ -11,7 +13,7 @@ interface RatingProps{
 function Rating({myProfileDisplayed, revieweeId}: RatingProps) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
-    const [ratingData, setRatingData] = useState({
+    const [ratingData, setRatingData] = useState<RatingScore>({
         overallAverage: 0,
         singleTraitAverages: {
             averageCommunicative: 0,
@@ -44,7 +46,8 @@ function Rating({myProfileDisplayed, revieweeId}: RatingProps) {
 
     return (
         <div className="flex flex-col items-center pb-5 pt-10 space-y-4">
-            <h1 className="text-black font-bold mt-2 text-2xl">User Rating</h1>
+            <div className={"flex"}><h1 className="text-black font-bold mt-2 text-2xl">User Rating</h1><RatingInfoPopover ratingScore={ratingData}/></div>
+
             <div className="flex items-center justify-center">
                 {[...Array(5)].map((star, index) => {
                     return (

@@ -6,7 +6,7 @@ import type { PopoverOptions, PopoverInterface, InstanceOptions } from 'flowbite
 import {Help} from "@mui/icons-material";
 import { grey } from '@mui/material/colors';
 import {Link} from "react-router-dom";
-const PopoverButton: React.FC = () => {
+const PopoverButton: React.FC = ({content}) => {
     const triggerRef = useRef<HTMLButtonElement | null>(null);
     const contentRef = useRef<HTMLDivElement | null>(null);
     let popoverInstance: PopoverInterface | null = null;
