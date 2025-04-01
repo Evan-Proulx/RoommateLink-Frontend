@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ProfileData, PropertyData} from "../../../ProfileData.ts";
+import {PersonalData, ProfileData, PropertyData} from "../../../ProfileData.ts";
 import {updateProfile, uploadPropertyImages} from "../../API/Profile.ts";
 import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -7,17 +7,26 @@ import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 
 interface UpdatePropertyProps{
     property: PropertyData,
+    //property and personalData are passed
+    // when the user doesn't have a property and is creating one for the first time
+    newProperty: boolean,
+    personalData: PersonalData | undefined,
     closeModal: () => void,
 }
-const UpdateProperty = ({property, closeModal}: UpdatePropertyProps) => {
+const UpdateProperty = ({property, newProperty = false, personalData = undefined, closeModal}: UpdatePropertyProps) => {
     const navigate = useNavigate();
     const [updatedPropertyData, setUpdatedPropertyData] = useState<PropertyData | null>(null);
+    const [updatedPersonalData, setUpdatedPersonalData] = useState<PersonalData | null>(null);
     const [displayAlert, setDisplayAlert] = useState(false);
     const [propertyImages, setPropertyImages] = useState<File[]>([]);
 
     useEffect(() => {
         if (property){
             setUpdatedPropertyData(property);
+        }
+
+        if (newProperty && personalData !== undefined){
+            setUpdatedPersonalData(personalData)
         }
     }, []);
 
@@ -48,6 +57,26 @@ const UpdateProperty = ({property, closeModal}: UpdatePropertyProps) => {
         console.log(updatedPropertyData);
     };
 
+    const updateHousingStatus = async () => {
+        if (newProperty && updatedPersonalData !== null){
+            // Set housing status to true in the personalData object before updating
+            //This isnt done in the state because it is asynchronous.
+            // The api call wouldnt get the passed value in time.
+            const updatedData:PersonalData = {
+                ...updatedPersonalData,
+                has_housing: true
+            };
+
+            // Update the personal data to set the housing status to true when a property is created
+            try {
+               const response = await updateProfile("personal", updatedData);
+               console.log(response);
+            }catch (err){
+                console.log(err)
+            }
+        }
+    }
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         // Only update if new information is set
@@ -65,6 +94,10 @@ const UpdateProperty = ({property, closeModal}: UpdatePropertyProps) => {
             // Upload images if they exist. This also deletes the user's previous images
             if (propertyImages.length > 0){await uploadPropertyImages(propertyImages)}
             console.log("Profile updated successfully");
+
+            //Once Property is updated, update the user's housing status
+            // if they are creating the property for the first time
+            if (newProperty){await updateHousingStatus()}
 
             // Send close notification to parent
             closeModal();

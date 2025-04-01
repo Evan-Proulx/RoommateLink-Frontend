@@ -10,7 +10,7 @@ import Navbar from "../Navbar.tsx";
 import {getInterestedUsers} from "../API/Bookmarks.ts";
 import UpdateProfile from "./UpdateForms/UpdateProfile.tsx";
 import Modal from "../Modal.tsx";
-export const ProfileContext = createContext(null)
+export const ProfileContext = createContext<UserProfile | null>(null)
 
 function ProfilePage() {
     const navigate = useNavigate();

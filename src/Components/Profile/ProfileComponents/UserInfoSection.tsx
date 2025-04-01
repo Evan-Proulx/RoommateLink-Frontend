@@ -73,7 +73,7 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
                     {/* User's City */}
                     <div className="flex items-center m-3">
                         <PersonPinCircle sx={{color: grey[600]}}/>
-                        <h1 className="pl-1 text-md lg:text-xl font-semibold text-center text-gray-500">{user.personalData.city + "," + user.personalData.province}</h1>
+                        <h1 className="pl-1 text-md lg:text-xl font-semibold text-center text-gray-500">{user.personalData.city + ", " + user.personalData.province}</h1>
                     </div>
 
                     {/* User's Budget */}
