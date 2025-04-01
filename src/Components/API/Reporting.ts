@@ -31,9 +31,8 @@ export const reportUser = async (reportData: ReportData) => {
 
 export const checkReportEligibility = async (userId) => {
     const token = localStorage.getItem("token");
-
     try {
-        const response  = await axios.post(`${rootUrl}/api/report/eligibility`, userId, {
+        const response  = await axios.post(`${rootUrl}/api/report/eligibility`, {reported_id: userId}, {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
