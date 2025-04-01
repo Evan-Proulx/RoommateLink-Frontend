@@ -17,7 +17,7 @@ import ListingCard from "./Components/CardComponents/ListingCard.tsx";
 import Bookmarks from "./Components/Feed/Bookmarks.tsx"
 import ImageUploadTest from "./Components/ImageUploadTest.tsx";
 import UpdateProfile from "./Components/Profile/UpdateForms/UpdateProfile.tsx";
-import RatingModal from "./Components/Rating/RatingModal.tsx";
+import RatingModal from "./Components/Profile/Rating/RatingModal.tsx";
 
 // Routes
 const router = createBrowserRouter([

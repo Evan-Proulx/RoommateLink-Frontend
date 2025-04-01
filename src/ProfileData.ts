@@ -61,9 +61,7 @@ export interface UserProfile {
 
 
 
-
-
-
+////////////RATING DATA////////////
 
 //Rating structure that is sent to the server
 export interface Rating{

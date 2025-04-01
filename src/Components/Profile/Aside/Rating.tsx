@@ -1,9 +1,9 @@
 import {Add, StarRounded} from "@mui/icons-material";
 import Modal from "../../Modal.tsx";
 import React, {useEffect, useState} from "react";
-import RatingModal from "../../Rating/RatingModal.tsx";
+import RatingModal from "../Rating/RatingModal.tsx";
 import {getRating} from "../../API/Ratings.ts";
-import RatingInfoPopover from "../../Rating/RatingInfoPopover.tsx";
+import RatingInfoPopover from "../Rating/RatingInfoPopover.tsx";
 import {RatingScore} from "../../../ProfileData.ts";
 
 interface RatingProps{
