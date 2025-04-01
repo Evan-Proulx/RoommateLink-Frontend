@@ -18,7 +18,7 @@ import {Edit} from "@mui/icons-material";
 import UpdateProfile from "../UpdateForms/UpdateProfile.tsx";
 import UpdateFiles from "../UpdateForms/UpdateFiles.tsx";
 import UpdateProperty from "../UpdateForms/UpdateProperty.tsx";
-import UpdateModal from "../../UpdateModal.tsx";
+import Modal from "../../Modal.tsx";
 
 interface AboutSectionProps{
     propertyImages: string[],
@@ -210,9 +210,9 @@ function AboutSection({propertyImages, myProfileDisplayed}: AboutSectionProps) {
                 </div>
             ) : null} {/* To display nothing if the user has no property */}
 
-            <UpdateModal open={modalIsOpen} close={() => setModalIsOpen(false)}>
+            <Modal open={modalIsOpen} close={() => setModalIsOpen(false)}>
                     <UpdateProperty property={user.propertyData} closeModal={() => setModalIsOpen(false)}/>
-            </UpdateModal>
+            </Modal>
         </div>
     );
 }
