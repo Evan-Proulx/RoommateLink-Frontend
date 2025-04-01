@@ -16,21 +16,19 @@ const RatingInfoPopover = ({ratingScore}: RatingInfoPopoverProps) => {
         }
     }, []);
 
-    const checkScore = (score): {text: string, color: string} => {
-        if (score >= 8) {
-            return {text: "Excellent",color: "bg-blue-200"};
+    const checkScore = (score: number): { text: string; color: string } => {
+        if (score === 0) {
+            return { text: "Unrated", color: "bg-white" };
         } else if (score >= 4.5) {
-            return {text: "Very Good",color: "bg-green-200"}
+            return { text: "Excellent", color: "bg-blue-200" };
         } else if (score >= 4) {
-            return {text: "Good",color: "bg-yellow-200"};
-        } else if (score >= 3) {
-            return {text: "Fair",color: "bg-grey-200"};
-        } else if (score >= 2){
-            return {text: "Ok",color: "bg-orange-200"};
-        }else{
-            return {text: "Not Great",color: "bg-red-200"};
+            return { text: "Very Good", color: "bg-green-200" };
+        } else if (score >= 2) {
+            return { text: "Ok", color: "bg-orange-200" };
+        } else {
+            return { text: "Not Great", color: "bg-red-200" };
         }
-    }
+    };
     const {text, color} = checkScore(ratingScore.overallAverage);
 
     return (
