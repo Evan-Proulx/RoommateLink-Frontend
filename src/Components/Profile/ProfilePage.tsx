@@ -9,7 +9,7 @@ import AboutSection from "./ProfileComponents/AboutSection.tsx";
 import Navbar from "../Navbar.tsx";
 import {getInterestedUsers} from "../API/Bookmarks.ts";
 import UpdateProfile from "./UpdateForms/UpdateProfile.tsx";
-import UpdateModal from "../UpdateModal.tsx";
+import Modal from "../Modal.tsx";
 export const ProfileContext = createContext(null)
 
 function ProfilePage() {
@@ -110,7 +110,7 @@ function ProfilePage() {
                     <div className="items-center overflow-y-auto h-screen bg-profile xl:w-2/3 shadow-2xl">
                         <UserInfoSection myProfileDisplayed={myProfileDisplayed}/>
                         <div className="flex">
-                            <Aside/>
+                            <Aside myProfileDisplayed={myProfileDisplayed}/>
                             <AboutSection propertyImages={propertyImages} myProfileDisplayed={myProfileDisplayed}/>
                         </div>
                     </div>

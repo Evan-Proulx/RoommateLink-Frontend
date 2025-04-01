@@ -51,9 +51,38 @@ export interface PropertyData {
     updated_at: string;
 }
 
+
 export interface UserProfile {
     compatibilityScore?: number;
     personalData: PersonalData;
     profileData: ProfileData;
     propertyData: PropertyData;
 }
+
+
+
+
+
+
+
+//Rating structure that is sent to the server
+export interface Rating{
+    reviewee_id?: number;
+    respectful_rating: number;
+    communicative_rating: number;
+    friendly_rating: number;
+    honest_rating: number;
+    responsive_rating: number;
+}
+//Rating data retrieved from the server
+export interface RatingScore{
+    overallAverage: 0,
+    singleTraitAverages: {
+        averageCommunicative: 0,
+        averageFriendly: 0,
+        averageHonest: 0,
+        averageRespectful: 0,
+        averageResponsive: 0
+    }
+}
+

@@ -7,7 +7,7 @@ import {UserProfile} from "../../../ProfileData.ts";
 import ProfileImg from "../Aside/ProfileImg.tsx";
 import {Edit, PersonPinCircle, PinDrop, PinDropOutlined, Search} from "@mui/icons-material";
 import {grey} from "@mui/material/colors";
-import UpdateModal from "../../UpdateModal.tsx";
+import Modal from "../../Modal.tsx";
 import UpdateProfile from "../UpdateForms/UpdateProfile.tsx";
 import UpdateFiles from "../UpdateForms/UpdateFiles.tsx";
 import UpdateProperty from "../UpdateForms/UpdateProperty.tsx";
@@ -99,7 +99,7 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
             </div>
 
             {/*Set modal content with specified components*/}
-            <UpdateModal open={modalIsOpen} close={() => setModalIsOpen(false)}>
+            <Modal open={modalIsOpen} close={() => setModalIsOpen(false)}>
 
                 {modalContent === "updateProfile" &&
                     <UpdateProfile closeModal={() => setModalIsOpen(false)}/>}
@@ -110,7 +110,7 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
                 {modalContent === "updateProperty" && user.propertyData &&
                     <UpdateProperty property={user.propertyData} closeModal={() => setModalIsOpen(false)}/>}
 
-            </UpdateModal>
+            </Modal>
         </div>
     )
 }
