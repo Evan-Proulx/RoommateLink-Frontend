@@ -45,7 +45,7 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
 
                     {/*Edit icon inside profile picture*/}
                     {myProfileDisplayed &&
-                        <div onClick={() => setModal("updateFiles")}
+                        <div onClick={() => setModal("updateFiles")} title={"Edit Profile Picture"}
                               className="absolute bottom-8 right-0 p-1 rounded-full bg-gray-300 transform
                                -translate-y-8 -translate-x-1/4 cursor-pointer hover:bg-gray-400 ease-in-out">
                             <Edit sx={{fontSize: 28}}/>
@@ -57,7 +57,8 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
                     {/* User name */}
                     <div className="flex items-center m-3">
                         <div className={"flex"}>
-                            {myProfileDisplayed && <Edit className={"cursor-pointer"} onClick={() => setModal("updateProfile")}/>}
+                            {myProfileDisplayed &&
+                                <div title={"Edit Personal Info"}><Edit className={"cursor-pointer"} onClick={() => setModal("updateProfile")}/></div>}
                             <h1 className="text-5xl font-bold text-start">{user.profileData.first_name + " " + user.profileData.last_name}</h1>
                         </div>
                         {/*Verified badge*/}

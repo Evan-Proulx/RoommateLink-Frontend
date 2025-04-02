@@ -41,7 +41,7 @@ const RatingInfoPopover = ({ratingScore}: RatingInfoPopoverProps) => {
                 <InfoOutlined sx={{color: grey[500]}}/>
             </button>
             {isHovered && (
-                <div className={"absolute bg-black w-128 p-4 rounded-lg"}>
+                <div className={"absolute bg-black w-128 p-4 rounded-lg z-50"}>
                     <p className=" text-xl font-extrabold text-gray-900 dark:text-white text-center mb-4">User Rating</p>
                     <div className="flex items-center mb-5">
                         <p className={`text-md font-semibold inline-flex items-center justify-center p-1.5 rounded-sm ${color} text-black w-10 h-10`}>{ratingScore.overallAverage}</p>
