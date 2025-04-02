@@ -143,7 +143,7 @@ const Survey = () => {
 
     // Log when data is updated
     useEffect(() => {
-        console.log("Updated userData:", propertyData);
+        console.log("Updated userData:", personalData.hobbies);
     }, [personalData, propertyData, dealBreakerData, profileData, searchLocation]);
 
     const onSubmit = async () => {
