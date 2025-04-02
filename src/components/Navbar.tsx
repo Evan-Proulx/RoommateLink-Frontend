@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+    BookmarkBorder,
     ExploreOutlined,
     FavoriteOutlined,
     FeedOutlined,
@@ -18,7 +19,7 @@ const Navbar = () => {
             {to: "/feed", icon: (size) => <FeedOutlined sx={{fontSize: size}}/>, name: "Feed"},
             {to: "/discovery", icon: (size) => <ExploreOutlined sx={{fontSize: size}}/>, name: "Discovery"},
             {to: "/chats", icon: (size) => <ForumOutlined sx={{fontSize: size}}/>, name: "Chats"},
-            {to: "/bookmarks", icon: (size) => <FavoriteOutlined sx={{fontSize: size}}/>, name: "Bookmarks"},
+            {to: "/bookmarks", icon: (size) => <BookmarkBorder sx={{fontSize: size}}/>, name: "Bookmarks"},
             {to: "/profile", icon: (size) => <PersonOutline sx={{fontSize: size}}/>, name: "Profile"},
         ]
 

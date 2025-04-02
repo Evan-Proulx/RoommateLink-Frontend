@@ -133,11 +133,12 @@ function AboutSection({propertyImages, myProfileDisplayed}: AboutSectionProps) {
                     About Me
                 </button>
 
+                {user.personalData.has_housing === 1 &&
                     <button
-                        onClick={() => setActiveTab("property")}
-                        className={`px-4 py-2 cursor-pointer ${activeTab === "property" ? "border-b-4 border-black text-3xl font-bold" : "text-xl"}`}>
-                        My Property
-                    </button>
+                    onClick={() => setActiveTab("property")}
+                    className={`px-4 py-2 cursor-pointer ${activeTab === "property" ? "border-b-4 border-black text-3xl font-bold" : "text-xl"}`}>
+                    My Property
+                </button>}
             </div>
 
             {/* Content Section - Displaying the content of "About Me" or "My Property"*/}

@@ -9,7 +9,7 @@ import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts";
 import {handleCreateConversation} from "../API/Messaging.ts";
 
 
-const CardActions= ({userId, hasHousing, profileView, onSetListingToggle, bookmarkDisplay = false}) => {
+const CardActions= ({userId, hasHousing, profileView, onSetListingToggle, bookmarkDisplay = false, onBookmarkToggle}) => {
     const [isBookmarked, setIsBookmarked] = useState(bookmarkDisplay);
     const navigate = useNavigate();
     const [id, setId] = useState(null);
@@ -50,6 +50,7 @@ const CardActions= ({userId, hasHousing, profileView, onSetListingToggle, bookma
                 await bookmarkUser(userId);
             }
             setIsBookmarked(!isBookmarked);
+            onBookmarkToggle(isBookmarked);
         } catch (err) {
             console.error(err);
         }
