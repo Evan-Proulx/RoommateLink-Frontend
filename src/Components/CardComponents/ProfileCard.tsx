@@ -13,6 +13,7 @@ import CardActions from "./CardActions.tsx";
 import CardSkeletonLoader from "./CardSkeletonLoader.tsx";
 import {retrievePropertyImages} from "../API/Profile.ts";
 import ImageGallery from "../Profile/ProfileComponents/ImageGallery.tsx";
+import {hobbies} from "../../data.ts";
 
 const ProfileCard = ({user}) => {
     const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
@@ -22,6 +23,7 @@ const ProfileCard = ({user}) => {
     const [profileData, setProfileData] = useState<UserProfile | null>(null);
     const [propertyImages, setPropertyImages] = useState<string[]>([]);
 
+    const [userHobbies, setUserHobbies] = useState([""]);
     // Set max characters for user's description
     const maxLength = 250;
     const theLocation = 26;
@@ -48,13 +50,21 @@ const ProfileCard = ({user}) => {
             getPropertyImages();
         }
         setProfileView(profileData?.personalData.has_housing ?? true);
+        //Get hobby codes from the profile to retrieve their names
+        retrieveHobbyNames(profileData?.personalData.hobbies.map(h => h.hobby) ?? []);
     },[profileData]);
 
+    //Maps through list of hobby codes and finds their name from the hobbies data.
+    const retrieveHobbyNames = (hobbyCodes: string[]) => {
+        if (hobbyCodes.length > 0){
+            const hobbyNames = hobbyCodes.map(hobby => {
+                const foundHobby = hobbies.find(h => h.code === hobby)
+                return foundHobby.name
+            })
 
-    useEffect(() => {
-        console.log("VIEW", profileView);
-    }, [profileView]);
-
+            setUserHobbies(hobbyNames)
+        }
+    }
 
     // const truncatedText = (text) => {
     //     return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
@@ -169,44 +179,33 @@ const ProfileCard = ({user}) => {
                         <div>
                             <h3 className="mt-4 font-bold m-2 text-xl">About Me</h3>
                             <p className="text-gray-600 m-2 font-normal">{profileData.profileData.bio}</p>
-                            <div className="p-2">
-                                <label
-                                    className="bg-blue-500 text-white text-center font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
-                                    respectful
-                                </label>
-                                <label
-                                    className="bg-blue-500 text-white text-center font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
-                                    Clean
-                                </label>
-                                <label
-                                    className="bg-blue-500 text-white text-center font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
-                                    Communicative
-                                </label>
-                                <label
-                                    className="bg-blue-500 text-white text-center font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
-                                    Friendly
-                                </label>
-                                <label
-                                    className="bg-blue-500 text-white text-center font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
-                                    Honest
-                                </label>
+                            <h3 className="mt-4 font-bold m-2 text-md">Hobbies/Interests</h3>
+                            <div className="flex flex-wrap">
+                                {
+                                    userHobbies.map((hobby, index) => (
+                                        <label title={hobby}
+                                               className="bg-blue-500 text-white text-center text-sm font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
+                                            {hobby}
+                                        </label>
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
             ) : (
-                <div className={`flex gap-4`}>
-                    {/* Profile Section */}
+                <div className={`flex gap-4 `}>
+                {/* Profile Section */}
                     <div className={`flex flex-col`}>
-                        <img src={profileData.profileData.profile_picture ? imgUrl + profileData.profileData.profile_picture :
+                        <img onClick={navigateToProfile} src={profileData.profileData.profile_picture ? imgUrl + profileData.profileData.profile_picture :
                                 "https://archive.org/download/instagram-plain-round/instagram%20dip%20in%20hair.jpg"}
                             alt="Profile"
-                            className={`w-28 h-28 rounded-lg`}/>
+                            className={`w-28 h-28 rounded-lg cursor-pointer`}/>
 
                         <div className={"flex flex-col w-full"}>
                             <div className="flex items-center space-x-2">
                                 {/*User Name*/}
-                                <h4 className="text-2xl font-bold">{profileData.profileData.first_name + " " + profileData.profileData.last_name}</h4>
+                                <h4 onClick={navigateToProfile} className="text-2xl font-bold cursor-pointer hover:underline">{profileData.profileData.first_name}</h4>
 
                                 {/*Verification badge*/}
                                 <svg className="w-5 h-5 text-gray-800 dark:text-blue-700" aria-hidden="true"
@@ -225,7 +224,6 @@ const ProfileCard = ({user}) => {
 
                             {/*Property info*/}
                             <div className="flex flex-col items-start">
-                                <p className="text-gray-500 font-semibold">{profileData.personalData.city + ", " + profileData.personalData.province}</p>
                                 <p className="text-gray-500 font-semibold">Age: {profileData.profileData.age}</p>
                                 <p className="text-gray-500 font-semibold">${profileData.personalData.budget}</p>
                             </div>
