@@ -1,5 +1,6 @@
 import axios from "axios";
 import {forEach} from "@react-google-maps/api/dist/utils/foreach";
+import {PersonalData, UserProfile} from "../../ProfileData.ts";
 const rootUrl = import.meta.env.VITE_ROOT_URL;
 
 export const createProfile = async (profileData) => {
@@ -18,6 +19,7 @@ export const createProfile = async (profileData) => {
         throw new Error(err.response?.data?.message || "Failed to create profile");
     }
 }
+
 //Get the authenticated user's profile
 export const getProfileData = async () => {
     const token = localStorage.getItem("token");
@@ -36,6 +38,7 @@ export const getProfileData = async () => {
         throw new Error(err.response?.data?.message || "Failed to create profile");
     }
 }
+
 export const uploadImage = async (imageFile) => {
     try {
         const formData = new FormData();
@@ -145,4 +148,24 @@ export const retrievePropertyImages = async (propertyId) => {
         throw err;
     }
 }
+
+
+export const updateProfile = async (type: string, updatedProfile) => {
+    const token = localStorage.getItem("token");
+
+    try {
+        const response  = await axios.put(`${rootUrl}/api/profile/edit/${type}`, updatedProfile,{
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+            });
+        console.log(response.data);
+        return response.data;
+    } catch (err) {
+        console.error("Upload error:", err.response?.data || err.message);
+        throw err;
+    }
+}
+
 

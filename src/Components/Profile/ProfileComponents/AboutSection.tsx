@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import React, {useContext, useState} from "react";
 import {
     faBanSmoking,
     faBoxOpen,
@@ -14,15 +14,24 @@ import InterestedPeople from "./InterestedPeople.tsx";
 import {ProfileContext} from "../ProfilePage.tsx";
 import {UserProfile} from "../../../ProfileData.ts";
 import ImageGallery from "./ImageGallery.tsx";
+import {AddBox, Edit} from "@mui/icons-material";
+import UpdateProfile from "../UpdateForms/UpdateProfile.tsx";
+import UpdateFiles from "../UpdateForms/UpdateFiles.tsx";
+import UpdateProperty from "../UpdateForms/UpdateProperty.tsx";
+import Modal from "../../Modal.tsx";
 
+interface AboutSectionProps{
+    propertyImages: string[],
+    myProfileDisplayed: boolean
+}
 
-function AboutSection({propertyImages}) {
+function AboutSection({propertyImages, myProfileDisplayed}: AboutSectionProps) {
     //Get user data
     const userProfile = useContext(ProfileContext);
     const user = userProfile as UserProfile;
-
     //If the user has a property then the My Property Tab will be displayed
-    const hasProperty = true;
+    //Modal States
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     // WE NEED TO ADD MORE ROOMMATE PREFERENCES
     // User preferences for an ideal roommate
@@ -124,15 +133,12 @@ function AboutSection({propertyImages}) {
                     About Me
                 </button>
 
-                {/* Show "My Property" only if the user has a property */}
-                { hasProperty && (
+                {(user.personalData.has_housing === 1 || myProfileDisplayed) &&
                     <button
-                        onClick={() => setActiveTab("property")}
-                        className={`px-4 py-2 cursor-pointer ${activeTab === "property" ? "border-b-4 border-black text-3xl font-bold" : "text-xl"}`}
-                    >
-                        My Property
-                    </button>
-                )}
+                    onClick={() => setActiveTab("property")}
+                    className={`px-4 py-2 cursor-pointer ${activeTab === "property" ? "border-b-4 border-black text-3xl font-bold" : "text-xl"}`}>
+                    My Property
+                </button>}
             </div>
 
             {/* Content Section - Displaying the content of "About Me" or "My Property"*/}
@@ -158,7 +164,13 @@ function AboutSection({propertyImages}) {
             )  : user.personalData.has_housing ? (
                 <div className="mt-4">
                     {/*My Property Section */}
-                    <h2 className="text-xl pt-2 font-bold m-2">{user.personalData.city}</h2>
+                    <div className={"flex items-center"}><h2
+                        className="text-xl pt-2 font-bold m-2">{user.personalData.city + ", " + user.personalData.province}</h2>
+                        {/*Edit property modal toggle*/}
+                        {myProfileDisplayed &&
+                            <div title={"Edit Property"} className={"cursor-pointer"} onClick={() => setModalIsOpen(true)}>
+                                <Edit sx={{fontSize: 22}}/>
+                            </div>}</div>
 
                     <div className="flex items-center justify-between w-128">
                         <h4 className="pl-2 text-gray-600 font-semibold"> {user.propertyData.bedroom_count} bedrooms + {user.propertyData.bathroom_count} Bathroom · {user.propertyData.square_feet} Square Feet</h4>
@@ -192,7 +204,28 @@ function AboutSection({propertyImages}) {
                     {/* Map Section for Property Location */}
                     <MapSection />
                 </div>
-            ) : null} {/* To display nothing if the user has no property */}
+            ) : (
+                <div title={"Add property to account"} className={"flex justify-center items-center pt-40"}>
+                    <div onClick={() => setModalIsOpen(true)} className={"flex space-x-2 cursor-pointer hover:text-gray-600"}>
+                        <AddBox sx={{fontSize: 50}}/>
+                        <p className={"text-4xl font-extrabold"}>Add a property</p>
+                    </div>
+                </div>
+            )} {/* To display nothing if the user has no property */}
+
+            <Modal open={modalIsOpen} close={() => setModalIsOpen(false)}>
+                {user.personalData.has_housing ? (
+                    <UpdateProperty property={user.propertyData} closeModal={() => setModalIsOpen(false)} />
+                ) : (
+                    // Pass personal data if the user doesn't have a property
+                    <UpdateProperty
+                        property={user.propertyData}
+                        newProperty={true}
+                        personalData={user.personalData}
+                        closeModal={() => setModalIsOpen(false)}
+                    />
+                )}
+                </Modal>
         </div>
     );
 }

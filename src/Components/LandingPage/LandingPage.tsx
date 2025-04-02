@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faComments, faMagnifyingGlassPlus, faUser} from "@fortawesome/free-solid-svg-icons";
 import {Link} from "react-router-dom";
-import MapPopup from "../Survey/Survey-Map-Popup.tsx";
+import MapPopup from "../Survey/SurveyComponents/Survey-Map-Popup.tsx";
 import LoginPopup from "./LoginPopup.tsx";
 
 

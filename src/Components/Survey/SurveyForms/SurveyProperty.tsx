@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 
 //propertyData is passed down from the survey parent component
-const PropertyForm = ({ propertyData, setPropertyData, onSetPropertyImages}) => {
+const SurveyProperty = ({ propertyData, setPropertyData, onSetPropertyImages}) => {
     const [displayImages, setDisplayImages] = useState<File[]>([]);
 
     //update images from file input. Allow for images to be added more than once
@@ -184,4 +184,4 @@ const PropertyForm = ({ propertyData, setPropertyData, onSetPropertyImages}) => 
     );
 };
 
-export default PropertyForm;
+export default SurveyProperty;

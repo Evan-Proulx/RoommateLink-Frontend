@@ -43,14 +43,8 @@ const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookma
 
     //Unbookmark user when bookmark button is clicked
     const unBookmark = async () => {
-        try{
-            //API call to remove bookmark
-            await unbookmarkUser(profileData?.profileData.account_id);
-            //Send userId to parent component to update the state
             onUnbookmark(profileData?.profileData.account_id);
-        }catch(err){
-            console.error(err)
-        }
+
     }
 
     const getPropertyImage = async () => {
@@ -92,6 +86,7 @@ const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookma
                 hasHousing={profileData?.personalData?.has_housing}
                 profileView={true}
                 bookmarkDisplay={true}//Doesn't display toggle switch
+                onBookmarkToggle={unBookmark}
             />
             </div>
 

@@ -16,6 +16,10 @@ import BookmarkedUserCard from "./Components/CardComponents/BookmarkedUserCard.t
 import ListingCard from "./Components/CardComponents/ListingCard.tsx";
 import Bookmarks from "./Components/Feed/Bookmarks.tsx"
 import ImageUploadTest from "./Components/ImageUploadTest.tsx";
+import UpdateProfile from "./Components/Profile/UpdateForms/UpdateProfile.tsx";
+import RatingModal from "./Components/Profile/Rating/RatingModal.tsx";
+import ReportModal from "./Components/Profile/Reporting/ReportModal.tsx";
+import ReportModalTest from "./Components/Profile/Reporting/ReportModalTest.tsx";
 
 // Routes
 const router = createBrowserRouter([
@@ -54,7 +58,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/test',
-        element: <ImageUploadTest/>,
+        element: '',
     },
     {
         path: '/login',

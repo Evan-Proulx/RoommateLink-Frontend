@@ -1,16 +1,15 @@
 import React, {useEffect, useState} from "react";
-import SurveyIntro from "./Survey-Intro.tsx";
-import SurveyStepper from "./SurveyStepper.tsx";
-import SurveyFormProfile from "./SurveyFormProfile.tsx";
-import SurveyFormRoommate from "./SurveyFormRoommate.tsx";
+import SurveyIntro from "./SurveyForms/SurveyIntro.tsx";
+import SurveyStepper from "./SurveyComponents/SurveyStepper.tsx";
+import SurveyProfile from "./SurveyForms/SurveyProfile.tsx";
+import SurveyDealBreakers from "./SurveyForms/SurveyDealBreakers.tsx";
 import ShadowButton from "../Shadow-Button.tsx";
 import { Element, scroller } from "react-scroll";
-import PropertyForm from "./PropertyForm.tsx";
-import SurveyAbout from "./SurveyAbout.tsx";
-import SubmitSurvey from "./SubmitSurvey.tsx";
+import SurveyProperty from "./SurveyForms/SurveyProperty.tsx";
+import SurveyPersonal from "./SurveyForms/SurveyPersonal.tsx";
+import SubmitSurvey from "./SurveyForms/SubmitSurvey.tsx";
 import {FormProvider, useForm} from "react-hook-form";
 import {createProfile, uploadProfileMedia, uploadPropertyImages} from "../API/Profile.ts";
-
 
 const Survey = () => {
     //Data from map
@@ -74,7 +73,7 @@ const Survey = () => {
     //Files set separately from the rest of the data
     const [profilePicture, setProfilePicture] = useState(null);
     const [introductoryVideo, setIntroductoryVideo] = useState(null);
-    const [propertyImages, setPropertyImages] = useState([null]);
+    const [propertyImages, setPropertyImages] = useState([]);
 
     //useForm describes how the form validation should behave. This is passed to the FormProvider
     const methods = useForm({mode: "onBlur"});
@@ -131,19 +130,20 @@ const Survey = () => {
             }
         }
         // Check property images and send files to server
-        if (propertyImages && personalData.hasHousing) {
+        if (propertyImages  && personalData.hasHousing) {
+            console.log(propertyImages)
             try {
                 const response = await uploadPropertyImages(propertyImages);
                 console.log(response);
             }catch (error) {
-                alert("Error uploading files: " + error.message);
+                console.log(error)
             }
         }
     }
 
     // Log when data is updated
     useEffect(() => {
-        console.log("Updated userData:", propertyData);
+        console.log("Updated userData:", personalData.hobbies);
     }, [personalData, propertyData, dealBreakerData, profileData, searchLocation]);
 
     const onSubmit = async () => {
@@ -176,22 +176,22 @@ const Survey = () => {
                 <div className={"flex items-center justify-center"}>
                     <div className="flex flex-col items-center justify-center w-1/2 xl:w-1/3 space-y-20">
                         <Element name="intro" id="intro" className={"h-screen"}>
-                            <SurveyIntro/>
+                            <SurveyIntro onBtnClicked={() => scrollTo(1)}/>
                         </Element>
                         <Element name="form1" id="form1" className={"py-20"}>
-                            <SurveyAbout userData={personalData} setUserData={setPersonalData} searchLocation={searchLocation} setSearchLocation={setSearchLocation}/>
+                            <SurveyPersonal userData={personalData} setUserData={setPersonalData} searchLocation={searchLocation} setSearchLocation={setSearchLocation}/>
                         </Element>
                         <Element name="form2" id="form2" className={"py-20"}>
-                            <SurveyFormProfile profileData={profileData} setProfileData={setProfileData} onSetAvatar={onSetAvatar} onSetVideo={onSetVideo}/>
+                            <SurveyProfile profileData={profileData} setProfileData={setProfileData} onSetAvatar={onSetAvatar} onSetVideo={onSetVideo}/>
                         </Element>
                         {/*Only display property form if user says they have property*/}
                         {personalData.hasHousing &&
                         <Element name="form3" id="form3" className={"py-20"}>
-                            <PropertyForm propertyData={propertyData} setPropertyData={setPropertyData} onSetPropertyImages={onSetPropertyImages}/>
+                            <SurveyProperty propertyData={propertyData} setPropertyData={setPropertyData} onSetPropertyImages={onSetPropertyImages}/>
                         </Element>
                         }
                         <Element name="form4" id="form4" className={"py-20"}>
-                            <SurveyFormRoommate dealBreakerData={dealBreakerData} setDealBreakerData={setDealBreakerData}/>
+                            <SurveyDealBreakers dealBreakerData={dealBreakerData} setDealBreakerData={setDealBreakerData}/>
                         </Element>
                         <Element name="submit" id="submit" className={"py-20"}>
                             <SubmitSurvey personalData={personalData} profileData={profileData} propertyData={propertyData} dealBreakerData={dealBreakerData}/>

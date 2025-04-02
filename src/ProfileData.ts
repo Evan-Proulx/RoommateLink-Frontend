@@ -1,4 +1,4 @@
-interface ProfileData {
+export interface ProfileData {
     account_id: number;
     age: number;
     bio: string;
@@ -10,11 +10,14 @@ interface ProfileData {
     updated_at: string;
 }
 
-interface PersonalData {
+export interface PersonalData {
     account_id: number;
     budget: number;
     city: string;
     province: string;
+    longitude: number;
+    latitude: number;
+    radius: number;
     cleanliness: number;
     diet: string;
     gender: string;
@@ -34,7 +37,7 @@ interface PersonalData {
     updated_at: string;
 }
 
-interface PropertyData {
+export interface PropertyData {
     account_id: number;
     bathroom_count: number;
     bedroom_count: number;
@@ -48,9 +51,36 @@ interface PropertyData {
     updated_at: string;
 }
 
+
 export interface UserProfile {
     compatibilityScore?: number;
     personalData: PersonalData;
     profileData: ProfileData;
     propertyData: PropertyData;
 }
+
+
+
+////////////RATING DATA////////////
+
+//Rating structure that is sent to the server
+export interface Rating{
+    reviewee_id?: number;
+    respectful_rating: number;
+    communicative_rating: number;
+    friendly_rating: number;
+    honest_rating: number;
+    responsive_rating: number;
+}
+//Rating data retrieved from the server
+export interface RatingScore{
+    overallAverage: 0,
+    singleTraitAverages: {
+        averageCommunicative: 0,
+        averageFriendly: 0,
+        averageHonest: 0,
+        averageRespectful: 0,
+        averageResponsive: 0
+    }
+}
+

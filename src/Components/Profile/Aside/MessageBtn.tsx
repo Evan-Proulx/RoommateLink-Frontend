@@ -1,20 +1,17 @@
 import {useContext} from "react";
+import {Mail} from "@mui/icons-material";
 
-function MessageBtn() {
+function MessageBtn({onMessageClicked}) {
     return (
-        <button
-            type="button"
+        <button onClick={onMessageClicked}
             className="flex items-center text-white bg-blue-500
-                hover:text-white border border-black hover:bg-blue-600
+                hover:text-white hover:bg-blue-600
                 font-medium rounded-lg text-sm px-6 py-3 text-center
                 min-w-[165px] m-5 dark:border-black dark:text-white
-                dark:hover:text-white dark:hover:bg-blue-600 w-full"
+                dark:hover:text-white dark:hover:bg-blue-600 w-full transition-all duration-300"
         >
             {/* Green Icon */}
-            <svg className="w-5 h-5 text-white me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
-                <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
-                <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
-            </svg>
+            <Mail className={"me-4"}/>
             Send Message
 
         </button>
