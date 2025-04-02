@@ -8,7 +8,7 @@ import {
     LocationOn
 } from "@mui/icons-material";
 import {grey, orange, pink} from '@mui/material/colors';
-import MapPopup from "../Survey/Survey-Map-Popup.tsx";
+import MapPopup from "../Survey/SurveyComponents/Survey-Map-Popup.tsx";
 import {FaBookmark, FaRegBookmark} from "react-icons/fa";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHouseUser, faLocationDot} from "@fortawesome/free-solid-svg-icons";

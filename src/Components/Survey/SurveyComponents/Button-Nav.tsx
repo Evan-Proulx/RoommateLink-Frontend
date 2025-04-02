@@ -1,5 +1,5 @@
 import React from 'react';
-import ShadowButton from "../Shadow-Button.tsx";
+import ShadowButton from "../../Shadow-Button.tsx";
 
 const ButtonNav = () => {
     return (

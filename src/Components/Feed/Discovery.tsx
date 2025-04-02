@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import FeedCard from "../CardComponents/FeedCard.tsx";
 import Navbar from "../Navbar.tsx";
 import Popover from "./PopoverButton.tsx";
-import MapPopup from "../Survey/Survey-Map-Popup.tsx";
+import MapPopup from "../Survey/SurveyComponents/Survey-Map-Popup.tsx";
 import {LocationSearching, Search} from "@mui/icons-material";
 import {} from "@mui/material/colors";
 

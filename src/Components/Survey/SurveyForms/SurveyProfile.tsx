@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {useForm, useFormContext} from "react-hook-form";
 
 //profile data is passed down from the survey parent component
-const SurveyFormProfile = ({profileData, setProfileData, setValidationError, onSetAvatar, onSetVideo}) => {
+const SurveyProfile = ({profileData, setProfileData, setValidationError, onSetAvatar, onSetVideo}) => {
     const { register, formState: { errors ,isValid, isDirty},  } = useFormContext();
 
     //Create an array with a length of 82 numbers from 18-100
@@ -152,4 +152,4 @@ const SurveyFormProfile = ({profileData, setProfileData, setValidationError, onS
         ;
 };
 
-export default SurveyFormProfile;
+export default SurveyProfile;

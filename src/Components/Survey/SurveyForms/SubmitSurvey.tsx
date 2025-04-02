@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import ShadowButton from "../Shadow-Button.tsx";
+import ShadowButton from "../../Shadow-Button.tsx";
 import {useFormContext} from "react-hook-form";
 import {Error} from "@mui/icons-material";
 
