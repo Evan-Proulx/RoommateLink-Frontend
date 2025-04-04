@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import TimePicker from "../SurveyComponents/TimePicker.tsx";
-import {languages, religions} from "../../../data.ts";
+import {diets, languages, religions} from "../../../data.ts";
 import AddHobby from "../SurveyComponents/AddHobby.tsx";
 import MapPopup from "../SurveyComponents/Survey-Map-Popup.tsx";
 import {getLocation} from "../../API/Location.ts";
@@ -10,7 +10,6 @@ import {useFormContext} from "react-hook-form";
 
 const SurveyPersonal = ({userData, setUserData, searchLocation, setSearchLocation}) => {
     const { register, formState: { errors ,isValid, isDirty}, setValue, trigger } = useFormContext();
-    const diets = ["No preference", "Vegetarian", "Vegan", "Halal", "Kosher", "Pescatarian"];
     const [isMapOpen, setIsMapOpen] = useState(false);
     const [locationName, setLocationName] = useState("")
 
@@ -235,8 +234,8 @@ const SurveyPersonal = ({userData, setUserData, searchLocation, setSearchLocatio
                                 updateUserData("diet", event.target.value)
                             }}>
                         {diets.map((diet) => (
-                            <option key={diet} value={diet}>
-                                {diet}
+                            <option key={diet.code} value={diet.code}>
+                                {diet.name}
                             </option>
                         ))}
                     </select>

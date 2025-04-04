@@ -51,6 +51,15 @@ export const religions = [
     { code: "primal_indigenous", name: "Primal-Indigenous" },
     { code: "other", name: "Other" }
 ];
+export const diets = [
+    { code: "no_preference", name: "No preference" },
+    { code: "vegetarian", name: "Vegetarian" },
+    { code: "vegan", name: "Vegan" },
+    { code: "halal", name: "Halal" },
+    { code: "kosher", name: "Kosher" },
+    { code: "pescatarian", name: "Pescatarian" }
+];
+
 
 export const hobbies = [
     { code: "reading", name: "Reading \u{1F4DA}" }, // 📚
