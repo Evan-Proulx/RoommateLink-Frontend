@@ -51,6 +51,7 @@ const DiscoveryModal = ({onSearch, parentData,  closeModal}: DiscoveryModalProps
     useEffect(() => {
         console.log("FORM", formData);
     }, [formData]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Form data submitted:', formData);
@@ -102,6 +103,7 @@ const DiscoveryModal = ({onSearch, parentData,  closeModal}: DiscoveryModalProps
                                 onChange={handleChange}
                                 className="pl-7 block w-full rounded-md border border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                                 placeholder="0.00"
+                                min={100} max={10000} step={100}
                             />
                         </div>
                     </div>

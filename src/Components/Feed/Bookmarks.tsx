@@ -42,7 +42,7 @@ const Bookmarks = () => {
     }
 
     return (
-        <div className={"w-full bg-primary h-screen overflow-y-hidden"}>
+        <div className={"w-full min-h-screen bg-primary overflow-y-auto"}>
             <Navbar/>
             <div className={"flex items-baseline py-3 space-x-3"}>
                 <h1 className="pl-3 lg:pl-32 text-start header-text-big">Your Bookmarks</h1>

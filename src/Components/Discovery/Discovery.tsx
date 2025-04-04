@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import FeedCard from "../CardComponents/FeedCard.tsx";
 import Navbar from "../Navbar.tsx";
 import MapPopup from "../Survey/SurveyComponents/Survey-Map-Popup.tsx";
@@ -10,15 +10,17 @@ import DiscoveryModal from "./DiscoveryModal.tsx";
 import ProfileCard from "../CardComponents/ProfileCard.tsx";
 import {UserProfile} from "../../ProfileData.ts";
 import {DiscoveryData, discoverySearch} from "../API/Discovery.ts";
+import {getLocation} from "../API/Location.ts";
 
 const Discovery = () => {
-    const [showPopover, setShowPopover] = useState(false);
     const [isMapOpen, setIsMapOpen] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [locationName, setLocationName] = useState("")
-    const [budget, setBudget] = useState(1200);
     const [users, setUsers] = useState<UserProfile[]>([]);
+    // Default form values TODO: Get user's profile and set defaults
     const [formData, setFormData] = useState<DiscoveryData>({
+        longitude: 0,
+        latitude: 0,
         budget: 1200,
         gender: '',
         religion: '',
@@ -30,19 +32,53 @@ const Discovery = () => {
         has_housing: false
     });
 
+    //Set location state
+    const handleLocationChange = (latitude: number, longitude: number) => {
+        setFormData(prev => ({
+            ...prev,
+            latitude: latitude,
+            longitude: longitude
+        }));
+        getLocationName(latitude, longitude);
+    };
+    //Get location from set coordinates
+    const getLocationName = async (latitude: number, longitude: number) => {
+        const data = await getLocation(latitude, longitude);
+        if (data) {
+            //Set location name to input
+            setLocationName(`${data.town}, ${data.province}`);
+            console.log(locationName)
+        }
+    }
+
+    //Update state of form outside the more modal
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    //Search for users matching filters
     const search = async (data) => {
         try {
             const response = await discoverySearch(data);
-            console.log("RETURNED", response);
+            //Convert returned data to UserProfile object
             setUsers(response.userMatches.map((user) => ({
                     profileData: user.userProfileData,
                     personalData: user.userPersonalData,
                     propertyData: user.userPropertyData,
                 }))
-            );        } catch (err) {
+            );
+        } catch (err) {
             console.error("Error searching for housing:", err);
         }
     }
+
+    useEffect(() => {
+        console.log("Updated formdata",formData)
+    }, [formData]);
 
     if (!users) return (
         <div className={"flex flex-col justify-center items-center h-screen w-full bg-gray-300"}>
@@ -52,7 +88,7 @@ const Discovery = () => {
     );
 
     return (
-        <div className={"w-full bg-primary overflow-y-hidden"}>
+        <div className={"w-full bg-primary h-screen overflow-y-auto"}>
             <Navbar/>
             <div className={"flex items-baseline py-3 space-x-3"}>
                 <div>
@@ -82,6 +118,7 @@ const Discovery = () => {
                         <MapPopup
                             isOpen={isMapOpen}
                             onClose={() => setIsMapOpen(false)}
+                            onLocationChange={handleLocationChange}
                         />
                     </div>
                 </section>
@@ -90,35 +127,32 @@ const Discovery = () => {
                     <div className={"flex flex-col w-fit"}>
                         {/*gender dropdown*/}
                         <label htmlFor="gender" className="block text-lg font-bold text-center">Gender</label>
-                        <select id="gender"
+                        <select id="gender" name="gender"
                                 className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg p-2"
-                            // onChange={(event) => {
-                            //     updateUserData("gender", event.target.value)
-                            // }}
+                            onChange={handleChange}
                                 required>
-                            <option>Male</option>
-                            <option>Female</option>
-                            <option>Non-binary</option>
-                            <option>Other</option>
+                            <option value={"male"}>Male</option>
+                            <option value={"female"}>Female</option>
+                            <option value={"other"}>Other</option>
                         </select>
                     </div>
                 </section>
 
                 <div className={"flex flex-col"}>
                     <label htmlFor="budget" className="block text-lg font-bold text-center">Budget</label>
-                    <input type="number" value={budget} min={100} max={10000} step={100} id="budget"
-                           onChange={(e) => setBudget(+e.target.value)}
+                    <input type="number" name={"budget"} value={formData.budget} min={100} max={10000} step={100} id="budget"
+                           onChange={handleChange}
                            className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg p-2"/>
                 </div>
 
                 <div className={"space-x-2"}>
-                    <button onClick={() => setModalIsOpen(true)} className={"bg-white border-2 border-text p-2 text-lg font-bold text-text rounded"}>More</button>
-                    <button className={"bg-text p-2 text-lg font-bold text-white rounded"}>Search <Search/></button>
+                    <button onClick={() => setModalIsOpen(true)} className={"bg-white border-2 border-text p-2 text-lg font-bold text-text rounded hover:bg-gray-100"}>More</button>
+                    <button onClick={search} className={"bg-text p-2 text-lg font-bold text-white rounded"}>Search <Search/></button>
                 </div>
             </div>
-            <div className={"flex flex-col w-full h-full pt-4"}>
-                <div className={"flex flex-col justify-center items-center w-full h-full space-y-4"}>
-                    {users ? (
+            <div className={"flex flex-col items-center w-full pt-4"}>
+                <div className={"flex flex-col justify-center items-center space-y-4 w-3/4 xl:w-1/2 h-full pb-12"}>
+                    {users.length > 0 ? (
                         users.map((user, index) => (
                             <ProfileCard key={user.profileData.account_id} user={user}/>
                         ))
