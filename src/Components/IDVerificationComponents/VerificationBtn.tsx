@@ -49,7 +49,7 @@ function VerificationBtn() {
 
     return (
         <div className="text-center p-6">
-            <p className="text-lg mb-4">You will start the verification process.</p>
+            <p className="text-lg mb-4">Then you will start the verification process.</p>
             <p className="text-sm text-gray-600 mb-6">Click the button below to begin ID verification.</p>
 
             <button
