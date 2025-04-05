@@ -22,10 +22,15 @@ import Modal from "../../Modal.tsx";
 
 interface AboutSectionProps{
     propertyImages: string[],
-    myProfileDisplayed: boolean
+    myProfileDisplayed: boolean,
+    interestedPeople: Array<{
+        id: number;
+        name: string;
+        image: string;
+    }>;
 }
 
-function AboutSection({propertyImages, myProfileDisplayed}: AboutSectionProps) {
+function AboutSection({propertyImages, myProfileDisplayed, interestedPeople}: AboutSectionProps) {
     //Get user data
     const userProfile = useContext(ProfileContext);
     const user = userProfile as UserProfile;
@@ -159,7 +164,7 @@ function AboutSection({propertyImages, myProfileDisplayed}: AboutSectionProps) {
                         ))}
                     </div>
 
-                    <InterestedPeople/>
+                    <InterestedPeople interestedPeople={interestedPeople}/>
                 </div>
             )  : user.personalData.has_housing ? (
                 <div className="mt-4">
@@ -193,7 +198,7 @@ function AboutSection({propertyImages, myProfileDisplayed}: AboutSectionProps) {
 
                     {/* Property Amenities */}
                     <h3 className="mt-10 font-bold m-2 text-xl">Amenities</h3>
-                    <div className="flex space-x-2 mt-2">
+                    <div className="flex space-x-2 mt-2 pb-12">
                         {propertyPreference.map((preference, index) => (
                             <span key={index} className="px-3 m-3 py-1 bg-gray-200 font-semibold rounded-full shadow-md">
                                 {preference}
