@@ -16,6 +16,7 @@ import BookmarkedUserCard from "./Components/CardComponents/BookmarkedUserCard.t
 import ListingCard from "./Components/CardComponents/ListingCard.tsx";
 import Bookmarks from "./Components/Feed/Bookmarks.tsx"
 import ImageUploadTest from "./Components/ImageUploadTest.tsx";
+import IDVerification from "./Components/IDVerificationComponents/IDVerification.tsx";
 
 // Routes
 const router = createBrowserRouter([
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
     {
         path: '/home',
         element: <LandingPage />,
+    },
+    {
+        path: '/id',
+        element: <IDVerification />,
     },
 ]);
 
