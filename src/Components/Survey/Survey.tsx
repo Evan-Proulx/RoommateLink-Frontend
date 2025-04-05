@@ -10,6 +10,7 @@ import SurveyPersonal from "./SurveyForms/SurveyPersonal.tsx";
 import SubmitSurvey from "./SurveyForms/SubmitSurvey.tsx";
 import {FormProvider, useForm} from "react-hook-form";
 import {createProfile, uploadProfileMedia, uploadPropertyImages} from "../API/Profile.ts";
+import {useNavigate} from "react-router-dom";
 
 const Survey = () => {
     //Data from map
@@ -48,18 +49,6 @@ const Survey = () => {
         description: "",
         images: []
     });
-    //Data from deal breaker form
-    const [dealBreakerData, setDealBreakerData] = useState({
-        hasPets: false,
-        smokes: false,
-        differentDiet: false,
-        differentGender: false,
-        differentCollege: false,
-        noPlace: false,
-        differentSociability: false,
-        differentCleanliness: false,
-        differentReligion: false
-    });
     //Data from profile form
     const [profileData, setProfileData] = useState({
         firstName: "",
@@ -69,7 +58,18 @@ const Survey = () => {
         profilePicture: "",
         introductoryVideo: ""
     })
-
+    //Data from deal breaker form
+    const [dealBreakers, setDealBreakers] = useState({
+        hasPets: false,
+        smokes: false,
+        differentGender: false,
+        differentDiet: false,
+        differentSchool: false,
+        differentReligion: false,
+        hasKids: false,
+        nightOwl: false
+    });
+    const navigate = useNavigate();
     //Files set separately from the rest of the data
     const [profilePicture, setProfilePicture] = useState(null);
     const [introductoryVideo, setIntroductoryVideo] = useState(null);
@@ -80,6 +80,9 @@ const Survey = () => {
 
     //Index of current survey component being viewed
     const [currentIndex, setCurrentIndex] = useState(0)
+
+    // Pass this value to the submit component to display an alert to the user
+    const [submissionError, setSubmissionError] = useState(false)
 
     //All component keys. Allows for navigation between components in the survey
     //Filter out property section if the user specifies they don't have a property
@@ -143,8 +146,8 @@ const Survey = () => {
 
     // Log when data is updated
     useEffect(() => {
-        console.log("Updated userData:", personalData.hobbies);
-    }, [personalData, propertyData, dealBreakerData, profileData, searchLocation]);
+        console.log("Updated userData:", dealBreakers);
+    }, [personalData, propertyData, dealBreakers, profileData, searchLocation]);
 
     const onSubmit = async () => {
         //TODO: Add deal breaker data later
@@ -155,15 +158,21 @@ const Survey = () => {
             profileData,
             // TODO: FIX this. Property data shouldn't be set if they dont have a property
             // ...(personalData.hasHousing && {propertyData}),  //Only include housing data if user has property
-            propertyData
+            propertyData,
+            dealBreakers
         }
         const data = JSON.stringify(allData);
         console.log(data);
 
-        //Send profile data to server
-        await createProfile(data)
-        //Send file data to server
-        await handleFileSubmission();
+        try{//Send profile data to server
+            await createProfile(data)
+            //Send file data to server
+            await handleFileSubmission();
+            navigate('/feed')
+        }catch (error){
+            console.log(error)
+            setSubmissionError(true);
+        }
     }
 
     return (
@@ -191,10 +200,10 @@ const Survey = () => {
                         </Element>
                         }
                         <Element name="form4" id="form4" className={"py-20"}>
-                            <SurveyDealBreakers dealBreakerData={dealBreakerData} setDealBreakerData={setDealBreakerData}/>
+                            <SurveyDealBreakers dealBreakerData={dealBreakers} setDealBreakerData={setDealBreakers}/>
                         </Element>
                         <Element name="submit" id="submit" className={"py-20"}>
-                            <SubmitSurvey personalData={personalData} profileData={profileData} propertyData={propertyData} dealBreakerData={dealBreakerData}/>
+                            <SubmitSurvey personalData={personalData} profileData={profileData} propertyData={propertyData} dealBreakerData={dealBreakers} submissionError={submissionError}/>
                         </Element>
                     </div>
                 </div>

@@ -1,5 +1,4 @@
 import Aside from "./Aside/Aside.tsx";
-import ProfileComponents from "./ProfileComponents/ProfileComponents.tsx";
 import {createContext, useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {getProfileData, retrievePropertyImages} from "../API/Profile.ts";
@@ -65,6 +64,8 @@ function ProfilePage() {
             getPropertyImages();
             handleInterestedUsers();
         }
+
+        console.log("PROFILE", profileData)
     },[profileData]);
 
     //Gets array of property image urls
@@ -96,7 +97,7 @@ function ProfilePage() {
     }
 
     //Show loading screen if profile data is not loaded yet
-    if (!profileData) return <div className={"flex flex-col justify-center items-center h-screen w-full bg-gray-300"}>
+    if (!profileData) return <div className={"flex flex-col justify-center items-center h-screen w-full bg-primary"}>
         <span className={"loader"}></span>
         <h2 className={"header4-text text-center pt-4"}>Loading...</h2>
     </div>

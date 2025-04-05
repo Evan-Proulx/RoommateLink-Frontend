@@ -17,10 +17,10 @@ const Feed = () => {
     const getLinks = async () => {
         try {
             const response = await getMatchingUsers();
-            console.log(response)
             //THis ensures the users are in the correct format for the UserProfile object
             setUsers(response.userMatches.map((user) => ({
                     compatibilityScore: user.compatibilityScore,
+                    distance: user.distance,
                     profileData: user.userProfileData,
                     personalData: user.userPersonalData,
                     propertyData: user.userPropertyData,

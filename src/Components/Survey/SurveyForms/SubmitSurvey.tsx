@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import ShadowButton from "../../Shadow-Button.tsx";
 import {useFormContext} from "react-hook-form";
-import {Error} from "@mui/icons-material";
+import {Error, Warning} from "@mui/icons-material";
 
-const SubmitSurvey = () => {
+const SubmitSurvey = ({submissionError}) => {
     const { formState: { isValid, isDirty } } = useFormContext();
 
     return (
@@ -25,7 +25,9 @@ const SubmitSurvey = () => {
                     <ShadowButton value={"Submit"} color={"disabled"} disabled={true} width={"2/5"}/>
                 )}
             </div>
-        </div>
+           {/*Display error if submission is unsuccessful*/}
+           {submissionError && <p className={"pt-4 text-center font-bold text-text"}><Warning/> There was an error submitting</p>}
+       </div>
     );
 };
 
