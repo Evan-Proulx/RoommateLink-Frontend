@@ -1,7 +1,7 @@
 import Aside from "./Aside/Aside.tsx";
 import {createContext, useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
-import {getProfileData, retrievePropertyImages} from "../API/Profile.ts";
+import {getProfileData} from "../API/Profile.ts";
 import {UserProfile} from "../../ProfileData.ts"
 import UserInfoSection from "./ProfileComponents/UserInfoSection.tsx";
 import AboutSection from "./ProfileComponents/AboutSection.tsx";
@@ -9,6 +9,7 @@ import Navbar from "../Navbar.tsx";
 import {getInterestedUsers} from "../API/Bookmarks.ts";
 import UpdateProfile from "./UpdateForms/UpdateProfile.tsx";
 import Modal from "../Modal.tsx";
+import {retrievePropertyImages} from "../API/Media.ts";
 export const ProfileContext = createContext<UserProfile | null>(null)
 
 function ProfilePage() {

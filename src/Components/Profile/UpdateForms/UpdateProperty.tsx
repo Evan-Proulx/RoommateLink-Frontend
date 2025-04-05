@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {PersonalData, ProfileData, PropertyData} from "../../../ProfileData.ts";
-import {updateProfile, uploadPropertyImages} from "../../API/Profile.ts";
+import {updateProfile} from "../../API/Profile.ts";
+import {uploadPropertyImages} from "../../API/Media.ts";
 import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";

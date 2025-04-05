@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {uploadProfileMedia} from "../../API/Profile.ts";
+import {uploadProfileMedia} from "../../API/Media.ts";
 import {useNavigate} from "react-router-dom";
 
 const UpdateFiles = ({closeModal}) => {

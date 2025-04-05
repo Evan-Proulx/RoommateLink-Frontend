@@ -9,8 +9,9 @@ import SurveyProperty from "./SurveyForms/SurveyProperty.tsx";
 import SurveyPersonal from "./SurveyForms/SurveyPersonal.tsx";
 import SubmitSurvey from "./SurveyForms/SubmitSurvey.tsx";
 import {FormProvider, useForm} from "react-hook-form";
-import {createProfile, uploadProfileMedia, uploadPropertyImages} from "../API/Profile.ts";
+import {createProfile} from "../API/Profile.ts";
 import {useNavigate} from "react-router-dom";
+import {uploadHouseTour, uploadProfileMedia, uploadPropertyImages} from "../API/Media.ts";
 
 const Survey = () => {
     //Data from map
@@ -74,6 +75,7 @@ const Survey = () => {
     const [profilePicture, setProfilePicture] = useState(null);
     const [introductoryVideo, setIntroductoryVideo] = useState(null);
     const [propertyImages, setPropertyImages] = useState([]);
+    const [houseTour, setHouseTour] = useState(null);
 
     //useForm describes how the form validation should behave. This is passed to the FormProvider
     const methods = useForm({mode: "onBlur"});
@@ -120,6 +122,8 @@ const Survey = () => {
     const onSetVideo = (video) => {setIntroductoryVideo(video)}
     //Updates property images state sent from property form
     const onSetPropertyImages = (images) => {setPropertyImages(images)}
+    //Updates houseTour state sent from property form
+    const onSetHouseTour = (tour) => {setHouseTour(tour)}
 
     //Submits file data to server. Files are handled separately from the rest of the profile data.
     const handleFileSubmission = async () => {
@@ -133,10 +137,20 @@ const Survey = () => {
             }
         }
         // Check property images and send files to server
-        if (propertyImages  && personalData.hasHousing) {
+        if (propertyImages && personalData.hasHousing) {
             console.log(propertyImages)
             try {
                 const response = await uploadPropertyImages(propertyImages);
+                console.log(response);
+            }catch (error) {
+                console.log(error)
+            }
+        }
+
+        if (houseTour && personalData.hasHousing){
+            //Send house tour data to server
+            try {
+                const response = await uploadHouseTour(houseTour);
                 console.log(response);
             }catch (error) {
                 console.log(error)
@@ -196,7 +210,7 @@ const Survey = () => {
                         {/*Only display property form if user says they have property*/}
                         {personalData.hasHousing &&
                         <Element name="form3" id="form3" className={"py-20"}>
-                            <SurveyProperty propertyData={propertyData} setPropertyData={setPropertyData} onSetPropertyImages={onSetPropertyImages}/>
+                            <SurveyProperty propertyData={propertyData} setPropertyData={setPropertyData} onSetPropertyImages={onSetPropertyImages} onSetHouseTour={onSetHouseTour}/>
                         </Element>
                         }
                         <Element name="form4" id="form4" className={"py-20"}>
