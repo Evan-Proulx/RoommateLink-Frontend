@@ -17,10 +17,10 @@ const Feed = () => {
     const getLinks = async () => {
         try {
             const response = await getMatchingUsers();
-            console.log(response)
             //THis ensures the users are in the correct format for the UserProfile object
             setUsers(response.userMatches.map((user) => ({
                     compatibilityScore: user.compatibilityScore,
+                    distance: user.distance,
                     profileData: user.userProfileData,
                     personalData: user.userPersonalData,
                     propertyData: user.userPropertyData,
@@ -51,9 +51,9 @@ const Feed = () => {
                 <h1 className="pl-3 lg:pl-32 text-start header-text-huge">Your Links</h1>
                 <Popover/>
             </div>
-            <div className={"flex flex-col w-full h-full"}>
+            <div className={"flex flex-col w-full h-full "}>
                 <div className={"flex flex-col justify-center items-center w-full h-full"}>
-                    <div className={"flex flex-col items-center space-y-4 w-3/4 xl:w-1/2 h-full"}>
+                    <div className={"flex flex-col items-center space-y-4 w-3/4 xl:w-1/2 h-full pb-12"}>
                         {users ? (
                             users.map((user, index) => (
                                     <ProfileCard key={user.profileData.account_id} user={user}/>

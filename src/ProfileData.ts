@@ -51,9 +51,22 @@ export interface PropertyData {
     updated_at: string;
 }
 
+export interface DealBreakers{
+    has_pets: boolean;
+    smokes: boolean;
+    different_gender: boolean;
+    different_diet: boolean;
+    different_school: boolean;
+    different_religion: boolean;
+    has_kids: boolean;
+    night_owl: boolean;
+}
+
 
 export interface UserProfile {
     compatibilityScore?: number;
+    distance?: number;
+    dealBreakers?: DealBreakers;
     personalData: PersonalData;
     profileData: ProfileData;
     propertyData: PropertyData;
