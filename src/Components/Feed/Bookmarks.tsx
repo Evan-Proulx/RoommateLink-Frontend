@@ -48,7 +48,6 @@ const Bookmarks = () => {
                 <h1 className="pl-3 lg:pl-32 text-start header-text-big">Your Bookmarks</h1>
             </div>
             <div className={"flex flex-col w-full h-full"}>
-                <div className={"flex flex-col justify-center items-center w-full h-full"}>
                     <div className={"flex flex-col items-center space-y-4 w-full h-full"}>
                         {bookmarkedProfiles.length > 0 ? (
                             bookmarkedProfiles.map((user) => (
@@ -61,7 +60,6 @@ const Bookmarks = () => {
                     )}
                     </div>
                 </div>
-            </div>
         </div>
     );
 };

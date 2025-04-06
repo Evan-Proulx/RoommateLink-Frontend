@@ -151,10 +151,10 @@ const Discovery = () => {
                 </div>
             </div>
             <div className={"flex flex-col items-center w-full pt-4"}>
-                <div className={"flex flex-col justify-center items-center space-y-4 w-3/4 xl:w-1/2 h-full pb-12"}>
+                <div className={"flex flex-col justify-center items-center space-y-4 md:w-3/4 xl:w-1/2 h-full pb-12"}>
                     {users.length > 0 ? (
                         users.map((user, index) => (
-                            <ProfileCard key={user.profileData.account_id} user={user}/>
+                            <ProfileCard key={user.profileData.account_id} user={user} discovery={true}/>
                         ))
                     ) : (
                         <div className="flex items-center justify-center text-gray-500">
