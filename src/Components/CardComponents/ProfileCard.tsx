@@ -11,7 +11,7 @@ import {useNavigate} from "react-router-dom";
 import ProfilePage from "../Profile/ProfilePage.tsx";
 import CardActions from "./CardActions.tsx";
 import CardSkeletonLoader from "./CardSkeletonLoader.tsx";
-import {retrievePropertyImages} from "../API/Profile.ts";
+import {retrievePropertyImages} from "../API/Media.ts";
 import ImageGallery from "../Profile/ProfileComponents/ImageGallery.tsx";
 import {hobbies} from "../../data.ts";
 

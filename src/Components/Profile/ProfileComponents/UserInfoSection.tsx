@@ -30,7 +30,7 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
     }
 
     useEffect(() => {
-        console.log("MY PROFILE",myProfileDisplayed)
+        console.log("MY PROFILE", myProfileDisplayed)
     }, []);
 
     // Toggle modal display

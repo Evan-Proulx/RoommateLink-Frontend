@@ -47,8 +47,7 @@ export interface PropertyData {
     property_type: string;
     shared_kitchen: boolean;
     square_feet: number;
-    created_at: string;
-    updated_at: string;
+    house_tour: string;
 }
 
 export interface DealBreakers{
