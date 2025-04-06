@@ -148,20 +148,23 @@ function AboutSection({propertyImages, myProfileDisplayed, interestedPeople}: Ab
 
             {/* Content Section - Displaying the content of "About Me" or "My Property"*/}
             {activeTab === "about" ? (
-                <div className="mt-4">
+                <div className="flex flex-col space-y-4">
                     {/*About Me Section*/}
                     <p className="text-gray-600 m-2 text-lg font-semibold mt-2">
                         {user.profileData.bio}
                     </p>
 
                     {/* Roommate Preferences */}
-                    <h3 className="mt-4 p-2 font-bold text-xl">My Ideal Roommate</h3>
-                    <div className="flex space-x-2 mt-2">
-                        {roommatePreferences.map((preference, index) => (
-                            <span key={index} className="px-3 py-1 m-3 bg-gray-200 font-semibold rounded-full shadow-md">
+                    <div>
+                        <h3 className="mt-4 p-2 font-bold text-xl">My Ideal Roommate</h3>
+                        <div className="flex space-x-2">
+                            {roommatePreferences.map((preference, index) => (
+                                <span key={index}
+                                      className="px-3 py-1 m-3 bg-gray-200 font-semibold rounded-full shadow-md">
                             {preference}
                         </span>
-                        ))}
+                            ))}
+                        </div>
                     </div>
 
                     <InterestedPeople interestedPeople={interestedPeople}/>

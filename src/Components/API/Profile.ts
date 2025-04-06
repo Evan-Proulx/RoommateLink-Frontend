@@ -187,3 +187,21 @@ export const getInterestedUsers = async (id) => {
     }
 }
 
+export const getProfile = async (id) => {
+    const token = localStorage.getItem("token");
+    try {
+        const response = await axios.get(`${rootUrl}/api/profile/${id}`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            }
+        );
+        return response.data;
+    } catch (err) {
+        throw new Error(err.response?.data?.message || "Failed to get interested users");
+    }
+}
+
+

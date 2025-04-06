@@ -26,7 +26,7 @@ function ProfilePage() {
 
     const [profileData, setProfileData] = useState<UserProfile>();
     const [propertyImages, setPropertyImages] = useState<string[]>([]);
-    const [interestedUsers, setInterestedUsers] = useState([]);
+    const [interestedUsers, setInterestedUsers] = useState<UserProfile[]>([]);
 
     //Fetch profile data from the api when the page first loads
     useEffect(() => {
