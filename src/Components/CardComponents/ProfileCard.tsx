@@ -31,9 +31,7 @@ const ProfileCard = ({user, discovery = false}) => {
     useEffect(() => {
         //Set user as state
         if (user) {
-            //User gets nested
             setProfileData(user);
-            console.log(profileData)
         }
     }, [user]);
 
@@ -60,7 +58,6 @@ const ProfileCard = ({user, discovery = false}) => {
                 const foundHobby = hobbies.find(h => h.code === hobby)
                 return foundHobby.name
             })
-
             setUserHobbies(hobbyNames)
         }
     }
@@ -274,7 +271,9 @@ const ProfileCard = ({user, discovery = false}) => {
 
                         {/* Image Grid */}
                         <div className="flex gap-2 mt-2">
-                            <ImageGallery images={propertyImages}/>
+                            {propertyImages.length > 0 &&
+                                <ImageGallery images={propertyImages}/>
+                            }
                         </div>
 
                         {/* BIO/LISTING DESCRIPTION */}

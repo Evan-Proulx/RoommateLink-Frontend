@@ -4,6 +4,8 @@ import BookmarkedUserCard from "../CardComponents/BookmarkedUserCard.tsx";
 import {UserProfile} from "../../ProfileData.ts";
 import ListingCard from "../CardComponents/ListingCard.tsx";
 import Navbar from "../Navbar.tsx";
+import {FaRegBookmark} from "react-icons/fa";
+import {Bookmark, BookmarkAddedTwoTone, BookmarkOutlined, BookmarksOutlined} from "@mui/icons-material";
 
 const Bookmarks = () => {
     const [bookmarkedProfiles, setBookmarkedProfiles] = useState<UserProfile[]>([]);
@@ -54,9 +56,8 @@ const Bookmarks = () => {
                                 <BookmarkedUserCard key={user.personalData.id} user={user} onUnbookmark={removeBookmark}/>
                             ))
                             ) : (
-                            <div className="flex items-center justify-center text-gray-500">
-                                <p>You have no bookmarks :(</p>
-                            </div>
+                            <p className={"flex flex-wrap items-center justify-center px-2 text-center text-gray-500 pt-40"}>
+                                You have no bookmarks. Click the <BookmarkOutlined /> on a user's profile to bookmark the user</p>
                     )}
                     </div>
                 </div>

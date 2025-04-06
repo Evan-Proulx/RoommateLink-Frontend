@@ -55,9 +55,11 @@ const DiscoveryModal = ({onSearch, parentData,  closeModal}: DiscoveryModalProps
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Form data submitted:', formData);
-
         // Send formdata to parent and run search query
         onSearch(formData)
+
+        // Close modal after form submission
+        closeModal()
     };
 
     return (
