@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {PersonalData, ProfileData, PropertyData} from "../../../ProfileData.ts";
 import {updateProfile} from "../../API/Profile.ts";
-import {uploadPropertyImages} from "../../API/Media.ts";
+import {uploadHouseTour, uploadPropertyImages} from "../../API/Media.ts";
 import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 
-interface UpdatePropertyProps{
+interface UpdatePropertyProps {
     property: PropertyData,
     //property and personalData are passed
     // when the user doesn't have a property and is creating one for the first time
@@ -14,34 +14,45 @@ interface UpdatePropertyProps{
     personalData: PersonalData | undefined,
     closeModal: () => void,
 }
+
 const UpdateProperty = ({property, newProperty = false, personalData = undefined, closeModal}: UpdatePropertyProps) => {
     const navigate = useNavigate();
     const [updatedPropertyData, setUpdatedPropertyData] = useState<PropertyData | null>(null);
     const [updatedPersonalData, setUpdatedPersonalData] = useState<PersonalData | null>(null);
     const [displayAlert, setDisplayAlert] = useState(false);
     const [propertyImages, setPropertyImages] = useState<File[]>([]);
+    const [houseTour, setHouseTour] = useState<File>();
 
+    //Set state for passed properties
     useEffect(() => {
-        if (property){
+        if (property) {
             setUpdatedPropertyData(property);
         }
 
-        if (newProperty && personalData !== undefined){
+        if (newProperty && personalData !== undefined) {
             setUpdatedPersonalData(personalData)
         }
     }, []);
 
     //update images from file input. Allow for images to be added more than once
-    const handleFilesAdd = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (propertyImages.length <= 10) {
-            if (event.target.files) {
-                //Get the files being added
-                const files = Array.from(event.target.files);
-                if (files.length + propertyImages.length < 10){
-                    //Update propertyImages with new files
-                    const updatedFiles: File[] = [...propertyImages, ...files];
-                    setPropertyImages(updatedFiles);
+    const handleFilesAdd = (event: React.ChangeEvent<HTMLInputElement>, type: string) => {
+        if (type === "image") {
+            if (propertyImages.length <= 10) {
+                if (event.target.files) {
+                    //Get the files being added
+                    const files = Array.from(event.target.files);
+                    if (files.length + propertyImages.length < 10) {
+                        //Update propertyImages with new files
+                        const updatedFiles: File[] = [...propertyImages, ...files];
+                        setPropertyImages(updatedFiles);
+                    }
                 }
+            }
+        } else if (type === "video") {
+            if (event.target.files) {
+                const files = event.target.files;
+                const file = files[0];
+                setHouseTour(file);
             }
         }
     }
@@ -59,20 +70,20 @@ const UpdateProperty = ({property, newProperty = false, personalData = undefined
     };
 
     const updateHousingStatus = async () => {
-        if (newProperty && updatedPersonalData !== null){
+        if (newProperty && updatedPersonalData !== null) {
             // Set housing status to true in the personalData object before updating
             //This isnt done in the state because it is asynchronous.
             // The api call wouldnt get the passed value in time.
-            const updatedData:PersonalData = {
+            const updatedData: PersonalData = {
                 ...updatedPersonalData,
                 has_housing: true
             };
 
             // Update the personal data to set the housing status to true when a property is created
             try {
-               const response = await updateProfile("personal", updatedData);
-               console.log(response);
-            }catch (err){
+                const response = await updateProfile("personal", updatedData);
+                console.log(response);
+            } catch (err) {
                 console.log(err)
             }
         }
@@ -93,12 +104,20 @@ const UpdateProperty = ({property, newProperty = false, personalData = undefined
             await updateProfile("property", updatedPropertyData);
 
             // Upload images if they exist. This also deletes the user's previous images
-            if (propertyImages.length > 0){await uploadPropertyImages(propertyImages)}
+            if (propertyImages.length > 0) {
+                await uploadPropertyImages(propertyImages)
+            }
+            // Upload tour video
+            if (houseTour){
+                await uploadHouseTour(houseTour);
+            }
             console.log("Profile updated successfully");
 
             //Once Property is updated, update the user's housing status
             // if they are creating the property for the first time
-            if (newProperty){await updateHousingStatus()}
+            if (newProperty) {
+                await updateHousingStatus()
+            }
 
             // Send close notification to parent
             closeModal();
@@ -255,7 +274,7 @@ const UpdateProperty = ({property, newProperty = false, personalData = undefined
                         className="block w-3/4 text-md text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                         id="large_size"
                         type="file"
-                        onChange={handleFilesAdd}
+                        onChange={(e) => handleFilesAdd(e, "image")}
                     />
                     <p className="mt-1 text-sm text-text text-start">(JPEG/PNG/JPG)</p>
                 </div>
@@ -269,13 +288,25 @@ const UpdateProperty = ({property, newProperty = false, personalData = undefined
                 </div>
             </div>
 
+            {/*Upload introductory video uplaod*/}
+            <div className="flex flex-col items-center justify-center w-3/4">
+                <h2 className={"header4-text mb-2 text-center"}>Upload a tour of your property</h2>
+                <input
+                    className="block w-3/4 text-md text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                    id="large_size"
+                    type="file"
+                    accept="video/mp4"
+                    onChange={(e) => handleFilesAdd(e, "video")}/>
+                <p className="mt-1 text-sm text-text text-start">MP4, AVI, MOV</p>
+            </div>
+
             <div className={"flex flex-col items-center space-y-2"}>
                 {displayAlert && <p className={"font-bold text-lg text-center"}>Nothing to update!</p>}
 
-                    <button type="submit"
-                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                        Submit
-                    </button>
+                <button type="submit"
+                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    Submit
+                </button>
             </div>
         </form>
     );
