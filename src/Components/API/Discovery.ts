@@ -19,7 +19,6 @@ export interface DiscoveryData{
 export const discoverySearch = async (parameters) => {
     //Passing boolean values through the url converts them to strings
     //We have to manually convert them to integers before
-
     const convertedParams = {};
 
     // Process each parameter
@@ -29,16 +28,16 @@ export const discoverySearch = async (parameters) => {
             return;
         }
 
-        // Convert boolean fields to 0/1
+        // Convert boolean fields to 1 or 0
         if (['has_housing', 'pet_free', 'smokes', 'verified'].includes(key)) {
             convertedParams[key] = value ? 1 : 0;
         } else {
-            // Keep non-boolean values as they are
+            // Keep string values the same
             convertedParams[key] = value;
         }
     })
 
-    console.log("PARAMS",convertedParams)
+    console.log("PARAMS", convertedParams)
     const token = localStorage.getItem("token");
 
     try {
