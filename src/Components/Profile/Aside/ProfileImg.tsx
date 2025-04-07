@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {isUserVerified} from "../../API/Verification.ts";
 
-function ProfileImg({ url, percentage }) {
+function ProfileImg({ url, percentage, myProfileDisplayed }) {
     const [isVerified, setIsVerified] = useState<boolean | null>(null); // Track if the user is verified, null for loading state
     const navigate = useNavigate();
 
@@ -43,7 +43,7 @@ function ProfileImg({ url, percentage }) {
             </label> : null}
 
             {/* Conditionally render the "Verify Your ID" button */}
-            {isVerified === false && (
+            {isVerified === false && myProfileDisplayed && (
                 <button onClick={handleNavigate} className="border-blue-600 border-2 p-2 rounded-lg bg-white font-bold">
                     Verify Your ID
                 </button>

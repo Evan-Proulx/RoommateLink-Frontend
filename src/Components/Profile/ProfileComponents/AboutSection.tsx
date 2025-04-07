@@ -159,10 +159,10 @@ function AboutSection({propertyImages, myProfileDisplayed, interestedPeople}: Ab
 
                     <div className="flex items-center justify-between w-128">
                         <h4 className="pl-2 text-gray-600 font-semibold"> {user.propertyData.bedroom_count} bedrooms + {user.propertyData.bathroom_count} Bathroom · {user.propertyData.square_feet} Square Feet</h4>
-                        <h4 className={`text-center font-semibold ${getTextColor(theLocation)}`}>
-                            {theLocation}Km away
-                            <FontAwesomeIcon icon={faLocationDot} className="ml-1"/>
-                        </h4>
+                        {/*<h4 className={`text-center font-semibold ${getTextColor(theLocation)}`}>*/}
+                        {/*    {theLocation}Km away*/}
+                        {/*    <FontAwesomeIcon icon={faLocationDot} className="ml-1"/>*/}
+                        {/*</h4>*/}
                     </div>
 
 
@@ -176,17 +176,6 @@ function AboutSection({propertyImages, myProfileDisplayed, interestedPeople}: Ab
                         {user.propertyData.description}
                     </p>
 
-                    {/*/!* Property Amenities *!/*/}
-                    {/*<h3 className="mt-10 font-bold m-2 text-xl">Amenities</h3>*/}
-                    {/*<div className="flex space-x-2 mt-2">*/}
-                    {/*    {propertyPreference.map((preference, index) => (*/}
-                    {/*        <span key={index} className="px-3 m-3 py-1 bg-gray-200 font-semibold rounded-full shadow-md">*/}
-                    {/*            {preference}*/}
-                    {/*        </span>*/}
-                    {/*    ))}*/}
-                    {/*</div>*/}
-
-                    {/* Map Section for Property Location */}
                     <MapSection />
                 </div>
             ) : (
