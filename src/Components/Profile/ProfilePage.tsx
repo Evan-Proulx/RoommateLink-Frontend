@@ -1,14 +1,16 @@
 import Aside from "./Aside/Aside.tsx";
-import ProfileComponents from "./ProfileComponents/ProfileComponents.tsx";
 import {createContext, useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
-import {getProfileData, retrievePropertyImages} from "../API/Profile.ts";
+import {getProfileData} from "../API/Profile.ts";
 import {UserProfile} from "../../ProfileData.ts"
 import UserInfoSection from "./ProfileComponents/UserInfoSection.tsx";
 import AboutSection from "./ProfileComponents/AboutSection.tsx";
 import Navbar from "../Navbar.tsx";
-import {getInterestedUsers} from "../API/Bookmarks.ts";
-export const ProfileContext = createContext(null)
+import {getInterestedUsers} from "../API/Profile.ts";
+import UpdateProfile from "./UpdateForms/UpdateProfile.tsx";
+import Modal from "../Modal.tsx";
+import {retrievePropertyImages} from "../API/Media.ts";
+export const ProfileContext = createContext<UserProfile | null>(null)
 
 function ProfilePage() {
     const navigate = useNavigate();
@@ -24,6 +26,7 @@ function ProfilePage() {
 
     const [profileData, setProfileData] = useState<UserProfile>();
     const [propertyImages, setPropertyImages] = useState<string[]>([]);
+    const [interestedUsers, setInterestedUsers] = useState<UserProfile[]>([]);
 
     //Fetch profile data from the api when the page first loads
     useEffect(() => {
@@ -63,6 +66,8 @@ function ProfilePage() {
             getPropertyImages();
             handleInterestedUsers();
         }
+
+        console.log("PROFILE", profileData)
     },[profileData]);
 
     //Gets array of property image urls
@@ -88,13 +93,14 @@ function ProfilePage() {
         try {
             const response = await getInterestedUsers(id);
             console.log(response);
+            setInterestedUsers(response.interested_people);
         } catch (err) {
             console.log(err);
         }
     }
 
     //Show loading screen if profile data is not loaded yet
-    if (!profileData) return <div className={"flex flex-col justify-center items-center h-screen w-full bg-gray-300"}>
+    if (!profileData) return <div className={"flex flex-col justify-center items-center h-screen w-full bg-primary"}>
         <span className={"loader"}></span>
         <h2 className={"header4-text text-center pt-4"}>Loading...</h2>
     </div>
@@ -106,10 +112,10 @@ function ProfilePage() {
                 <Navbar/>
                 <div className="flex justify-center bg-primary">
                     <div className="items-center overflow-y-auto h-screen bg-profile xl:w-2/3 shadow-2xl">
-                        <UserInfoSection/>
+                        <UserInfoSection myProfileDisplayed={myProfileDisplayed}/>
                         <div className="flex">
-                            <Aside/>
-                            <AboutSection propertyImages={propertyImages}/>
+                            <Aside myProfileDisplayed={myProfileDisplayed}/>
+                            <AboutSection propertyImages={propertyImages} myProfileDisplayed={myProfileDisplayed} interestedPeople={interestedUsers}/>
                         </div>
                     </div>
                 </div>

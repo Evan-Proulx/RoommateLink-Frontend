@@ -1,29 +1,44 @@
-function Video() {
-    {/* This component displays user's video */}
+import {useContext, useEffect} from "react";
+import {ProfileContext} from "../ProfilePage.tsx";
 
+function Video() {
+    const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
+
+    {/* This component displays user's video */}
+    const userProfile = useContext(ProfileContext);
+
+    useEffect(() => {
+        console.log("TOUR", userProfile?.propertyData.house_tour)
+    }, [userProfile]);
     return (
         <div className="flex space-x-4 p-4">
             {/* First video */}
-            <iframe
-                width="100px"
-                height="150px"
-                className="max-w-4xl"
-                src="https://www.youtube.com/embed/p9jJX-BBbLo"
-                title="My Video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-            ></iframe>
+            {userProfile?.profileData.introductory_video &&
+                <div>
+                    <iframe
+                        width="100px"
+                        height="150px"
+                        className="max-w-4xl rounded"
+                        src={imgUrl + userProfile?.profileData.introductory_video}
+                        title="My Video"
+                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    ></iframe>
+                </div>
+            }
 
             {/* Second video */}
-            <iframe
+            {userProfile?.propertyData.house_tour &&
+                <iframe
                 width="100px"
                 height="150px"
                 className="max-w-4xl rounded"
-                src="https://www.youtube.com/embed/p9jJX-BBbLo"
+                src={imgUrl + userProfile?.propertyData.house_tour}
                 title="My Video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
             ></iframe>
+            }
         </div>
     );
 }

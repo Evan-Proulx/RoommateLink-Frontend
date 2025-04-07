@@ -4,6 +4,8 @@ import BookmarkedUserCard from "../CardComponents/BookmarkedUserCard.tsx";
 import {UserProfile} from "../../ProfileData.ts";
 import ListingCard from "../CardComponents/ListingCard.tsx";
 import Navbar from "../Navbar.tsx";
+import {FaRegBookmark} from "react-icons/fa";
+import {Bookmark, BookmarkAddedTwoTone, BookmarkOutlined, BookmarksOutlined} from "@mui/icons-material";
 
 const Bookmarks = () => {
     const [bookmarkedProfiles, setBookmarkedProfiles] = useState<UserProfile[]>([]);
@@ -42,26 +44,23 @@ const Bookmarks = () => {
     }
 
     return (
-        <div className={"w-full bg-primary h-screen overflow-y-hidden"}>
+        <div className={"w-full min-h-screen bg-primary overflow-y-auto"}>
             <Navbar/>
             <div className={"flex items-baseline py-3 space-x-3"}>
                 <h1 className="pl-3 lg:pl-32 text-start header-text-big">Your Bookmarks</h1>
             </div>
             <div className={"flex flex-col w-full h-full"}>
-                <div className={"flex flex-col justify-center items-center w-full h-full"}>
                     <div className={"flex flex-col items-center space-y-4 w-full h-full"}>
                         {bookmarkedProfiles.length > 0 ? (
                             bookmarkedProfiles.map((user) => (
                                 <BookmarkedUserCard key={user.personalData.id} user={user} onUnbookmark={removeBookmark}/>
                             ))
                             ) : (
-                            <div className="flex items-center justify-center text-gray-500">
-                                <p>You have no bookmarks :(</p>
-                            </div>
+                            <p className={"flex flex-wrap items-center justify-center px-2 text-center text-gray-500 pt-40"}>
+                                You have no bookmarks. Click the <BookmarkOutlined /> on a user's profile to bookmark the user</p>
                     )}
                     </div>
                 </div>
-            </div>
         </div>
     );
 };

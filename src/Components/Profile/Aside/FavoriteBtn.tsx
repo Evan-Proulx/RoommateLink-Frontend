@@ -1,28 +1,20 @@
-function FavoriteBtn() {
-    return (
-        <button
-            type="button"
-            className="flex items-center text-white bg-red-700 hover:bg-red-800 border border-black font-medium rounded-lg text-sm px-6 py-3 text-center min-w-[160px] w-full m-5"
-        >
-            <svg
-                className="w-5 h-5 text-white me-2"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-            >
-                <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
-                />
-            </svg>
+import {
+    Bookmark,
+    BookmarkBorder,
+} from "@mui/icons-material";
 
-            Bookmark User
+interface FavoriteBtnProps {
+    onFavoriteClicked: () => void;
+    bookmarked: boolean;
+}
+
+function FavoriteBtn({onFavoriteClicked, bookmarked}: FavoriteBtnProps) {
+    return (
+        <button onClick={onFavoriteClicked}
+                className="flex items-center text-white bg-text hover:bg-red-600 font-medium rounded-lg text-sm px-6 py-3 text-center min-w-[160px] w-full m-5 transition-all duration-300"
+        >
+            {!bookmarked ? <BookmarkBorder className={"me-4"}/> : <Bookmark className={"me-4"}/>}
+            {!bookmarked ? "Bookmark" : "Unbookmark"}
         </button>
 
     )

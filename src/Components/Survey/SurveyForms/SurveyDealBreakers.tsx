@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 //deal-breaker data is passed down from the parent survey component
-const SurveyFormRoommate = ({dealBreakerData, setDealBreakerData}) => {
+const SurveyDealBreakers = ({dealBreakerData, setDealBreakerData}) => {
 
     //Update checkboxes
     const handleCheckboxChange = (event) => {
@@ -19,13 +19,12 @@ const SurveyFormRoommate = ({dealBreakerData, setDealBreakerData}) => {
     const checkboxLabels = [
         { name: "hasPets", label: "Has Pets" },
         { name: "smokes", label: "Smokes" },
-        { name: "differentDiet", label: "Different diet" },
         { name: "differentGender", label: "Different gender" },
-        { name: "differentCollege", label: "Doesn't go to your college/university" },
-        { name: "noPlace", label: "Doesn't have a place" },
-        { name: "differentSociability", label: "Doesn't match your sociability" },
-        { name: "differentCleanliness", label: "Doesn't match your cleanliness" },
-        { name: "differentReligion", label: "Doesn't match your religion" }
+        { name: "differentDiet", label: "Different diet" },
+        { name: "differentSchool", label: "Doesn't go to your college/university" },
+        { name: "differentReligion", label: "Doesn't match your religion" },
+        { name: "hasKids", label: "Has children" },
+        { name: "nightOwl", label: "Night Owl"}
     ];
 
     return (
@@ -62,4 +61,4 @@ const SurveyFormRoommate = ({dealBreakerData, setDealBreakerData}) => {
     );
 };
 
-export default SurveyFormRoommate;
+export default SurveyDealBreakers;

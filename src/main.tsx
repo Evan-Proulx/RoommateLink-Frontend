@@ -8,7 +8,7 @@ import ProfilePage from "./Components/Profile/ProfilePage.tsx";
 import ErrorPage from "./ErrorPage.tsx";
 import Callback from "./Components/API/Callback.tsx";
 import Feed from "./Components/Feed/Feed.tsx";
-import Discovery from "./Components/Feed/Discovery.tsx";
+import Discovery from "./Components/Discovery/Discovery.tsx";
 import Conversation from "./Components/Messaging/Conversation.tsx";
 import LandingPage from "./Components/LandingPage/LandingPage.tsx";
 import InputComponent from "./Components/InputComponent.tsx";
@@ -18,6 +18,7 @@ import Bookmarks from "./Components/Feed/Bookmarks.tsx"
 import ImageUploadTest from "./Components/ImageUploadTest.tsx";
 import IDVerification from "./Components/IDVerificationComponents/IDVerification.tsx";
 
+import DiscoveryModal from "./Components/Discovery/DiscoveryModal.tsx"
 // Routes
 const router = createBrowserRouter([
     {
@@ -55,7 +56,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/test',
-        element: <ImageUploadTest/>,
+        element: <DiscoveryModal />,
     },
     {
         path: '/login',

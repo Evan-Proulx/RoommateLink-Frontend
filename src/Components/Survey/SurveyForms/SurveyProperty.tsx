@@ -3,24 +3,36 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 
 //propertyData is passed down from the survey parent component
-const PropertyForm = ({ propertyData, setPropertyData, onSetPropertyImages}) => {
+const SurveyProperty = ({ propertyData, setPropertyData, onSetPropertyImages, onSetHouseTour}) => {
     const [displayImages, setDisplayImages] = useState<File[]>([]);
 
     //update images from file input. Allow for images to be added more than once
-    const handleFilesAdd = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (displayImages.length <= 10) {
-            if (event.target.files) {
-                //Get the files being added
-                const files = Array.from(event.target.files);
-                if (files.length + displayImages.length < 10){
-                    //Update displayImages with new files
-                    const updatedFiles: File[] = [...displayImages, ...files];
-                    setDisplayImages(updatedFiles);
-                    onSetPropertyImages(updatedFiles)
+    const handleFilesAdd = (event: React.ChangeEvent<HTMLInputElement>, type) => {
+            // Handle property images
+            if (type === "image") {
+                if (displayImages.length <= 10) {
+                    //Get the files being added
+                    if (event.target.files) {
+                        const files = Array.from(event.target.files);
+                    if (files.length + displayImages.length < 10) {
+                        //Update displayImages with new files
+                        const updatedFiles: File[] = [...displayImages, ...files];
+                        setDisplayImages(updatedFiles);
+                        onSetPropertyImages(updatedFiles)
+                    }
                 }
             }
-        }
+        //Handle tour video
+        } else if (type === "video") {
+            if (event.target.files) {
+                    const files = event.target.files;
+                    const file = files[0];
+                    onSetHouseTour(file)
+                }
+            }
     }
+
+
 
     const updatePropertyData = (field, value) => {
         setPropertyData(prevState => ({
@@ -167,7 +179,7 @@ const PropertyForm = ({ propertyData, setPropertyData, onSetPropertyImages}) => 
                         className="block w-3/4 text-md text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                         id="large_size"
                         type="file"
-                        onChange={handleFilesAdd}
+                        onChange={(e) => handleFilesAdd(e, "image")}
                     />
                     <p className="mt-1 text-sm text-text text-start">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
                 </div>
@@ -179,9 +191,21 @@ const PropertyForm = ({ propertyData, setPropertyData, onSetPropertyImages}) => 
                              className="w-32 h-32 object-cover rounded-lg"/>
                     ))}
                 </div>
+
+                {/*Upload introductory video uplaod*/}
+                <div className="flex flex-col items-center justify-center w-full">
+                    <h2 className={"header2-text mb-2 text-center"}>Upload a tour of your property</h2>
+                    <input
+                        className="block w-3/4 text-md text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                        id="large_size"
+                        type="file"
+                        accept="video/mp4"
+                        onChange={(e) => handleFilesAdd(e, "video")}/>
+                    <p className="mt-1 text-sm text-text text-start">MP4, AVI, MOV</p>
+                </div>
             </form>
         </div>
     );
 };
 
-export default PropertyForm;
+export default SurveyProperty;

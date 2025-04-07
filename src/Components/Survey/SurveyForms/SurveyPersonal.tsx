@@ -1,16 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import TimePicker from "./TimePicker.tsx";
-import {languages, religions} from "../../data.ts";
-import AddHobby from "./AddHobby.tsx";
-import MapPopup from "./Survey-Map-Popup.tsx";
-import {getLocation} from "../API/Location.ts";
-import CollegeInput from "./CollegeInput.tsx";
+import TimePicker from "../SurveyComponents/TimePicker.tsx";
+import {diets, languages, religions} from "../../../data.ts";
+import AddHobby from "../SurveyComponents/AddHobby.tsx";
+import MapPopup from "../SurveyComponents/Survey-Map-Popup.tsx";
+import {getLocation} from "../../API/Location.ts";
+import CollegeInput from "../SurveyComponents/CollegeInput.tsx";
 import {LocationSearching} from "@mui/icons-material";
 import {useFormContext} from "react-hook-form";
 
-const SurveyAbout = ({userData, setUserData, searchLocation, setSearchLocation}) => {
+const SurveyPersonal = ({userData, setUserData, searchLocation, setSearchLocation}) => {
     const { register, formState: { errors ,isValid, isDirty}, setValue, trigger } = useFormContext();
-    const diets = ["No preference", "Vegetarian", "Vegan", "Halal", "Kosher", "Pescatarian"];
     const [isMapOpen, setIsMapOpen] = useState(false);
     const [locationName, setLocationName] = useState("")
 
@@ -235,8 +234,8 @@ const SurveyAbout = ({userData, setUserData, searchLocation, setSearchLocation})
                                 updateUserData("diet", event.target.value)
                             }}>
                         {diets.map((diet) => (
-                            <option key={diet} value={diet}>
-                                {diet}
+                            <option key={diet.code} value={diet.code}>
+                                {diet.name}
                             </option>
                         ))}
                     </select>
@@ -343,4 +342,4 @@ const SurveyAbout = ({userData, setUserData, searchLocation, setSearchLocation})
     );
 };
 
-export default SurveyAbout;
+export default SurveyPersonal;

@@ -11,17 +11,19 @@ import {useNavigate} from "react-router-dom";
 import ProfilePage from "../Profile/ProfilePage.tsx";
 import CardActions from "./CardActions.tsx";
 import CardSkeletonLoader from "./CardSkeletonLoader.tsx";
-import {retrievePropertyImages} from "../API/Profile.ts";
+import {retrievePropertyImages} from "../API/Media.ts";
 import ImageGallery from "../Profile/ProfileComponents/ImageGallery.tsx";
+import {hobbies} from "../../data.ts";
 
-const ProfileCard = ({user}) => {
+const ProfileCard = ({user, discovery = false}) => {
     const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
     const navigate = useNavigate();
 
-    const [profileView, setProfileView] = useState(false);
+    const [profileView, setProfileView] = useState(true);
     const [profileData, setProfileData] = useState<UserProfile | null>(null);
     const [propertyImages, setPropertyImages] = useState<string[]>([]);
 
+    const [userHobbies, setUserHobbies] = useState([""]);
     // Set max characters for user's description
     const maxLength = 250;
     const theLocation = 26;
@@ -29,9 +31,7 @@ const ProfileCard = ({user}) => {
     useEffect(() => {
         //Set user as state
         if (user) {
-            //User gets nested
             setProfileData(user);
-            console.log(profileData)
         }
     }, [user]);
 
@@ -41,24 +41,36 @@ const ProfileCard = ({user}) => {
     };
 
 
-
     // Get property images when the profile is set
     useEffect(() => {
-        if (profileData?.propertyData.id){
+        if (profileData?.propertyData.id) {
             getPropertyImages();
         }
-    },[profileData]);
+        setProfileView(profileData?.personalData.has_housing ?? true);
+        //Get hobby codes from the profile to retrieve their names
+        retrieveHobbyNames(profileData?.personalData.hobbies.map(h => h.hobby) ?? []);
+    }, [profileData]);
 
-
-    const truncatedText = (text) => {
-        return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+    //Maps through list of hobby codes and finds their name from the hobbies data.
+    const retrieveHobbyNames = (hobbyCodes: string[]) => {
+        if (hobbyCodes.length > 0) {
+            const hobbyNames = hobbyCodes.map(hobby => {
+                const foundHobby = hobbies.find(h => h.code === hobby)
+                return foundHobby.name
+            })
+            setUserHobbies(hobbyNames)
+        }
     }
+
+    // const truncatedText = (text) => {
+    //     return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+    // }
 
     // Changing the color based on how far it is
     const getTextColor = (percentage) => {
-        if (percentage <= 25) {
+        if (percentage <= 10) {
             return "text-green-500"; // Green for less than 25 KM
-        } else if (percentage <= 50) {
+        } else if (percentage <= 30) {
             return "text-orange-500"; // Orange for less than 50
         } else {
             return "text-red-500"; // Red for 51 and above
@@ -79,9 +91,11 @@ const ProfileCard = ({user}) => {
     //Gets array of property image urls
     const getPropertyImages = async () => {
         //Check if user has housing property before fetching images
-        if(profileData?.personalData.has_housing) {
+        if (profileData?.personalData.has_housing) {
             const propertyID = profileData?.propertyData.id;
-            if (!propertyID) {return}
+            if (!propertyID) {
+                return
+            }
 
             try {
                 const response = await retrievePropertyImages(propertyID);
@@ -107,7 +121,7 @@ const ProfileCard = ({user}) => {
 
     return (
         //TODO Fix width for mobile and large screen
-        <div className="relative bg-white p-4 rounded-lg w-5/6 flex flex-col gap-4 border-2 border-black">
+        <div className="relative bg-white p-4 rounded-lg w-3/4 md:w-5/6 flex flex-col gap-4 border-2 border-black">
             {/*Display the card actions independently of the view*/}
             <div className={"absolute top-2 right-2 pt-2"}>
                 <CardActions
@@ -117,12 +131,13 @@ const ProfileCard = ({user}) => {
                     onSetListingToggle={handleToggle}/>
             </div>
 
-            {profileView ? (
+            {!profileView ? (
                 //Profile & Listing Details
                 <div className={`flex flex-col gap-4`}>
                     {/* Profile Section */}
                     <div className={`flex`}>
-                        <img onClick={navigateToProfile} src={profileData.profileData.profile_picture ? imgUrl + profileData.profileData.profile_picture :
+                        <img onClick={navigateToProfile}
+                             src={profileData.profileData.profile_picture ? imgUrl + profileData.profileData.profile_picture :
                                  "https://archive.org/download/instagram-plain-round/instagram%20dip%20in%20hair.jpg"}
                              alt="Profile"
                              className={`w-28 h-28 rounded-lg mr-4 cursor-pointer`}/>
@@ -130,7 +145,7 @@ const ProfileCard = ({user}) => {
                         <div className={"flex flex-col w-full"}>
                             <div className="flex items-center space-x-2">
                                 <h4 onClick={navigateToProfile}
-                                    className="text-2xl font-bold hover:underline cursor-pointer">
+                                    className="text-xl md:text-2xl font-bold hover:underline cursor-pointer">
                                     {profileData.profileData.first_name + " " + profileData.profileData.last_name}
                                 </h4>
 
@@ -144,9 +159,11 @@ const ProfileCard = ({user}) => {
                                 </svg>
 
                                 {/*Display link next to name when not in property view*/}
-                                <p className={`font-bold text-lg ${LinkPercentageColor(profileData.compatibilityScore)}`}>
-                                    {profileData?.compatibilityScore} % Link
-                                </p>
+                                {!discovery &&
+                                    <p className={`font-bold text-lg ${LinkPercentageColor(profileData.compatibilityScore)}`}>
+                                        {profileData?.compatibilityScore} % Link
+                                    </p>
+                                }
                             </div>
 
                             {/*User info*/}
@@ -163,44 +180,35 @@ const ProfileCard = ({user}) => {
                         <div>
                             <h3 className="mt-4 font-bold m-2 text-xl">About Me</h3>
                             <p className="text-gray-600 m-2 font-normal">{profileData.profileData.bio}</p>
-                            <div className="p-2">
-                                <label
-                                    className="bg-blue-500 text-white text-center font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
-                                    respectful
-                                </label>
-                                <label
-                                    className="bg-blue-500 text-white text-center font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
-                                    Clean
-                                </label>
-                                <label
-                                    className="bg-blue-500 text-white text-center font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
-                                    Communicative
-                                </label>
-                                <label
-                                    className="bg-blue-500 text-white text-center font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
-                                    Friendly
-                                </label>
-                                <label
-                                    className="bg-blue-500 text-white text-center font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
-                                    Honest
-                                </label>
+                            <h3 className="mt-4 font-bold m-2 text-md">Hobbies/Interests</h3>
+                            <div className="flex flex-wrap">
+                                {
+                                    userHobbies.map((hobby, index) => (
+                                        <label title={hobby}
+                                               className="bg-blue-500 text-white text-center text-sm font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
+                                            {hobby}
+                                        </label>
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
             ) : (
-                <div className={`flex gap-4`}>
+                <div className={`flex gap-4 `}>
                     {/* Profile Section */}
                     <div className={`flex flex-col`}>
-                        <img src={profileData.profileData.profile_picture ? imgUrl + profileData.profileData.profile_picture :
-                                "https://archive.org/download/instagram-plain-round/instagram%20dip%20in%20hair.jpg"}
-                            alt="Profile"
-                            className={`w-28 h-28 rounded-lg`}/>
+                        <img onClick={navigateToProfile}
+                             src={profileData.profileData.profile_picture ? imgUrl + profileData.profileData.profile_picture :
+                                 "https://archive.org/download/instagram-plain-round/instagram%20dip%20in%20hair.jpg"}
+                             alt="Profile"
+                             className={`w-28 h-28 rounded-lg cursor-pointer`}/>
 
                         <div className={"flex flex-col w-full"}>
                             <div className="flex items-center space-x-2">
                                 {/*User Name*/}
-                                <h4 className="text-2xl font-bold">{profileData.profileData.first_name + " " + profileData.profileData.last_name}</h4>
+                                <h4 onClick={navigateToProfile}
+                                    className="text-2xl font-bold cursor-pointer hover:underline">{profileData.profileData.first_name}</h4>
 
                                 {/*Verification badge*/}
                                 <svg className="w-5 h-5 text-gray-800 dark:text-blue-700" aria-hidden="true"
@@ -213,13 +221,14 @@ const ProfileCard = ({user}) => {
                             </div>
 
                             {/*Display link next to name */}
-                            <p className={`font-bold text-lg ${LinkPercentageColor(profileData.compatibilityScore)}`}>
+                            {!discovery &&
+                                <p className={`font-bold text-lg ${LinkPercentageColor(profileData.compatibilityScore)}`}>
                                 {profileData?.compatibilityScore} % Link
                             </p>
+                            }
 
                             {/*Property info*/}
                             <div className="flex flex-col items-start">
-                                <p className="text-gray-500 font-semibold">{profileData.personalData.city + ", " + profileData.personalData.province}</p>
                                 <p className="text-gray-500 font-semibold">Age: {profileData.profileData.age}</p>
                                 <p className="text-gray-500 font-semibold">${profileData.personalData.budget}</p>
                             </div>
@@ -231,22 +240,29 @@ const ProfileCard = ({user}) => {
                         {/*LISTING DETAILS */}
                         <div className={"flex justify-between"}>
                             <div className="flex flex-col">
-                                <div><h2
-                                    className="text-2xl font-bold">{profileData.personalData.city + ", " + profileData.personalData.province}</h2>
+                                <div>
+                                    <h2 className="md:text-2xl font-bold">
+                                        {profileData.personalData.city + ", " + profileData.personalData.province}
+                                    </h2>
                                     <div className={"flex items-center space-x-2"}>
 
                                         {/*Bathroom bedroom count*/}
                                         <p className="text-gray-600 text-sm">{profileData?.propertyData.bedroom_count} Bedroom
                                             + {profileData?.propertyData.bathroom_count} Bathroom</p>
 
-                                        {/*Separator*/}
-                                        <span className="w-1 h-1 rounded-full bg-gray-500"></span>
+                                        {/*Only display the distance on the feed{*/}
+                                        {!discovery &&
+                                            <>
+                                                {/*Separator*/}
+                                                <span className="w-1 h-1 rounded-full bg-gray-500"></span>
 
-                                        {/*Location away from user TODO Get actual data*/}
-                                        <h4 className={`text-center font-semibold ${getTextColor(theLocation)}`}>
-                                            {theLocation}Km away
-                                            <FontAwesomeIcon icon={faLocationDot} className="ml-1"/>
-                                        </h4>
+                                                {/*Location away from user TODO Get actual data*/}
+                                                <h4 className={`text-center font-semibold ${getTextColor(profileData.distance)}`}>
+                                                    {Math.floor(profileData.distance as number)} Km
+                                                    <FontAwesomeIcon icon={faLocationDot} className="ml-1"/>
+                                                </h4>
+                                            </>
+                                        }
 
                                     </div>
                                 </div>
@@ -255,13 +271,15 @@ const ProfileCard = ({user}) => {
 
                         {/* Image Grid */}
                         <div className="flex gap-2 mt-2">
-                            <ImageGallery images={propertyImages}/>
+                            {propertyImages.length > 0 &&
+                                <ImageGallery images={propertyImages}/>
+                            }
                         </div>
 
                         {/* BIO/LISTING DESCRIPTION */}
                         <div>
                             <p className="text-gray-700 text-sm mt-2 w-[450px] truncate">
-                                {truncatedText(profileData.profileData.bio)}
+                                {profileData.profileData.bio}
                             </p>
                         </div>
                     </div>

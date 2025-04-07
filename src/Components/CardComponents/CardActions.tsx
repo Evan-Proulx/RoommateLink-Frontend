@@ -9,7 +9,7 @@ import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts";
 import {handleCreateConversation} from "../API/Messaging.ts";
 
 
-const CardActions= ({userId, hasHousing, profileView, onSetListingToggle, bookmarkDisplay = false}) => {
+const CardActions= ({userId, hasHousing, profileView, onSetListingToggle, bookmarkDisplay = false, onBookmarkToggle}) => {
     const [isBookmarked, setIsBookmarked] = useState(bookmarkDisplay);
     const navigate = useNavigate();
     const [id, setId] = useState(null);
@@ -22,8 +22,6 @@ const CardActions= ({userId, hasHousing, profileView, onSetListingToggle, bookma
 
     //Returns correct userId
     useEffect(() => {
-        console.log("On effect",userId)
-
         if (userId){
             setId(userId);
         }
@@ -50,6 +48,7 @@ const CardActions= ({userId, hasHousing, profileView, onSetListingToggle, bookma
                 await bookmarkUser(userId);
             }
             setIsBookmarked(!isBookmarked);
+            onBookmarkToggle(isBookmarked);
         } catch (err) {
             console.error(err);
         }
@@ -71,20 +70,20 @@ const CardActions= ({userId, hasHousing, profileView, onSetListingToggle, bookma
                 </button>
             </div>
 
-            {hasHousing && !bookmarkDisplay && (
+            {hasHousing === 1 && !bookmarkDisplay && (
                 <div className="m-2 relative">
                     <label className="inline-flex items-center mb-5 cursor-pointer">
                         <input type="checkbox" value="" className="sr-only peer" defaultChecked={profileView}
                                onChange={handleToggle}/>
                         <div
                             className={`w-12 h-6 rounded-full shadow-inner transition ${
-                                profileView ? "bg-gray-300" : "bg-green-500"
+                                !profileView ? "bg-gray-300" : "bg-green-500"
                             }`}
                         ></div>
                         <FontAwesomeIcon
                             icon={faHouseUser}
                             className={`absolute top-1 w-4 h-4 transition-transform ${
-                                profileView
+                                !profileView
                                     ? "translate-x-1 text-gray-500"
                                     : "translate-x-6 text-white"
                             }`}

@@ -1,5 +1,6 @@
 import axios from "axios";
 import {forEach} from "@react-google-maps/api/dist/utils/foreach";
+import {PersonalData, UserProfile} from "../../ProfileData.ts";
 const rootUrl = import.meta.env.VITE_ROOT_URL;
 
 export const createProfile = async (profileData) => {
@@ -18,6 +19,7 @@ export const createProfile = async (profileData) => {
         throw new Error(err.response?.data?.message || "Failed to create profile");
     }
 }
+
 //Get the authenticated user's profile
 export const getProfileData = async () => {
     const token = localStorage.getItem("token");
@@ -36,6 +38,7 @@ export const getProfileData = async () => {
         throw new Error(err.response?.data?.message || "Failed to create profile");
     }
 }
+
 export const uploadImage = async (imageFile) => {
     try {
         const formData = new FormData();
@@ -89,60 +92,58 @@ export const getMatchingUsers = async () => {
     }
 }
 
-export const uploadProfileMedia = async (image, video) => {
-    const token = localStorage.getItem("token");
-    const formData = new FormData();
-    if (image) formData.append("profilePicture", image);
-    if (video) formData.append("introductoryVideo", video);
-
-
-    try {
-        const response = await axios.post(`${rootUrl}/api/uploadProfileMedia`, formData, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        });
-        console.log(response.data)
-    } catch (err) {
-        console.error("Upload error:", err.response?.data || err.message);
-        throw err;
-    }
-}
-
-export const uploadPropertyImages = async (images) => {
-    const token = localStorage.getItem("token");
-    const formData = new FormData();
-    if (images) images.forEach((image) => formData.append("images[]", image));
-
-
-    try {
-        const response = await axios.post(`${rootUrl}/api/uploadPropertyMedia`, formData, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        });
-        console.log(response.data)
-    } catch (err) {
-        console.error("Upload error:", err.response?.data || err.message);
-        throw err;
-    }
-}
-
-export const retrievePropertyImages = async (propertyId) => {
+export const updateProfile = async (type: string, updatedProfile) => {
     const token = localStorage.getItem("token");
 
     try {
-        const response = await axios.get(`${rootUrl}/api/propertyImages/${propertyId}`, {
+        const response  = await axios.put(`${rootUrl}/api/profile/edit/${type}`, updatedProfile,{
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             }
-        });
-        console.log(response.data)
+            });
+        console.log(response.data);
         return response.data;
     } catch (err) {
         console.error("Upload error:", err.response?.data || err.message);
         throw err;
     }
 }
+
+
+export const getInterestedUsers = async (id) => {
+    const token = localStorage.getItem("token");
+    try {
+        const response = await axios.get(`${rootUrl}/api/interested/${id}`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            }
+        );
+        console.log("INTERESTED",response.data);
+        return response.data;
+    } catch (err) {
+        throw new Error(err.response?.data?.message || "Failed to get interested users");
+    }
+}
+
+export const getProfile = async (id) => {
+    const token = localStorage.getItem("token");
+    try {
+        const response = await axios.get(`${rootUrl}/api/profile/${id}`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            }
+        );
+        return response.data;
+    } catch (err) {
+        throw new Error(err.response?.data?.message || "Failed to get interested users");
+    }
+}
+
 

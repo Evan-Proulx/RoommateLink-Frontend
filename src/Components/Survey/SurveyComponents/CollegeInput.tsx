@@ -3,7 +3,7 @@ import Select from 'react-select';
 import axios from "axios";
 
 //Custom styles for the select
-const customStyles = {
+const defaultStyles = {
     control: (provided) => ({
         ...provided,
         backgroundColor: 'white', // bg-white
@@ -14,7 +14,7 @@ const customStyles = {
         padding: '.5rem', // p-4
     }),
 }
-const CollegeInput = ({onSchoolChange}) => {
+const CollegeInput = ({onSchoolChange, customStyles = {}}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [colleges, setColleges] = useState([]);
     const [selectedCollege, setSelectedCollege] = useState(null);
@@ -41,7 +41,6 @@ const CollegeInput = ({onSchoolChange}) => {
             }
         };
 
-
         fetchColleges().then(r => console.log());
     }, []);
 
@@ -62,7 +61,7 @@ const CollegeInput = ({onSchoolChange}) => {
     //This select uses autocomplete and allows for easy searching for colleges
     return (
             <Select
-                styles={customStyles}
+                styles={{ ...defaultStyles, ...customStyles }}
                 classNamePrefix="select"
                 options={colleges}
                 isLoading={isLoading}
