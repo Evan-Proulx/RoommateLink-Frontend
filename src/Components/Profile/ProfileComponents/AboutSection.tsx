@@ -13,10 +13,10 @@ import {hobbies} from "../../../data.ts";
 
 interface AboutSectionProps{
     propertyImages: string[],
-    myProfileDisplayed: boolean
+    myProfileDisplayed: boolean,
 }
 
-function AboutSection({propertyImages, myProfileDisplayed}: AboutSectionProps) {
+function AboutSection({propertyImages, myProfileDisplayed, interestedPeople}: AboutSectionProps) {
     //Get user data
     const userProfile = useContext(ProfileContext);
     const user = userProfile as UserProfile;
@@ -105,7 +105,7 @@ function AboutSection({propertyImages, myProfileDisplayed}: AboutSectionProps) {
 
             {/* Content Section - Displaying the content of "About Me" or "My Property"*/}
             {activeTab === "about" ? (
-                <div className="mt-4">
+                <div className="flex flex-col space-y-4">
                     {/*About Me Section*/}
                     <p className="text-gray-600 m-2 text-lg font-semibold mt-2">
                         {user.profileData.bio}
@@ -142,8 +142,8 @@ function AboutSection({propertyImages, myProfileDisplayed}: AboutSectionProps) {
                             </div>
                         </>)}
 
-                    {/*Display Interested People*/}
-                    <InterestedPeople/>
+
+                    <InterestedPeople interestedPeople={interestedPeople}/>
                 </div>
             ) : user.personalData.has_housing ? (
                 <div className="mt-4">
