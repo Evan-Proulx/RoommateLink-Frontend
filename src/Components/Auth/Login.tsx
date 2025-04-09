@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import ShadowButton from "../Shadow-Button.tsx";
-import {authenticateUser} from "../API/Auth.ts";
+import ShadowButton from "../Shadow-Button";
+import {authenticateUser} from "../API/Auth";
 import {SubmitHandler, useForm} from "react-hook-form"
 import {Link} from "react-router-dom";
-import SSOButton from "./SSOButton.tsx";
+import SSOButton from "./SSOButton";
 
 type FormFields = {
     email: string;

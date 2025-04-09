@@ -1,4 +1,4 @@
-import {Flag, FlagOutlined} from "@mui/icons-material";
+import {FlagOutlined} from "@mui/icons-material";
 
 function ReportBtn({onReportClicked}) {
     return (

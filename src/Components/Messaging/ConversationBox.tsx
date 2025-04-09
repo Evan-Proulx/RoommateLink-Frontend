@@ -1,10 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
-import MessageInput from "./MessageInput.tsx";
+import MessageInput from "./MessageInput";
 import echo from "../../../echo.js"
-import {getConversationMessages} from "../API/Messaging.ts";
-import Message from "./Message.tsx";
-import {More, MoreVert, Settings} from "@mui/icons-material";
-import { Element, scroller } from "react-scroll";
+import {getConversationMessages} from "../API/Messaging";
+import Message from "./Message";
+import {MoreVert} from "@mui/icons-material";
 
 
 const ConversationBox = ({user, conversation, receiver}) => {

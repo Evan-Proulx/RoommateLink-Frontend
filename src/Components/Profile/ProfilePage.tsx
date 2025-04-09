@@ -1,15 +1,13 @@
-import Aside from "./Aside/Aside.tsx";
+import Aside from "./Aside/Aside";
 import {createContext, useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
-import {getProfileData} from "../API/Profile.ts";
-import {UserProfile} from "../../ProfileData.ts"
-import UserInfoSection from "./ProfileComponents/UserInfoSection.tsx";
-import AboutSection from "./ProfileComponents/AboutSection.tsx";
-import Navbar from "../Navbar.tsx";
-import {getInterestedUsers} from "../API/Profile.ts";
-import UpdateProfile from "./UpdateForms/UpdateProfile.tsx";
-import Modal from "../Modal.tsx";
-import {retrievePropertyImages} from "../API/Media.ts";
+import {getProfileData} from "../API/Profile";
+import {UserProfile} from "../../ProfileData"
+import UserInfoSection from "./ProfileComponents/UserInfoSection";
+import AboutSection from "./ProfileComponents/AboutSection";
+import Navbar from "../Navbar";
+import {getInterestedUsers} from "../API/Profile";
+import {retrievePropertyImages} from "../API/Media";
 export const ProfileContext = createContext<UserProfile | null>(null)
 
 function ProfilePage() {

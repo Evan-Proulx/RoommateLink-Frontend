@@ -1,13 +1,9 @@
-import {FaBookmark, FaRegBookmark} from "react-icons/fa";
 import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHouseUser, faLocationDot} from "@fortawesome/free-solid-svg-icons";
-import {UserProfile} from "../../ProfileData.ts";
-import {ForumOutlined} from "@mui/icons-material";
-import {grey} from "@mui/material/colors";
-import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts"
-import {handleCreateConversation} from "../API/Messaging.ts";
-import CardActions from "./CardActions.tsx";
+import {faLocationDot} from "@fortawesome/free-solid-svg-icons";
+import {UserProfile} from "../../ProfileData";
+import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks"
+import CardActions from "./CardActions";
 
 interface ListingCardProps{
     user: UserProfile;

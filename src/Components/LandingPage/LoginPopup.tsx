@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import { FaGoogle, FaFacebook, FaPhone, FaTimes } from "react-icons/fa";
+import {FaTimes } from "react-icons/fa";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFacebook, faGithub, faGoogle, faLinkedin} from "@fortawesome/free-brands-svg-icons";
+import {faGithub, faGoogle, faLinkedin} from "@fortawesome/free-brands-svg-icons";
 
 interface LoginPopupProps {
     isOpen: boolean; // To check if the popup is open

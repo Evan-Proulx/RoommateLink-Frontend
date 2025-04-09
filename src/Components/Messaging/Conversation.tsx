@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import SelectConversation from "./SelectConversation.tsx";
-import ConversationBox from "./ConversationBox.tsx";
-import {getAuthenticatedUser} from "../API/Profile.ts";
-import Navbar from "../Navbar.tsx";
+import SelectConversation from "./SelectConversation";
+import ConversationBox from "./ConversationBox";
+import {getAuthenticatedUser} from "../API/Profile";
+import Navbar from "../Navbar";
 
 const Conversation = () => {
     const [conversation, setConversation] = useState(null);

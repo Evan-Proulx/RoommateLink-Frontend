@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {isUserVerified} from "../../API/Verification.ts";
+import {isUserVerified} from "../../API/Verification";
 
 function ProfileImg({ url, percentage, myProfileDisplayed }) {
     const [isVerified, setIsVerified] = useState<boolean | null>(null); // Track if the user is verified, null for loading state

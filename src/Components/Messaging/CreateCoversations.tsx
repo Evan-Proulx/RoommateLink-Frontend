@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {fetchUsers, fetchConversations, handleCreateConversation} from '../API/Messaging.ts'
+import {fetchUsers, fetchConversations} from "../API/Messaging"
 const CreateCoversations = () => {
     const [users, setUsers] = useState([]);
     const [userConversations, setUserConversations] = useState([]);

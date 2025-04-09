@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {checkReportEligibility, ReportData, reportUser} from '../../API/Reporting.ts'
-import {setUserRating} from "../../API/Ratings.ts";
+import {checkReportEligibility, ReportData, reportUser} from "../../API/Reporting"
 import {useNavigate} from "react-router-dom";
 
 interface ReportModalProps{

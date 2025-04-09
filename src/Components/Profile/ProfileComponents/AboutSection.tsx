@@ -1,15 +1,13 @@
 import React, {useContext, useEffect, useState} from "react";
-import {faBoxOpen, faCar, faLocationDot, faTshirt, faWifi} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import MapSection from "./MapSection.tsx";
-import InterestedPeople from "./InterestedPeople.tsx";
-import {ProfileContext} from "../ProfilePage.tsx";
-import {DealBreakers, UserProfile} from "../../../ProfileData.ts";
-import ImageGallery from "./ImageGallery.tsx";
+import MapSection from "./MapSection";
+import InterestedPeople from "./InterestedPeople";
+import {ProfileContext} from "../ProfilePage";
+import {DealBreakers, UserProfile} from "../../../ProfileData";
+import ImageGallery from "./ImageGallery";
 import {AddBox, Edit} from "@mui/icons-material";
-import UpdateProperty from "../UpdateForms/UpdateProperty.tsx";
-import Modal from "../../Modal.tsx";
-import {hobbies} from "../../../data.ts";
+import UpdateProperty from "../UpdateForms/UpdateProperty";
+import Modal from "../../Modal";
+import {hobbies} from "../../../data";
 
 interface AboutSectionProps{
     propertyImages: string[],

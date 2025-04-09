@@ -1,7 +1,6 @@
 import {useEffect} from "react";
-import {replace, useNavigate} from "react-router-dom";
-import {getProfile} from "../../API/Profile.ts";
-import {UserProfile} from "../../../ProfileData.ts";
+import {useNavigate} from "react-router-dom";
+import {UserProfile} from "../../../ProfileData";
 
 
 const InterestedPeople = ({interestedPeople}) => {

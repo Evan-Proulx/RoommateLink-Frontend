@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {fetchConversations, fetchUsers, getConversationsProfiles} from "../API/Messaging.ts";
+import {fetchConversations, getConversationsProfiles} from "../API/Messaging";
 
 const SelectConversation = ({user, onSetConversation}) => {
     const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";

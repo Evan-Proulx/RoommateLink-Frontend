@@ -5,8 +5,8 @@ import {FaBookmark, FaRegBookmark} from "react-icons/fa";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHouseUser} from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router-dom";
-import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts";
-import {handleCreateConversation} from "../API/Messaging.ts";
+import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks";
+import {handleCreateConversation} from "../API/Messaging";
 
 
 const CardActions= ({userId, hasHousing, profileView, onSetListingToggle, bookmarkDisplay = false, onBookmarkToggle}) => {

@@ -1,9 +1,7 @@
-import React, {useEffect, useRef, useState} from 'react';
-import type {InstanceOptions, PopoverInterface, PopoverOptions} from "flowbite";
-import {Popover} from "flowbite";
-import {Help, Info, InfoOutlined} from "@mui/icons-material";
+import React, {useEffect, useState} from 'react';
+import {InfoOutlined} from "@mui/icons-material";
 import {grey} from "@mui/material/colors";
-import {RatingScore} from "../../../ProfileData.ts";
+import {RatingScore} from "../../../ProfileData";
 interface RatingInfoPopoverProps {
     ratingScore: RatingScore;
 }

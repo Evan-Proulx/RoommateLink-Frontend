@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 import {Simulate} from "react-dom/test-utils";
 import input = Simulate.input;
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {hobbies} from "../../../data.ts"
-import {Add, AddAlarm, Close, Delete, Remove} from "@mui/icons-material";
+import {hobbies} from "../../../data"
+import {Add, Close} from "@mui/icons-material";
 
 const AddHobby = ({onHobbyChange}) => {
     const [selectedHobbies, setSelectedHobbies] = useState([])

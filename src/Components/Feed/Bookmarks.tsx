@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {bookmarkUser, getBookmarks, unbookmarkUser} from "../API/Bookmarks.ts";
-import BookmarkedUserCard from "../CardComponents/BookmarkedUserCard.tsx";
-import {UserProfile} from "../../ProfileData.ts";
-import ListingCard from "../CardComponents/ListingCard.tsx";
-import Navbar from "../Navbar.tsx";
-import {FaRegBookmark} from "react-icons/fa";
-import {Bookmark, BookmarkAddedTwoTone, BookmarkOutlined, BookmarksOutlined} from "@mui/icons-material";
+import {getBookmarks} from "../API/Bookmarks";
+import BookmarkedUserCard from "../CardComponents/BookmarkedUserCard";
+import {UserProfile} from "../../ProfileData";
+import Navbar from "../Navbar";
+import {BookmarkOutlined} from "@mui/icons-material";
 
 const Bookmarks = () => {
     const [bookmarkedProfiles, setBookmarkedProfiles] = useState<UserProfile[]>([]);

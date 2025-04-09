@@ -1,12 +1,8 @@
-import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import React, {useEffect, useState} from "react";
-import {UserProfile} from "../../ProfileData.ts";
-import {ForumOutlined} from "@mui/icons-material";
-import {grey} from "@mui/material/colors";
-import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts";
+import {UserProfile} from "../../ProfileData";
 import {useNavigate} from "react-router-dom";
-import {retrievePropertyImages} from "../API/Media.ts";
-import CardActions from "./CardActions.tsx";
+import {retrievePropertyImages} from "../API/Media";
+import CardActions from "./CardActions";
 
 interface BookmarkedUserCardProps {
     user: UserProfile;

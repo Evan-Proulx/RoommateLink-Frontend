@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from "react";
-import SurveyIntro from "./SurveyForms/SurveyIntro.tsx";
-import SurveyStepper from "./SurveyComponents/SurveyStepper.tsx";
-import SurveyProfile from "./SurveyForms/SurveyProfile.tsx";
-import SurveyDealBreakers from "./SurveyForms/SurveyDealBreakers.tsx";
-import ShadowButton from "../Shadow-Button.tsx";
+import SurveyIntro from "./SurveyForms/SurveyIntro";
+import SurveyStepper from "./SurveyComponents/SurveyStepper";
+import SurveyProfile from "./SurveyForms/SurveyProfile";
+import SurveyDealBreakers from "./SurveyForms/SurveyDealBreakers";
+import ShadowButton from "../Shadow-Button";
 import { Element, scroller } from "react-scroll";
-import SurveyProperty from "./SurveyForms/SurveyProperty.tsx";
-import SurveyPersonal from "./SurveyForms/SurveyPersonal.tsx";
-import SubmitSurvey from "./SurveyForms/SubmitSurvey.tsx";
+import SurveyProperty from "./SurveyForms/SurveyProperty";
+import SurveyPersonal from "./SurveyForms/SurveyPersonal";
+import SubmitSurvey from "./SurveyForms/SubmitSurvey";
 import {FormProvider, useForm} from "react-hook-form";
-import {createProfile} from "../API/Profile.ts";
+import {createProfile} from "../API/Profile";
 import {useNavigate} from "react-router-dom";
-import {uploadHouseTour, uploadProfileMedia, uploadPropertyImages} from "../API/Media.ts";
+import {uploadHouseTour, uploadProfileMedia, uploadPropertyImages} from "../API/Media";
 
 const Survey = () => {
     //Data from map

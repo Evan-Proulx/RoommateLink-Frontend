@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {
     BookmarkBorder,
     ExploreOutlined,
-    FavoriteOutlined,
     FeedOutlined,
     ForumOutlined,
     PersonOutline

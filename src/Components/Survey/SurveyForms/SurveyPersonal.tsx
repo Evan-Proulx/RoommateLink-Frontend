@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import TimePicker from "../SurveyComponents/TimePicker.tsx";
-import {diets, languages, religions} from "../../../data.ts";
-import AddHobby from "../SurveyComponents/AddHobby.tsx";
-import MapPopup from "../SurveyComponents/Survey-Map-Popup.tsx";
-import {getLocation} from "../../API/Location.ts";
-import CollegeInput from "../SurveyComponents/CollegeInput.tsx";
+import TimePicker from "../SurveyComponents/TimePicker";
+import {diets, languages, religions} from "../../../data";
+import AddHobby from "../SurveyComponents/AddHobby";
+import MapPopup from "../SurveyComponents/Survey-Map-Popup";
+import {getLocation} from "../../API/Location";
+import CollegeInput from "../SurveyComponents/CollegeInput";
 import {LocationSearching} from "@mui/icons-material";
 import {useFormContext} from "react-hook-form";
 

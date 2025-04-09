@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import {bookmarkUser, getBookmarks, unbookmarkUser} from "./Components/API/Bookmarks.ts"
+import {bookmarkUser, getBookmarks, unbookmarkUser} from "./Components/API/Bookmarks"
 const BookmarkTest = () => {
     const [bookmarks, setBookmarks] = useState([]);
     const [userId, setUserId] = useState();

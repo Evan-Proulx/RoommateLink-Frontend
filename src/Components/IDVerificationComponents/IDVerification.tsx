@@ -1,6 +1,6 @@
 import { Tooltip } from "@mui/material";
-import PaymentBtn from "./PaymentBtn.tsx";
-import VerificationBtn from "./VerificationBtn.tsx";
+import PaymentBtn from "./PaymentBtn";
+import VerificationBtn from "./VerificationBtn";
 
 function IDVerificationPage() {
     return (

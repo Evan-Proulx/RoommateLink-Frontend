@@ -1,7 +1,7 @@
 import { CircleF, GoogleMap, LoadScript } from "@react-google-maps/api";
-import {UserProfile} from "../../../ProfileData.ts";
+import {UserProfile} from "../../../ProfileData";
 import {useContext} from "react";
-import {ProfileContext} from "../ProfilePage.tsx";
+import {ProfileContext} from "../ProfilePage";
 import {LocationOn} from "@mui/icons-material";
 
 

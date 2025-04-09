@@ -1,14 +1,14 @@
-import MessageBtn from "./MessageBtn.tsx";
-import FavoriteBtn from "./FavoriteBtn.tsx";
-import Rating from "./Rating.tsx";
-import ReportBtn from "./ReportBtn.tsx";
-import React, {createContext, useContext, useEffect, useState} from "react";
-import {ProfileContext} from "../ProfilePage.tsx";
-import Modal from "../../Modal.tsx";
-import {ProfileData, UserProfile} from "../../../ProfileData.ts";
-import ReportModal from "../Reporting/ReportModal.tsx";
-import {handleCreateConversation} from "../../API/Messaging.ts";
-import {bookmarkUser, unbookmarkUser} from "../../API/Bookmarks.ts";
+import MessageBtn from "./MessageBtn";
+import FavoriteBtn from "./FavoriteBtn";
+import Rating from "./Rating";
+import ReportBtn from "./ReportBtn";
+import React, {useContext, useEffect, useState} from "react";
+import {ProfileContext} from "../ProfilePage";
+import Modal from "../../Modal";
+import {UserProfile} from "../../../ProfileData";
+import ReportModal from "../Reporting/ReportModal";
+import {handleCreateConversation} from "../../API/Messaging";
+import {bookmarkUser, unbookmarkUser} from "../../API/Bookmarks";
 import {useNavigate} from "react-router-dom";
 
 interface AsideProps{

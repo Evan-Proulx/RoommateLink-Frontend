@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {DiscoveryData, discoverySearch} from "../API/Discovery.ts";
+import {DiscoveryData} from "../API/Discovery";
 import {LocationSearching} from "@mui/icons-material";
-import MapPopup from "../Survey/SurveyComponents/Survey-Map-Popup.tsx";
-import {getLocation} from "../API/Location.ts";
-import {diets, religions} from "../../data.ts";
-import CollegeInput from "../Survey/SurveyComponents/CollegeInput.tsx";
+import MapPopup from "../Survey/SurveyComponents/Survey-Map-Popup";
+import {getLocation} from "../API/Location";
+import {diets, religions} from "../../data";
+import CollegeInput from "../Survey/SurveyComponents/CollegeInput";
 
 interface DiscoveryModalProps{
     onSearch: (data: DiscoveryData) => void;

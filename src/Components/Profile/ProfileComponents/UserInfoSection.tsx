@@ -1,17 +1,17 @@
-import Video from "../Aside/Video.tsx";
+import Video from "../Aside/Video";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPiggyBank} from "@fortawesome/free-solid-svg-icons";
 import React, {useContext, useEffect, useState} from "react";
-import {ProfileContext} from "../ProfilePage.tsx";
-import {UserProfile} from "../../../ProfileData.ts";
-import ProfileImg from "../Aside/ProfileImg.tsx";
+import {ProfileContext} from "../ProfilePage";
+import {UserProfile} from "../../../ProfileData";
+import ProfileImg from "../Aside/ProfileImg";
 import {Edit, PersonPinCircle, Search} from "@mui/icons-material";
 import {grey} from "@mui/material/colors";
-import Modal from "../../Modal.tsx";
-import UpdateProfile from "../UpdateForms/UpdateProfile.tsx";
-import UpdateFiles from "../UpdateForms/UpdateFiles.tsx";
-import UpdateProperty from "../UpdateForms/UpdateProperty.tsx";
-import {isUserVerified} from "../../API/Verification.ts";
+import Modal from "../../Modal";
+import UpdateProfile from "../UpdateForms/UpdateProfile";
+import UpdateFiles from "../UpdateForms/UpdateFiles";
+import UpdateProperty from "../UpdateForms/UpdateProperty";
+import {isUserVerified} from "../../API/Verification";
 import {Tooltip} from "@mui/material";
 
 interface UserInfoSectionProps{

@@ -1,6 +1,4 @@
 import axios from "axios";
-import {forEach} from "@react-google-maps/api/dist/utils/foreach";
-import {PersonalData, UserProfile} from "../../ProfileData.ts";
 const rootUrl = import.meta.env.VITE_ROOT_URL;
 
 export const createProfile = async (profileData) => {

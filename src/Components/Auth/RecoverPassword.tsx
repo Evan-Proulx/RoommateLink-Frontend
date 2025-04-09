@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {SubmitHandler, useForm} from "react-hook-form";
-import {forgotPassword, registerUser, resetPassword} from "../API/Auth.ts";
-import ShadowButton from "../Shadow-Button.tsx";
+import {forgotPassword, registerUser, resetPassword} from "../API/Auth";
+import ShadowButton from "../Shadow-Button";
 
 type FormFields = {
     email: string;

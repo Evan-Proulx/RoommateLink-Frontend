@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
-import ShadowButton from "../Shadow-Button.tsx";
-import {authenticateUser, resetPassword} from "../API/Auth.ts";
+import ShadowButton from "../Shadow-Button";
+import {resetPassword} from "../API/Auth";
 import {SubmitHandler, useForm} from "react-hook-form"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faGoogle} from "@fortawesome/free-brands-svg-icons";
-import {useNavigate, useParams, useSearchParams} from "react-router-dom"
+import {useNavigate, useSearchParams} from "react-router-dom"
 type FormFields = {
     password: string;
     confirmPassword: string;

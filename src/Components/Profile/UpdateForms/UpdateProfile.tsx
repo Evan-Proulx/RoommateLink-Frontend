@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {getProfileData, updateProfile} from "../../API/Profile.ts";
-import {PersonalData, ProfileData, UserProfile} from "../../../ProfileData.ts";
+import {getProfileData, updateProfile} from "../../API/Profile";
+import {PersonalData, ProfileData, UserProfile} from "../../../ProfileData";
 import {LocationSearching} from "@mui/icons-material";
-import MapPopup from "../../Survey/SurveyComponents/Survey-Map-Popup.tsx";
-import {getLocation} from "../../API/Location.ts";
-import {FormProvider, useForm, useFormContext} from "react-hook-form";
+import MapPopup from "../../Survey/SurveyComponents/Survey-Map-Popup";
+import {getLocation} from "../../API/Location";
+import {FormProvider, useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 
 const UpdateProfile = ({closeModal}) => {

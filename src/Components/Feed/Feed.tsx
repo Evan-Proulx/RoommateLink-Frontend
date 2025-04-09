@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import FeedCard from "../CardComponents/FeedCard.tsx";
-import Navbar from "../Navbar.tsx";
-import Popover from "./PopoverButton.tsx";
-import {getMatchingUsers} from "../API/Profile.ts"
-import ListingCard from "../CardComponents/ListingCard.tsx";
-import {UserProfile} from "../../ProfileData.ts";
-import ProfileCard from "../CardComponents/ProfileCard.tsx";
+import Navbar from "../Navbar";
+import Popover from "./PopoverButton";
+import {getMatchingUsers} from "../API/Profile"
+import {UserProfile} from "../../ProfileData";
+import ProfileCard from "../CardComponents/ProfileCard";
 
 const Feed = () => {
     const [users, setUsers] = useState<UserProfile[]>([]);

@@ -1,17 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import FeedCard from "../CardComponents/FeedCard.tsx";
-import Navbar from "../Navbar.tsx";
-import MapPopup from "../Survey/SurveyComponents/Survey-Map-Popup.tsx";
-import {BookmarkAddOutlined, BookmarkOutlined, LocationSearching, Search} from "@mui/icons-material";
+import Navbar from "../Navbar";
+import MapPopup from "../Survey/SurveyComponents/Survey-Map-Popup";
+import {LocationSearching, Search} from "@mui/icons-material";
 import {} from "@mui/material/colors";
-import ReportModal from "../Profile/Reporting/ReportModal.tsx";
-import Modal from "../Modal.tsx";
-import DiscoveryModal from "./DiscoveryModal.tsx";
-import ProfileCard from "../CardComponents/ProfileCard.tsx";
-import {UserProfile} from "../../ProfileData.ts";
-import {DiscoveryData, discoverySearch} from "../API/Discovery.ts";
-import {getLocation} from "../API/Location.ts";
-import {getProfileData} from "../API/Profile.ts";
+import Modal from "../Modal";
+import DiscoveryModal from "./DiscoveryModal";
+import ProfileCard from "../CardComponents/ProfileCard";
+import {UserProfile} from "../../ProfileData";
+import {DiscoveryData, discoverySearch} from "../API/Discovery";
+import {getLocation} from "../API/Location";
+import {getProfileData} from "../API/Profile";
 
 const Discovery = () => {
     const [isMapOpen, setIsMapOpen] = useState(false);

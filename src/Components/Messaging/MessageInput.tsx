@@ -1,6 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {createMessage, setTyping} from '../API/Messaging.ts'
-import axios from 'axios'
+import React, {useRef, useState} from 'react';
+import {createMessage, setTyping} from "../API/Messaging"
 const MessageInput = ({conversation, receiverId}) => {
     const [message, setMessage] = useState("");
     const [userTyping, setUserTyping] = useState(false);

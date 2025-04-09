@@ -1,19 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {UserProfile} from "../../ProfileData.ts";
-import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts";
+import {UserProfile} from "../../ProfileData";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHouseUser, faLocationDot} from "@fortawesome/free-solid-svg-icons";
-import {ForumOutlined} from "@mui/icons-material";
-import {grey} from "@mui/material/colors";
-import {FaBookmark, FaRegBookmark} from "react-icons/fa";
-import {fetchConversations, handleCreateConversation} from "../API/Messaging.ts";
+import {faLocationDot} from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router-dom";
-import ProfilePage from "../Profile/ProfilePage.tsx";
-import CardActions from "./CardActions.tsx";
-import CardSkeletonLoader from "./CardSkeletonLoader.tsx";
-import {retrievePropertyImages} from "../API/Media.ts";
-import ImageGallery from "../Profile/ProfileComponents/ImageGallery.tsx";
-import {hobbies} from "../../data.ts";
+import CardActions from "./CardActions";
+import CardSkeletonLoader from "./CardSkeletonLoader";
+import {retrievePropertyImages} from "../API/Media";
+import ImageGallery from "../Profile/ProfileComponents/ImageGallery";
+import {hobbies} from "../../data";
 
 const ProfileCard = ({user, discovery = false}) => {
     const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";

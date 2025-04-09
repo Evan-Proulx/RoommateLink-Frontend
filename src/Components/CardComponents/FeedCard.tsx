@@ -1,19 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {
-    Bookmark, BookmarkAddedOutlined,
-    BookmarkAddOutlined,
-    BookmarkOutlined,
-    BookmarksOutlined,
     ForumOutlined,
     LocationOn
 } from "@mui/icons-material";
-import {grey, orange, pink} from '@mui/material/colors';
-import MapPopup from "../Survey/SurveyComponents/Survey-Map-Popup.tsx";
+import {grey} from '@mui/material/colors';
+import MapPopup from "../Survey/SurveyComponents/Survey-Map-Popup";
 import {FaBookmark, FaRegBookmark} from "react-icons/fa";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHouseUser, faLocationDot} from "@fortawesome/free-solid-svg-icons";
-import {UserProfile} from "../../ProfileData.ts";
-import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts";
+import {UserProfile} from "../../ProfileData";
+import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks";
 
 const FeedCard = (user: UserProfile) => {
         const [userData, setUserData] = useState<UserProfile | null>(null);

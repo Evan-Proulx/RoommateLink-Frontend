@@ -2,23 +2,19 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import Login from "./Components/Auth/Login.tsx";
-import Survey from "./Components/Survey/Survey.tsx";
-import ProfilePage from "./Components/Profile/ProfilePage.tsx";
-import ErrorPage from "./ErrorPage.tsx";
-import Callback from "./Components/API/Callback.tsx";
-import Feed from "./Components/Feed/Feed.tsx";
-import Discovery from "./Components/Discovery/Discovery.tsx";
-import Conversation from "./Components/Messaging/Conversation.tsx";
-import LandingPage from "./Components/LandingPage/LandingPage.tsx";
-import InputComponent from "./Components/InputComponent.tsx";
-import BookmarkedUserCard from "./Components/CardComponents/BookmarkedUserCard.tsx";
-import ListingCard from "./Components/CardComponents/ListingCard.tsx";
-import Bookmarks from "./Components/Feed/Bookmarks.tsx"
-import ImageUploadTest from "./Components/ImageUploadTest.tsx";
-import IDVerification from "./Components/IDVerificationComponents/IDVerification.tsx";
+import Login from "./Components/Auth/Login";
+import Survey from "./Components/Survey/Survey";
+import ProfilePage from "./Components/Profile/ProfilePage";
+import ErrorPage from "./ErrorPage";
+import Callback from "./Components/API/Callback";
+import Feed from "./Components/Feed/Feed";
+import Discovery from "./Components/Discovery/Discovery";
+import Conversation from "./Components/Messaging/Conversation";
+import LandingPage from "./Components/LandingPage/LandingPage";
+import Bookmarks from "./Components/Feed/Bookmarks"
+import IDVerification from "./Components/IDVerificationComponents/IDVerification";
 
-import DiscoveryModal from "./Components/Discovery/DiscoveryModal.tsx"
+import DiscoveryModal from "./Components/Discovery/DiscoveryModal"
 // Routes
 const router = createBrowserRouter([
     {
