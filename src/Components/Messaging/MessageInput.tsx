@@ -39,7 +39,7 @@ const MessageInput = ({conversation, receiverId}) => {
     }
 
 
-    const handleTyping = (e) => {
+    const handleTyping = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const currentText = e.target.value;
         setMessage(currentText);
 
@@ -60,7 +60,7 @@ const MessageInput = ({conversation, receiverId}) => {
                 setUserTyping(false);
                 setTypingStatus(false);
             }
-        }, 5000);
+        }, 5000) as unknown as number;
     }
 
 

@@ -14,7 +14,6 @@ import Conversation from "./Components/Messaging/Conversation";
 import LandingPage from "./Components/LandingPage/LandingPage";
 import Bookmarks from "./Components/Feed/Bookmarks";
 import IDVerification from "./Components/IDVerificationComponents/IDVerification";
-import DiscoveryModal from "./Components/Discovery/DiscoveryModal";
 // Routes
 const router = createBrowserRouter([
     {
@@ -49,10 +48,6 @@ const router = createBrowserRouter([
     {
         path: '/bookmarks',
         element: _jsx(Bookmarks, {}),
-    },
-    {
-        path: '/test',
-        element: _jsx(DiscoveryModal, {}),
     },
     {
         path: '/login',
