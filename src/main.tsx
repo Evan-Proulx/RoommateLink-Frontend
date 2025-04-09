@@ -2,7 +2,6 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import Login from "./Components/Auth/Login";
 import Survey from "./Components/Survey/Survey";
 import ProfilePage from "./Components/Profile/ProfilePage";
 import ErrorPage from "./ErrorPage";
@@ -56,7 +55,8 @@ const router = createBrowserRouter([
         path: '/id',
         element: <IDVerification />,
     },
-]);
+],{basename: '/roommatelink'}//App url put infront of the rest of the route
+);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
