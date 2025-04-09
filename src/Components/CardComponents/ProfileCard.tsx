@@ -122,7 +122,8 @@ const ProfileCard = ({user, discovery = false}) => {
                     userId={profileData?.profileData.account_id}
                     hasHousing={profileData?.personalData?.has_housing}
                     profileView={profileView}
-                    onSetListingToggle={handleToggle}/>
+                    onSetListingToggle={handleToggle}
+                />
             </div>
 
             {!profileView ? (

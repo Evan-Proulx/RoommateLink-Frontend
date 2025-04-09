@@ -88,7 +88,7 @@ const Login = () => {
 
                         {/* Sign Up Button */}
                         <div className={"flex flex-col items-center space-y-2"}>
-                            <ShadowButton disabled={isSubmitting} type="submit"
+                            <ShadowButton disabled={isSubmitting}
                                           value={isSubmitting ? "Resetting" : "Reset"}/>
                         </div>
                     </form>

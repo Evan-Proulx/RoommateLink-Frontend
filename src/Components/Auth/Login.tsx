@@ -94,7 +94,7 @@ const Login = () => {
 
                         {/* Sign Up Button */}
                         <div className={"flex flex-col items-center space-y-2"}>
-                            <ShadowButton disabled={isSubmitting} type="submit"
+                            <ShadowButton disabled={isSubmitting}
                                           value={isSubmitting ? "Logging in..." : "Sign up"} width={"64"}/>
 
                             <p className={"text-gray-600"}>or</p>

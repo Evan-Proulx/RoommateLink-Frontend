@@ -42,6 +42,6 @@ const Login = () => {
                                                     validate: (value) => value === password || "Passwords do not match"
                                                 }), value: confirmPassword, onChange: (event) => setConfirmPassword(event.target.value), className: "input-style", required: true })] })] }), errors.password &&
                                 _jsx("div", { className: "text-xl font-bold text-red-500", children: errors.password.message }), errors.confirmPassword &&
-                                _jsx("div", { className: "text-xl font-bold text-red-500", children: errors.confirmPassword.message }), _jsx("div", { className: "flex flex-col items-center space-y-2", children: _jsx(ShadowButton, { disabled: isSubmitting, type: "submit", value: isSubmitting ? "Resetting" : "Reset" }) })] }) })] }) }));
+                                _jsx("div", { className: "text-xl font-bold text-red-500", children: errors.confirmPassword.message }), _jsx("div", { className: "flex flex-col items-center space-y-2", children: _jsx(ShadowButton, { disabled: isSubmitting, value: isSubmitting ? "Resetting" : "Reset" }) })] }) })] }) }));
 };
 export default Login;

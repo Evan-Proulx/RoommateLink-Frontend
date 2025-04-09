@@ -28,7 +28,7 @@ const RecoverPassword = () => {
                                         required: "Email is required",
                                         pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
                                     }), id: "email", className: "input-style", placeholder: "example@email.com", autoComplete: "on", value: email, onChange: (event) => setEmail(event.target.value), required: true }), errors.email &&
-                                    _jsx("div", { className: "text-xl font-bold text-red-500", children: errors.email.message })] }), _jsxs("div", { className: "text-center", children: [_jsx(ShadowButton, { value: "Send reset link", type: "submit", width: "2/3" }), emailSent &&
+                                    _jsx("div", { className: "text-xl font-bold text-red-500", children: errors.email.message })] }), _jsxs("div", { className: "text-center", children: [_jsx(ShadowButton, { value: "Send reset link", width: "2/3" }), emailSent &&
                                     _jsx("p", { className: "text-md text-text font-bold text-center w-full pt-12", children: "We've sent a password reset link to your email. Please check your inbox. Wait a minute before resubmitting." })] })] }) })] }));
 };
 export default RecoverPassword;

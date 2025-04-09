@@ -158,7 +158,7 @@ const ListingCard: React.FC<ListingCardProps> = ({user, onSetListingToggle}) => 
                         <CardActions
                             userId={userData?.profileData.account_id}
                             hasHousing={userData?.personalData?.has_housing ?? false}
-                            initialProfileView={profileView}
+                            profileView={profileView}
                             initialBookmarkStatus={isBookmarked}
                             onSetListingToggle={handleToggle}
                         />

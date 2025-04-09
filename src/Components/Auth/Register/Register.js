@@ -44,6 +44,6 @@ function Register() {
                                 _jsx("div", { className: "text-xl font-bold text-red-500 text-center", children: errors.email.message }), errors.phone &&
                                 _jsx("div", { className: "text-xl font-bold text-red-500 text-center", children: errors.phone.message }), errors.password &&
                                 _jsx("div", { className: "text-xl font-bold text-red-500 text-center", children: errors.password.message }), errors.confirmPassword &&
-                                _jsx("div", { className: "text-xl font-bold text-red-500 text-center", children: errors.confirmPassword.message }), _jsxs("div", { className: "flex flex-col items-center space-y-2 ", children: [_jsx(ShadowButton, { disabled: isSubmitting, type: "submit", value: isSubmitting ? "Logging in..." : "Sign up", width: "64" }), _jsx("p", { className: "text-gray-600", children: "or" }), _jsx(SSOButton, {})] })] })] })] }));
+                                _jsx("div", { className: "text-xl font-bold text-red-500 text-center", children: errors.confirmPassword.message }), _jsxs("div", { className: "flex flex-col items-center space-y-2 ", children: [_jsx(ShadowButton, { disabled: isSubmitting, value: isSubmitting ? "Logging in..." : "Sign up", width: "64" }), _jsx("p", { className: "text-gray-600", children: "or" }), _jsx(SSOButton, {})] })] })] })] }));
 }
 export default Register;

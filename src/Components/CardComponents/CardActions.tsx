@@ -8,8 +8,15 @@ import {useNavigate} from "react-router-dom";
 import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks";
 import {handleCreateConversation} from "../API/Messaging";
 
-
-const CardActions= ({userId, hasHousing, profileView, onSetListingToggle, bookmarkDisplay = false, onBookmarkToggle}) => {
+interface CardActionsProps {
+    userId: number;
+    hasHousing: boolean;
+    profileView: boolean;
+    onSetListingToggle?: (userId: number) => void;
+    bookmarkDisplay?: boolean;
+    onBookmarkToggle?: (userId: number) => void;
+}
+const CardActions= ({userId, hasHousing, profileView, onSetListingToggle = () => {}, bookmarkDisplay = false, onBookmarkToggle = () => {}}: CardActionsProps) => {
     const [isBookmarked, setIsBookmarked] = useState(bookmarkDisplay);
     const navigate = useNavigate();
     const [id, setId] = useState(null);

@@ -98,7 +98,8 @@ const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookma
                         />
 
                         {/* Second Image (Circle, Overlapping the First at Bottom-Right) */}
-                        {profileData.personalData.has_housing === 1 && (
+                        {/*Check has housing as a boolean since its stored as 1 or 0*/}
+                        {Boolean(profileData.personalData.has_housing) && (
                             <img
                                 src={propertyImage}
                                 alt="Profile"
@@ -135,7 +136,8 @@ const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookma
                         </div>
                         <p className="font-semibold">${profileData.personalData.budget}</p>
                         <p className="font-semibold">Looking for: {profileData.personalData.has_housing ? "Roommate" : "Roommate + Housing"}</p>
-                        {profileData.personalData.has_housing === 1 && (
+                        {/*Check has housing as a boolean since its stored as 1 or 0*/}
+                        {Boolean(profileData.personalData.has_housing) && (
                             <p className="pt-2 text-xs">{`4Km away • ${profileData.propertyData.bedroom_count} rooms + ${profileData.propertyData.bathroom_count} bathrooms • ${profileData.personalData.city}, ${profileData.personalData.province}`}</p>)
                         }
                     </div>

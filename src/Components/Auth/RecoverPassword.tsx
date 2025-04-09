@@ -56,7 +56,7 @@ const RecoverPassword = () => {
                     </div>
 
                     <div className={"text-center"}>
-                        <ShadowButton value={"Send reset link"} type={"submit"} width={"2/3"}/>
+                        <ShadowButton value={"Send reset link"} width={"2/3"}/>
                         {/*Display after email is sent*/}
                         {emailSent &&
                         <p className="text-md text-text font-bold text-center w-full pt-12">We've sent a password reset link to your email. Please check your inbox. Wait a minute before resubmitting.</p>}
