@@ -11,7 +11,7 @@ export interface DiscoveryData{
     school: string,
     pet_free: boolean,
     smokes: boolean,
-    // verified: boolean,
+    verified: boolean,
     has_housing: boolean
 }
 

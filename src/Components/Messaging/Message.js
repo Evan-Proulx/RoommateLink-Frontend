@@ -9,7 +9,7 @@ const Message = ({ userId, message, username }) => {
         //Current time in milliseconds since epoch
         const now = Date.now();
         //Time difference in seconds since epoch between now and time
-        const diffInSeconds = Math.floor((now - new Date(time)) / 1000);
+        const diffInSeconds = Math.floor((now - new Date(time).getTime()) / 1000);
         //Check less than minute
         if (diffInSeconds < 60) {
             return "Just Now";

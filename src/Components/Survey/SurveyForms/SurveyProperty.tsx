@@ -164,7 +164,7 @@ const SurveyProperty = ({ propertyData, setPropertyData, onSetPropertyImages, on
                 <div className={"flex flex-col items-center"}>
                     <label htmlFor="message" className="block mb-2 header2-text text-center">Write a short description
                         of the property</label>
-                    <textarea id="message" rows="4"
+                    <textarea id="message" rows={4}
                               className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full lg:w-2/3 p-4"
                               placeholder="Write something..."
                               value={propertyData.description}

@@ -135,7 +135,7 @@ const UpdateProfile = ({ closeModal }) => {
                                             }), onChange: (e) => {
                                                 updateProfileData("first_name", e.target.value);
                                             } }), errors.firstname &&
-                                            _jsx("p", { className: "text-red-600 text-center min-h-12", children: errors.firstname.message })] }), _jsxs("div", { className: "flex flex-col", children: [_jsx("label", { htmlFor: "lastname", className: "block mb-2 header4-text", children: "Last Name" }), _jsx("input", { type: "input", id: "lastname", name: "lastname", value: updatedProfileData?.last_name, min: 2, max: 50, required: true, className: "input-style-survey", ...register("lastname", {
+                                            _jsx("p", { className: "text-red-600 text-center min-h-12", children: errors.firstname.message.toString() || '' })] }), _jsxs("div", { className: "flex flex-col", children: [_jsx("label", { htmlFor: "lastname", className: "block mb-2 header4-text", children: "Last Name" }), _jsx("input", { type: "input", id: "lastname", name: "lastname", value: updatedProfileData?.last_name, min: 2, max: 50, required: true, className: "input-style-survey", ...register("lastname", {
                                                 required: "Last name is required",
                                                 minLength: { value: 2, message: "Must be at least 2 characters" },
                                                 maxLength: { value: 50, message: "Cannot exceed 50 characters" },
@@ -146,7 +146,7 @@ const UpdateProfile = ({ closeModal }) => {
                                             }), onChange: (e) => {
                                                 updateProfileData("last_name", e.target.value);
                                             } }), errors.lastname &&
-                                            _jsx("p", { className: "text-red-600 text-center min-h-12", children: errors.lastname.message })] })] }), _jsxs("div", { className: "w-full", children: [_jsx("label", { htmlFor: "message", className: "block mb-2 header4-text text-start", children: "Write a short bio" }), _jsx("textarea", { id: "message", className: "input-style-survey lg:w-1/2 p-4", placeholder: "Write something...", value: updatedProfileData?.bio, onChange: e => {
+                                            _jsx("p", { className: "text-red-600 text-center min-h-12", children: errors.lastname.message.toString() || '' })] })] }), _jsxs("div", { className: "w-full", children: [_jsx("label", { htmlFor: "message", className: "block mb-2 header4-text text-start", children: "Write a short bio" }), _jsx("textarea", { id: "message", className: "input-style-survey lg:w-1/2 p-4", placeholder: "Write something...", value: updatedProfileData?.bio, onChange: e => {
                                         updateProfileData("bio", e.target.value);
                                     } })] }), _jsxs("div", { className: "flex flex-col items-center space-y-2", children: [displayAlert && _jsx("p", { className: "font-bold text-lg text-center", children: "Nothing to update!" }), _jsx("button", { type: "submit", className: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800", children: "Submit" })] })] }) })] }));
 };

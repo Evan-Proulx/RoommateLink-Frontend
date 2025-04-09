@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {useForm, useFormContext} from "react-hook-form";
 
 //profile data is passed down from the survey parent component
-const SurveyProfile = ({profileData, setProfileData, setValidationError, onSetAvatar, onSetVideo}) => {
+const SurveyProfile = ({profileData, setProfileData, onSetAvatar, onSetVideo}) => {
     const { register, formState: { errors ,isValid, isDirty},  } = useFormContext();
 
     //Create an array with a length of 82 numbers from 18-100
@@ -56,7 +56,7 @@ const SurveyProfile = ({profileData, setProfileData, setValidationError, onSetAv
                            })}
                            onChange={(e) => {updateProfileData("firstName", e.target.value);}}/>
                     {/*Display validation error*/}
-                    {errors.firstname && <p className={"text-red-600 text-center min-h-12"}>{errors.firstname.message}</p>}
+                    {errors.firstname && <p className={"text-red-600 text-center min-h-12"}>{errors.firstname.message.toString() || ''}</p>}
                 </div>
 
                 {/*Lastname input validation ensures it is required, length is between 2 and 50 and has no special characters*/}
@@ -76,7 +76,7 @@ const SurveyProfile = ({profileData, setProfileData, setValidationError, onSetAv
                            onChange={(e) => {updateProfileData("lastName", e.target.value);
                            }}/>
                     {/*Display validation error*/}
-                    {errors.lastname && <p className={"text-red-600 text-center min-h-12"}>{errors.lastname.message}</p>}
+                    {errors.lastname && <p className={"text-red-600 text-center min-h-12"}>{errors.lastname.message.toString() || ''}</p>}
                 </div>
             </section>
 

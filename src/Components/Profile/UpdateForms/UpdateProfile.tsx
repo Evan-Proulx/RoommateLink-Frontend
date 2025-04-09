@@ -212,7 +212,7 @@ const UpdateProfile = ({closeModal}) => {
                                    }}/>
                             {/*Display validation error*/}
                             {errors.firstname &&
-                                <p className={"text-red-600 text-center min-h-12"}>{errors.firstname.message}</p>}
+                                <p className={"text-red-600 text-center min-h-12"}>{errors.firstname.message.toString() || ''}</p>}
                         </div>
 
                         {/*Lastname input validation ensures it is required, length is between 2 and 50 and has no special characters*/}
@@ -238,7 +238,7 @@ const UpdateProfile = ({closeModal}) => {
                                    }}/>
                             {/*Display validation error*/}
                             {errors.lastname &&
-                                <p className={"text-red-600 text-center min-h-12"}>{errors.lastname.message}</p>}
+                                <p className={"text-red-600 text-center min-h-12"}>{errors.lastname.message.toString() || ''}</p>}
                         </div>
                     </section>
 

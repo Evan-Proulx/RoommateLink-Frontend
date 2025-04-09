@@ -14,7 +14,7 @@ interface CardActionsProps {
     profileView: boolean;
     onSetListingToggle?: (userId: number) => void;
     bookmarkDisplay?: boolean;
-    onBookmarkToggle?: (userId: number) => void;
+    onBookmarkToggle?: (bookmarked: boolean) => void;
 }
 const CardActions= ({userId, hasHousing, profileView, onSetListingToggle = () => {}, bookmarkDisplay = false, onBookmarkToggle = () => {}}: CardActionsProps) => {
     const [isBookmarked, setIsBookmarked] = useState(bookmarkDisplay);
@@ -77,7 +77,7 @@ const CardActions= ({userId, hasHousing, profileView, onSetListingToggle = () =>
                 </button>
             </div>
 
-            {hasHousing === 1 && !bookmarkDisplay && (
+            {Boolean(hasHousing) && !bookmarkDisplay && (
                 <div className="m-2 relative">
                     <label className="inline-flex items-center mb-5 cursor-pointer">
                         <input type="checkbox" value="" className="sr-only peer" defaultChecked={profileView}

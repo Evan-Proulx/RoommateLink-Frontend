@@ -32,7 +32,7 @@ const UpdateFiles = ({closeModal}) => {
         try {
             const response = await uploadProfileMedia(image, video);
 
-            if (!response) {
+            if (response === null) {
                 setDisplayAlert("Upload Failed.");
             }
 

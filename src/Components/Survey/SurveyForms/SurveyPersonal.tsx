@@ -95,7 +95,7 @@ const SurveyPersonal = ({userData, setUserData, searchLocation, setSearchLocatio
                     />
                 </div>
                 {/*Display validation if no  error*/}
-                {errors.location && <p className={"text-red-600 text-center min-h-12"}>{errors.location.message}</p>}
+                {errors.location && <p className={"text-red-600 text-center min-h-12"}>{errors.location.message.toString() || ''}</p>}
             </section>
 
             {/*Housing status*/}

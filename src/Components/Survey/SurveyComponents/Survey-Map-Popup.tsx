@@ -16,6 +16,7 @@ interface MapPopupProps {
     longitude?: number; // longitude to set initial value
     onLocationChange?: (lat: number, lng: number) => void; // Callback when location is changed
     onRadiusChange?: (radius: number) => void; // Callback when radius is changed
+    onProfileMap?: boolean;
 }
 
 // Map popup component

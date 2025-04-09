@@ -10,8 +10,8 @@ interface UpdatePropertyProps {
     property: PropertyData,
     //property and personalData are passed
     // when the user doesn't have a property and is creating one for the first time
-    newProperty: boolean,
-    personalData: PersonalData | undefined,
+    newProperty?: boolean,
+    personalData?: PersonalData | undefined,
     closeModal: () => void,
 }
 
@@ -257,7 +257,7 @@ const UpdateProperty = ({property, newProperty = false, personalData = undefined
             <div className={"flex flex-col items-center w-full"}>
                 <label htmlFor="message" className="block mb-2 header4-text">Write a short description
                     of the property</label>
-                <textarea id="message" rows="4"
+                <textarea id="message" rows={4}
                           className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4"
                           placeholder="Write something..."
                           value={updatedPropertyData?.description}

@@ -217,7 +217,7 @@ const Survey = () => {
                             <SurveyDealBreakers dealBreakerData={dealBreakers} setDealBreakerData={setDealBreakers}/>
                         </Element>
                         <Element name="submit" id="submit" className={"py-20"}>
-                            <SubmitSurvey personalData={personalData} profileData={profileData} propertyData={propertyData} dealBreakerData={dealBreakers} submissionError={submissionError}/>
+                            <SubmitSurvey submissionError={submissionError}/>
                         </Element>
                     </div>
                 </div>

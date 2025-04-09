@@ -5,7 +5,7 @@ import { Popover } from 'flowbite';
 import { Help } from "@mui/icons-material";
 import { grey } from '@mui/material/colors';
 import { Link } from "react-router-dom";
-const PopoverButton = ({ content }) => {
+const PopoverButton = () => {
     const triggerRef = useRef(null);
     const contentRef = useRef(null);
     let popoverInstance = null;

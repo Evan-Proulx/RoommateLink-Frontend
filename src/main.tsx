@@ -51,10 +51,6 @@ const router = createBrowserRouter([
         element: <Bookmarks />,
     },
     {
-        path: '/test',
-        element: <DiscoveryModal />,
-    },
-    {
         path: '/login',
         element: <Login />,
     },

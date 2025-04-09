@@ -26,7 +26,7 @@ const Discovery = () => {
         school: '',
         pet_free: false,
         smokes: false,
-        // verified: false,
+        verified: false,
         has_housing: false
     });
     // Get user when the page load and update default form data
