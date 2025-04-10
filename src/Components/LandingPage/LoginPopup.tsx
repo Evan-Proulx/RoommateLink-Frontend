@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faGoogle, faLinkedin } from "@fortawesome/free-brands-svg-icons";
@@ -10,11 +10,16 @@ interface LoginPopupProps {
 
 const LoginPopup: React.FC<LoginPopupProps> = ({ isOpen, onClose }) => {
     const popupRef = useRef<HTMLDivElement | null>(null);
+    const [isAdultChecked, setIsAdultChecked] = useState(false);
 
     //Navigate user to correct oauth route
     const toAuth = (provider: string) => {
-        const rootUrl = import.meta.env.VITE_ROOT_URL;
-        window.location.href = `${rootUrl}/api/auth/${provider}/redirect`;
+        if (isAdultChecked) {
+            const rootUrl = import.meta.env.VITE_ROOT_URL;
+            window.location.href = `${rootUrl}/api/auth/${provider}/redirect`;
+        } else {
+            alert("Please confirm you are 18 years of age or older.");
+        }
     };
 
     // Close the popup if clicked outside
@@ -62,15 +67,47 @@ const LoginPopup: React.FC<LoginPopupProps> = ({ isOpen, onClose }) => {
                     <a href="#" className="text-blue-600 underline">Cookie Policy</a>.
                 </p>
 
+                {/* Age Verification Checkbox */}
+                <div className="mt-3 flex items-center">
+                    <input
+                        type="checkbox"
+                        id="adultConfirmation"
+                        className="form-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                        checked={isAdultChecked}
+                        onChange={(e) => setIsAdultChecked(e.target.checked)}
+                    />
+                    <label htmlFor="adultConfirmation" className="ml-2 text-sm text-gray-700 font-bold">
+                        I am 18 years old or older.
+                    </label>
+                </div>
+
                 {/* Login Buttons */}
                 <div className="mt-3 md:mt-5 space-y-2 md:space-y-3">
-                    <button onClick={() => toAuth("google")} className="w-full flex items-center justify-center gap-2 bg-blue-600 py-2 rounded-lg hover:bg-blue-700 text-white font-semibold">
+                    <button
+                        onClick={() => toAuth("google")}
+                        className={`w-full flex items-center justify-center gap-2 bg-blue-600 py-2 rounded-lg hover:bg-blue-700 text-white font-semibold ${
+                            !isAdultChecked ? 'opacity-50 cursor-not-allowed' : ''
+                        }`}
+                        disabled={!isAdultChecked}
+                    >
                         <FontAwesomeIcon icon={faGoogle} size="lg" /> <span className="text-sm md:text-base">Continue with Google</span>
                     </button>
-                    <button onClick={() => toAuth("linkedin-openid")} className="w-full flex items-center justify-center gap-2 bg-blue-500 py-2 rounded-lg hover:bg-blue-600 text-white font-semibold">
+                    <button
+                        onClick={() => toAuth("linkedin-openid")}
+                        className={`w-full flex items-center justify-center gap-2 bg-blue-500 py-2 rounded-lg hover:bg-blue-600 text-white font-semibold ${
+                            !isAdultChecked ? 'opacity-50 cursor-not-allowed' : ''
+                        }`}
+                        disabled={!isAdultChecked}
+                    >
                         <FontAwesomeIcon icon={faLinkedin} size="lg" /> <span className="text-sm md:text-base">Log in with LinkedIn</span>
                     </button>
-                    <button onClick={() => toAuth("github")} className="w-full flex items-center justify-center gap-2 bg-gray-700 py-2 rounded-lg hover:bg-gray-800 text-white font-semibold">
+                    <button
+                        onClick={() => toAuth("github")}
+                        className={`w-full flex items-center justify-center gap-2 bg-gray-700 py-2 rounded-lg hover:bg-gray-800 text-white font-semibold ${
+                            !isAdultChecked ? 'opacity-50 cursor-not-allowed' : ''
+                        }`}
+                        disabled={!isAdultChecked}
+                    >
                         <FontAwesomeIcon icon={faGithub} size="lg" /> <span className="text-sm md:text-base">Log in with GitHub</span>
                     </button>
                 </div>
