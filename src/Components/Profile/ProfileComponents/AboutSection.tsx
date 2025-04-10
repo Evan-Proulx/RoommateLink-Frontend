@@ -13,10 +13,10 @@ import {hobbies} from "../../../data.ts";
 
 interface AboutSectionProps{
     propertyImages: string[],
-    myProfileDisplayed: boolean
+    myProfileDisplayed: boolean,
 }
 
-function AboutSection({propertyImages, myProfileDisplayed}: AboutSectionProps) {
+function AboutSection({propertyImages, myProfileDisplayed, interestedPeople}: AboutSectionProps) {
     //Get user data
     const userProfile = useContext(ProfileContext);
     const user = userProfile as UserProfile;
@@ -105,7 +105,7 @@ function AboutSection({propertyImages, myProfileDisplayed}: AboutSectionProps) {
 
             {/* Content Section - Displaying the content of "About Me" or "My Property"*/}
             {activeTab === "about" ? (
-                <div className="mt-4">
+                <div className="flex flex-col space-y-4">
                     {/*About Me Section*/}
                     <p className="text-gray-600 m-2 text-lg font-semibold mt-2">
                         {user.profileData.bio}
@@ -142,8 +142,8 @@ function AboutSection({propertyImages, myProfileDisplayed}: AboutSectionProps) {
                             </div>
                         </>)}
 
-                    {/*Display Interested People*/}
-                    <InterestedPeople/>
+
+                    <InterestedPeople interestedPeople={interestedPeople}/>
                 </div>
             ) : user.personalData.has_housing ? (
                 <div className="mt-4">
@@ -159,10 +159,10 @@ function AboutSection({propertyImages, myProfileDisplayed}: AboutSectionProps) {
 
                     <div className="flex items-center justify-between w-128">
                         <h4 className="pl-2 text-gray-600 font-semibold"> {user.propertyData.bedroom_count} bedrooms + {user.propertyData.bathroom_count} Bathroom · {user.propertyData.square_feet} Square Feet</h4>
-                        <h4 className={`text-center font-semibold ${getTextColor(theLocation)}`}>
-                            {theLocation}Km away
-                            <FontAwesomeIcon icon={faLocationDot} className="ml-1"/>
-                        </h4>
+                        {/*<h4 className={`text-center font-semibold ${getTextColor(theLocation)}`}>*/}
+                        {/*    {theLocation}Km away*/}
+                        {/*    <FontAwesomeIcon icon={faLocationDot} className="ml-1"/>*/}
+                        {/*</h4>*/}
                     </div>
 
 
@@ -176,17 +176,6 @@ function AboutSection({propertyImages, myProfileDisplayed}: AboutSectionProps) {
                         {user.propertyData.description}
                     </p>
 
-                    {/*/!* Property Amenities *!/*/}
-                    {/*<h3 className="mt-10 font-bold m-2 text-xl">Amenities</h3>*/}
-                    {/*<div className="flex space-x-2 mt-2">*/}
-                    {/*    {propertyPreference.map((preference, index) => (*/}
-                    {/*        <span key={index} className="px-3 m-3 py-1 bg-gray-200 font-semibold rounded-full shadow-md">*/}
-                    {/*            {preference}*/}
-                    {/*        </span>*/}
-                    {/*    ))}*/}
-                    {/*</div>*/}
-
-                    {/* Map Section for Property Location */}
                     <MapSection />
                 </div>
             ) : (

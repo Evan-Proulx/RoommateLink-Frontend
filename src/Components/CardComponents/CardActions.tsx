@@ -22,8 +22,6 @@ const CardActions= ({userId, hasHousing, profileView, onSetListingToggle, bookma
 
     //Returns correct userId
     useEffect(() => {
-        console.log("On effect",userId)
-
         if (userId){
             setId(userId);
         }

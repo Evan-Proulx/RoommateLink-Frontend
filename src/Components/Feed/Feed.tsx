@@ -53,7 +53,7 @@ const Feed = () => {
             </div>
             <div className={"flex flex-col w-full h-full "}>
                 <div className={"flex flex-col justify-center items-center w-full h-full"}>
-                    <div className={"flex flex-col items-center space-y-4 w-3/4 xl:w-1/2 h-full pb-12"}>
+                    <div className={"flex flex-col items-center space-y-4 md:w-3/4 xl:w-1/2 h-full pb-12"}>
                         {users ? (
                             users.map((user, index) => (
                                     <ProfileCard key={user.profileData.account_id} user={user}/>

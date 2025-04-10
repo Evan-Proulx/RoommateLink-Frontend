@@ -6,7 +6,7 @@ import {UserProfile} from "../../ProfileData.ts"
 import UserInfoSection from "./ProfileComponents/UserInfoSection.tsx";
 import AboutSection from "./ProfileComponents/AboutSection.tsx";
 import Navbar from "../Navbar.tsx";
-import {getInterestedUsers} from "../API/Bookmarks.ts";
+import {getInterestedUsers} from "../API/Profile.ts";
 import UpdateProfile from "./UpdateForms/UpdateProfile.tsx";
 import Modal from "../Modal.tsx";
 import {retrievePropertyImages} from "../API/Media.ts";
@@ -26,6 +26,7 @@ function ProfilePage() {
 
     const [profileData, setProfileData] = useState<UserProfile>();
     const [propertyImages, setPropertyImages] = useState<string[]>([]);
+    const [interestedUsers, setInterestedUsers] = useState<UserProfile[]>([]);
 
     //Fetch profile data from the api when the page first loads
     useEffect(() => {
@@ -92,6 +93,7 @@ function ProfilePage() {
         try {
             const response = await getInterestedUsers(id);
             console.log(response);
+            setInterestedUsers(response.interested_people);
         } catch (err) {
             console.log(err);
         }
@@ -113,7 +115,7 @@ function ProfilePage() {
                         <UserInfoSection myProfileDisplayed={myProfileDisplayed}/>
                         <div className="flex">
                             <Aside myProfileDisplayed={myProfileDisplayed}/>
-                            <AboutSection propertyImages={propertyImages} myProfileDisplayed={myProfileDisplayed}/>
+                            <AboutSection propertyImages={propertyImages} myProfileDisplayed={myProfileDisplayed} interestedPeople={interestedUsers}/>
                         </div>
                     </div>
                 </div>

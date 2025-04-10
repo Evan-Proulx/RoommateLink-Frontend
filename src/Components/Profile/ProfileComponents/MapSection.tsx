@@ -2,6 +2,7 @@ import { CircleF, GoogleMap, LoadScript } from "@react-google-maps/api";
 import {UserProfile} from "../../../ProfileData.ts";
 import {useContext} from "react";
 import {ProfileContext} from "../ProfilePage.tsx";
+import {LocationOn} from "@mui/icons-material";
 
 
     //Map's container size
@@ -32,33 +33,10 @@ function MapSection() {
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
     return (
-        <div className="pt-6">
+        <div className="p-6">
             <h1 className="text-lg font-bold mb-2 flex items-center">
                 {/* Location Icon */}
-                <svg
-                    className="w-6 h-6 text-gray-800 dark:text-black mr-2"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                    />
-                    <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z"
-                    />
-                </svg>
+                <LocationOn/>
                 Location
             </h1>
 
@@ -66,7 +44,7 @@ function MapSection() {
             <h2 className="text-gray-600 flex items-center ml-2">
                 {user.personalData.city}
             </h2>
-            <div className="bg-white p-4 m-2 border border-black max-w-[580px]">
+            <div className="bg-white p-4 m-2 border border-black">
                 <LoadScript googleMapsApiKey={apiKey}>
                     <GoogleMap
                         options={{

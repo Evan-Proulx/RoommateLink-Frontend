@@ -15,6 +15,9 @@ import InputComponent from "./Components/InputComponent.tsx";
 import BookmarkedUserCard from "./Components/CardComponents/BookmarkedUserCard.tsx";
 import ListingCard from "./Components/CardComponents/ListingCard.tsx";
 import Bookmarks from "./Components/Feed/Bookmarks.tsx"
+import ImageUploadTest from "./Components/ImageUploadTest.tsx";
+import IDVerification from "./Components/IDVerificationComponents/IDVerification.tsx";
+
 import DiscoveryModal from "./Components/Discovery/DiscoveryModal.tsx"
 // Routes
 const router = createBrowserRouter([
@@ -62,6 +65,10 @@ const router = createBrowserRouter([
     {
         path: '/home',
         element: <LandingPage />,
+    },
+    {
+        path: '/id',
+        element: <IDVerification />,
     },
 ]);
 
