@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import { FaGoogle, FaFacebook, FaPhone, FaTimes } from "react-icons/fa";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFacebook, faGithub, faGoogle, faLinkedin} from "@fortawesome/free-brands-svg-icons";
+import { FaTimes } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub, faGoogle, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 interface LoginPopupProps {
     isOpen: boolean; // To check if the popup is open
@@ -12,10 +12,10 @@ const LoginPopup: React.FC<LoginPopupProps> = ({ isOpen, onClose }) => {
     const popupRef = useRef<HTMLDivElement | null>(null);
 
     //Navigate user to correct oauth route
-    const toAuth = (provider: string) =>{
+    const toAuth = (provider: string) => {
         const rootUrl = import.meta.env.VITE_ROOT_URL;
         window.location.href = `${rootUrl}/api/auth/${provider}/redirect`;
-    }
+    };
 
     // Close the popup if clicked outside
     useEffect(() => {
@@ -34,10 +34,10 @@ const LoginPopup: React.FC<LoginPopupProps> = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50">
             <div
                 ref={popupRef}
-                className="bg-yellow-100 border-black border-2 text-white rounded-lg p-6 w-96 relative"
+                className="bg-yellow-100 border-black border-2 text-gray-700 rounded-lg p-4 md:p-6 w-5/6 md:w-96 relative"
                 onClick={(e) => e.stopPropagation()} // Stops event propagation inside the popup
             >
                 {/* Close Button */}
@@ -46,36 +46,33 @@ const LoginPopup: React.FC<LoginPopupProps> = ({ isOpen, onClose }) => {
                 </button>
 
                 {/* Logo */}
-                <div className="flex justify-center mb-4">
-                    <h1 className="loginPopupLogo text-2xl font-bold transition-transform duration-300 hover:scale-110">
+                <div className="flex justify-center mb-3 md:mb-4">
+                    <h1 className="loginPopupLogo text-xl md:text-2xl font-bold transition-transform duration-300 hover:scale-110 text-red-600">
                         Roommate Link
                     </h1>
-
-
                 </div>
 
                 {/* Title */}
-                <h2 className="text-center text-red-600 text-4xl m-4 font-bold">Get Started</h2>
-                <p className="text-sm text-gray-700 text-center mt-2">
+                <h2 className="text-center text-red-600 text-2xl md:text-3xl mb-2 md:mb-4 font-bold">Get Started</h2>
+                <p className="text-xs md:text-sm text-gray-700 text-center mt-1 md:mt-2">
                     By tapping Log In or Continue, you agree to our{" "}
-                    <a href="#" className="text-blue-600">Terms</a>.
+                    <a href="#" className="text-blue-600 underline">Terms</a>.
                     Learn how we process your data in our{" "}
-                    <a href="#" className="text-blue-600">Privacy Policy</a> and{" "}
-                    <a href="#" className="text-blue-600">Cookie Policy</a>.
+                    <a href="#" className="text-blue-600 underline">Privacy Policy</a> and{" "}
+                    <a href="#" className="text-blue-600 underline">Cookie Policy</a>.
                 </p>
 
                 {/* Login Buttons */}
-                <div className="mt-5 space-y-3">
-                    <button onClick={() => toAuth("google")} className="w-full flex items-center justify-center gap-2 bg-blue-600 py-2 rounded-lg hover:bg-blue-700">
-                        <FontAwesomeIcon icon={faGoogle} size="xl"/> Continue with Google
+                <div className="mt-3 md:mt-5 space-y-2 md:space-y-3">
+                    <button onClick={() => toAuth("google")} className="w-full flex items-center justify-center gap-2 bg-blue-600 py-2 rounded-lg hover:bg-blue-700 text-white font-semibold">
+                        <FontAwesomeIcon icon={faGoogle} size="lg" /> <span className="text-sm md:text-base">Continue with Google</span>
                     </button>
-                    <button onClick={() => toAuth("linkedin-openid")} className="w-full flex items-center justify-center gap-2 bg-blue-500 py-2 rounded-lg hover:bg-gray-600">
-                        <FontAwesomeIcon icon={faLinkedin} size="xl" /> Log in with LinkedIn
+                    <button onClick={() => toAuth("linkedin-openid")} className="w-full flex items-center justify-center gap-2 bg-blue-500 py-2 rounded-lg hover:bg-blue-600 text-white font-semibold">
+                        <FontAwesomeIcon icon={faLinkedin} size="lg" /> <span className="text-sm md:text-base">Log in with LinkedIn</span>
                     </button>
-                    <button onClick={() => toAuth("github")} className="w-full flex items-center justify-center gap-2 bg-gray-700 py-2 rounded-lg hover:bg-blue-900">
-                        <FontAwesomeIcon icon={faGithub} size="xl"/> Log in with GitHub
+                    <button onClick={() => toAuth("github")} className="w-full flex items-center justify-center gap-2 bg-gray-700 py-2 rounded-lg hover:bg-gray-800 text-white font-semibold">
+                        <FontAwesomeIcon icon={faGithub} size="lg" /> <span className="text-sm md:text-base">Log in with GitHub</span>
                     </button>
-
                 </div>
             </div>
         </div>
