@@ -67,17 +67,17 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
 
                 <div className="">
                     {/* User name */}
-                    <div className="flex items-center m-3">
-                        <div className={"flex"}>
+                    <div className="flex items-center m-3 sm:m-5">
+                        <div className={"flex items-center"}>
                             {myProfileDisplayed &&
                                 <div title={"Edit Personal Info"}><Edit className={"cursor-pointer"} onClick={() => setModal("updateProfile")}/></div>}
-                            <h1 className="text-5xl font-bold text-start">{user.profileData.first_name + " " + user.profileData.last_name}</h1>
+                            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-start">{user.profileData.first_name + " " + user.profileData.last_name}</h1>
                         </div>
 
                         {isVerified && (
                             <Tooltip title="User verified their account with ID" arrow>
                                 <svg
-                                    className="w-10 h-10 text-gray-800 dark:text-blue-700"
+                                    className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-gray-800 dark:text-blue-700"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -97,23 +97,23 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
                     </div>
 
                     {/* User's City */}
-                    <div className="flex items-center m-3">
-                        <PersonPinCircle sx={{color: grey[600]}}/>
-                        <h1 className="pl-1 text-md lg:text-xl font-semibold text-center text-gray-500">{user.personalData.city + ", " + user.personalData.province}</h1>
+                    <div className="flex items-center m-1 sm:m-3">
+                        <PersonPinCircle sx={{color: grey[600]}} className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8"/>
+                        <h1 className="pl-1 text-sm sm:text-md lg:text-xl font-semibold text-center text-gray-500">{user.personalData.city + ", " + user.personalData.province}</h1>
                     </div>
 
                     {/* User's Budget */}
-                    <div className="flex items-center m-3">
-                        <FontAwesomeIcon icon={faPiggyBank} className="text-gray-500 text-xl"/>
-                        <h1 className="pl-2 text-md lg:text-xl font-semibold text-center text-gray-500">
+                    <div className="flex items-center m-1 sm:m-3">
+                        <FontAwesomeIcon icon={faPiggyBank} className="text-gray-500 text-lg sm:text-xl md:text-2xl"/>
+                        <h1 className="pl-2 text-sm sm:text-md lg:text-xl font-semibold text-center text-gray-500">
                             Budget: ${user.personalData.budget}/month
                         </h1>
                     </div>
 
                     {/* User's State */}
-                    <div className="flex items-center m-3">
-                        <Search sx={{color: grey[600]}}/>
-                        <h1 className="pl-1 text-md lg:text-xl font-semibold text-center text-gray-500">Looking
+                    <div className="flex items-center m-1 sm:m-3">
+                        <Search sx={{color: grey[600]}} className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8"/>
+                        <h1 className="pl-1 text-sm sm:text-md lg:text-xl font-semibold text-center text-gray-500">Looking
                             for: {user.personalData.has_housing ? "Roommate" : "Roommate + Housing"}</h1>
                     </div>
                 </div>

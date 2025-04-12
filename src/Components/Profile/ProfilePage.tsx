@@ -113,7 +113,7 @@ function ProfilePage() {
                 <div className="flex justify-center bg-primary">
                     <div className="items-center overflow-y-auto h-screen bg-profile xl:w-2/3 shadow-2xl">
                         <UserInfoSection myProfileDisplayed={myProfileDisplayed}/>
-                        <div className="flex">
+                        <div className="sm:flex ">
                             <Aside myProfileDisplayed={myProfileDisplayed}/>
                             <AboutSection propertyImages={propertyImages} myProfileDisplayed={myProfileDisplayed} interestedPeople={interestedUsers}/>
                         </div>
