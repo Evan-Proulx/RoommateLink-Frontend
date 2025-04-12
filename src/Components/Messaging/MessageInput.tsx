@@ -1,11 +1,11 @@
 import React, {useRef, useState} from 'react';
 import {createMessage, setTyping} from "../API/Messaging"
+import {useNavigate} from "react-router-dom";
 const MessageInput = ({conversation, receiverId}) => {
     const [message, setMessage] = useState("");
     const [userTyping, setUserTyping] = useState(false);
     const [loading, setLoading] = useState(true);
     const typingTimeout = useRef<number | null>(null);
-
     //Create message in conversation
     const messageRequest = async (text) => {
         try {

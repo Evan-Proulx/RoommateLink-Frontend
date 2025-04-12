@@ -5,7 +5,6 @@ import {getConversationMessages} from "../API/Messaging";
 import Message from "./Message";
 import {MoreVert} from "@mui/icons-material";
 
-
 const ConversationBox = ({user, conversation, receiver}) => {
     //Channel name for chat.
     const webSocketChannel = `private-chat.${conversation.id}`;
@@ -32,7 +31,6 @@ const ConversationBox = ({user, conversation, receiver}) => {
             }
         });
     }
-
 
     const getMessages = async () => {
         try{

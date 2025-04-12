@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         path: '/id',
         element: <IDVerification />,
     },
-],{basename: '/roommatelink'}//App url put infront of the rest of the route
+],
 );
 
 createRoot(document.getElementById('root')!).render(
