@@ -200,7 +200,9 @@ const LandingPage = () => {
                     >
                         FAQ
                     </button>
-                    <button className="px-8 py-3 text-sm text-white font-semibold transition-transform duration-300 hover:scale-110 lg:px-12 lg:py-4 lg:text-lg">
+                    <button className="px-8 py-3 text-sm text-white font-semibold transition-transform duration-300 hover:scale-110 lg:px-12 lg:py-4 lg:text-lg"
+                            onClick={() => navigate('/privacyPolicy')}
+                    >
                         Privacy Policy
                     </button>
                 </div>
