@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faComments, faMagnifyingGlassPlus, faUser} from "@fortawesome/free-solid-svg-icons";
 import LoginPopup from "./LoginPopup.tsx";
+import {useNavigate} from "react-router-dom";
 
 const FirstSection = () => {
     const [isOn, setIsOn] = useState(false);
@@ -51,7 +52,9 @@ const FirstSection = () => {
             </div>
 
             <div className="flex flex-col items-center justify-center text-center mt-6 md:mt-0">
-                <h1 className="landingPageLogo mt-[-10px] md:mt-[-30px] text-5xl md:text-6xl">Roommate Link</h1>
+                <h1 className="font-supermercado text-red-600 mt-[-10px] md:p-8 md:mt-[-30px] text-4xl sm:text-5xl md:text-6xl">
+                    Roommate Link
+                </h1>
                 <h1 className="text-xl md:text-3xl font-bold text-red-600 mt-2 md:mt-[-20px] lg:text-4xl">Find the Perfect Roommate or Place with Ease!</h1>
 
                 <div className="flex flex-col lg:flex-row items-center justify-between mt-6 md:mt-8 max-w-6xl mx-auto">
@@ -179,20 +182,25 @@ const WhyChooseUs = () => {
 };
 
 const LandingPage = () => {
+    const navigate = useNavigate();
+
     return (
         <div>
             <FirstSection/>
             <HowItWorks/>
             <WhyChooseUs/>
             <footer className="text-center py-4 md:py-6 bg-red-600 text-white">
-                <div className="mb-4 md:mb-5 flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-8 lg:space-x-16">
-                    <button className="px-8 py-3 text-white font-semibold transition-transform duration-300 hover:scale-110 lg:px-12 lg:py-4 lg:text-lg">
+                <div className="mb-4 md:mb-5 flex flex-row md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <button className="px-8 py-3 text-sm text-white font-semibold transition-transform duration-300 hover:scale-110 lg:px-12 lg:py-4 lg:text-lg">
                         Terms of Use
                     </button>
-                    <button className="px-8 py-3 text-white font-semibold transition-transform duration-300 hover:scale-110 lg:px-12 lg:py-4 lg:text-lg">
+                    <button
+                        onClick={() => navigate('/faq')}
+                        className="px-8 py-3 text-sm text-white font-semibold transition-transform duration-300 hover:scale-110 lg:px-12 lg:py-4 lg:text-lg"
+                    >
                         FAQ
                     </button>
-                    <button className="px-8 py-3 text-white font-semibold transition-transform duration-300 hover:scale-110 lg:px-12 lg:py-4 lg:text-lg">
+                    <button className="px-8 py-3 text-sm text-white font-semibold transition-transform duration-300 hover:scale-110 lg:px-12 lg:py-4 lg:text-lg">
                         Privacy Policy
                     </button>
                 </div>
