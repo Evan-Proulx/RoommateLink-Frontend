@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faComments, faMagnifyingGlassPlus, faUser} from "@fortawesome/free-solid-svg-icons";
 import LoginPopup from "./LoginPopup.tsx";
@@ -7,7 +7,9 @@ import {useNavigate} from "react-router-dom";
 const FirstSection = () => {
     const [isOn, setIsOn] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
-
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     const handleOpenPopup = () => {
         setPopupOpen(true);
     };
@@ -191,7 +193,9 @@ const LandingPage = () => {
             <WhyChooseUs/>
             <footer className="text-center py-4 md:py-6 bg-red-600 text-white">
                 <div className="mb-4 md:mb-5 flex flex-row md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-8 lg:space-x-16">
-                    <button className="px-8 py-3 text-sm text-white font-semibold transition-transform duration-300 hover:scale-110 lg:px-12 lg:py-4 lg:text-lg">
+                    <button className="px-8 py-3 text-sm text-white font-semibold transition-transform duration-300 hover:scale-110 lg:px-12 lg:py-4 lg:text-lg"
+                            onClick={() => navigate('/termsOfUse')}
+                    >
                         Terms of Use
                     </button>
                     <button

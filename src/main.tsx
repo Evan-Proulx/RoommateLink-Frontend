@@ -17,6 +17,7 @@ import IDVerification from "./Components/IDVerificationComponents/IDVerification
 import DiscoveryModal from "./Components/Discovery/DiscoveryModal.tsx"
 import FAQ from "./Components/LandingPage/FAQ.tsx";
 import PrivacyPolicy from "./Components/LandingPage/PrivacyPolicy.tsx";
+import TermsOfUse from "./Components/LandingPage/TermsOfUse.tsx";
 // Routes
 const router = createBrowserRouter([
     {
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
     {
         path: '/privacyPolicy',
         element: <PrivacyPolicy/>,
+    },
+    {
+        path: '/termsOfUse',
+        element: <TermsOfUse/>,
     },
 
 ]);
