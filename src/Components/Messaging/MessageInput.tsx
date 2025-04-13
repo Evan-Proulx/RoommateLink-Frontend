@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import {createMessage, setTyping} from "../API/Messaging"
 import {useNavigate} from "react-router-dom";
-const MessageInput = ({conversation, receiverId}) => {
+const MessageInput = ({conversation, receiverId, onMessageSent}) => {
     const [message, setMessage] = useState("");
     const [userTyping, setUserTyping] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -13,6 +13,9 @@ const MessageInput = ({conversation, receiverId}) => {
             console.log(conversation.id)
             const response = await createMessage(text, conversation.id);
             console.log(response)
+
+            //Triggers the parent component to retrieve new messages
+            if (onMessageSent){onMessageSent()}
         } catch (err) {console.error(err);}
         finally {setLoading(false);}
     }
