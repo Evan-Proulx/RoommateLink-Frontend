@@ -130,7 +130,7 @@ const UpdateProperty = ({property, newProperty = false, personalData = undefined
 
     return (
         <form onSubmit={handleSubmit}
-              className={"flex flex-col justify-center items-center border-2 border-black p-10 rounded-lg space-y-8"}>
+              className={"flex flex-col justify-center items-center border-2 border-black sm:p-10 rounded-lg space-y-8"}>
             <h1 className={"header2-text pb-3"}>Update your profile info</h1>
 
             {/*Property Type Select*/}

@@ -109,7 +109,7 @@ function ProfilePage() {
     //pass profile data to child components
     return (
         <ProfileContext.Provider value={profileData}>
-            <div className="flex flex-col h-screen overflow-y-hidden">
+            <div className="flex flex-col overflow-y-hidden">
                 <Navbar/>
                 <div className="flex justify-center bg-primary">
                     <div className="items-center overflow-y-auto h-screen bg-profile xl:w-2/3 shadow-2xl">

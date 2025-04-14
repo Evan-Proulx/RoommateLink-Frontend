@@ -58,7 +58,7 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
                     {/*Edit icon inside profile picture*/}
                     {myProfileDisplayed &&
                         <div onClick={() => setModal("updateFiles")} title={"Edit Profile Picture"}
-                             className="absolute bottom-8 right-0 p-1 rounded-full bg-gray-300 transform
+                             className="absolute bottom-2 sm:bottom-8 sm:right-0 p-1 rounded-full bg-gray-300 transform
                                -translate-y-8 -translate-x-1/4 cursor-pointer hover:bg-gray-400 ease-in-out">
                             <Edit sx={{fontSize: 28}}/>
                         </div>

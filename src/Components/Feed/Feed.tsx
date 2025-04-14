@@ -53,7 +53,7 @@ const Feed = () => {
                     <Popover/>
                 </div>
             </div>
-            <div className={"flex flex-col w-full h-full px-3 sm:px-6 md:px-12"}>
+            <div className={"flex flex-col w-full h-full px-1 sm:px-6 md:px-12"}>
                 <div className={"flex flex-col justify-center items-center w-full h-full"}>
                     <div className={"flex flex-col items-center space-y-4 w-full max-w-screen-xl h-full pb-12"}>
                         {users ? (

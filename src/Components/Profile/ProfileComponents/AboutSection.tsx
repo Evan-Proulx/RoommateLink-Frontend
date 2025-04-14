@@ -157,7 +157,7 @@ function AboutSection({propertyImages, myProfileDisplayed, interestedPeople}: Ab
                                 <Edit sx={{fontSize: 22}}/>
                             </div>}</div>
 
-                    <div className="flex items-center justify-between w-128">
+                    <div className="flex items-center justify-between ">
                         <h4 className="pl-2 text-gray-600 sm:font-semibold text-sm sm:text-md"> {user.propertyData.bedroom_count} bedrooms + {user.propertyData.bathroom_count} Bathroom · {user.propertyData.square_feet} Square Feet</h4>
                         {/*<h4 className={`text-center font-semibold ${getTextColor(theLocation)}`}>*/}
                         {/*    {theLocation}Km away*/}

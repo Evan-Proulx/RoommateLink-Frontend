@@ -58,10 +58,13 @@ function Aside({myProfileDisplayed}: AsideProps) {
     return (
         <div className="h-auto sm:w-56 bg-profile pr-4 m-2">
             {!myProfileDisplayed && (
-                <div className="flex flex-row sm:flex-col items-center justify-around flex-wrap gap-2">
-                    <MessageBtn onMessageClicked={handleMessage} />
-                    <FavoriteBtn onFavoriteClicked={toggleBookmark} bookmarked={isBookmarked} />
-                    <ReportBtn onReportClicked={() => setModalIsOpen(true)} />
+                <div className="flex flex-row sm:flex-col items-center justify-around flex-wrap ">
+
+                    <div className="flex flex-row sm:flex-col items-center justify-around flex-wrap gap-4 sm:gap-1"><MessageBtn onMessageClicked={handleMessage}/>
+                        <FavoriteBtn onFavoriteClicked={toggleBookmark} bookmarked={isBookmarked}/>
+                        <ReportBtn onReportClicked={() => setModalIsOpen(true)}/>
+                    </div>
+
                     <Rating myProfileDisplayed={myProfileDisplayed} revieweeId={profile?.profileData.account_id} />
 
                     {/* Report modal */}
