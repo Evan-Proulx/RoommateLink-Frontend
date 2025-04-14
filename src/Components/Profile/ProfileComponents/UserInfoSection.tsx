@@ -5,7 +5,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {ProfileContext} from "../ProfilePage";
 import {UserProfile} from "../../../ProfileData";
 import ProfileImg from "../Aside/ProfileImg";
-import {Edit, PersonPinCircle, Search} from "@mui/icons-material";
+import {Edit, Logout, LogoutOutlined, PersonPinCircle, Search} from "@mui/icons-material";
 import {grey} from "@mui/material/colors";
 import Modal from "../../Modal";
 import UpdateProfile from "../UpdateForms/UpdateProfile";
@@ -13,12 +13,15 @@ import UpdateFiles from "../UpdateForms/UpdateFiles";
 import UpdateProperty from "../UpdateForms/UpdateProperty";
 import {isUserVerified} from "../../API/Verification";
 import {Tooltip} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
-interface UserInfoSectionProps{
+interface UserInfoSectionProps {
     myProfileDisplayed: boolean;
-};
-function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
+}
+
+function UserInfoSection({myProfileDisplayed}: UserInfoSectionProps) {
     const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
+    const navigate = useNavigate();
     //Get user data
     const userProfile = useContext(ProfileContext);
     const user = userProfile as UserProfile;
@@ -45,15 +48,17 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
         checkVerification();
     }, []);
 
+
+
     // Toggle modal display
     return (
         <div className="p-4 flex justify-between items-start w-full shadow-md">
             <div className={"flex space-x-3 px-4 lg:px-12"}>
-
                 {/* User's profile picture img url and link % is passed if they have one*/}
                 <div className={"relative"}>
                     <ProfileImg url={imgUrl + user.profileData.profile_picture}
-                                percentage={user.compatibilityScore ? user.compatibilityScore : null} myProfileDisplayed={myProfileDisplayed}/>
+                                percentage={user.compatibilityScore ? user.compatibilityScore : null}
+                                myProfileDisplayed={myProfileDisplayed}/>
 
                     {/*Edit icon inside profile picture*/}
                     {myProfileDisplayed &&
@@ -70,7 +75,9 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
                     <div className="flex items-center m-3">
                         <div className={"flex"}>
                             {myProfileDisplayed &&
-                                <div title={"Edit Personal Info"}><Edit className={"cursor-pointer"} onClick={() => setModal("updateProfile")}/></div>}
+                                <div title={"Edit Personal Info"}><Edit className={"cursor-pointer"}
+                                                                        onClick={() => setModal("updateProfile")}/>
+                                </div>}
                             <h1 className="text-5xl font-bold text-start">{user.profileData.first_name + " " + user.profileData.last_name}</h1>
                         </div>
 
@@ -93,7 +100,6 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
                                 </svg>
                             </Tooltip>
                         )}
-
                     </div>
 
                     {/* User's City */}
@@ -118,6 +124,7 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
                     </div>
                 </div>
             </div>
+
 
             {/* Video Component */}
             <div className="hidden sm:block align-bottom">

@@ -12,7 +12,6 @@ const Navbar = () => {
     const location = useLocation();
     const [dropdownDisplayed, setDropdownDisplayed] = useState(false);
 
-
     //Holds navigation path, icon with size and display name
     const links = [
             {to: "/feed", icon: (size) => <FeedOutlined sx={{fontSize: size}}/>, name: "Feed"},

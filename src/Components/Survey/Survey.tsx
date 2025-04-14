@@ -128,7 +128,7 @@ const Survey = () => {
     //Submits file data to server. Files are handled separately from the rest of the profile data.
     const handleFileSubmission = async () => {
         // Check profile picture and video and send files to server
-        if (profilePicture && introductoryVideo) {
+        if (profilePicture || introductoryVideo) {
             try {
                 const response = await uploadProfileMedia(profilePicture, introductoryVideo);
                 console.log(response);
