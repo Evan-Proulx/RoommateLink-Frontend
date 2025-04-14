@@ -33,7 +33,7 @@ function MapSection() {
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
     return (
-        <div className="p-6">
+        <div className="p-3">
             <h1 className="text-lg font-bold mb-2 flex items-center">
                 {/* Location Icon */}
                 <LocationOn/>

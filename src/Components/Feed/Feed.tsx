@@ -45,16 +45,18 @@ const Feed = () => {
 
         <div className={"w-full bg-primary overflow-y-hidden"}>
             <Navbar/>
-            <div className={"flex items-baseline py-3 space-x-3"}>
-                <h1 className="pl-3 lg:pl-32 text-start header-text-huge">Your Links</h1>
-                <Popover/>
+            <div className={"flex flex-col sm:flex-row items-start sm:items-baseline py-3 sm:space-x-3 px-3 sm:px-10 md:px-20"}>
+                <h1 className="text-start pl-3 lg:pl-32 text-2xl font-bold text-red-600 sm:text-5xl sm:p-4">Your Links</h1>
+                <div className="mt-2 sm:mt-0">
+                    <Popover/>
+                </div>
             </div>
-            <div className={"flex flex-col w-full h-full "}>
+            <div className={"flex flex-col w-full h-full px-1 sm:px-6 md:px-12"}>
                 <div className={"flex flex-col justify-center items-center w-full h-full"}>
-                    <div className={"flex flex-col items-center space-y-4 md:w-3/4 xl:w-1/2 h-full pb-12"}>
+                    <div className={"flex flex-col items-center space-y-4 w-full max-w-screen-xl h-full pb-12"}>
                         {users ? (
                             users.map((user, index) => (
-                                    <ProfileCard key={user.profileData.account_id} user={user}/>
+                                <ProfileCard key={user.profileData.account_id} user={user}/>
                             ))
                         ) : (
                             <div className="flex items-center justify-center text-gray-500">

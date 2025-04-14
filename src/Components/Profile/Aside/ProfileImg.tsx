@@ -36,17 +36,19 @@ function ProfileImg({ url, percentage, myProfileDisplayed }) {
             <img
                 src={url ? url : "https://archive.org/download/instagram-plain-round/instagram%20dip%20in%20hair.jpg"}
                 alt="User Profile"
-                className="w-32 h-32 rounded-full shadow-md"
+                className="sm:w-32 sm:h-32 w-20 h-20 rounded-full shadow-md"
             />
-            {percentage ? <label className={`text-center font-black text-3xl ${getTextColor(percentage)}`}>
+            {percentage ? <label className={`text-center text-md pt-4 font-black sm:text-3xl ${getTextColor(percentage)}`}>
                 {percentage} % Link
             </label> : null}
 
             {/* Conditionally render the "Verify Your ID" button */}
             {isVerified === false && myProfileDisplayed && (
-                <button onClick={handleNavigate} className="border-blue-600 border-2 p-2 rounded-lg bg-white font-bold">
+                <div className="p-2">
+                <button onClick={handleNavigate} className="border-blue-600 border-2 text-xs font-semibold sm:p-2 rounded-lg bg-white sm:font-bold">
                     Verify Your ID
                 </button>
+                </div>
             )}
         </div>
     );

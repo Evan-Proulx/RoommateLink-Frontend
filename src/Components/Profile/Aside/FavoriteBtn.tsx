@@ -10,11 +10,12 @@ interface FavoriteBtnProps {
 
 function FavoriteBtn({onFavoriteClicked, bookmarked}: FavoriteBtnProps) {
     return (
-        <button onClick={onFavoriteClicked}
-                className="flex items-center text-white bg-text hover:bg-red-600 font-medium rounded-lg text-sm px-6 py-3 text-center min-w-[160px] w-full m-5 transition-all duration-300"
+        <button
+            onClick={onFavoriteClicked}
+            className="flex items-center justify-center w-8 h-8 text-white bg-text hover:bg-red-600 font-medium rounded-lg text-sm px-1 py-1 text-center sm:w-12 sm:h-12 sm:px-6 sm:py-3 sm:min-w-[160px] transition-all duration-300"
         >
-            {!bookmarked ? <BookmarkBorder className={"me-4"}/> : <Bookmark className={"me-4"}/>}
-            {!bookmarked ? "Bookmark" : "Unbookmark"}
+            {!bookmarked ? <BookmarkBorder className={"me-0 sm:me-4"}/> : <Bookmark className={"me-0 sm:me-4"}/>}
+            <span className="hidden sm:inline">{!bookmarked ? "Bookmark" : "Unbookmark"}</span>
         </button>
 
     )

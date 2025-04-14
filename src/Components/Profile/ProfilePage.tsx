@@ -8,6 +8,8 @@ import AboutSection from "./ProfileComponents/AboutSection";
 import Navbar from "../Navbar";
 import {getInterestedUsers} from "../API/Profile";
 import {retrievePropertyImages} from "../API/Media";
+import Video from "./Aside/Video";
+
 export const ProfileContext = createContext<UserProfile | null>(null)
 
 function ProfilePage() {
@@ -106,14 +108,18 @@ function ProfilePage() {
     //pass profile data to child components
     return (
         <ProfileContext.Provider value={profileData}>
-            <div className="flex flex-col h-screen overflow-y-hidden">
+            <div className="flex flex-col overflow-y-hidden">
                 <Navbar/>
                 <div className="flex justify-center bg-primary">
                     <div className="items-center overflow-y-auto h-screen bg-profile xl:w-2/3 shadow-2xl">
                         <UserInfoSection myProfileDisplayed={myProfileDisplayed}/>
-                        <div className="flex">
+                        <div className="sm:flex ">
                             <Aside myProfileDisplayed={myProfileDisplayed}/>
                             <AboutSection propertyImages={propertyImages} myProfileDisplayed={myProfileDisplayed} interestedPeople={interestedUsers}/>
+                            {/* Video Component */}
+                            <div className="sm:hidden align-bottom">
+                                <Video/>
+                            </div>
                         </div>
                     </div>
                 </div>

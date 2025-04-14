@@ -12,6 +12,10 @@ import Conversation from "./Components/Messaging/Conversation";
 import LandingPage from "./Components/LandingPage/LandingPage";
 import Bookmarks from "./Components/Feed/Bookmarks"
 import IDVerification from "./Components/IDVerificationComponents/IDVerification";
+import FAQ from "./Components/LandingPage/FAQ";
+import PrivacyPolicy from "./Components/LandingPage/PrivacyPolicy";
+import TermsOfUse from "./Components/LandingPage/TermsOfUse";
+
 // Routes
 const router = createBrowserRouter([
     {
@@ -54,6 +58,18 @@ const router = createBrowserRouter([
     {
         path: '/id',
         element: <IDVerification />,
+    },
+    {
+        path: '/faq',
+        element: <FAQ />,
+    },
+    {
+        path: '/privacyPolicy',
+        element: <PrivacyPolicy/>,
+    },
+    {
+        path: '/termsOfUse',
+        element: <TermsOfUse/>,
     },
 ],
 );

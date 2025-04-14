@@ -19,6 +19,7 @@ export default {
             fontFamily: {
                 sans: ['Inter', 'sans-serif'],
                 serif: ['Merriweather', 'serif'],
+                supermercado: ['"Supermercado One"', 'serif'],
             },
             spacing: {
                 '128': '32rem',

@@ -121,15 +121,15 @@ const Discovery = () => {
             <Navbar/>
             <div className={"flex items-baseline py-3 space-x-3"}>
                 <div>
-                    <h1 className="pl-3 lg:pl-32 text-start header-text-huge">Discovery</h1>
-                    <h2 className="pl-3 lg:pl-32 text-start header4-text">Refine your roommate search</h2>
+                    <h1 className="pl-3 lg:pl-32 text-start text-2xl font-bold text-red-600 sm:text-5xl sm:p-4">Discovery</h1>
+                    <h2 className="pl-3 lg:pl-32 text-start text-sm  text-red-600 sm:header4-text sm:text-3xl">Refine your roommate search</h2>
                 </div>
             </div>
 
             <div className={"flex flex-wrap space-x-3 items-end justify-center"}>
                 {/*Location select*/}
                 <section className={""}>
-                    <label htmlFor="cities" className="block text-lg font-bold">Location</label>
+                    <label htmlFor="cities" className="block sm:text-lg text-sm font-bold">Location</label>
 
                     <div className="flex items-center justify-center space-x-2">
                         <input id="location" value={locationName} contentEditable={false}
@@ -155,7 +155,7 @@ const Discovery = () => {
                 <section>
                     <div className={"flex flex-col w-fit"}>
                         {/*gender dropdown*/}
-                        <label htmlFor="gender" className="block text-lg font-bold">Gender</label>
+                        <label htmlFor="gender" className="block sm:text-lg text-sm font-bold">Gender</label>
                         <select id="gender" name="gender"
                                 className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg p-2"
                                 onChange={handleChange}
@@ -168,7 +168,7 @@ const Discovery = () => {
                 </section>
 
                 <div className={"flex flex-col"}>
-                    <label htmlFor="budget" className="block text-lg font-bold">Budget</label>
+                    <label htmlFor="budget" className="block sm:text-lg text-sm font-bold">Budget</label>
                     <input type="number" name={"budget"} value={formData.budget} min={100} max={10000} step={100}
                            id="budget"
                            onChange={handleChange}
@@ -177,10 +177,10 @@ const Discovery = () => {
 
                 <div className={"space-x-2"}>
                     <button onClick={() => setModalIsOpen(true)}
-                            className={"bg-white border-2 border-text p-2 text-lg font-bold text-text rounded hover:bg-gray-100"}>More
+                            className={"bg-white border-2 border-text p-2 sm:text-lg font-bold text-text rounded hover:bg-gray-100"}>More
                     </button>
                     <button onClick={() => search(formData)}
-                            className={"bg-text p-2 text-lg font-bold text-white rounded"}>Search <Search/></button>
+                            className={"bg-text p-2 sm:text-lg font-bold text-white rounded"}>Search <Search/></button>
                 </div>
             </div>
             <div className={"flex flex-col items-center w-full pt-4"}>
