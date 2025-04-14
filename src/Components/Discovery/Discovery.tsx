@@ -121,8 +121,8 @@ const Discovery = () => {
             <Navbar/>
             <div className={"flex items-baseline py-3 space-x-3"}>
                 <div>
-                    <h1 className="pl-3 lg:pl-32 text-start text-2xl font-bold text-red-600 sm:text-5xl sm:p-4">Discovery</h1>
-                    <h2 className="pl-3 lg:pl-32 text-start text-sm  text-red-600 sm:header4-text sm:text-3xl">Refine your roommate search</h2>
+                    <h1 className="pl-3 lg:pl-32 text-start text-2xl font-bold text-text sm:text-5xl sm:p-4">Discovery</h1>
+                    <h2 className="pl-3 lg:pl-32 text-start text-sm  text-text sm:header4-text sm:text-3xl">Refine your roommate search</h2>
                 </div>
             </div>
 

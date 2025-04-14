@@ -43,10 +43,10 @@ const Feed = () => {
 
     return (
 
-        <div className={"w-full bg-primary overflow-y-hidden"}>
+        <div className={"w-full bg-primary h-screen overflow-y-auto"}>
             <Navbar/>
             <div className={"flex flex-col sm:flex-row items-start sm:items-baseline py-3 sm:space-x-3 px-3 sm:px-10 md:px-20"}>
-                <h1 className="text-start pl-3 lg:pl-32 text-2xl font-bold text-red-600 sm:text-5xl sm:p-4">Your Links</h1>
+                <h1 className="text-start pl-3 lg:pl-32 text-2xl font-bold text-text md:text-6xl sm:p-4">Your Links</h1>
                 <div className="mt-2 sm:mt-0">
                     <Popover/>
                 </div>
