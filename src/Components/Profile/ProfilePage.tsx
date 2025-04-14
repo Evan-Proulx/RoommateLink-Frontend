@@ -1,5 +1,5 @@
 import Aside from "./Aside/Aside.tsx";
-import {createContext, useEffect, useRef, useState} from "react";
+import React, {createContext, useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {getProfileData} from "../API/Profile.ts";
 import {UserProfile} from "../../ProfileData.ts"
@@ -10,6 +10,7 @@ import {getInterestedUsers} from "../API/Profile.ts";
 import UpdateProfile from "./UpdateForms/UpdateProfile.tsx";
 import Modal from "../Modal.tsx";
 import {retrievePropertyImages} from "../API/Media.ts";
+import Video from "./Aside/Video.tsx";
 export const ProfileContext = createContext<UserProfile | null>(null)
 
 function ProfilePage() {
@@ -116,6 +117,10 @@ function ProfilePage() {
                         <div className="sm:flex ">
                             <Aside myProfileDisplayed={myProfileDisplayed}/>
                             <AboutSection propertyImages={propertyImages} myProfileDisplayed={myProfileDisplayed} interestedPeople={interestedUsers}/>
+                            {/* Video Component */}
+                            <div className="sm:hidden align-bottom">
+                                <Video/>
+                            </div>
                         </div>
                     </div>
                 </div>

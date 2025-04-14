@@ -8,8 +8,8 @@ function MessageBtn({onMessageClicked}) {
             className="flex items-center justify-center text-white bg-blue-500
         hover:text-white hover:bg-blue-600
         font-medium rounded-lg text-sm px-3 py-2 text-center
-        w-12 h-12 sm:px-3 sm:py-3 sm:min-w-[165px] sm:w-auto sm:m-5
-        dark:border-black dark:text-white
+        sm:w-12 sm:h-12 sm:px-3 sm:py-3 sm:min-w-[165px] sm:m-5
+        dark:border-black dark:text-white w-8 h-8
         dark:hover:text-white dark:hover:bg-blue-600 transition-all duration-300"
         >
             {/* Green Icon */}

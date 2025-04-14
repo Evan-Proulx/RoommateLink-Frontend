@@ -27,8 +27,8 @@ const InterestedPeople = ({interestedPeople}) => {
         navigate('/profile', {state: {profile: profile, myProfileDisplayed: false}});
     }
     return (
-        <div className="p-2">
-            <h1 className="text-xl font-bold">Interested Users</h1>
+        <div className="sm:p-2">
+            <h1 className="sm:text-xl font-bold">Interested Users</h1>
             <div className="bg-gray-200 p-1 m-2 max-w-[500px] rounded-3xl shadow-lg">
                 <div className="flex flex-wrap gap-4 ">
                     {interestedPeople && interestedPeople.length > 0 ? (
@@ -43,7 +43,7 @@ const InterestedPeople = ({interestedPeople}) => {
                             </div>
                         ))
                     ) : (
-                        <p className="text-gray-500 p-2">No interested users yet</p>
+                        <p className="text-gray-500 sm:p-2 p-1">No interested users yet</p>
                     )}
                 </div>
             </div>
