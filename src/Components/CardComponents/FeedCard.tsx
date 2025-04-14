@@ -159,13 +159,13 @@ const FeedCard = (user: UserProfile) => {
                         <img
                             src="https://images.surferseo.art/3e8e3027-36da-4ca6-8d77-76b74405d002.webp"
                             alt="Profile"
-                            className={`w-28 h-28 rounded-lg ${!propertyView ? "m-4" : "m-0"}`}/>
+                            className={`sm:w-28 sm:h-28 w-6 h-6 rounded-lg ${!propertyView ? "m-4" : "m-0"}`}/>
                         <div className={"flex mt-4"}>
                             {/*Main info*/}
                             <div className="flex flex-col ">
                                 <div className={"flex space-x-3"}>
                                     {/*User Name*/}
-                                    <h1 className={`${!propertyView ? "text-3xl" : "text-xl"} font-bold`}>{userData.profileData.first_name + " " + userData.profileData.last_name}</h1>
+                                    <h1 className={`${!propertyView ? "sm:text-3xl" : "text-xl"} font-bold`}>{userData.profileData.first_name + " " + userData.profileData.last_name}</h1>
                                     <div className={"w-6 h-6 bg-blue-600 rounded-full"}></div>
                                 </div>
                                 {/*USER Location*/}
@@ -187,7 +187,7 @@ const FeedCard = (user: UserProfile) => {
                     {propertyView ? (
                         <div>
                         <div className="flex flex-col w-3/4 mt-4">
-                            <h2 className="text-2xl font-bold">{userData.personalData.city + ", " + userData.personalData.province}</h2>
+                            <h2 className="sm:text-2xl text-xs font-bold">{userData.personalData.city + ", " + userData.personalData.province}</h2>
 
                             <div className={"flex items-center space-x-2"}>
                                 {/*Bathroom bedroom count*/}
@@ -204,7 +204,7 @@ const FeedCard = (user: UserProfile) => {
                         </div>
                         <div className="flex gap-2 mt-2">
                             {/* Image Grid */}
-                            <div className="grid grid-cols-2 gap-2 w-[450px]">
+                            <div className="grid grid-cols-2 gap-2 sm:w-[450px]">
                                 {/* Main Large Image */}
                                 <div className="col-span-1">
                                     <img

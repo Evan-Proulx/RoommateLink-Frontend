@@ -40,7 +40,7 @@ const Conversation = () => {
                     <div className={"w-full"}>{conversation? (
                         <ConversationBox user={user} conversation={conversation} receiver={receiver}/>
                     ) : (
-                        <div className="flex w-full h-full text-lg font-bold items-center justify-center">
+                        <div className="flex w-full h-full text-lg font-bold p-5 items-center justify-center">
                             Please select a user to start a conversation.
                         </div>
                     )}</div>

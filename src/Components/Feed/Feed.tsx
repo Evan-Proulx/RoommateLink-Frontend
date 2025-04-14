@@ -48,7 +48,7 @@ const Feed = () => {
         <div className={"w-full bg-primary overflow-y-hidden"}>
             <Navbar/>
             <div className={"flex flex-col sm:flex-row items-start sm:items-baseline py-3 sm:space-x-3 px-3 sm:px-10 md:px-20"}>
-                <h1 className="text-start header-text-huge">Your Links</h1>
+                <h1 className="text-start pl-3 lg:pl-32 text-2xl font-bold text-red-600 sm:text-5xl sm:p-4">Your Links</h1>
                 <div className="mt-2 sm:mt-0">
                     <Popover/>
                 </div>

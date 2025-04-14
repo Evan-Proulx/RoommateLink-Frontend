@@ -140,12 +140,12 @@ const ProfileCard = ({user, discovery = false}) => {
                              src={profileData.profileData.profile_picture ? imgUrl + profileData.profileData.profile_picture :
                                  "https://archive.org/download/instagram-plain-round/instagram%20dip%20in%20hair.jpg"}
                              alt="Profile"
-                             className={`w-28 h-28 rounded-lg mr-4 cursor-pointer`}/>
+                             className={`sm:w-28 sm:h-28 w-12 h-12 rounded-3xl sm:rounded-md mr-4 cursor-pointer`}/>
 
                         <div className={"flex flex-col w-full"}>
                             <div className="flex items-center space-x-2">
                                 <h4 onClick={navigateToProfile}
-                                    className="text-xl md:text-2xl font-bold hover:underline cursor-pointer">
+                                    className="sm:text-xl text-sm md:text-2xl font-bold hover:underline cursor-pointer">
                                     {profileData.profileData.first_name + " " + profileData.profileData.last_name}
                                 </h4>
 
@@ -168,9 +168,9 @@ const ProfileCard = ({user, discovery = false}) => {
 
                             {/*User info*/}
                             <div className="flex flex-col items-start">
-                                <p className="text-gray-500 font-semibold">{profileData.personalData.city + ", " + profileData.personalData.province}</p>
-                                <p className="text-gray-500 font-semibold">Age: {profileData.profileData.age}</p>
-                                <p className="text-gray-500 font-semibold">${profileData.personalData.budget}</p>
+                                <p className="text-gray-500 text-xs sm:text-lg sm:font-semibold">{profileData.personalData.city + ", " + profileData.personalData.province}</p>
+                                <p className="text-gray-500 text-xs sm:text-lg sm:font-semibold">Age: {profileData.profileData.age}</p>
+                                <p className="text-gray-500 text-xs sm:text-lg sm:font-semibold">${profileData.personalData.budget}</p>
                             </div>
                         </div>
                     </div>
@@ -178,14 +178,14 @@ const ProfileCard = ({user, discovery = false}) => {
                     {/*About Attributes*/}
                     <div className={"flex justify-between"}>
                         <div>
-                            <h3 className="mt-4 font-bold m-2 text-xl">About Me</h3>
-                            <p className="text-gray-600 m-2 font-normal">{profileData.profileData.bio}</p>
-                            <h3 className="mt-4 font-bold m-2 text-md">Hobbies/Interests</h3>
+                            <h3 className="sm:mt-4 font-bold m:1 sm:m-2 text-sm sm:text-xl">About Me</h3>
+                            <p className="text-gray-600 text-xs sm:text-lg sm:m-2 sm:font-normal">{profileData.profileData.bio}</p>
+                            <h3 className="sm:mt-4 font-bold m:1 mt-2 sm:m-2 text-sm sm:text-xl">Hobbies/Interests</h3>
                             <div className="flex flex-wrap">
                                 {
                                     userHobbies.map((hobby, index) => (
                                         <label title={hobby}
-                                               className="bg-blue-500 text-white text-center text-sm font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
+                                               className="bg-blue-500 text-white text-center text-xs p-1 sm:text-sm font-normal sm:p-2 sm:px-4 sm:pb-2 w-fit m-1 rounded-xl">
                                             {hobby}
                                         </label>
                                     ))

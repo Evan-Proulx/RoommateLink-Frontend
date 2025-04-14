@@ -111,11 +111,11 @@ const ListingCard: React.FC<ListingCardProps> = ({user, onSetListingToggle}) => 
                     <img
                         src={userData.profileData.profile_picture ? imgUrl + userData.profileData.profile_picture : "https://archive.org/download/instagram-plain-round/instagram%20dip%20in%20hair.jpg"}
                         alt="Profile"
-                        className={`w-28 h-28 rounded-lg`}/>
+                        className={`sm:w-28 sm:h-28 w-6 h-6 rounded-lg`}/>
 
                     <div className={"flex flex-col w-full"}>
                         <div className="flex items-center space-x-2">
-                            <h4 className="text-2xl font-bold">{userData.profileData.first_name + " " + userData.profileData.last_name}</h4>
+                            <h4 className="sm:text-2xl text-sm font-bold">{userData.profileData.first_name + " " + userData.profileData.last_name}</h4>
                             {/*Verification badge*/}
                             <svg className="w-5 h-5 text-gray-800 dark:text-blue-700" aria-hidden="true"
                                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"

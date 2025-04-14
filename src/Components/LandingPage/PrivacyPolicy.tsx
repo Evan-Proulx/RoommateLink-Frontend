@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
+import {useNavigate} from "react-router-dom";
 
 function PrivacyPolicy() {
+    const navigate = useNavigate();
+
     const privacyData = [
         {
             question: "1. Information We Collect",
@@ -64,6 +67,32 @@ function PrivacyPolicy() {
                     </div>
                 </div>
             ))}
+
+            <footer className="text-center py-4 md:py-6 bg-red-600 text-white">
+                <div className="mb-4 md:mb-5 flex flex-row md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <button
+                        className="px-5 py-3 text-xs text-white font-semibold transition-transform duration-300 hover:scale-110 lg:px-12 lg:py-4 lg:text-lg"
+                        onClick={() => navigate("/termsOfUse")}
+                    >
+                        Terms of Use
+                    </button>
+                    <button
+                        className="px-5 py-3 text-xs text-white font-semibold transition-transform duration-300 hover:scale-110 lg:px-12 lg:py-4 lg:text-lg"
+                        onClick={() => navigate("/faq")}
+                    >
+                        FAQ
+                    </button>
+                    <button
+                        className="px-5 py-3 text-xs text-white font-semibold transition-transform duration-300 hover:scale-110 lg:px-12 lg:py-4 lg:text-lg"
+                        onClick={() => navigate("/privacyPolicy")}
+                    >
+                        Privacy Policy
+                    </button>
+                </div>
+                <p className="pt-2 text-sm md:text-base lg:text-lg">
+                    RoommateLink &copy; 2025
+                </p>
+            </footer>
         </div>
     );
 }
