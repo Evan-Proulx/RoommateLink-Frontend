@@ -53,7 +53,7 @@ function TermsOfUse() {
 
     return (
         <div className="bg-gradient-to-r from-white to-yellow-50 w-full px-4 sm:px-6 md:px-12 lg:px-24 py-6 space-y-8">
-            <h1 className="font-supermercado sm:p-6 text-red-600 mt-[-10px] md:mt-[-30px] text-4xl sm:text-5xl md:text-6xl text-center">
+            <h1 onClick={() => navigate('/')} className="font-supermercado sm:p-6 text-red-600 mt-[-10px] md:mt-[-30px] text-4xl sm:text-5xl md:text-6xl text-center cursor-pointer">
                 Roommate Link - Terms of Use
             </h1>
 
