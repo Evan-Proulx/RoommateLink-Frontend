@@ -118,7 +118,7 @@ function ProfilePage() {
                             <AboutSection propertyImages={propertyImages} myProfileDisplayed={myProfileDisplayed} interestedPeople={interestedUsers}/>
                             {/* Video Component */}
                             <div className="sm:hidden align-bottom">
-                                <Video/>
+                                <Video />
                             </div>
                         </div>
                     </div>

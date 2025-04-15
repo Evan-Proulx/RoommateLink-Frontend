@@ -1,7 +1,7 @@
 import {useContext, useEffect} from "react";
 import {ProfileContext} from "../ProfilePage";
 
-function Video() {
+function Video(phoneDisplay: boolean) {
     const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
 
     {/* This component displays user's video */}
