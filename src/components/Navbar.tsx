@@ -28,13 +28,20 @@ const Navbar = () => {
         navigate("/home");
     };
 
+    const handleNavProfile = () => {
+        if (location.pathname === '/profile'){
+            navigate(0);
+        }
+        navigate("/profile");
+    }
+
     //Holds navigation path, icon with size and display name
     const links: NavItem[]  = [
         {to: "/feed", icon: (size) => <FeedOutlined sx={{fontSize: size}}/>, name: "Feed"},
         {to: "/discovery", icon: (size) => <ExploreOutlined sx={{fontSize: size}}/>, name: "Discovery"},
         {to: "/chats", icon: (size) => <ForumOutlined sx={{fontSize: size}}/>, name: "Chats"},
         {to: "/bookmarks", icon: (size) => <BookmarkBorder sx={{fontSize: size}}/>, name: "Bookmarks"},
-        {to: "/profile", icon: (size) => <PersonOutline sx={{fontSize: size}}/>, name: "Profile"},
+        {action: () => handleNavProfile(), icon: (size) => <PersonOutline sx={{fontSize: size}}/>, name: "Profile"},
         //Logout has action property to call logout method
         {action: () => setModalIsOpen(true), icon: (size) => <Logout sx={{fontSize: size}}/>, name: "Logout"}
     ]
@@ -70,10 +77,13 @@ const Navbar = () => {
                 key={name}
                 onClick={action}
                 className={isMobile
-                    ? "block py-2 px-3 text-white hover:bg-gray-600 text-left w-full" : "pl-9 hover:text-gray-400 transition ease-in duration-100"}
+                    ? "block py-2 px-3 text-white hover:bg-gray-600 text-left w-full"
+                    : name === "Profile" ?  location.pathname === "/profile" ?
+                        "rounded-underline hover:text-text transition ease-in duration-100" :
+                        "hover:text-text transition ease-in duration-100" : "pl-9 hover:text-gray-400 transition ease-in duration-100"}
                 title={name}>
                 {/*Display icon name and change size on mobile*/}
-                {icon(isMobile ? 20 : 28)}
+                {icon(isMobile ? 20 : 32)}
                 {isMobile && name}
             </button>
         );

@@ -2,11 +2,11 @@ import React from 'react';
 
 const CardSkeletonLoader = () => {
     return (
-        <div className="relative bg-white p-4 rounded-lg flex flex-col gap-4 border-2 border-black">
+        <div className="relative bg-white p-4 rounded-lg w-full md:w-5/6 flex flex-col gap-4 border-2 border-black">
             <div role="status"
                  className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center">
                 <div
-                    className="flex items-center justify-center w-full h-48 bg-gray-300 rounded-sm sm:w-96 dark:bg-gray-400">
+                    className="flex items-center justify-center w-1/2 md:w-96 h-48 bg-gray-300 rounded-sm dark:bg-gray-400">
                     <svg className="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true"
                          xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                         <path

@@ -10,6 +10,7 @@ import {UserProfile} from "../../ProfileData";
 import {DiscoveryData, discoverySearch} from "../API/Discovery";
 import {getLocation} from "../API/Location";
 import {getProfileData} from "../API/Profile";
+import CardSkeletonLoader from "../CardComponents/CardSkeletonLoader";
 
 const Discovery = () => {
     const [isMapOpen, setIsMapOpen] = useState(false);
@@ -17,6 +18,7 @@ const Discovery = () => {
     const [locationName, setLocationName] = useState("")
     const [currentUser, setCurrentUser] = useState<UserProfile | undefined>(undefined);
     const [users, setUsers] = useState<UserProfile[]>([]);
+    const [loading, setLoading] = useState(false)
     // Default form values TODO: Get user's profile and set defaults
     const [formData, setFormData] = useState<DiscoveryData>({
         longitude: 0,
@@ -96,6 +98,7 @@ const Discovery = () => {
     //Search for users matching filters
     const search = async (data) => {
         try {
+            setLoading(true)
             const response = await discoverySearch(data);
             //Convert returned data to UserProfile object
             setUsers(response.userMatches.map((user) => ({
@@ -104,17 +107,12 @@ const Discovery = () => {
                     propertyData: user.userPropertyData,
                 }))
             );
+            setLoading(false);
         } catch (err) {
             console.error("Error searching for housing:", err);
         }
     }
 
-    if (!users) return (
-        <div className={"flex flex-col justify-center items-center h-screen w-full bg-gray-300"}>
-            <span className={"loader"}></span>
-            <h2 className={"header4-text text-center pt-4"}>Loading...</h2>
-        </div>
-    );
 
     return (
         <div className={"w-full bg-primary h-screen overflow-y-auto"}>
@@ -185,14 +183,21 @@ const Discovery = () => {
             </div>
             <div className={"flex flex-col items-center w-full pt-4"}>
                 <div
-                    className={"flex flex-col justify-center items-center space-y-4 md:w-3/4 xl:w-1/2 h-full pb-12"}>
-                    {users.length > 0 ? (
+                    className={"flex flex-col justify-center items-center space-y-4 w-full md:w-3/4 xl:w-1/2 h-full pb-12"}>
+                    {loading ? (
+                        // Show skeleton card while loading
+                        [...Array(8)].map((_, i) => (
+                            <CardSkeletonLoader key={i} />
+                        ))
+                    ) : users && users.length > 0 ? (
+                        // Show profile cards when there are users
                         users.map((user, index) => (
                             <ProfileCard key={user.profileData.account_id} user={user} discovery={true}/>
                         ))
                     ) : (
+                        // Show message when there are no users
                         <div className="flex items-center justify-center text-gray-500">
-                            <p>No matching users found. Try a simpler search</p>
+                            <p>No matching users found. Try a simpler filter.</p>
                         </div>
                     )}
                 </div>
