@@ -11,7 +11,8 @@ import Modal from "../../Modal.tsx";
 import UpdateProfile from "../UpdateForms/UpdateProfile.tsx";
 import UpdateFiles from "../UpdateForms/UpdateFiles.tsx";
 import UpdateProperty from "../UpdateForms/UpdateProperty.tsx";
-import {isUserVerified} from "../../API/Verification.ts";
+// *** 1. Import BOTH verification functions ***
+import { isUserVerified, checkUserVerificationStatus } from '../../API/Verification.ts'; // <-- Adjust path
 import {Tooltip} from "@mui/material";
 
 interface UserInfoSectionProps{
@@ -24,7 +25,11 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
     const user = userProfile as UserProfile;
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [modalContent, setModalContent] = useState<"updateProfile" | "updateFiles" | "updateProperty" | null>(null);
-    const [isVerified, setIsVerified] = useState<boolean | null>(null);
+
+    // State for verification
+    const [isVerified, setIsVerified] = useState<boolean>(false);
+    const [isLoadingVerification, setIsLoadingVerification] = useState<boolean>(true);
+
     // Allows for modal display and content to be set onClick
     const setModal = (content: "updateProfile" | "updateFiles" | "updateProperty") => {
         setModalContent(content);
@@ -35,17 +40,42 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
         console.log("MY PROFILE", myProfileDisplayed)
     }, []);
 
-    // Check user verification status
+    //Modified useEffect to check correct user's verification status
     useEffect(() => {
+        // Ensure user context is loaded before checking
+        if (!user?.profileData?.account_id) {
+            console.log("UserInfoSection: User data not available yet for verification check.");
+            setIsLoadingVerification(false);
+            setIsVerified(false);
+            return;
+        }
+
         const checkVerification = async () => {
-            const verified = await isUserVerified();
-            setIsVerified(verified);
+            setIsLoadingVerification(true); // Start loading
+            let verifiedStatus = false;
+            try {
+                if (myProfileDisplayed) {
+                    // Check status for the currently logged-in user
+                    verifiedStatus = await isUserVerified();
+                } else {
+                    // Check status for the specific user being displayed
+                    const userIdToCheck = user.profileData.account_id;
+                    verifiedStatus = await checkUserVerificationStatus(userIdToCheck);
+                }
+                setIsVerified(verifiedStatus);
+            } catch (error) {
+                console.error("Error checking verification status:", error);
+                setIsVerified(false);
+            } finally {
+                setIsLoadingVerification(false);
+            }
         };
 
         checkVerification();
-    }, []);
+        // Depend on the user ID and the myProfileDisplayed flag
+    }, [user?.profileData?.account_id, myProfileDisplayed]);
 
-    // Toggle modal display
+
     return (
         <div className="p-4 flex justify-between items-start w-full shadow-md">
             <div className={"flex space-x-3 px-4 lg:px-12"}>
@@ -71,19 +101,21 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
                         <div className={"flex items-center"}>
                             {myProfileDisplayed &&
                                 <div title={"Edit Personal Info"}><Edit className={"cursor-pointer"} onClick={() => setModal("updateProfile")}/></div>}
-                            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-start">{user.profileData.first_name + " " + user.profileData.last_name}</h1>
+                            <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-start">{user.profileData.first_name + " " + user.profileData.last_name}</h1>
                         </div>
 
-                        {isVerified && (
+                        {/* Conditionally render badge based on state */}
+                        {!isLoadingVerification && isVerified && (
                             <Tooltip title="User verified their account with ID" arrow>
                                 <svg
-                                    className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-gray-800 dark:text-blue-700"
+                                    className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-blue-700 dark:text-blue-500 ml-2"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
                                     height="24"
                                     fill="currentColor"
                                     viewBox="0 0 24 24"
+                                    aria-label="Verified User"
                                 >
                                     <path
                                         fillRule="evenodd"
