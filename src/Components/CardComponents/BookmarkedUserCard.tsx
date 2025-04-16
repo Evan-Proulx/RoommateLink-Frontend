@@ -7,6 +7,9 @@ import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts";
 import {useNavigate} from "react-router-dom";
 import {retrievePropertyImages} from "../API/Media.ts";
 import CardActions from "./CardActions.tsx";
+// *** 1. Import the verification check function ***
+import { checkUserVerificationStatus } from '../API/verification.ts';
+import {Tooltip} from "@mui/material";
 
 interface BookmarkedUserCardProps {
     user: UserProfile;
@@ -20,6 +23,11 @@ const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookma
     const [propertyImage, setPropertyImage] = useState("");
     const [saved, setSaved] = useState(false);
     const [isBookmarked, setIsBookmarked] = useState(false);
+
+    //Add state for verification status
+    const [isVerified, setIsVerified] = useState<boolean>(false);
+    const [isLoadingVerification, setIsLoadingVerification] = useState<boolean>(true);
+
     //Link Percentage
     const percentage = 79;
     const LinkPercentageColor = (percentage) => {
@@ -34,17 +42,46 @@ const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookma
 
     useEffect(() => {
         //Set user as state
-        if(user){setProfileData(user);}
+        if(user){
+            setProfileData(user);
 
-        //Get property image when profileData is set
-        if (profileData){getPropertyImage();}
-    }, [user])
+            //Fetch verification status
+            const userIdToCheck = user.profileData?.account_id;
+            if (userIdToCheck) {
+                setIsLoadingVerification(true);
+                checkUserVerificationStatus(userIdToCheck)
+                    .then(status => {
+                        setIsVerified(status);
+                    })
+                    .catch(error => {
+                        console.error(`Error checking verification for user ${userIdToCheck}:`, error);
+                        setIsVerified(false);
+                    })
+                    .finally(() => {
+                        setIsLoadingVerification(false);
+                    });
+            } else {
+                setIsVerified(false);
+                setIsLoadingVerification(false);
+            }
+        } else {
+            // Reset profile data and verification status if user prop is null
+            setProfileData(null);
+            setIsVerified(false);
+            setIsLoadingVerification(false);
+        }
+    }, [user]);
+
+    useEffect(() => {
+        if (profileData){
+            getPropertyImage();
+        }
+    }, [profileData]);
 
 
     //Unbookmark user when bookmark button is clicked
     const unBookmark = async () => {
         onUnbookmark(profileData?.profileData.account_id);
-
     }
 
     const getPropertyImage = async () => {
@@ -67,7 +104,9 @@ const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookma
     //Navigate to profile page with the user's profile.
     // Specify that it is not the logged in user's profile page
     const navigateToProfile = () => {
-        navigate('/profile', {state: {profile: profileData, myProfileDisplayed: false}});
+        if (profileData) {
+            navigate('/profile', {state: {profile: profileData, myProfileDisplayed: false}});
+        }
     }
 
     // TODO card should be fixed with a better loader
@@ -100,7 +139,6 @@ const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookma
                             alt="Profile"
                             className="sm:w-28 sm:h-28 w-12 h-12 rounded-lg"
                         />
-
                         {/* Second Image (Circle, Overlapping the First at Bottom-Right) */}
                         {profileData.personalData.has_housing === 1 && (
                             <img
@@ -117,10 +155,27 @@ const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookma
                     {/* Name, Icon, and Percentage in one row */}
                     <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-2">
-                            <h4 onClick={navigateToProfile} className="font-extrabold text-sm sm:text-xl md:text-3xl cursor-pointer hover:underline">{profileData.profileData.first_name + " " + profileData.profileData.last_name}</h4>
-                            <svg className="w-5 h-5 text-gray-800 dark:text-blue-700" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
-                                <path fillRule="evenodd" d="M12 2c-.791 0-1.55.314-2.11.874l-.893.893a.985.985 0 0 1-.696.288H7.04A2.984 2.984 0 0 0 4.055 7.04v1.262a.986.986 0 0 1-.288.696l-.893.893a2.984 2.984 0 0 0 0 4.22l.893.893a.985.985 0 0 1 .288.696v1.262a2.984 2.984 0 0 0 2.984 2.984h1.262c.261 0 .512.104.696.288l.893.893a2.984 2.984 0 0 0 4.22 0l.893-.893a.985.985 0 0 1 .696-.288h1.262a2.984 2.984 0 0 0 2.984-2.984V15.7c0-.261.104-.512.288-.696l.893-.893a2.984 2.984 0 0 0 0-4.22l-.893-.893a.985.985 0 0 1-.288-.696V7.04a2.984 2.984 0 0 0-2.984-2.984h-1.262a.985.985 0 0 1-.696-.288l-.893-.893A2.984 2.984 0 0 0 12 2Zm3.683 7.73a1 1 0 1 0-1.414-1.413l-4.253 4.253-1.277-1.277a1 1 0 0 0-1.415 1.414l1.985 1.984a1 1 0 0 0 1.414 0l4.96-4.96Z" clipRule="evenodd"/>
-                            </svg>
+                            <h4 onClick={navigateToProfile} className="font-extrabold text-sm sm:text-xl md:text-3xl cursor-pointer hover:underline">
+                                {/* Optional chaining for names */}
+                                {`${profileData.profileData?.first_name ?? ''} ${profileData.profileData?.last_name ?? ''}`}
+                            </h4>
+
+                            {!isLoadingVerification && isVerified && (
+                                <Tooltip title="User verified their account with ID" arrow>
+                                <svg
+                                    className="w-5 h-5 text-blue-700 dark:text-blue-500 inline-block align-middle flex-shrink-0 ml-1" // Added margin-left
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="20"
+                                    fill="currentColor"
+                                    viewBox="0 0 24 24"
+                                    aria-label="Verified User"
+                                >
+                                    <path fillRule="evenodd" d="M12 2c-.791 0-1.55.314-2.11.874l-.893.893a.985.985 0 0 1-.696.288H7.04A2.984 2.984 0 0 0 4.055 7.04v1.262a.986.986 0 0 1-.288.696l-.893.893a2.984 2.984 0 0 0 0 4.22l.893.893a.985.985 0 0 1 .288.696v1.262a2.984 2.984 0 0 0 2.984 2.984h1.262c.261 0 .512.104.696.288l.893.893a2.984 2.984 0 0 0 4.22 0l.893-.893a.985.985 0 0 1 .696-.288h1.262a2.984 2.984 0 0 0 2.984-2.984V15.7c0-.261.104-.512.288-.696l.893-.893a2.984 2.984 0 0 0 0-4.22l-.893-.893a.985.985 0 0 1-.288-.696V7.04a2.984 2.984 0 0 0-2.984-2.984h-1.262a.985.985 0 0 1-.696-.288l-.893-.893A2.984 2.984 0 0 0 12 2Zm3.683 7.73a1 1 0 1 0-1.414-1.413l-4.253 4.253-1.277-1.277a1 1 0 0 0-1.415 1.414l1.985 1.984a1 1 0 0 0 1.414 0l4.96-4.96Z" clipRule="evenodd"/>
+                                </svg>
+                                </Tooltip>
+                            )}
                         </div>
                         {/*TODO Get link % possibly? Not accessable with the data currently returned*/}
                         {/*<p className={`w-full mt-2 font-semibold text-xl ${LinkPercentageColor(profileData.compatibilityScore)}`}>*/}
@@ -131,25 +186,34 @@ const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookma
                     {/* User Details */}
                     <div className="text-gray-500 font-medium ">
                         <div className="flex items-center space-x-1">
-                            <p className="sm:font-semibold text-xs sm:text-sm">{profileData.personalData.city + ", " + profileData.personalData.province}</p>
-                            {/*Verification badge*/}
-                            <svg className="w-4 h-4 text-gray-800 dark:text-gray-500" aria-hidden="true" fill="none" viewBox="0 0 24 24">
+                            <p className="sm:font-semibold text-xs sm:text-sm">
+                                {profileData.personalData?.city ? `${profileData.personalData.city}, ${profileData.personalData.province}` : 'Location not set'}
+                            </p>
+                            {/* Location Icon */}
+                            <svg className="w-4 h-4 text-gray-800 dark:text-gray-500 inline-block align-middle" aria-hidden="true" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z"/>
                             </svg>
                         </div>
-                        <p className="sm:font-semibold text-xs sm:text-sm">${profileData.personalData.budget}</p>
-                        <p className="sm:font-semibold text-xs sm:text-sm">Looking for: {profileData.personalData.has_housing ? "Roommate" : "Roommate + Housing"}</p>
-                        {profileData.personalData.has_housing === 1 && (
-                            <p className="sm:pt-2 pt-1 text-xs sm:text-sm">{`4Km away • ${profileData.propertyData.bedroom_count} rooms + ${profileData.propertyData.bathroom_count} bathrooms • ${profileData.personalData.city}, ${profileData.personalData.province}`}</p>)
-                        }
+                        <p className="sm:font-semibold text-xs sm:text-sm">
+                            {profileData.personalData?.budget ? `$${profileData.personalData.budget}` : 'Budget not set'}
+                        </p>
+                        <p className="sm:font-semibold text-xs sm:text-sm">
+                            Looking for: {profileData.personalData?.has_housing === 1 ? "Roommate" : (profileData.personalData?.has_housing === 0 ? "Roommate + Housing" : "Preference not set")}
+                        </p>
+                        {/* Housing Details - ensure data exists */}
+                        {profileData.personalData?.has_housing === 1 && profileData.propertyData && (
+                            <p className="sm:pt-2 pt-1 text-xs sm:text-sm">
+                                {/* Example distance calculation needed if '4km away' is dynamic */}
+                                {/* Keep original format */}
+                                {`${profileData.propertyData.bedroom_count ?? '?'} rooms + ${profileData.propertyData.bathroom_count ?? '?'} bathrooms • ${profileData.personalData.city ?? ''}, ${profileData.personalData.province ?? ''}`}
+                            </p>
+                        )}
                     </div>
                 </div>
             </div>
         </div>
-
     );
 };
 
 export default BookmarkedUserCard;
-

@@ -45,3 +45,19 @@ export async function isUserVerified(): Promise<boolean> {
         return false;
     }
 }
+
+
+export async function checkUserVerificationStatus(userId: number | string | undefined): Promise<boolean> {
+    if (!userId) return false;
+    const token = localStorage.getItem("token");
+    if (!token) return false;
+    try {
+        const response = await axios.get(`${rootUrl}/api/users/${userId}/verification-status`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        return response.data.status === 'verified';
+    } catch (error) {
+        console.error(`Failed to check verification status for user ID ${userId}:`, error);
+        return false;
+    }
+}
