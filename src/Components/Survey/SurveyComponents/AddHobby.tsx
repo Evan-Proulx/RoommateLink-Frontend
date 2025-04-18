@@ -57,7 +57,7 @@ const AddHobby = ({onHobbyChange}) => {
                         ))}
                     </select>
                     <button type="button" onClick={handleNewHobby} className={"cursor-pointer"}>
-                        <Add sx={{fontSize: 42, color: "#FF4000"}}/>
+                        <Add sx={{fontSize: 42, color: "#FF3033"}}/>
                     </button>
                 </div>
 

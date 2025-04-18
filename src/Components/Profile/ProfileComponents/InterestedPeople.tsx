@@ -13,7 +13,6 @@ const InterestedPeople = ({interestedPeople}) => {
 
 
     useEffect(() => {
-        console.log("FjdkslFJKLDS",interestedPeople)
     }, [interestedPeople]);
 
 

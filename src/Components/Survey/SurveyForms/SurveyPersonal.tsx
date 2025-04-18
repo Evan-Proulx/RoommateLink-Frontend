@@ -73,11 +73,11 @@ const SurveyPersonal = ({userData, setUserData, searchLocation, setSearchLocatio
                     select your city*</label>
 
                 <div className="flex items-center justify-center space-x-2">
-                    <input id="location" value={locationName} contentEditable={false}
+                    <input id="location" value={locationName} readOnly={true} contentEditable={false}
                            className="input-style-location cursor-default"
                            {...register("location", {
                                required: "Location is required"})}
-                           autoComplete="off" />
+                           />
                     <button type="button"
                             className={"bg-text p-3 rounded text-white transition-all duration-200 hover:rounded-2xl hover:bg-red-800"}
                             onClick={() => setIsMapOpen(true)}>

@@ -8,6 +8,7 @@ import CardSkeletonLoader from "./CardSkeletonLoader";
 import {retrievePropertyImages} from "../API/Media";
 import ImageGallery from "../Profile/ProfileComponents/ImageGallery";
 import {hobbies} from "../../data";
+import SkeletonGallery from "./SkeletonGallery";
 
 const ProfileCard = ({user, discovery = false}) => {
     const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
@@ -206,7 +207,7 @@ const ProfileCard = ({user, discovery = false}) => {
                                     className="sm:text-2xl text-sm font-bold cursor-pointer hover:underline">{profileData.profileData.first_name}</h4>
 
                                 {/*Verification badge*/}
-                                <svg className="w-5 h-5 text-gray-800 dark:text-blue-700" aria-hidden="true"
+                                <svg className="w-5 h-5 text-blue-700" aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                      viewBox="0 0 24 24">
                                     <path fillRule="evenodd"
@@ -236,7 +237,7 @@ const ProfileCard = ({user, discovery = false}) => {
                         <div className={"flex justify-between"}>
                             <div className="flex flex-col">
                                 <div>
-                                    <h2 className="sm:text-2xl text-xs sm:font-bold font-semibold">
+                                    <h2 onClick={navigateToProfile} className="sm:text-2xl text-xs sm:font-bold font-semibold cursor-pointer">
                                         {profileData.personalData.city + ", " + profileData.personalData.province}
                                     </h2>
                                     <div className={"flex items-center space-x-2"}>
@@ -265,9 +266,12 @@ const ProfileCard = ({user, discovery = false}) => {
                         </div>
 
                         {/* Image Grid */}
-                        <div className="flex gap-2 mt-2 ">
-                            {propertyImages.length > 0 &&
+                        <div className="">
+                            {propertyImages.length > 0 ?(
                                 <ImageGallery images={propertyImages}/>
+                            ) : (
+                                <SkeletonGallery/> //Display placeholder images while images are loading
+                                )
                             }
                         </div>
 

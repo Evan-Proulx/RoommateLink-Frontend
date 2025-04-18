@@ -29,11 +29,15 @@ const Conversation = () => {
         }catch(err){console.log("Could not retrieve user: " + err);}
     }
 
+    if (!user) return <div className={"flex flex-col justify-center items-center h-screen w-full bg-primary"}>
+        <span className={"loader"}></span>
+        <h2 className={"header4-text text-center pt-4"}>Loading...</h2>
+    </div>
 
     return (
         <div className={"h-screen flex flex-col overflow-y-hidden"}>
             <Navbar/>
-            {user ? (
+            {user && (
                 <div className={"flex w-full bg-primary h-screen"}>
                     <div className={"w-1/4 max-w-80 border-2 border-r-gray-400 bg-gray-300 ease-in truncate"}><SelectConversation user={user} onSetConversation={handleConversationSelect}/></div>
 
@@ -45,11 +49,7 @@ const Conversation = () => {
                         </div>
                     )}</div>
                 </div>
-            ) : (
-                <div className={"loader"}></div>
             )}
-
-
         </div>
     );
 };

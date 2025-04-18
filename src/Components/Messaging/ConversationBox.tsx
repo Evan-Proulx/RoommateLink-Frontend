@@ -90,9 +90,6 @@ const ConversationBox = ({user, conversation, receiver}) => {
                         <p className="font-extrabold text-xl">{receiver.name}</p>
                     </div>
                 </div>
-                <div>
-                    <MoreVert />
-                </div>
             </div>
             <div className="flex-grow overflow-auto p-6 mt-20 mb-40 justify-center">
                     <div className="h-auto" ref={messageRef}>
@@ -110,7 +107,7 @@ const ConversationBox = ({user, conversation, receiver}) => {
                     <div className={`text-center ${userTyping ? "typing" : ""}`}>
                         {userTyping ? `User is typing...` : ""}
                     </div>
-                <div className="fixed bottom-0 right-0 w-3/4 p-4 z-10 mt-60">
+                <div className=" fixed bottom-0 w-3/4 p-4 z-10 mt-60">
                     <MessageInput conversation={conversation} receiverId={receiver.id} onMessageSent={() => getMessages()}/>
                 </div>
             </div>

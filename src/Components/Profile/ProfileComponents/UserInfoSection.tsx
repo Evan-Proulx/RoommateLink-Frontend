@@ -83,7 +83,7 @@ function UserInfoSection({myProfileDisplayed}: UserInfoSectionProps) {
                         {isVerified && (
                             <Tooltip title="User verified their account with ID" arrow>
                                 <svg
-                                    className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-gray-800 dark:text-blue-700"
+                                    className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-blue-700"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
