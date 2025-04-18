@@ -110,6 +110,7 @@ const Discovery = () => {
             setLoading(false);
         } catch (err) {
             console.error("Error searching for housing:", err);
+            setLoading(false);
         }
     }
 

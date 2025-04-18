@@ -4,10 +4,12 @@ import BookmarkedUserCard from "../CardComponents/BookmarkedUserCard";
 import {UserProfile} from "../../ProfileData";
 import Navbar from "../Navbar";
 import {BookmarkOutlined} from "@mui/icons-material";
+import CardSkeletonLoader from "../CardComponents/CardSkeletonLoader";
+import ProfileCard from "../CardComponents/ProfileCard";
 
 const Bookmarks = () => {
     const [bookmarkedProfiles, setBookmarkedProfiles] = useState<UserProfile[]>([]);
-
+    const [loading, setLoading] = useState(false);
     //Get bookmarked profiles when the page loads
     useEffect(() => {
         retrieveBookmarks();
@@ -19,6 +21,7 @@ const Bookmarks = () => {
     //Get all of the users bookmarked profiles and convert them to UserProfile objects
     const retrieveBookmarks = async () => {
         try {
+            setLoading(true);
             const response = await getBookmarks();
             // TODO THis shouldn't run if the response has no users
             if (response) {
@@ -30,7 +33,9 @@ const Bookmarks = () => {
                 );
             }
             console.log(bookmarkedProfiles)
+            setLoading(false);
         } catch (err) {
+            setLoading(false)
             console.log(err)
         }
     };
@@ -50,14 +55,22 @@ const Bookmarks = () => {
 
             <div className={"flex flex-col w-full h-full"}>
                     <div className={"flex flex-col items-center space-y-4 w-full h-full"}>
-                        {bookmarkedProfiles.length > 0 ? (
-                            bookmarkedProfiles.map((user) => (
-                                <BookmarkedUserCard key={user.personalData.id} user={user} onUnbookmark={removeBookmark}/>
+                        {loading ? (
+                            // Show skeleton card while loading
+                            [...Array(8)].map((_, i) => (
+                                <CardSkeletonLoader key={i} />
                             ))
+                        ) : (
+                            bookmarkedProfiles.length > 0 ? (
+                                bookmarkedProfiles.map((user) => (
+                                    <BookmarkedUserCard key={user.personalData.id} user={user} onUnbookmark={removeBookmark}/>
+                                ))
                             ) : (
+                            // Show message when there are no users
                             <p className={"flex flex-wrap items-center justify-center px-2 text-center text-gray-500 pt-40"}>
                                 You have no bookmarks. Click the <BookmarkOutlined /> on a user's profile to bookmark the user</p>
-                    )}
+
+                        ))}
                     </div>
                 </div>
         </div>

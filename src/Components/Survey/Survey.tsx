@@ -193,7 +193,7 @@ const Survey = () => {
         //use form provider for form validation for the location and names
         <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} className={"bg-primary min-h-screen"}>
-                <nav className="sticky top-0 bg-primary shadow-sm z-50"><h1 className={"logo"}>Roommate Link</h1>
+                <nav className="sticky top-0 bg-primary shadow-sm z-50"><h1 onClick={() => navigate('/')} className={"logo cursor-pointer"}>Roommate Link</h1>
                     <SurveyStepper setActiveComponent={scrollTo} activeComponent={surveySections[currentIndex]} displayPropertyForm={personalData.hasHousing}/></nav>
 
                 <div className={"flex items-center justify-center"}>

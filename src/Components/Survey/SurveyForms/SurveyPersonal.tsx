@@ -74,10 +74,10 @@ const SurveyPersonal = ({userData, setUserData, searchLocation, setSearchLocatio
 
                 <div className="flex items-center justify-center space-x-2">
                     <input id="location" value={locationName} contentEditable={false}
-                           className="input-style-survey"
+                           className="input-style-location cursor-default"
                            {...register("location", {
                                required: "Location is required"})}
-                    />
+                           autoComplete="off" />
                     <button type="button"
                             className={"bg-text p-3 rounded text-white transition-all duration-200 hover:rounded-2xl hover:bg-red-800"}
                             onClick={() => setIsMapOpen(true)}>
@@ -140,10 +140,8 @@ const SurveyPersonal = ({userData, setUserData, searchLocation, setSearchLocatio
                        }}/>
                 <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">$100</span>
                 <span
-                    className="text-sm text-gray-500 dark:text-gray-400 absolute start-1/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">$500</span>
-                <span
-                    className="text-sm text-gray-500 dark:text-gray-400 absolute start-2/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">$1000</span>
-                <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">$10000</span>
+                    className="text-sm text-gray-500 dark:text-gray-400 absolute start-1/2 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">$5,000</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">$10,000</span>
             </div>
 
             <section className={"flex justify-center items-end space-x-3"}>
@@ -159,8 +157,7 @@ const SurveyPersonal = ({userData, setUserData, searchLocation, setSearchLocatio
 
                 {/*School dropdown*/}
                 <div className={"flex flex-col w-full"}>
-                    <label htmlFor="cities" className="block mb-2 header2-text text-center">Select
-                        School</label>
+                    <label htmlFor="cities" className="block mb-2 header2-text text-center">Current Education</label>
                     <CollegeInput onSchoolChange={handleSchoolChange}/>
                 </div>
             </section>
@@ -253,7 +250,7 @@ const SurveyPersonal = ({userData, setUserData, searchLocation, setSearchLocatio
                                checked={userData.hasPets}/>
                         <label htmlFor="pet-option1"
                                className="block ms-2  text-sm font-medium header4-text">
-                            Yes!
+                            Yes
                         </label>
                     </div>
 
@@ -315,8 +312,8 @@ const SurveyPersonal = ({userData, setUserData, searchLocation, setSearchLocatio
                            onChange={(e) => {
                                updateUserData("sociability", +e.target.value)
                            }}/>
-                    <span className="text-md font-bold absolute start-0 -bottom-6">1</span>
-                    <span className="text-md font-bold absolute end-0 -bottom-6">10</span>
+                    <span className="text-md text-gray-700 font-bold absolute start-0 -bottom-6">1</span>
+                    <span className="text-md text-gray-700 font-bold absolute end-0 -bottom-6">10</span>
                 </div>
             </div>
 
@@ -329,8 +326,8 @@ const SurveyPersonal = ({userData, setUserData, searchLocation, setSearchLocatio
                            onChange={(e) => {
                                updateUserData("cleanliness", +e.target.value)
                            }}/>
-                    <span className="text-md font-bold absolute start-0 -bottom-6">1</span>
-                    <span className="text-md font-bold absolute end-0 -bottom-6">10</span>
+                    <span className="text-md text-gray-700 font-bold absolute start-0 -bottom-6">1</span>
+                    <span className="text-md text-gray-700 font-bold absolute end-0 -bottom-6">10</span>
                 </div>
             </div>
 

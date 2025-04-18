@@ -29,6 +29,7 @@ const Feed = () => {
             setLoading(false);
         } catch (err) {
             console.error("Error getting matches", err)
+            setLoading(false);
         }
     }
 
