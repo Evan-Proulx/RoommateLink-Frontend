@@ -18,6 +18,7 @@ const CollegeInput = ({onSchoolChange, customStyles = {}}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [colleges, setColleges] = useState([]);
     const [selectedCollege, setSelectedCollege] = useState(null);
+    const rootUrl = import.meta.env.VITE_ROOT_URL;
 
     useEffect(() => {
         //API fetches all the colleges in Canada and stores their names
@@ -25,7 +26,7 @@ const CollegeInput = ({onSchoolChange, customStyles = {}}) => {
             setIsLoading(true);
             try {
                 // Get all canadian colleges
-                const response = await axios.get('http://universities.hipolabs.com/search?country=canada')
+                const response = await axios.get(`${rootUrl}/api/universities/search?country=canada`)
                 const data = await response;
                 //convert data to map of names. The autocomplete input takes in an object so we have to convert the data as a list of objects.
                 const allColleges = data.data.map(college => ({
