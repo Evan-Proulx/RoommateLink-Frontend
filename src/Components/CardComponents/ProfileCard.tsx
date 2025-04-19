@@ -14,6 +14,7 @@ import CardSkeletonLoader from "./CardSkeletonLoader.tsx";
 import {retrievePropertyImages} from "../API/Media.ts";
 import ImageGallery from "../Profile/ProfileComponents/ImageGallery.tsx";
 import {hobbies} from "../../data.ts";
+import {checkUserVerificationStatus} from "../API/Verification.ts";
 
 const ProfileCard = ({user, discovery = false}) => {
     const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
@@ -39,6 +40,41 @@ const ProfileCard = ({user, discovery = false}) => {
         console.log('Toggling for userId:', userId);
         setProfileView(prev => !prev);
     };
+
+    // *** State for verification status (Keep this) ***
+    const [isVerified, setIsVerified] = useState<boolean>(false);
+    const [isLoadingVerification, setIsLoadingVerification] = useState<boolean>(true);
+    useEffect(() => {
+        // Set user as state
+        if (user) {
+            setProfileData(user);
+
+            // Fetch verification status
+            const userIdToCheck = user.profileData?.account_id;
+            if (userIdToCheck) {
+                setIsLoadingVerification(true);
+                checkUserVerificationStatus(userIdToCheck)
+                    .then(status => {
+                        setIsVerified(status);
+                    })
+                    .catch(error => {
+                        console.error(`Error checking verification for user ${userIdToCheck}:`, error);
+                        setIsVerified(false);
+                    })
+                    .finally(() => {
+                        setIsLoadingVerification(false);
+                    });
+            } else {
+                setIsVerified(false);
+                setIsLoadingVerification(false);
+            }
+        } else {
+            // Reset profile data and verification status if user is null
+            setProfileData(null);
+            setIsVerified(false);
+            setIsLoadingVerification(false);
+        }
+    }, [user]);
 
 
     // Get property images when the profile is set
@@ -149,14 +185,17 @@ const ProfileCard = ({user, discovery = false}) => {
                                     {profileData.profileData.first_name + " " + profileData.profileData.last_name}
                                 </h4>
 
-                                {/*Verification badge*/}
-                                <svg className="w-5 h-5 text-gray-800 dark:text-blue-700" aria-hidden="true"
-                                     xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                                     viewBox="0 0 24 24">
-                                    <path fillRule="evenodd"
-                                          d="M12 2c-.791 0-1.55.314-2.11.874l-.893.893a.985.985 0 0 1-.696.288H7.04A2.984 2.984 0 0 0 4.055 7.04v1.262a.986.986 0 0 1-.288.696l-.893.893a2.984 2.984 0 0 0 0 4.22l.893.893a.985.985 0 0 1 .288.696v1.262a2.984 2.984 0 0 0 2.984 2.984h1.262c.261 0 .512.104.696.288l.893.893a2.984 2.984 0 0 0 4.22 0l.893-.893a.985.985 0 0 1 .696-.288h1.262a2.984 2.984 0 0 0 2.984-2.984V15.7c0-.261.104-.512.288-.696l.893-.893a2.984 2.984 0 0 0 0-4.22l-.893-.893a.985.985 0 0 1-.288-.696V7.04a2.984 2.984 0 0 0-2.984-2.984h-1.262a.985.985 0 0 1-.696-.288l-.893-.893A2.984 2.984 0 0 0 12 2Zm3.683 7.73a1 1 0 1 0-1.414-1.413l-4.253 4.253-1.277-1.277a1 1 0 0 0-1.415 1.414l1.985 1.984a1 1 0 0 0 1.414 0l4.96-4.96Z"
-                                          clipRule="evenodd"/>
-                                </svg>
+                                {!isLoadingVerification && isVerified && (
+                                    <svg className="w-5 h-5 text-blue-700 dark:text-blue-500 inline-block align-middle flex-shrink-0"
+                                         aria-hidden="true"
+                                         xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                         viewBox="0 0 24 24"
+                                         aria-label="Verified User">
+                                        <path fillRule="evenodd"
+                                              d="M12 2c-.791 0-1.55.314-2.11.874l-.893.893a.985.985 0 0 1-.696.288H7.04A2.984 2.984 0 0 0 4.055 7.04v1.262a.986.986 0 0 1-.288.696l-.893.893a2.984 2.984 0 0 0 0 4.22l.893.893a.985.985 0 0 1 .288.696v1.262a2.984 2.984 0 0 0 2.984 2.984h1.262c.261 0 .512.104.696.288l.893.893a2.984 2.984 0 0 0 4.22 0l.893-.893a.985.985 0 0 1 .696-.288h1.262a2.984 2.984 0 0 0 2.984-2.984V15.7c0-.261.104-.512.288-.696l.893-.893a2.984 2.984 0 0 0 0-4.22l-.893-.893a.985.985 0 0 1-.288-.696V7.04a2.984 2.984 0 0 0-2.984-2.984h-1.262a.985.985 0 0 1-.696-.288l-.893-.893A2.984 2.984 0 0 0 12 2Zm3.683 7.73a1 1 0 1 0-1.414-1.413l-4.253 4.253-1.277-1.277a1 1 0 0 0-1.415 1.414l1.985 1.984a1 1 0 0 0 1.414 0l4.96-4.96Z"
+                                              clipRule="evenodd"/>
+                                    </svg>
+                                )}
 
                                 {/*Display link next to name when not in property view*/}
                                 {!discovery &&
@@ -211,13 +250,17 @@ const ProfileCard = ({user, discovery = false}) => {
                                     className="sm:text-2xl text-sm font-bold cursor-pointer hover:underline">{profileData.profileData.first_name}</h4>
 
                                 {/*Verification badge*/}
-                                <svg className="w-5 h-5 text-gray-800 dark:text-blue-700" aria-hidden="true"
-                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                     viewBox="0 0 24 24">
-                                    <path fillRule="evenodd"
-                                          d="M12 2c-.791 0-1.55.314-2.11.874l-.893.893a.985.985 0 0 1-.696.288H7.04A2.984 2.984 0 0 0 4.055 7.04v1.262a.986.986 0 0 1-.288.696l-.893.893a2.984 2.984 0 0 0 0 4.22l.893.893a.985.985 0 0 1 .288.696v1.262a2.984 2.984 0 0 0 2.984 2.984h1.262c.261 0 .512.104.696.288l.893.893a2.984 2.984 0 0 0 4.22 0l.893-.893a.985.985 0 0 1 .696-.288h1.262a2.984 2.984 0 0 0 2.984-2.984V15.7c0-.261.104-.512.288-.696l.893-.893a2.984 2.984 0 0 0 0-4.22l-.893-.893a.985.985 0 0 1-.288-.696V7.04a2.984 2.984 0 0 0-2.984-2.984h-1.262a.985.985 0 0 1-.696-.288l-.893-.893A2.984 2.984 0 0 0 12 2Zm3.683 7.73a1 1 0 1 0-1.414-1.413l-4.253 4.253-1.277-1.277a1 1 0 0 0-1.415 1.414l1.985 1.984a1 1 0 0 0 1.414 0l4.96-4.96Z"
-                                          clipRule="evenodd"/>
-                                </svg>
+                                {!isLoadingVerification && isVerified && (
+                                    <svg className="w-5 h-5 text-blue-700 dark:text-blue-500 inline-block align-middle flex-shrink-0"
+                                         aria-hidden="true"
+                                         xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                         viewBox="0 0 24 24"
+                                         aria-label="Verified User">
+                                        <path fillRule="evenodd"
+                                              d="M12 2c-.791 0-1.55.314-2.11.874l-.893.893a.985.985 0 0 1-.696.288H7.04A2.984 2.984 0 0 0 4.055 7.04v1.262a.986.986 0 0 1-.288.696l-.893.893a2.984 2.984 0 0 0 0 4.22l.893.893a.985.985 0 0 1 .288.696v1.262a2.984 2.984 0 0 0 2.984 2.984h1.262c.261 0 .512.104.696.288l.893.893a2.984 2.984 0 0 0 4.22 0l.893-.893a.985.985 0 0 1 .696-.288h1.262a2.984 2.984 0 0 0 2.984-2.984V15.7c0-.261.104-.512.288-.696l.893-.893a2.984 2.984 0 0 0 0-4.22l-.893-.893a.985.985 0 0 1-.288-.696V7.04a2.984 2.984 0 0 0-2.984-2.984h-1.262a.985.985 0 0 1-.696-.288l-.893-.893A2.984 2.984 0 0 0 12 2Zm3.683 7.73a1 1 0 1 0-1.414-1.413l-4.253 4.253-1.277-1.277a1 1 0 0 0-1.415 1.414l1.985 1.984a1 1 0 0 0 1.414 0l4.96-4.96Z"
+                                              clipRule="evenodd"/>
+                                    </svg>
+                                )}
                             </div>
 
                             {/*Display link next to name */}

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faGoogle, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import {useNavigate} from "react-router-dom";
 
 interface LoginPopupProps {
     isOpen: boolean; // To check if the popup is open
@@ -38,6 +39,7 @@ const LoginPopup: React.FC<LoginPopupProps> = ({ isOpen, onClose }) => {
 
     if (!isOpen) return null;
 
+
     return (
         <div className="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50">
             <div
@@ -61,11 +63,9 @@ const LoginPopup: React.FC<LoginPopupProps> = ({ isOpen, onClose }) => {
                 <h2 className="text-center text-red-600 text-2xl md:text-3xl mb-2 md:mb-4 font-bold">Get Started</h2>
                 <p className="text-xs md:text-sm text-gray-700 text-center mt-1 md:mt-2">
                     By tapping Log In or Continue, you agree to our{" "}
-                    <a href="#" className="text-blue-600 underline">Terms</a>.
+                    <a href="/termsOfUse" className="text-blue-600 underline">Terms</a>.
                     Learn how we process your data in our{" "}
-                    <a href="#" className="text-blue-600 underline">Privacy Policy</a> and{" "}
-                    <a href="#" className="text-blue-600 underline">Cookie Policy</a>.
-                </p>
+                    <a href="/privacyPolicy" className="text-blue-600 underline">Privacy Policy</a></p>
 
                 {/* Age Verification Checkbox */}
                 <div className="mt-3 flex items-center">
