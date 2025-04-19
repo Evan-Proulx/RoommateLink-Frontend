@@ -157,7 +157,7 @@ const SurveyPersonal = ({userData, setUserData, searchLocation, setSearchLocatio
 
                 {/*School dropdown*/}
                 <div className={"flex flex-col w-full"}>
-                    <label htmlFor="cities" className="block mb-2 header2-text text-center">Current Education</label>
+                    <label htmlFor="cities" className="block mb-2 header2-text text-center">Current School</label>
                     <CollegeInput onSchoolChange={handleSchoolChange}/>
                 </div>
             </section>
