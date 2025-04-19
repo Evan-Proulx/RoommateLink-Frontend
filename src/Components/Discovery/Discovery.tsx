@@ -105,6 +105,7 @@ const Discovery = () => {
                     profileData: user.userProfileData,
                     personalData: user.userPersonalData,
                     propertyData: user.userPropertyData,
+                    dealBreakers: user.userDealBreakers
                 }))
             );
             setLoading(false);

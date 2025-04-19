@@ -24,6 +24,7 @@ const Feed = () => {
                     profileData: user.userProfileData,
                     personalData: user.userPersonalData,
                     propertyData: user.userPropertyData,
+                    dealBreakers: user.dealBreakers
                 }))
             );
             setLoading(false);

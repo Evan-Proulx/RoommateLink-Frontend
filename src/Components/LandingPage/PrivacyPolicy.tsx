@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import {useNavigate} from "react-router-dom";
 
-function PrivacyPolicy() {
+function PrivacyPolicy({languageToggled}) {
     const navigate = useNavigate();
 
     const privacyData = [
