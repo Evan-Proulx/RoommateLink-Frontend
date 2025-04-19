@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {PersonalData, ProfileData, PropertyData} from "../../../ProfileData.ts";
-import {updateProfile} from "../../API/Profile.ts";
-import {uploadHouseTour, uploadPropertyImages} from "../../API/Media.ts";
+import {PersonalData, PropertyData} from "../../../ProfileData";
+import {updateProfile} from "../../API/Profile";
+import {uploadHouseTour, uploadPropertyImages} from "../../API/Media";
 import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
@@ -10,8 +10,8 @@ interface UpdatePropertyProps {
     property: PropertyData,
     //property and personalData are passed
     // when the user doesn't have a property and is creating one for the first time
-    newProperty: boolean,
-    personalData: PersonalData | undefined,
+    newProperty?: boolean,
+    personalData?: PersonalData | undefined,
     closeModal: () => void,
 }
 
@@ -130,7 +130,7 @@ const UpdateProperty = ({property, newProperty = false, personalData = undefined
 
     return (
         <form onSubmit={handleSubmit}
-              className={"flex flex-col justify-center items-center border-2 border-black p-10 rounded-lg space-y-8"}>
+              className={"flex flex-col justify-center items-center border-2 border-black sm:p-10 rounded-lg space-y-8"}>
             <h1 className={"header2-text pb-3"}>Update your profile info</h1>
 
             {/*Property Type Select*/}
@@ -257,7 +257,7 @@ const UpdateProperty = ({property, newProperty = false, personalData = undefined
             <div className={"flex flex-col items-center w-full"}>
                 <label htmlFor="message" className="block mb-2 header4-text">Write a short description
                     of the property</label>
-                <textarea id="message" rows="4"
+                <textarea id="message" rows={4}
                           className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full p-4"
                           placeholder="Write something..."
                           value={updatedPropertyData?.description}

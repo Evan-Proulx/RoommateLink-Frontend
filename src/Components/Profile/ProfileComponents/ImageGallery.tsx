@@ -1,13 +1,9 @@
 // Property Images
 // Component to display an image gallery
-import {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 function ImageGallery({ images }) {
     const [selectedImage, setSelectedImage] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0);
-
-    useEffect(() => {
-        console.log(images)
-    }, []);
 
     // Open the model with the selected image
     const openImage = (index) => {
@@ -37,30 +33,31 @@ function ImageGallery({ images }) {
     return (
         <div>
             {/* Image Grid */}
-            {images.length > 0 ? (<div className="grid grid-cols-2 gap-2 mt-2">
+            {images.length > 0 ? (
+                <div className="grid grid-cols-2 gap-2 mt-2">
                 {/* Main Large Image */}
-                <div className="col-span-1">
-                    <img
-                        src={images[0]}
-                        alt="Main Property"
-                        className="w-full h-full object-cover rounded-lg cursor-pointer"
-                        onClick={() => openImage(0)}
-                    />
-                </div>
-
-                {/* Smaller Images */}
-                <div className="grid grid-cols-2 gap-2">
-                    {images.slice(1, 4).map((src, index) => (
+                    <div className="col-span-1">
                         <img
-                            key={index}
-                            src={src}
-                            alt={`Property ${index + 2}`}
-                            className="w-full h-24 object-cover rounded-lg cursor-pointer"
-                            onClick={() => openImage(index + 1)}
+                            src={images[0]}
+                            alt="Main Property"
+                            className="w-full h-full object-cover rounded-lg cursor-pointer"
+                            onClick={() => openImage(0)}
                         />
-                    ))}
+                    </div>
 
-                    {/* Last image with overlay for extra images */}
+                    {/* Smaller Images */}
+                    <div className="grid grid-cols-2 gap-2">
+                        {images.slice(1, 4).map((src, index) => (
+                            <img
+                                key={index}
+                                src={src}
+                                alt={`Property ${index + 2}`}
+                                className="w-full h-24 object-cover rounded-lg cursor-pointer"
+                                onClick={() => openImage(index + 1)}
+                            />
+                        ))}
+
+                        {/* Last image with overlay for extra images */}
                     {images.length > 4 ? <div className="relative cursor-pointer" onClick={() => openImage(4)}>
                         <img src={images[4]} alt="More Properties" className="w-full h-24 object-cover rounded-lg"/>
                         <div

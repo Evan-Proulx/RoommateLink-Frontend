@@ -1,6 +1,5 @@
 import axios from "axios";
-import {forEach} from "@react-google-maps/api/dist/utils/foreach";
-import {PersonalData, UserProfile} from "../../ProfileData.ts";
+
 const rootUrl = import.meta.env.VITE_ROOT_URL;
 
 export const createProfile = async (profileData) => {
@@ -61,7 +60,7 @@ export const uploadImage = async (imageFile) => {
 export const getAuthenticatedUser = async () => {
     const token = localStorage.getItem("token");
 
-    try{
+    try {
         const response = await axios.get(`${rootUrl}/api/account`, {
             headers: {
                 "Content-Type": "application/json",
@@ -70,7 +69,7 @@ export const getAuthenticatedUser = async () => {
         });
         console.log(response.data)
         return response.data;
-    }catch (err) {
+    } catch (err) {
         console.log(err)
     }
 }
@@ -79,7 +78,7 @@ export const getAuthenticatedUser = async () => {
 export const getMatchingUsers = async () => {
     const token = localStorage.getItem("token");
 
-    try{
+    try {
         const response = await axios.get(`${rootUrl}/api/matchingUsers`, {
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -87,7 +86,7 @@ export const getMatchingUsers = async () => {
         });
         console.log(response.data)
         return response.data;
-    }catch (err) {
+    } catch (err) {
         console.log(err)
     }
 }
@@ -96,12 +95,12 @@ export const updateProfile = async (type: string, updatedProfile) => {
     const token = localStorage.getItem("token");
 
     try {
-        const response  = await axios.put(`${rootUrl}/api/profile/edit/${type}`, updatedProfile,{
+        const response = await axios.put(`${rootUrl}/api/profile/edit/${type}`, updatedProfile, {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             }
-            });
+        });
         console.log(response.data);
         return response.data;
     } catch (err) {
@@ -122,7 +121,7 @@ export const getInterestedUsers = async (id) => {
                 },
             }
         );
-        console.log("INTERESTED",response.data);
+        console.log("INTERESTED", response.data);
         return response.data;
     } catch (err) {
         throw new Error(err.response?.data?.message || "Failed to get interested users");

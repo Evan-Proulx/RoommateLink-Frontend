@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { isPaymentComplete } from '../API/Verification.ts';
+import { isPaymentComplete } from "../API/Verification";
 
 const rootUrl = import.meta.env.VITE_ROOT_URL;
 

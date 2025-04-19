@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {fetchConversations, fetchUsers, getConversationsProfiles} from "../API/Messaging.ts";
+import {fetchConversations, getConversationsProfiles} from "../API/Messaging";
 
 const SelectConversation = ({user, onSetConversation}) => {
     const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
@@ -80,7 +80,7 @@ const SelectConversation = ({user, onSetConversation}) => {
 
     return (
         <div className="mb-4">
-            <h1 className={" p-2 text-2xl font-black"}>Your Chats</h1>
+            <h1 className={" sm:p-2 sm:text-2xl text-xs font-black"}>Your Chats</h1>
             {loading ? (
                 <p>Loading users...</p>
             ) : (
@@ -97,8 +97,8 @@ const SelectConversation = ({user, onSetConversation}) => {
                                      alt="Profile"
                                      className={`w-10 h-10 m-2 rounded-full`}/>
                                 <div>
-                                    <p className={"font-extrabold text-xl mt-1"}>{userProfile ? userProfile.name : "Username"}</p>
-                                    <p className={"font-bold text-md text-gray-600 truncate pr-2 "}>
+                                    <p className={"hidden md:block font-extrabold text-xl mt-1"}>{userProfile ? userProfile.name : "Username"}</p>
+                                    <p className={"hidden md:block font-bold text-md text-gray-600 truncate pr-2 "}>
                                         {convo.last_message ? (
                                             convo.last_message.length > 20 ? convo.last_message.substring(0, 20) + "..." : convo.last_message
                                         ):(

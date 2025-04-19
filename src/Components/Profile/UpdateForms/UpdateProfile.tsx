@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {getProfileData, updateProfile} from "../../API/Profile.ts";
-import {PersonalData, ProfileData, UserProfile} from "../../../ProfileData.ts";
+import {getProfileData, updateProfile} from "../../API/Profile";
+import {PersonalData, ProfileData, UserProfile} from "../../../ProfileData";
 import {LocationSearching} from "@mui/icons-material";
-import MapPopup from "../../Survey/SurveyComponents/Survey-Map-Popup.tsx";
-import {getLocation} from "../../API/Location.ts";
-import {FormProvider, useForm, useFormContext} from "react-hook-form";
+import MapPopup from "../../Survey/SurveyComponents/Survey-Map-Popup";
+import {getLocation} from "../../API/Location";
+import {FormProvider, useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 
 const UpdateProfile = ({closeModal}) => {
@@ -180,11 +180,9 @@ const UpdateProfile = ({closeModal}) => {
                         <span
                             className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">$100</span>
                         <span
-                            className="text-sm text-gray-500 dark:text-gray-400 absolute start-1/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">$500</span>
+                            className="text-sm text-gray-500 dark:text-gray-400 absolute start-1/2 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">$5,000</span>
                         <span
-                            className="text-sm text-gray-500 dark:text-gray-400 absolute start-2/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">$1000</span>
-                        <span
-                            className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">$10000</span>
+                            className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">$10,000</span>
                     </div>
 
                     {/*Name input*/}
@@ -212,7 +210,7 @@ const UpdateProfile = ({closeModal}) => {
                                    }}/>
                             {/*Display validation error*/}
                             {errors.firstname &&
-                                <p className={"text-red-600 text-center min-h-12"}>{errors.firstname.message}</p>}
+                                <p className={"text-red-600 text-center min-h-12"}>{errors.firstname.message.toString() || ''}</p>}
                         </div>
 
                         {/*Lastname input validation ensures it is required, length is between 2 and 50 and has no special characters*/}
@@ -238,7 +236,7 @@ const UpdateProfile = ({closeModal}) => {
                                    }}/>
                             {/*Display validation error*/}
                             {errors.lastname &&
-                                <p className={"text-red-600 text-center min-h-12"}>{errors.lastname.message}</p>}
+                                <p className={"text-red-600 text-center min-h-12"}>{errors.lastname.message.toString() || ''}</p>}
                         </div>
                     </section>
 

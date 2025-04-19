@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {Rating} from "../../ProfileData.ts";
+import {Rating} from "../../ProfileData";
 const rootUrl = import.meta.env.VITE_ROOT_URL;
 
 

@@ -77,7 +77,7 @@ const SurveyProperty = ({ propertyData, setPropertyData, onSetPropertyImages, on
                                     data-input-counter-decrement="quantity-input"
                                     onClick={() => updatePropertyData("bedroomCount", Math.max(0, propertyData.bedroomCount - 1))}//decrement count by 1. Math.max prevents count going below 0
                                     className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
-                                <p className={"text-white"}>
+                                <p className={""}>
                                     <FontAwesomeIcon icon={faMinus}/>
                                 </p>
                             </button>
@@ -86,7 +86,7 @@ const SurveyProperty = ({ propertyData, setPropertyData, onSetPropertyImages, on
                                     data-input-counter-increment="quantity-input"
                                     onClick={() => updatePropertyData("bedroomCount", propertyData.bedroomCount + 1)}//increment count by 1
                                     className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
-                                <p className={"text-white"}>
+                                <p className={""}>
                                     <FontAwesomeIcon className={" text-gray-900 dark:text-white"} icon={faPlus}/>
                                 </p>
                             </button>
@@ -104,7 +104,7 @@ const SurveyProperty = ({ propertyData, setPropertyData, onSetPropertyImages, on
                                     data-input-counter-decrement="quantity-input"
                                     onClick={() => updatePropertyData("bathroomCount", Math.max(0, propertyData.bathroomCount - 1))}//decrement count by 1. Math.max prevents count going below 0
                                     className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
-                                <p className={"text-white"}>
+                                <p className={""}>
                                     <FontAwesomeIcon icon={faMinus}/>
                                 </p>
                             </button>
@@ -112,7 +112,7 @@ const SurveyProperty = ({ propertyData, setPropertyData, onSetPropertyImages, on
                             <button type="button" id="increment-button" data-input-counter-increment="quantity-input"
                                     onClick={() => updatePropertyData("bathroomCount", propertyData.bathroomCount + 1)}//increment count by 1
                                     className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
-                                <p className={"text-white"}>
+                                <p className={""}>
                                     <FontAwesomeIcon className={" text-gray-900 dark:text-white"} icon={faPlus}/>
                                 </p>
                             </button>
@@ -164,7 +164,7 @@ const SurveyProperty = ({ propertyData, setPropertyData, onSetPropertyImages, on
                 <div className={"flex flex-col items-center"}>
                     <label htmlFor="message" className="block mb-2 header2-text text-center">Write a short description
                         of the property</label>
-                    <textarea id="message" rows="4"
+                    <textarea id="message" rows={4}
                               className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg block w-full lg:w-2/3 p-4"
                               placeholder="Write something..."
                               value={propertyData.description}

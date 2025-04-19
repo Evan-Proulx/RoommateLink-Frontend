@@ -1,19 +1,19 @@
 import React, {useContext, useEffect, useState} from "react";
-import {faBoxOpen, faCar, faLocationDot, faTshirt, faWifi} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import MapSection from "./MapSection.tsx";
-import InterestedPeople from "./InterestedPeople.tsx";
-import {ProfileContext} from "../ProfilePage.tsx";
-import {DealBreakers, UserProfile} from "../../../ProfileData.ts";
-import ImageGallery from "./ImageGallery.tsx";
+import MapSection from "./MapSection";
+import InterestedPeople from "./InterestedPeople";
+import {ProfileContext} from "../ProfilePage";
+import {DealBreakers, UserProfile} from "../../../ProfileData";
+import ImageGallery from "./ImageGallery";
 import {AddBox, Edit} from "@mui/icons-material";
-import UpdateProperty from "../UpdateForms/UpdateProperty.tsx";
-import Modal from "../../Modal.tsx";
-import {hobbies} from "../../../data.ts";
+import UpdateProperty from "../UpdateForms/UpdateProperty";
+import Modal from "../../Modal";
+import {hobbies} from "../../../data";
+import SkeletonGallery from "../../CardComponents/SkeletonGallery";
 
-interface AboutSectionProps{
+interface AboutSectionProps {
     propertyImages: string[],
     myProfileDisplayed: boolean,
+    interestedPeople?: UserProfile[]
 }
 
 function AboutSection({propertyImages, myProfileDisplayed, interestedPeople}: AboutSectionProps) {
@@ -41,7 +41,7 @@ function AboutSection({propertyImages, myProfileDisplayed, interestedPeople}: Ab
 
     //Maps through list of hobby codes and finds their name from the hobbies data.
     const retrieveHobbyNames = (hobbyCodes: string[]) => {
-        if (hobbyCodes.length > 0){
+        if (hobbyCodes.length > 0) {
             const hobbyNames = hobbyCodes.map(hobby => {
                 const foundHobby = hobbies.find(h => h.code === hobby)
                 return foundHobby.name
@@ -50,9 +50,9 @@ function AboutSection({propertyImages, myProfileDisplayed, interestedPeople}: Ab
         }
     }
     const retrieveDealBreakers = () => {
-        if (user.dealBreakers){
+        if (user.dealBreakers) {
             //Return an array of the user's deal breakers that are set to true
-            const breaks =  Object.entries(user.dealBreakers)
+            const breaks = Object.entries(user.dealBreakers)
                 // Get only values that equal true and are not the user's id
                 .filter(([key, value]) => value === 1 && key !== "id")
                 // Return only the key
@@ -86,39 +86,39 @@ function AboutSection({propertyImages, myProfileDisplayed, interestedPeople}: Ab
     const [activeTab, setActiveTab] = useState("about");
 
     return (
-        <div className="p-4">
+        <div className="sm:p-4 p-1">
             {/* Tabs for switching between "About Me" and "My Property" */}
-            <div className="flex space-x-6 mt-2">
+            <div className="flex sm:space-x-6 mt-2">
                 <button
                     onClick={() => setActiveTab("about")}
-                    className={`px-4 py-2 cursor-pointer ${activeTab === "about" ? "border-b-4 border-black text-3xl font-bold" : "text-xl"}`}>
+                    className={`px-4 py-2 cursor-pointer ${activeTab === "about" ? "border-b-4 border-black sm:text-3xl font-bold" : "sm:text-xl"}`}>
                     About Me
                 </button>
 
-                {(user.personalData.has_housing === 1 || myProfileDisplayed) &&
+                {(Boolean(user.personalData.has_housing) || myProfileDisplayed) &&
                     <button
-                    onClick={() => setActiveTab("property")}
-                    className={`px-4 py-2 cursor-pointer ${activeTab === "property" ? "border-b-4 border-black text-3xl font-bold" : "text-xl"}`}>
-                    My Property
-                </button>}
+                        onClick={() => setActiveTab("property")}
+                        className={`px-4 py-2 cursor-pointer ${activeTab === "property" ? "border-b-4 border-black sm:text-3xl font-bold" : "sm:text-xl"}`}>
+                        My Property
+                    </button>}
             </div>
 
             {/* Content Section - Displaying the content of "About Me" or "My Property"*/}
             {activeTab === "about" ? (
                 <div className="flex flex-col space-y-4">
                     {/*About Me Section*/}
-                    <p className="text-gray-600 m-2 text-lg font-semibold mt-2">
+                    <p className="text-gray-600 m-2 sm:text-lg text-sm font-semibold ">
                         {user.profileData.bio}
                     </p>
 
                     {/* Display Roommate Preferences */}
                     {activeDealBreakers?.length > 0 && (
                         <>
-                            <h3 className="mt-4 p-2 font-bold text-xl">My Ideal Roommate</h3>
+                            <h3 className="mt-4 p-2 font-bold sm:text-xl">My Ideal Roommate</h3>
                             <div className="flex gap-2 flex-wrap">
                                 {activeDealBreakers?.map((key) => (
                                     <div key={key} title={dealBreakerLabels[key]}
-                                        className="bg-blue-200 text-blue-800 text-center font-semibold p-2 px-4 pb-2 w-fit m-1 rounded-xl shadow-md">
+                                         className="bg-blue-200 text-blue-800 text-center font-semibold p-2 px-4 pb-2 w-fit m-1 rounded-xl shadow-md">
                                         {/*Display label based on user's set dealbreakers*/}
                                         {dealBreakerLabels[key]}
                                     </div>
@@ -129,12 +129,12 @@ function AboutSection({propertyImages, myProfileDisplayed, interestedPeople}: Ab
                     {/*Display user's hobbies */}
                     {userHobbies?.length > 0 && (
                         <>
-                            <h3 className="mt-4 p-2 font-bold text-xl">Hobbies/Interests</h3>
+                            <h3 className="sm:mt-4 sm:p-2 font-bold sm:text-xl">Hobbies/Interests</h3>
                             <div className="flex flex-wrap">
                                 {
                                     userHobbies.map((hobby, index) => (
                                         <label key={index} title={hobby}
-                                               className="bg-blue-500 text-white text-center text-sm font-normal p-2 px-4 pb-2 w-fit m-1 rounded-xl">
+                                               className="bg-blue-500 text-white text-center text-sm font-normal sm:p-2 sm:px-4 sm:pb-2 p-1 sm:w-fit m-1 rounded-xl">
                                             {hobby}
                                         </label>
                                     ))
@@ -146,10 +146,10 @@ function AboutSection({propertyImages, myProfileDisplayed, interestedPeople}: Ab
                     <InterestedPeople interestedPeople={interestedPeople}/>
                 </div>
             ) : user.personalData.has_housing ? (
-                <div className="mt-4">
+                <div className="sm:mt-4">
                     {/*My Property Section */}
                     <div className={"flex items-center"}><h2
-                        className="text-xl pt-2 font-bold m-2">{user.personalData.city + ", " + user.personalData.province}</h2>
+                        className="sm:text-xl sm:pt-2 font-bold m-2">{user.personalData.city + ", " + user.personalData.province}</h2>
                         {/*Edit property modal toggle*/}
                         {myProfileDisplayed &&
                             <div title={"Edit Property"} className={"cursor-pointer"}
@@ -157,8 +157,10 @@ function AboutSection({propertyImages, myProfileDisplayed, interestedPeople}: Ab
                                 <Edit sx={{fontSize: 22}}/>
                             </div>}</div>
 
-                    <div className="flex items-center justify-between w-128">
-                        <h4 className="pl-2 text-gray-600 font-semibold"> {user.propertyData.bedroom_count} bedrooms + {user.propertyData.bathroom_count} Bathroom · {user.propertyData.square_feet} Square Feet</h4>
+                    <div className="flex items-center justify-between ">
+                        <h4 className="pl-2 text-gray-600 sm:font-semibold text-sm sm:text-md"> {user.propertyData.bedroom_count} bedrooms
+                            + {user.propertyData.bathroom_count} Bathroom · {user.propertyData.square_feet} Square
+                            Feet</h4>
                         {/*<h4 className={`text-center font-semibold ${getTextColor(theLocation)}`}>*/}
                         {/*    {theLocation}Km away*/}
                         {/*    <FontAwesomeIcon icon={faLocationDot} className="ml-1"/>*/}
@@ -167,20 +169,25 @@ function AboutSection({propertyImages, myProfileDisplayed, interestedPeople}: Ab
 
 
                     {/* Property Images Gallery */}
-                    <div className="w-128 m-2">
-                    <ImageGallery images={propertyImages} />
-                </div>
+                    <div className="sm:w-128 m-2">
+                        {propertyImages.length > 0 ? (
+                            <ImageGallery images={propertyImages}/>
+                        ) : (
+                            <SkeletonGallery/> //Display placeholder images while images are loading
+                        )}
+                    </div>
 
-                    <h3 className="mt-12 font-bold m-2 text-xl">About My Property</h3>
-                    <p className="text-gray-600 m-2 text-lg font-semibold mt-2">
+                    <h3 className="sm:mt-12 mt-2 font-bold m-2 sm:text-xl">About My Property</h3>
+                    <p className="text-gray-600 m-2 sm:text-lg text-sm font-semibold">
                         {user.propertyData.description}
                     </p>
 
-                    <MapSection />
+                    <MapSection/>
                 </div>
             ) : (
                 <div title={"Add property to account"} className={"flex justify-center items-center pt-40"}>
-                    <div onClick={() => setModalIsOpen(true)} className={"flex space-x-2 cursor-pointer hover:text-gray-600"}>
+                    <div onClick={() => setModalIsOpen(true)}
+                         className={"flex space-x-2 cursor-pointer hover:text-gray-600"}>
                         <AddBox sx={{fontSize: 50}}/>
                         <p className={"text-4xl font-extrabold"}>Add a property</p>
                     </div>
@@ -189,7 +196,7 @@ function AboutSection({propertyImages, myProfileDisplayed, interestedPeople}: Ab
 
             <Modal open={modalIsOpen} close={() => setModalIsOpen(false)}>
                 {user.personalData.has_housing ? (
-                    <UpdateProperty property={user.propertyData} closeModal={() => setModalIsOpen(false)} />
+                    <UpdateProperty property={user.propertyData} closeModal={() => setModalIsOpen(false)}/>
                 ) : (
                     // Pass personal data if the user doesn't have a property
                     <UpdateProperty
@@ -199,7 +206,7 @@ function AboutSection({propertyImages, myProfileDisplayed, interestedPeople}: Ab
                         closeModal={() => setModalIsOpen(false)}
                     />
                 )}
-                </Modal>
+            </Modal>
         </div>
     );
 }

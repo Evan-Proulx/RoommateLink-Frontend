@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import FeedCard from "../CardComponents/FeedCard.tsx";
-import Navbar from "../Navbar.tsx";
-import MapPopup from "../Survey/SurveyComponents/Survey-Map-Popup.tsx";
-import {BookmarkAddOutlined, BookmarkOutlined, LocationSearching, Search} from "@mui/icons-material";
+import Navbar from "../Navbar";
+import MapPopup from "../Survey/SurveyComponents/Survey-Map-Popup";
+import {LocationSearching, Search} from "@mui/icons-material";
 import {} from "@mui/material/colors";
-import ReportModal from "../Profile/Reporting/ReportModal.tsx";
-import Modal from "../Modal.tsx";
-import DiscoveryModal from "./DiscoveryModal.tsx";
-import ProfileCard from "../CardComponents/ProfileCard.tsx";
-import {UserProfile} from "../../ProfileData.ts";
-import {DiscoveryData, discoverySearch} from "../API/Discovery.ts";
-import {getLocation} from "../API/Location.ts";
-import {getProfileData} from "../API/Profile.ts";
+import Modal from "../Modal";
+import DiscoveryModal from "./DiscoveryModal";
+import ProfileCard from "../CardComponents/ProfileCard";
+import {UserProfile} from "../../ProfileData";
+import {DiscoveryData, discoverySearch} from "../API/Discovery";
+import {getLocation} from "../API/Location";
+import {getProfileData} from "../API/Profile";
+import CardSkeletonLoader from "../CardComponents/CardSkeletonLoader";
 
 const Discovery = () => {
     const [isMapOpen, setIsMapOpen] = useState(false);
@@ -19,6 +18,7 @@ const Discovery = () => {
     const [locationName, setLocationName] = useState("")
     const [currentUser, setCurrentUser] = useState<UserProfile | undefined>(undefined);
     const [users, setUsers] = useState<UserProfile[]>([]);
+    const [loading, setLoading] = useState(false)
     // Default form values TODO: Get user's profile and set defaults
     const [formData, setFormData] = useState<DiscoveryData>({
         longitude: 0,
@@ -30,7 +30,7 @@ const Discovery = () => {
         school: '',
         pet_free: false,
         smokes: false,
-        // verified: false,
+        verified: false,
         has_housing: false
     });
 
@@ -98,6 +98,7 @@ const Discovery = () => {
     //Search for users matching filters
     const search = async (data) => {
         try {
+            setLoading(true)
             const response = await discoverySearch(data);
             //Convert returned data to UserProfile object
             setUsers(response.userMatches.map((user) => ({
@@ -106,32 +107,28 @@ const Discovery = () => {
                     propertyData: user.userPropertyData,
                 }))
             );
+            setLoading(false);
         } catch (err) {
             console.error("Error searching for housing:", err);
+            setLoading(false);
         }
     }
 
-    if (!users) return (
-        <div className={"flex flex-col justify-center items-center h-screen w-full bg-gray-300"}>
-            <span className={"loader"}></span>
-            <h2 className={"header4-text text-center pt-4"}>Loading...</h2>
-        </div>
-    );
 
     return (
         <div className={"w-full bg-primary h-screen overflow-y-auto"}>
             <Navbar/>
             <div className={"flex items-baseline py-3 space-x-3"}>
                 <div>
-                    <h1 className="pl-3 lg:pl-32 text-start header-text-huge">Discovery</h1>
-                    <h2 className="pl-3 lg:pl-32 text-start header4-text">Refine your roommate search</h2>
+                    <h1 className="pl-3 lg:pl-32 text-start text-2xl font-bold text-text sm:text-5xl sm:p-4">Discovery</h1>
+                    <h2 className="pl-3 lg:pl-32 text-start text-sm  text-text sm:header4-text sm:text-3xl">Refine your roommate search</h2>
                 </div>
             </div>
 
             <div className={"flex flex-wrap space-x-3 items-end justify-center"}>
                 {/*Location select*/}
                 <section className={""}>
-                    <label htmlFor="cities" className="block text-lg font-bold">Location</label>
+                    <label htmlFor="cities" className="block sm:text-lg text-sm font-bold">Location</label>
 
                     <div className="flex items-center justify-center space-x-2">
                         <input id="location" value={locationName} contentEditable={false}
@@ -157,7 +154,7 @@ const Discovery = () => {
                 <section>
                     <div className={"flex flex-col w-fit"}>
                         {/*gender dropdown*/}
-                        <label htmlFor="gender" className="block text-lg font-bold">Gender</label>
+                        <label htmlFor="gender" className="block sm:text-lg text-sm font-bold">Gender</label>
                         <select id="gender" name="gender"
                                 className="bg-white border-2 border-black text-gray-900 text-sm rounded-lg p-2"
                                 onChange={handleChange}
@@ -170,7 +167,7 @@ const Discovery = () => {
                 </section>
 
                 <div className={"flex flex-col"}>
-                    <label htmlFor="budget" className="block text-lg font-bold">Budget</label>
+                    <label htmlFor="budget" className="block sm:text-lg text-sm font-bold">Budget</label>
                     <input type="number" name={"budget"} value={formData.budget} min={100} max={10000} step={100}
                            id="budget"
                            onChange={handleChange}
@@ -179,22 +176,29 @@ const Discovery = () => {
 
                 <div className={"space-x-2"}>
                     <button onClick={() => setModalIsOpen(true)}
-                            className={"bg-white border-2 border-text p-2 text-lg font-bold text-text rounded hover:bg-gray-100"}>More
+                            className={"bg-white border-2 border-text p-2 sm:text-lg font-bold text-text rounded hover:bg-gray-100"}>More
                     </button>
                     <button onClick={() => search(formData)}
-                            className={"bg-text p-2 text-lg font-bold text-white rounded"}>Search <Search/></button>
+                            className={"bg-text p-2 sm:text-lg font-bold text-white rounded"}>Search <Search/></button>
                 </div>
             </div>
             <div className={"flex flex-col items-center w-full pt-4"}>
                 <div
-                    className={"flex flex-col justify-center items-center space-y-4 md:w-3/4 xl:w-1/2 h-full pb-12"}>
-                    {users.length > 0 ? (
+                    className={"flex flex-col justify-center items-center space-y-4 w-full md:w-3/4 xl:w-1/2 h-full pb-12"}>
+                    {loading ? (
+                        // Show skeleton card while loading
+                        [...Array(8)].map((_, i) => (
+                            <CardSkeletonLoader key={i} />
+                        ))
+                    ) : users && users.length > 0 ? (
+                        // Show profile cards when there are users
                         users.map((user, index) => (
                             <ProfileCard key={user.profileData.account_id} user={user} discovery={true}/>
                         ))
                     ) : (
+                        // Show message when there are no users
                         <div className="flex items-center justify-center text-gray-500">
-                            <p>No matching users found. Try a simpler search</p>
+                            <p>No matching users found. Try a simpler filter.</p>
                         </div>
                     )}
                 </div>

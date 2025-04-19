@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 import {Simulate} from "react-dom/test-utils";
 import input = Simulate.input;
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {hobbies} from "../../../data.ts"
-import {Add, AddAlarm, Close, Delete, Remove} from "@mui/icons-material";
+import {hobbies} from "../../../data"
+import {Add, Close} from "@mui/icons-material";
 
 const AddHobby = ({onHobbyChange}) => {
     const [selectedHobbies, setSelectedHobbies] = useState([])
@@ -58,7 +57,7 @@ const AddHobby = ({onHobbyChange}) => {
                         ))}
                     </select>
                     <button type="button" onClick={handleNewHobby} className={"cursor-pointer"}>
-                        <Add sx={{fontSize: 42, color: "#FF4000"}}/>
+                        <Add sx={{fontSize: 42, color: "#FF3033"}}/>
                     </button>
                 </div>
 

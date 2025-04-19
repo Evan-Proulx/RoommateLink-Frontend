@@ -1,14 +1,14 @@
-import MessageBtn from "./MessageBtn.tsx";
-import FavoriteBtn from "./FavoriteBtn.tsx";
-import Rating from "./Rating.tsx";
-import ReportBtn from "./ReportBtn.tsx";
-import React, {createContext, useContext, useEffect, useState} from "react";
-import {ProfileContext} from "../ProfilePage.tsx";
-import Modal from "../../Modal.tsx";
-import {ProfileData, UserProfile} from "../../../ProfileData.ts";
-import ReportModal from "../Reporting/ReportModal.tsx";
-import {handleCreateConversation} from "../../API/Messaging.ts";
-import {bookmarkUser, unbookmarkUser} from "../../API/Bookmarks.ts";
+import MessageBtn from "./MessageBtn";
+import FavoriteBtn from "./FavoriteBtn";
+import Rating from "./Rating";
+import ReportBtn from "./ReportBtn";
+import React, {useContext, useEffect, useState} from "react";
+import {ProfileContext} from "../ProfilePage";
+import Modal from "../../Modal";
+import {UserProfile} from "../../../ProfileData";
+import ReportModal from "../Reporting/ReportModal";
+import {handleCreateConversation} from "../../API/Messaging";
+import {bookmarkUser, unbookmarkUser} from "../../API/Bookmarks";
 import {useNavigate} from "react-router-dom";
 
 interface AsideProps{
@@ -56,21 +56,28 @@ function Aside({myProfileDisplayed}: AsideProps) {
 
 
     return (
-        <div className="h-auto w-56 bg-profile pr-4 m-2">
-            {!myProfileDisplayed &&
-                <div>
-                    <MessageBtn onMessageClicked={handleMessage}/>
-                    <FavoriteBtn onFavoriteClicked={toggleBookmark} bookmarked={isBookmarked}/>
-                    <ReportBtn onReportClicked={() => setModalIsOpen(true)}/>
+        <div className="h-auto sm:w-56 bg-profile pr-4 m-2">
+            {!myProfileDisplayed && (
+                <div className="flex flex-row sm:flex-col items-center justify-around flex-wrap ">
 
-                    {/*Report modal is displayed when report button is clicked*/}
+                    <div className="flex flex-row sm:flex-col items-center justify-around flex-wrap gap-4 sm:gap-1"><MessageBtn onMessageClicked={handleMessage}/>
+                        <FavoriteBtn onFavoriteClicked={toggleBookmark} bookmarked={isBookmarked}/>
+                        <ReportBtn onReportClicked={() => setModalIsOpen(true)}/>
+                    </div>
+
+                    <Rating myProfileDisplayed={myProfileDisplayed} revieweeId={profile?.profileData.account_id} />
+
+                    {/* Report modal */}
                     <Modal open={modalIsOpen} close={() => setModalIsOpen(false)}>
-                        <ReportModal userToReport={profile?.personalData.account_id as number} closeModal={() => setModalIsOpen(false)}/>
+                        <ReportModal
+                            userToReport={profile?.personalData.account_id as number}
+                            closeModal={() => setModalIsOpen(false)}
+                        />
                     </Modal>
                 </div>
-            }
-            <Rating myProfileDisplayed={myProfileDisplayed} revieweeId={profile?.profileData.account_id}/>
+            )}
         </div>
+
     );
 }
 

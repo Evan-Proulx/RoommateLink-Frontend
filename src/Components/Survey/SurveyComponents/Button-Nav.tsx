@@ -1,11 +1,11 @@
 import React from 'react';
-import ShadowButton from "../../Shadow-Button.tsx";
+import ShadowButton from "../../Shadow-Button";
 
 const ButtonNav = () => {
     return (
         <div className={"fixed bottom-1 z-0 w-full hidden md:block"}>
             <div className={"flex justify-between mx-5 p-8"}>
-                <ShadowButton value={"Back"} color={"red"}/>
+                <ShadowButton value={"Back"} color={"text"}/>
                 <ShadowButton value={"Next"}/>
             </div>
         </div>

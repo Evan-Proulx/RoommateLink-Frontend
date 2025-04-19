@@ -1,11 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
-import MessageInput from "./MessageInput.tsx";
+import MessageInput from "./MessageInput";
 import echo from "../../../echo.js"
-import {getConversationMessages} from "../API/Messaging.ts";
-import Message from "./Message.tsx";
-import {More, MoreVert, Settings} from "@mui/icons-material";
-import { Element, scroller } from "react-scroll";
-
+import {getConversationMessages} from "../API/Messaging";
+import Message from "./Message";
+import {MoreVert} from "@mui/icons-material";
 
 const ConversationBox = ({user, conversation, receiver}) => {
     //Channel name for chat.
@@ -18,22 +16,34 @@ const ConversationBox = ({user, conversation, receiver}) => {
     const messageRef = useRef(null);
 
     //Check if user id against user1 and 2 to find recipient
-    const connectWebSocket = () => {
-        const channel = echo.private(webSocketChannel);
-        channel.listen('GotMessage', async (e) => {
-            console.log("Message received")
-            await getMessages();
-        });
+    // const connectWebSocket = () => {
+    //     const channel = echo.private(webSocketChannel);
+    //     channel.listen('GotMessage', async (e) => {
+    //         console.log("Message received")
+    //         await getMessages();
+    //     });
+    //
+    //     channel.listen('UserTyping', (e) => {
+    //         //If the receiver is the connected user set typing to true
+    //         if (parseInt(e.receiver_id) === parseInt(user.id)) {
+    //             console.log("Type event received")
+    //             setUserTyping(e.isTyping);
+    //         }
+    //     });
+    // }
 
-        channel.listen('UserTyping', (e) => {
-            //If the receiver is the connected user set typing to true
-            if (parseInt(e.receiver_id) === parseInt(user.id)) {
-                console.log("Type event received")
-                setUserTyping(e.isTyping);
-            }
-        });
-    }
+    // Retrieve messages every 30 seconds as an alternative to websockets.
+    // This could be increased.
+    useEffect(() => {
+        //set interval runs after the delay in milliseconds
+        const interval = setInterval(() => {
+            console.log('Retrieving messages');
+            getMessages()
+        }, 30000);
 
+        // Cleanup by preventing continuous reruns when the component is unused
+        return () => clearInterval(interval);
+    }, []);
 
     const getMessages = async () => {
         try{
@@ -60,11 +70,12 @@ const ConversationBox = ({user, conversation, receiver}) => {
     //Get messages from conversation and connect to new channel when conversation is selected
     useEffect(() => {
         getMessages();
-        connectWebSocket();
 
-        return () => {
-            echo.leave(webSocketChannel);
-        }
+        // connectWebSocket();
+        //
+        // return () => {
+        //     echo.leave(webSocketChannel);
+        // }
     }, [conversation]);
 
 
@@ -78,9 +89,6 @@ const ConversationBox = ({user, conversation, receiver}) => {
                     <div>
                         <p className="font-extrabold text-xl">{receiver.name}</p>
                     </div>
-                </div>
-                <div>
-                    <MoreVert />
                 </div>
             </div>
             <div className="flex-grow overflow-auto p-6 mt-20 mb-40 justify-center">
@@ -99,8 +107,8 @@ const ConversationBox = ({user, conversation, receiver}) => {
                     <div className={`text-center ${userTyping ? "typing" : ""}`}>
                         {userTyping ? `User is typing...` : ""}
                     </div>
-                <div className="fixed bottom-0 right-0 w-3/4 p-4 z-10 mt-60">
-                    <MessageInput conversation={conversation} receiverId={receiver.id}/>
+                <div className=" fixed bottom-0 w-3/4 p-4 z-10 mt-60">
+                    <MessageInput conversation={conversation} receiverId={receiver.id} onMessageSent={() => getMessages()}/>
                 </div>
             </div>
         </div>

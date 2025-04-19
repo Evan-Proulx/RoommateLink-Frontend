@@ -1,12 +1,11 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {createMessage, setTyping} from '../API/Messaging.ts'
-import axios from 'axios'
-const MessageInput = ({conversation, receiverId}) => {
+import React, {useRef, useState} from 'react';
+import {createMessage, setTyping} from "../API/Messaging"
+import {useNavigate} from "react-router-dom";
+const MessageInput = ({conversation, receiverId, onMessageSent}) => {
     const [message, setMessage] = useState("");
     const [userTyping, setUserTyping] = useState(false);
     const [loading, setLoading] = useState(true);
     const typingTimeout = useRef<number | null>(null);
-
     //Create message in conversation
     const messageRequest = async (text) => {
         try {
@@ -14,6 +13,9 @@ const MessageInput = ({conversation, receiverId}) => {
             console.log(conversation.id)
             const response = await createMessage(text, conversation.id);
             console.log(response)
+
+            //Triggers the parent component to retrieve new messages
+            if (onMessageSent){onMessageSent()}
         } catch (err) {console.error(err);}
         finally {setLoading(false);}
     }
@@ -40,7 +42,7 @@ const MessageInput = ({conversation, receiverId}) => {
     }
 
 
-    const handleTyping = (e) => {
+    const handleTyping = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const currentText = e.target.value;
         setMessage(currentText);
 
@@ -61,7 +63,7 @@ const MessageInput = ({conversation, receiverId}) => {
                 setUserTyping(false);
                 setTypingStatus(false);
             }
-        }, 5000);
+        }, 5000) as unknown as number;
     }
 
 
@@ -70,7 +72,7 @@ const MessageInput = ({conversation, receiverId}) => {
             <form>
                 <label htmlFor="chat" className="sr-only">Your message</label>
                 <div className="flex items-center px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700">
-                    <textarea id="chat" rows="1"
+                    <textarea id="chat" rows={1}
                               onChange={handleTyping} value={message}
                               className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="Your message..."></textarea>

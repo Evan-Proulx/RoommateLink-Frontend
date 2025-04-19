@@ -1,24 +1,27 @@
-import Video from "../Aside/Video.tsx";
+import Video from "../Aside/Video";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPiggyBank} from "@fortawesome/free-solid-svg-icons";
 import React, {useContext, useEffect, useState} from "react";
-import {ProfileContext} from "../ProfilePage.tsx";
-import {UserProfile} from "../../../ProfileData.ts";
-import ProfileImg from "../Aside/ProfileImg.tsx";
-import {Edit, PersonPinCircle, Search} from "@mui/icons-material";
+import {ProfileContext} from "../ProfilePage";
+import {UserProfile} from "../../../ProfileData";
+import ProfileImg from "../Aside/ProfileImg";
+import {Edit, Logout, LogoutOutlined, PersonPinCircle, Search} from "@mui/icons-material";
 import {grey} from "@mui/material/colors";
-import Modal from "../../Modal.tsx";
-import UpdateProfile from "../UpdateForms/UpdateProfile.tsx";
-import UpdateFiles from "../UpdateForms/UpdateFiles.tsx";
-import UpdateProperty from "../UpdateForms/UpdateProperty.tsx";
-import {isUserVerified} from "../../API/Verification.ts";
+import Modal from "../../Modal";
+import UpdateProfile from "../UpdateForms/UpdateProfile";
+import UpdateFiles from "../UpdateForms/UpdateFiles";
+import UpdateProperty from "../UpdateForms/UpdateProperty";
+import {isUserVerified} from "../../API/Verification";
 import {Tooltip} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
-interface UserInfoSectionProps{
+interface UserInfoSectionProps {
     myProfileDisplayed: boolean;
-};
-function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
+}
+
+function UserInfoSection({myProfileDisplayed}: UserInfoSectionProps) {
     const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
+    const navigate = useNavigate();
     //Get user data
     const userProfile = useContext(ProfileContext);
     const user = userProfile as UserProfile;
@@ -45,20 +48,22 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
         checkVerification();
     }, []);
 
+
+
     // Toggle modal display
     return (
         <div className="p-4 flex justify-between items-start w-full shadow-md">
             <div className={"flex space-x-3 px-4 lg:px-12"}>
-
                 {/* User's profile picture img url and link % is passed if they have one*/}
                 <div className={"relative"}>
                     <ProfileImg url={imgUrl + user.profileData.profile_picture}
-                                percentage={user.compatibilityScore ? user.compatibilityScore : null} myProfileDisplayed={myProfileDisplayed}/>
+                                percentage={user.compatibilityScore ? user.compatibilityScore : null}
+                                myProfileDisplayed={myProfileDisplayed}/>
 
                     {/*Edit icon inside profile picture*/}
                     {myProfileDisplayed &&
                         <div onClick={() => setModal("updateFiles")} title={"Edit Profile Picture"}
-                             className="absolute bottom-8 right-0 p-1 rounded-full bg-gray-300 transform
+                             className="absolute bottom-2 sm:bottom-8 sm:right-0 p-1 rounded-full bg-gray-300 transform
                                -translate-y-8 -translate-x-1/4 cursor-pointer hover:bg-gray-400 ease-in-out">
                             <Edit sx={{fontSize: 28}}/>
                         </div>
@@ -67,17 +72,18 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
 
                 <div className="">
                     {/* User name */}
-                    <div className="flex items-center m-3">
-                        <div className={"flex"}>
+                    <div className="flex items-center m-2 sm:m-5">
+                        <div className={"flex items-center"}>
                             {myProfileDisplayed &&
+
                                 <div title={"Edit Personal Info"}><Edit className={"cursor-pointer"} onClick={() => setModal("updateProfile")}/></div>}
-                            <h1 className="text-5xl font-bold text-start">{user.profileData.first_name + " " + user.profileData.last_name}</h1>
+                            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-start">{user.profileData.first_name + " " + user.profileData.last_name}</h1>
                         </div>
 
                         {isVerified && (
                             <Tooltip title="User verified their account with ID" arrow>
                                 <svg
-                                    className="w-10 h-10 text-gray-800 dark:text-blue-700"
+                                    className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-blue-700"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -93,31 +99,31 @@ function UserInfoSection({myProfileDisplayed} : UserInfoSectionProps) {
                                 </svg>
                             </Tooltip>
                         )}
-
                     </div>
 
                     {/* User's City */}
-                    <div className="flex items-center m-3">
-                        <PersonPinCircle sx={{color: grey[600]}}/>
-                        <h1 className="pl-1 text-md lg:text-xl font-semibold text-center text-gray-500">{user.personalData.city + ", " + user.personalData.province}</h1>
+                    <div className="flex items-center m-1 sm:m-3">
+                        <PersonPinCircle sx={{color: grey[600]}} className="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8"/>
+                        <h1 className="pl-1 text-xs sm:text-md lg:text-xl font-semibold text-left text-gray-500">{user.personalData.city + ", " + user.personalData.province}</h1>
                     </div>
 
                     {/* User's Budget */}
-                    <div className="flex items-center m-3">
-                        <FontAwesomeIcon icon={faPiggyBank} className="text-gray-500 text-xl"/>
-                        <h1 className="pl-2 text-md lg:text-xl font-semibold text-center text-gray-500">
+                    <div className="flex items-center m-1 sm:m-3">
+                        <FontAwesomeIcon icon={faPiggyBank} className="text-gray-500 text-sm sm:text-xl md:text-2xl"/>
+                        <h1 className="pl-2 text-xs sm:text-md lg:text-xl font-semibold text-left text-gray-500">
                             Budget: ${user.personalData.budget}/month
                         </h1>
                     </div>
 
                     {/* User's State */}
-                    <div className="flex items-center m-3">
-                        <Search sx={{color: grey[600]}}/>
-                        <h1 className="pl-1 text-md lg:text-xl font-semibold text-center text-gray-500">Looking
+                    <div className="flex items-center m-1 sm:m-3">
+                        <Search sx={{color: grey[600]}} className="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8"/>
+                        <h1 className="pl-1 text-xs sm:text-md lg:text-xl font-semibold text-left text-gray-500">Looking
                             for: {user.personalData.has_housing ? "Roommate" : "Roommate + Housing"}</h1>
                     </div>
                 </div>
             </div>
+
 
             {/* Video Component */}
             <div className="hidden sm:block align-bottom">

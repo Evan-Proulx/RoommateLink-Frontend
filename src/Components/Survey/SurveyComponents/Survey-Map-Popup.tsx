@@ -16,6 +16,7 @@ interface MapPopupProps {
     longitude?: number; // longitude to set initial value
     onLocationChange?: (lat: number, lng: number) => void; // Callback when location is changed
     onRadiusChange?: (radius: number) => void; // Callback when radius is changed
+    onProfileMap?: boolean;
 }
 
 // Map popup component
@@ -102,7 +103,7 @@ const MapPopup: React.FC<MapPopupProps> = ({isOpen, onClose, latitude, longitude
                 </button>
 
                 {/*Title of the popup*/}
-                <h2 className="text-center mb-4 text-2xl">{onProfileMap ? "User's Location" : "Please select your area"}</h2>
+                <h2 className="text-center sm:mb-4 mb-2 text-lg sm:text-2xl">{onProfileMap ? "User's Location" : "Please select your area"}</h2>
 
                 {/*Google maps component*/}
                 <LoadScriptNext googleMapsApiKey={apiKey}>

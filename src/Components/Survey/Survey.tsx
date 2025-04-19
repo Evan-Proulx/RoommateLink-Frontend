@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from "react";
-import SurveyIntro from "./SurveyForms/SurveyIntro.tsx";
-import SurveyStepper from "./SurveyComponents/SurveyStepper.tsx";
-import SurveyProfile from "./SurveyForms/SurveyProfile.tsx";
-import SurveyDealBreakers from "./SurveyForms/SurveyDealBreakers.tsx";
-import ShadowButton from "../Shadow-Button.tsx";
+import SurveyIntro from "./SurveyForms/SurveyIntro";
+import SurveyStepper from "./SurveyComponents/SurveyStepper";
+import SurveyProfile from "./SurveyForms/SurveyProfile";
+import SurveyDealBreakers from "./SurveyForms/SurveyDealBreakers";
+import ShadowButton from "../Shadow-Button";
 import { Element, scroller } from "react-scroll";
-import SurveyProperty from "./SurveyForms/SurveyProperty.tsx";
-import SurveyPersonal from "./SurveyForms/SurveyPersonal.tsx";
-import SubmitSurvey from "./SurveyForms/SubmitSurvey.tsx";
+import SurveyProperty from "./SurveyForms/SurveyProperty";
+import SurveyPersonal from "./SurveyForms/SurveyPersonal";
+import SubmitSurvey from "./SurveyForms/SubmitSurvey";
 import {FormProvider, useForm} from "react-hook-form";
-import {createProfile} from "../API/Profile.ts";
+import {createProfile} from "../API/Profile";
 import {useNavigate} from "react-router-dom";
-import {uploadHouseTour, uploadProfileMedia, uploadPropertyImages} from "../API/Media.ts";
+import {uploadHouseTour, uploadProfileMedia, uploadPropertyImages} from "../API/Media";
 
 const Survey = () => {
     //Data from map
@@ -128,7 +128,7 @@ const Survey = () => {
     //Submits file data to server. Files are handled separately from the rest of the profile data.
     const handleFileSubmission = async () => {
         // Check profile picture and video and send files to server
-        if (profilePicture && introductoryVideo) {
+        if (profilePicture || introductoryVideo) {
             try {
                 const response = await uploadProfileMedia(profilePicture, introductoryVideo);
                 console.log(response);
@@ -193,7 +193,7 @@ const Survey = () => {
         //use form provider for form validation for the location and names
         <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} className={"bg-primary min-h-screen"}>
-                <nav className="sticky top-0 bg-primary shadow-sm z-50"><h1 className={"logo"}>Roommate Link</h1>
+                <nav className="sticky top-0 bg-primary shadow-sm z-50"><h1 onClick={() => navigate('/')} className={"logo cursor-pointer"}>Roommate Link</h1>
                     <SurveyStepper setActiveComponent={scrollTo} activeComponent={surveySections[currentIndex]} displayPropertyForm={personalData.hasHousing}/></nav>
 
                 <div className={"flex items-center justify-center"}>
@@ -217,7 +217,7 @@ const Survey = () => {
                             <SurveyDealBreakers dealBreakerData={dealBreakers} setDealBreakerData={setDealBreakers}/>
                         </Element>
                         <Element name="submit" id="submit" className={"py-20"}>
-                            <SubmitSurvey personalData={personalData} profileData={profileData} propertyData={propertyData} dealBreakerData={dealBreakers} submissionError={submissionError}/>
+                            <SubmitSurvey submissionError={submissionError}/>
                         </Element>
                     </div>
                 </div>

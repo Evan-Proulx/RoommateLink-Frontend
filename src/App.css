@@ -105,6 +105,16 @@
     padding: .9rem;
 }
 
+.input-style-location {
+    background-color: #f8f8f8;
+    border: 2px solid #b4b4b4;
+    color: #000000;
+    border-radius: 0.5rem;
+    display: block;
+    width: 100%;
+    padding: .9rem;
+}
+
 .input-style-survey:hover{
     border: 2px solid darkgray;
 }
@@ -128,12 +138,6 @@
     box-shadow: 5px 5px 6px 2px rgba(0,0,0,0.4);
 }
 
-.bg-pattern {
-    background: radial-gradient(circle, rgba(255, 48, 51, 0.25) 10%, transparent 11%);
-    background-size: 3em 3em;
-    background-color: #FFF4C6;
-    opacity: 1
-}
 
 .rounded-underline {
     position: relative;
@@ -150,8 +154,6 @@
     background-color: var(--color-text);
     border-radius:10px;
 }
-
-
 
 
 /*LOADING ANIMATION*/
@@ -208,7 +210,6 @@
 }
 
 /*CHAT LOADER*/
-
 .chatLoader, .chatLoader:before, .chatLoader:after {
     border-radius: 50%;
     width: 2.5em;

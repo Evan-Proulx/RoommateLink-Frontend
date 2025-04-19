@@ -5,11 +5,18 @@ import {FaBookmark, FaRegBookmark} from "react-icons/fa";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHouseUser} from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router-dom";
-import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks.ts";
-import {handleCreateConversation} from "../API/Messaging.ts";
+import {bookmarkUser, unbookmarkUser} from "../API/Bookmarks";
+import {handleCreateConversation} from "../API/Messaging";
 
-
-const CardActions= ({userId, hasHousing, profileView, onSetListingToggle, bookmarkDisplay = false, onBookmarkToggle}) => {
+interface CardActionsProps {
+    userId: number;
+    hasHousing: boolean;
+    profileView: boolean;
+    onSetListingToggle?: (userId: number) => void;
+    bookmarkDisplay?: boolean;
+    onBookmarkToggle?: (bookmarked: boolean) => void;
+}
+const CardActions= ({userId, hasHousing, profileView, onSetListingToggle = () => {}, bookmarkDisplay = false, onBookmarkToggle = () => {}}: CardActionsProps) => {
     const [isBookmarked, setIsBookmarked] = useState(bookmarkDisplay);
     const navigate = useNavigate();
     const [id, setId] = useState(null);
@@ -70,7 +77,7 @@ const CardActions= ({userId, hasHousing, profileView, onSetListingToggle, bookma
                 </button>
             </div>
 
-            {hasHousing === 1 && !bookmarkDisplay && (
+            {Boolean(hasHousing) && !bookmarkDisplay && (
                 <div className="m-2 relative">
                     <label className="inline-flex items-center mb-5 cursor-pointer">
                         <input type="checkbox" value="" className="sr-only peer" defaultChecked={profileView}

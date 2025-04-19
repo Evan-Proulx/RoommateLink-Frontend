@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {uploadProfileMedia} from "../../API/Media.ts";
+import {uploadProfileMedia} from "../../API/Media";
 import {useNavigate} from "react-router-dom";
 
 const UpdateFiles = ({closeModal}) => {
@@ -32,7 +32,7 @@ const UpdateFiles = ({closeModal}) => {
         try {
             const response = await uploadProfileMedia(image, video);
 
-            if (!response) {
+            if (response === null) {
                 setDisplayAlert("Upload Failed.");
             }
 

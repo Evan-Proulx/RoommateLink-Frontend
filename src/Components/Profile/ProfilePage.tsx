@@ -1,15 +1,15 @@
-import Aside from "./Aside/Aside.tsx";
+import Aside from "./Aside/Aside";
 import {createContext, useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
-import {getProfileData} from "../API/Profile.ts";
-import {UserProfile} from "../../ProfileData.ts"
-import UserInfoSection from "./ProfileComponents/UserInfoSection.tsx";
-import AboutSection from "./ProfileComponents/AboutSection.tsx";
-import Navbar from "../Navbar.tsx";
-import {getInterestedUsers} from "../API/Profile.ts";
-import UpdateProfile from "./UpdateForms/UpdateProfile.tsx";
-import Modal from "../Modal.tsx";
-import {retrievePropertyImages} from "../API/Media.ts";
+import {getProfileData} from "../API/Profile";
+import {UserProfile} from "../../ProfileData"
+import UserInfoSection from "./ProfileComponents/UserInfoSection";
+import AboutSection from "./ProfileComponents/AboutSection";
+import Navbar from "../Navbar";
+import {getInterestedUsers} from "../API/Profile";
+import {retrievePropertyImages} from "../API/Media";
+import Video from "./Aside/Video";
+
 export const ProfileContext = createContext<UserProfile | null>(null)
 
 function ProfilePage() {
@@ -108,14 +108,18 @@ function ProfilePage() {
     //pass profile data to child components
     return (
         <ProfileContext.Provider value={profileData}>
-            <div className="flex flex-col h-screen overflow-y-hidden">
+            <div className="flex flex-col overflow-y-hidden">
                 <Navbar/>
                 <div className="flex justify-center bg-primary">
                     <div className="items-center overflow-y-auto h-screen bg-profile xl:w-2/3 shadow-2xl">
                         <UserInfoSection myProfileDisplayed={myProfileDisplayed}/>
-                        <div className="flex">
+                        <div className="sm:flex ">
                             <Aside myProfileDisplayed={myProfileDisplayed}/>
                             <AboutSection propertyImages={propertyImages} myProfileDisplayed={myProfileDisplayed} interestedPeople={interestedUsers}/>
+                            {/* Video Component */}
+                            <div className="sm:hidden align-bottom">
+                                <Video />
+                            </div>
                         </div>
                     </div>
                 </div>
