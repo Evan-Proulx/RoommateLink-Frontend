@@ -102,6 +102,7 @@ const Discovery = () => {
             const response = await discoverySearch(data);
             //Convert returned data to UserProfile object
             setUsers(response.userMatches.map((user) => ({
+                    dealBreakers: user.userDealBreakers,
                     profileData: user.userProfileData,
                     personalData: user.userPersonalData,
                     propertyData: user.userPropertyData,
@@ -121,7 +122,8 @@ const Discovery = () => {
             <div className={"flex items-baseline py-3 space-x-3"}>
                 <div>
                     <h1 className="pl-3 lg:pl-32 text-start text-2xl font-bold text-text sm:text-5xl sm:p-4">Discovery</h1>
-                    <h2 className="pl-3 lg:pl-32 text-start text-sm  text-text sm:header4-text sm:text-3xl">Refine your roommate search</h2>
+                    <h2 className="pl-3 lg:pl-32 text-start text-sm  text-text sm:header4-text sm:text-3xl">Refine your
+                        roommate search</h2>
                 </div>
             </div>
 
@@ -188,7 +190,7 @@ const Discovery = () => {
                     {loading ? (
                         // Show skeleton card while loading
                         [...Array(8)].map((_, i) => (
-                            <CardSkeletonLoader key={i} />
+                            <CardSkeletonLoader key={i}/>
                         ))
                     ) : users && users.length > 0 ? (
                         // Show profile cards when there are users
