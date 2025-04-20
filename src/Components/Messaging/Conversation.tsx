@@ -1,0 +1,57 @@
+import React, {useEffect, useState} from 'react';
+import SelectConversation from "./SelectConversation";
+import ConversationBox from "./ConversationBox";
+import {getAuthenticatedUser} from "../API/Profile";
+import Navbar from "../Navbar";
+
+const Conversation = () => {
+    const [conversation, setConversation] = useState(null);
+    const [receiver, setReceiver] = useState(null);
+    const [user, setUser] = useState("");
+
+    //Retrieve user information on page load
+    useEffect(() => {
+       getUser()
+    }, []);
+
+    //set conversation and send to chat box
+    const handleConversationSelect = (conversation, receiver) => {
+        console.log(conversation)
+        setReceiver(receiver);
+        setConversation(conversation);
+    };
+
+    //Get authenticated user information
+    const getUser = async () => {
+        try{
+            const response = await getAuthenticatedUser();
+            setUser(response);
+        }catch(err){console.log("Could not retrieve user: " + err);}
+    }
+
+    if (!user) return <div className={"flex flex-col justify-center items-center h-screen w-full bg-primary"}>
+        <span className={"loader"}></span>
+        <h2 className={"header4-text text-center pt-4"}>Loading...</h2>
+    </div>
+
+    return (
+        <div className={"h-screen flex flex-col overflow-y-hidden"}>
+            <Navbar/>
+            {user && (
+                <div className={"flex w-full bg-primary h-screen"}>
+                    <div className={"w-1/4 max-w-80 border-2 border-r-gray-400 bg-gray-300 ease-in truncate"}><SelectConversation user={user} onSetConversation={handleConversationSelect}/></div>
+
+                    <div className={"w-full"}>{conversation? (
+                        <ConversationBox user={user} conversation={conversation} receiver={receiver}/>
+                    ) : (
+                        <div className="flex w-full h-full text-lg font-bold p-5 items-center justify-center">
+                            Please select a user to start a conversation.
+                        </div>
+                    )}</div>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default Conversation;
