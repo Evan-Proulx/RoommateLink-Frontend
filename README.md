@@ -14,3 +14,4 @@
  VITE_ROOT_URL=http://127.0.0.1:8000
  VITE_GOOGLE_MAPS_API_KEY=
 ```
+6. Run `npm run dev` to run the app
