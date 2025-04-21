@@ -1,7 +1,7 @@
 ![RoommateLinkLogo](https://github.com/user-attachments/assets/a6e7d376-6783-45bc-a388-feb64ebb8d37)
 
 ## 🌟 About
- RoommateLink is a full-stack web application designed to simplify finding rental listings and compatible roommates by combining smart matching, verification, and community-driven features. Users create profiles, search for rental listings, find roommates based on shared preferences, and can speak with each other in the app.
+ Roommate Link is a full-stack web application designed to simplify finding rental listings and compatible roommates by combining smart matching, verification, and community-driven features. Users create profiles, search for rental listings, find roommates based on shared preferences, and can speak with each other in the app.
  ## 🔑 Key Features
 
 #### 👤 1. User Profiles
