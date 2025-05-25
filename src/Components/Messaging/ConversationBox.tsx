@@ -4,17 +4,21 @@ import echo from "../../../echo.js"
 import {getConversationMessages} from "../API/Messaging";
 import Message from "./Message";
 import {MoreVert} from "@mui/icons-material";
+import {getProfile} from "../API/Profile";
+import {UserProfile} from "../../ProfileData";
+import {useNavigate} from "react-router-dom";
 
 const ConversationBox = ({user, conversation, receiver}) => {
     //Channel name for chat.
     const webSocketChannel = `private-chat.${conversation.id}`;
-
+    const [receiverData, setReceiverData] = useState<UserProfile>();
     const [messages, setMessages] = useState([]);
     const [userTyping, setUserTyping] = useState(false);
 
     const scroll = useRef(null);
     const messageRef = useRef(null);
 
+    const navigate = useNavigate();
     //Check if user id against user1 and 2 to find recipient
     // const connectWebSocket = () => {
     //     const channel = echo.private(webSocketChannel);
@@ -67,9 +71,24 @@ const ConversationBox = ({user, conversation, receiver}) => {
             }
     };
 
+    const retrieveReceiverProfile = async () => {
+        console.log("test")
+        if (receiver.id){
+            try{
+                const response = await getProfile(receiver.id);
+                setReceiverData(response);
+                console.log("test")
+            }catch (err) {
+                console.error("Error fetching messages:", err);
+            }
+        }
+    }
+
     //Get messages from conversation and connect to new channel when conversation is selected
     useEffect(() => {
         getMessages();
+        retrieveReceiverProfile();
+        console.log("test")
 
         // connectWebSocket();
         //
@@ -82,7 +101,8 @@ const ConversationBox = ({user, conversation, receiver}) => {
     return (
         <div className={"h-screen flex flex-col relative"}>
             <div className="flex justify-between w-full h-20 border-2 border-b-gray-400 bg-primary items-center p-4 absolute top-0 left-0 right-0 z-10">
-                <div className="flex items-center">
+                {/*Navigate to message recipient's profile when clicked*/}
+                <div onClick={() => navigate('/profile', {state: {profile: receiverData, myProfileDisplayed: false}})} className="flex items-center cursor-pointer" title={"Visit Profile"}>
                     <img src={receiver?.avatar}
                          alt="Profile"
                          className={`w-10 h-10 m-2 rounded-full`}/>
