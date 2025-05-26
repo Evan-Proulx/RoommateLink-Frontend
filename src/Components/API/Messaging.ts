@@ -128,3 +128,18 @@ export const setTyping = async (receiverId, conversationId, isTyping) => {
         console.error("Error updating typing status:", err.message);
     }
 }
+
+export const deleteConversation = async (id) => {
+    const token = localStorage.getItem("token");
+    try {
+        const response = await axios.delete(`${rootUrl}/api/conversations/${id}`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+        });
+        console.log(response)
+    } catch (err) {
+        console.error(err.message);
+    }
+}

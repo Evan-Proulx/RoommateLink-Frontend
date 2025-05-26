@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import MessageInput from "./MessageInput";
 import echo from "../../../echo.js"
-import {getConversationMessages} from "../API/Messaging";
+import {deleteConversation, getConversationMessages} from "../API/Messaging";
 import Message from "./Message";
 import {Delete, More, MoreVert} from "@mui/icons-material";
 import {getProfile} from "../API/Profile";
@@ -91,6 +91,18 @@ const ConversationBox = ({user, conversation, receiver}) => {
         }
     }
 
+    const deleteConvo = async () => {
+        try{
+            const response = await deleteConversation(conversation.id);
+            console.log(response)
+            navigate(0)
+        }catch (err) {
+            console.error("Error fetching messages:", err);
+        }
+
+
+    }
+
     //Get messages from conversation and connect to new channel when conversation is selected
     useEffect(() => {
         getMessages();
@@ -137,7 +149,7 @@ const ConversationBox = ({user, conversation, receiver}) => {
 
                 {/*Conversation action buttons*/}
                 <div className={"space-x-2"}>
-                    <button><Delete/></button>
+                    <button onClick={deleteConvo}><Delete/></button>
                     <button><MoreVert/></button>
                 </div>
             </div>

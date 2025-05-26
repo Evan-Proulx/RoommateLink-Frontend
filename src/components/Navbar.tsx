@@ -92,7 +92,7 @@ const Navbar = () => {
     return (
         <div className={"sticky top-0 z-50"}>
             <div className="flex justify-between items-center bg-white border-8 border-black p-2 md:px-6 md:py-2">
-                <div className={"flex "}><Link to={"/home"} className="logo-navbar p-0 text-2xl lg:text-4xl">Roommate
+                <div className={"flex "}><Link to={"/home"} className="logo-navbar p-0 text-2xl lg:text-3xl">Roommate
                     Link</Link></div>
                 <div className="hidden md:flex items-center space-x-6">
                     {links.map(item => displayNavbarItems(item))}
