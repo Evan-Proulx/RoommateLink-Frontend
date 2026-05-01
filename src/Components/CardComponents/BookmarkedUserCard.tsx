@@ -9,7 +9,7 @@ interface BookmarkedUserCardProps {
     onUnbookmark: (userId: number | undefined) => void;
 }
 const BookmarkedUserCard: React.FC<BookmarkedUserCardProps> = ({user, onUnbookmark}) => {
-    const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
+    const imgUrl = import.meta.env.VITE_ROOT_URL + "/uploads/";
     const navigate = useNavigate();
 
     const [profileData, setProfileData] = useState<UserProfile | null>(null);

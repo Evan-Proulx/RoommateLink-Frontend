@@ -4,7 +4,7 @@ import {UserProfile} from "../../../ProfileData";
 
 
 const InterestedPeople = ({interestedPeople}) => {
-    const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
+    const imgUrl = import.meta.env.VITE_ROOT_URL + "/uploads/";
     const maxDisplay = 7;
 
     const navigate = useNavigate();

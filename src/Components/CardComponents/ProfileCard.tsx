@@ -11,7 +11,7 @@ import {hobbies} from "../../data";
 import SkeletonGallery from "./SkeletonGallery";
 
 const ProfileCard = ({user, discovery = false}) => {
-    const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
+    const imgUrl = import.meta.env.VITE_ROOT_URL + "/uploads/";
     const navigate = useNavigate();
 
     const [profileView, setProfileView] = useState(true);

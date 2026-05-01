@@ -20,7 +20,7 @@ interface UserInfoSectionProps {
 }
 
 function UserInfoSection({myProfileDisplayed}: UserInfoSectionProps) {
-    const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
+    const imgUrl = import.meta.env.VITE_ROOT_URL + "/uploads/";
     const navigate = useNavigate();
     //Get user data
     const userProfile = useContext(ProfileContext);

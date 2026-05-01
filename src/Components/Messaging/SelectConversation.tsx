@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {fetchConversations, getConversationsProfiles} from "../API/Messaging";
 
 const SelectConversation = ({user, onSetConversation}) => {
-    const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
+    const imgUrl = import.meta.env.VITE_ROOT_URL + "/uploads/";
 
     const [users, setUsers] = useState([]);
     const [userConversations, setUserConversations] = useState([]);

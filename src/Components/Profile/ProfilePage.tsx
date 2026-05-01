@@ -22,7 +22,7 @@ function ProfilePage() {
     const myProfileDisplayed = state?.myProfileDisplayed ?? true;
 
     const hasRun = useRef(false)
-    const imgUrl = import.meta.env.VITE_ROOT_URL + "/storage/";
+    const imgUrl = import.meta.env.VITE_ROOT_URL + "/uploads/";
 
     const [profileData, setProfileData] = useState<UserProfile>();
     const [propertyImages, setPropertyImages] = useState<string[]>([]);

@@ -100,6 +100,7 @@ const Discovery = () => {
         try {
             setLoading(true)
             const response = await discoverySearch(data);
+
             //Convert returned data to UserProfile object
             setUsers(response.userMatches.map((user) => ({
                     dealBreakers: user.userDealBreakers,
