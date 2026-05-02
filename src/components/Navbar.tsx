@@ -15,7 +15,6 @@ interface NavItem {
     icon: (size: number) => React.ReactNode;
     name: string;
 }
-
 const Navbar = () => {
     //Allows for tracking the current path of the application
     const location = useLocation();
@@ -33,7 +32,6 @@ const Navbar = () => {
         if (location.pathname === '/profile'){
             navigate(0);
         }
-
         navigate("/profile");
     }
 
