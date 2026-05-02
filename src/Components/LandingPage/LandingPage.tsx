@@ -74,7 +74,7 @@ const FirstSection = () => {
                 <div className="flex flex-col lg:flex-row items-center justify-between mt-6 md:mt-8 max-w-6xl mx-auto">
                     {/* Image for Phone Mode (Above Text) */}
                     <div className="lg:hidden mb-4 p-3 md:p-5">
-                        <img src="/src/Components/LandingPage/img4.jpg" alt="Create Profile" className="mx-auto"
+                        <img src="/assets/img4.jpg" alt="Create Profile" className="mx-auto"
                              style={{width: '90%', maxWidth: '500px'}}/>
                     </div>
                     <div className="max-w-md md:max-w-2xl">
@@ -108,7 +108,7 @@ const FirstSection = () => {
                     </div>
                     {/* Image for Normal Mode (Right Side) */}
                     <div className="hidden lg:block mt-4 lg:mt-0">
-                        <img src="/src/Components/LandingPage/img4.jpg" alt="Create Profile"
+                        <img src="/assets/img4.jpg" alt="Create Profile"
                              className="mx-auto mb-4 p-3 md:p-5" style={{width: '500px'}}/>
                     </div>
                 </div>
@@ -143,12 +143,12 @@ const HowItWorks = () => {
             <div className="mt-4 flex flex-col lg:flex-row items-center justify-center gap-6">
                 {/* Image for Phone Mode (Above Text) */}
                 <div className="md:hidden mb-4">
-                    <img src="/src/Components/LandingPage/img3.jpg" alt="Create Profile" className="mx-auto"
+                    <img src="/assets/img3.jpg" alt="Create Profile" className="mx-auto"
                          style={{width: '90%', maxWidth: '310px'}}/>
                 </div>
                 {/* Image for Normal Mode (Left Side) */}
                 <div className="hidden md:block lg:order-1">
-                    <img src="/src/Components/LandingPage/img3.jpg" alt="Create Profile" className="mx-auto mb-4"
+                    <img src="/assets/img3.jpg" alt="Create Profile" className="mx-auto mb-4"
                          style={{width: '310px'}}/>
                 </div>
                 <div className="flex flex-col gap-4 md:gap-6 max-w-md lg:max-w-lg lg:order-2">

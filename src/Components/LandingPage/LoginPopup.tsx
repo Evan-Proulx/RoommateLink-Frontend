@@ -21,6 +21,7 @@ const LoginPopup: React.FC<LoginPopupProps> = ({ isOpen, onClose }) => {
         } else {
             alert("Please confirm you are 18 years of age or older.");
         }
+
     };
 
     // Close the popup if clicked outside
